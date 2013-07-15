@@ -28,6 +28,7 @@ setup(
     packages=[
         '{{ project.repo_name }}',
     ],
+    package_dir={'{{ project.repo_name }}': '{{ project.repo_name }}'},
     include_package_data=True,
     install_requires=[
     ],
