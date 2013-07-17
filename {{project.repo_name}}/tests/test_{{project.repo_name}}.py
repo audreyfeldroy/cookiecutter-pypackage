@@ -15,7 +15,7 @@ import unittest
 from {{ project.repo_name }} import {{ project.repo_name }}
 
 
-class TestComplexity(unittest.TestCase):
+class Test{{ project.repo_name|capitalize }}(unittest.TestCase):
 
     def setUp(self):
         pass
