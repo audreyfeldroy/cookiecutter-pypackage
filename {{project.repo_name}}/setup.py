@@ -14,8 +14,8 @@ if sys.argv[-1] == 'publish':
     os.system('python setup.py sdist upload')
     sys.exit()
 
-readme = open('README.rst', 'rt').read()
-history = open('HISTORY.rst', 'rt').read()
+readme = open('README.rst').read()
+history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 setup(
     name='{{ project.repo_name }}',
