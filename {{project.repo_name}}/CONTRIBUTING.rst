@@ -2,18 +2,48 @@
 Contributing
 ============
 
-Contributions are welcome!
+Contributions are welcome, and they are greatly appreciated! Every
+little bit helps, and credit will always be given. 
 
-Submitting Feedback
--------------------
+You can contribute in many ways:
 
-The best way to send feedback is to file an issue at https://github.com/{{ project.github_username }}/{{ project.repo_name }}/issues.
+Types of Contributions
+----------------------
+
+Report Bugs
+~~~~~~~~~~~
+
+Report bugs at https://github.com/{{ project.github_username }}/{{ project.repo_name }}/issues.
 
 If you are reporting a bug, please include:
 
 * Your operating system name and version.
 * Any details about your local setup that might be helpful in troubleshooting.
 * Detailed steps to reproduce the bug.
+
+Fix Bugs
+~~~~~~~~
+
+Look through the GitHub issues for bugs. Anything tagged with "bug"
+is open to whoever wants to implement it.
+
+Implement Features
+~~~~~~~~~~~~~~~~~~
+
+Look through the GitHub issues for features. Anything tagged with "feature"
+is open to whoever wants to implement it.
+
+Write Documentation
+~~~~~~~~~~~~~~~~~~~
+
+{{ project.project_name }} could always use more documentation, whether as part of the 
+official {{ project.project_name }} docs, in docstrings, or even on the web in blog posts,
+articles, and such.
+
+Submit Feedback
+~~~~~~~~~~~~~~~
+
+The best way to send feedback is to file an issue at https://github.com/{{ project.github_username }}/{{ project.repo_name }}/issues.
 
 If you are proposing a feature:
 
@@ -22,10 +52,10 @@ If you are proposing a feature:
 * Remember that this is a volunteer-driven project, and that contributions
   are welcome :)
 
-Getting Started
----------------
+Get Started!
+------------
 
-Here's how to set up `{{ project.repo_name }}` for local development.
+Ready to contribute? Here's how to set up `{{ project.repo_name }}` for local development.
 
 1. Fork the `{{ project.repo_name }}` repo on GitHub.
 2. Clone your fork locally::
@@ -70,9 +100,9 @@ Before you submit a pull request, check that it meets these guidelines:
 2. If the pull request adds functionality, the docs should be updated. Put
    your new functionality into a function with a docstring, and add the
    feature to the list in README.rst.
-3. The pull request should work for Python 2.6+ and 3.3+. Check 
-   https://travis-ci.org/{{ project.github_username }}/{{ project.repo_name }}/pull_requests and make sure that
-   the tests pass for all supported Python versions.
+3. The pull request should work for Python 2.6, 2.7, and 3.3, and for PyPy. Check 
+   https://travis-ci.org/{{ project.github_username }}/{{ project.repo_name }}/pull_requests
+   and make sure that the tests pass for all supported Python versions.
 
 Tips
 ----
