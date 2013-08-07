@@ -3,7 +3,7 @@
 import os
 import sys
 
-import {{ project.repo_name }}
+import {{ cookiecutter.repo_name }}
 
 try:
     from setuptools import setup
@@ -18,23 +18,23 @@ readme = open('README.rst').read()
 history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 setup(
-    name='{{ project.repo_name }}',
-    version={{ project.repo_name }}.__version__,
-    description='{{ project.project_short_description }}',
+    name='{{ cookiecutter.repo_name }}',
+    version={{ cookiecutter.repo_name }}.__version__,
+    description='{{ cookiecutter.project_short_description }}',
     long_description=readme + '\n\n' + history,
-    author='{{ project.full_name }}',
-    author_email='{{ project.email }}',
-    url='https://github.com/{{ project.github_username }}/{{ project.repo_name }}',
+    author='{{ cookiecutter.full_name }}',
+    author_email='{{ cookiecutter.email }}',
+    url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}',
     packages=[
-        '{{ project.repo_name }}',
+        '{{ cookiecutter.repo_name }}',
     ],
-    package_dir={'{{ project.repo_name }}': '{{ project.repo_name }}'},
+    package_dir={'{{ cookiecutter.repo_name }}': '{{ cookiecutter.repo_name }}'},
     include_package_data=True,
     install_requires=[
     ],
     license="BSD",
     zip_safe=False,
-    keywords='{{ project.repo_name }}',
+    keywords='{{ cookiecutter.repo_name }}',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',

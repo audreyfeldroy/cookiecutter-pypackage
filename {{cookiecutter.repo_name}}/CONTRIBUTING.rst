@@ -13,7 +13,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/{{ project.github_username }}/{{ project.repo_name }}/issues.
+Report bugs at https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/issues.
 
 If you are reporting a bug, please include:
 
@@ -36,14 +36,14 @@ is open to whoever wants to implement it.
 Write Documentation
 ~~~~~~~~~~~~~~~~~~~
 
-{{ project.project_name }} could always use more documentation, whether as part of the 
-official {{ project.project_name }} docs, in docstrings, or even on the web in blog posts,
+{{ cookiecutter.project_name }} could always use more documentation, whether as part of the 
+official {{ cookiecutter.project_name }} docs, in docstrings, or even on the web in blog posts,
 articles, and such.
 
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
-The best way to send feedback is to file an issue at https://github.com/{{ project.github_username }}/{{ project.repo_name }}/issues.
+The best way to send feedback is to file an issue at https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/issues.
 
 If you are proposing a feature:
 
@@ -55,17 +55,17 @@ If you are proposing a feature:
 Get Started!
 ------------
 
-Ready to contribute? Here's how to set up `{{ project.repo_name }}` for local development.
+Ready to contribute? Here's how to set up `{{ cookiecutter.repo_name }}` for local development.
 
-1. Fork the `{{ project.repo_name }}` repo on GitHub.
+1. Fork the `{{ cookiecutter.repo_name }}` repo on GitHub.
 2. Clone your fork locally::
 
-    $ git clone git@github.com:your_name_here/{{ project.repo_name }}.git
+    $ git clone git@github.com:your_name_here/{{ cookiecutter.repo_name }}.git
 
 3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
 
-    $ mkvirtualenv {{ project.repo_name }}
-    $ cd {{ project.repo_name }}/
+    $ mkvirtualenv {{ cookiecutter.repo_name }}
+    $ cd {{ cookiecutter.repo_name }}/
     $ python setup.py develop
 
 4. Create a branch for local development::
@@ -77,7 +77,7 @@ Now you can make your changes locally.
 5. When you're done making changes, check that your changes pass flake8 and the
 tests, including testing other Python versions with tox::
 
-    $ flake8 {{ project.repo_name }} tests
+    $ flake8 {{ cookiecutter.repo_name }} tests
 	$ python setup.py test
     $ tox
 
@@ -101,7 +101,7 @@ Before you submit a pull request, check that it meets these guidelines:
    your new functionality into a function with a docstring, and add the
    feature to the list in README.rst.
 3. The pull request should work for Python 2.6, 2.7, and 3.3, and for PyPy. Check 
-   https://travis-ci.org/{{ project.github_username }}/{{ project.repo_name }}/pull_requests
+   https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/pull_requests
    and make sure that the tests pass for all supported Python versions.
 
 Tips
@@ -109,4 +109,4 @@ Tips
 
 To run a subset of tests::
 
-	$ python -m unittest tests.test_{{ project.repo_name }}
+	$ python -m unittest tests.test_{{ cookiecutter.repo_name }}
