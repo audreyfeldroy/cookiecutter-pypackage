@@ -102,4 +102,4 @@ Tips
 
 To run a subset of tests::
 
-	$ python setup.py test tests/test_{{ cookiecutter.repo_name }}.py
+	 $ py.test test/test_{{ cookiecutter.repo_name }}.py
