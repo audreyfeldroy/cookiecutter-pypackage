@@ -12,4 +12,4 @@ python:
 install: pip install -r requirements.txt
 
 # command to run tests, e.g. python setup.py test
-script: python setup.py test
+script: python setup flake8 test
