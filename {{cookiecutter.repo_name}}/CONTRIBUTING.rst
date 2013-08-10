@@ -58,7 +58,8 @@ Get Started!
 Ready to contribute? Here's how to set up `{{ cookiecutter.repo_name }}` for
 local development.
 
-1. Fork the `{{ cookiecutter.repo_name }}` repo on GitHub.
+1. Fork_ the `{{ cookiecutter.repo_name }}` repo on GitHub.
+.. _Fork: https://github.com/Nekroze/{{ cookiecutter.repo_name }}/fork
 2. Clone your fork locally::
 
     $ git clone git@github.com:your_name_here/{{ cookiecutter.repo_name }}.git
