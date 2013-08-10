@@ -9,7 +9,9 @@ python:
   - "pypy"
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -r requirements.txt
+install:
+  - pip install -r requirements.txt
+  - pip install flake8
 
 # command to run tests, e.g. python setup.py test
 script: python setup flake8 test
