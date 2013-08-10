@@ -2,7 +2,7 @@
 
 import os
 import sys
-
+from setuptools.command.test import test as TestCommand
 import {{ cookiecutter.repo_name }}
 
 try:
