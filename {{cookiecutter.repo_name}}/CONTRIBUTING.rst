@@ -59,7 +59,6 @@ Ready to contribute? Here's how to set up `{{ cookiecutter.repo_name }}` for
 local development.
 
 1. Fork_ the `{{ cookiecutter.repo_name }}` repo on GitHub.
-.. _Fork: https://github.com/Nekroze/{{ cookiecutter.repo_name }}/fork
 2. Clone your fork locally::
 
     $ git clone git@github.com:your_name_here/{{ cookiecutter.repo_name }}.git
@@ -84,6 +83,8 @@ To get tox, just pip install it.
     $ git push origin name-of-your-bugfix-or-feature
 
 6. Submit a pull request through the GitHub website.
+
+.. _Fork: https://github.com/Nekroze/{{ cookiecutter.repo_name }}/fork
 
 Pull Request Guidelines
 -----------------------
