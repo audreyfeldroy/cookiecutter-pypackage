@@ -14,4 +14,6 @@ install:
   - pip install flake8
 
 # command to run tests, e.g. python setup.py test
-script: python setup flake8 test
+script:
+  - python setup.py flake8
+  - python setup.py test
