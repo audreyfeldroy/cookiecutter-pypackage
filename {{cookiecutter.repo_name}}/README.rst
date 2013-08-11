@@ -14,11 +14,6 @@
 
 {{ cookiecutter.project_short_description}}
 
-Documentation
--------------
-
-The full documentation is at http://{{ cookiecutter.repo_name }}.rtfd.org.
-
 Quickstart
 ----------
 

@@ -31,13 +31,17 @@ class PyTest(TestCommand):
 
 
 readme = open('README.rst').read()
+doclink = """Documentation
+-------------
+
+The full documentation is at http://{{ cookiecutter.repo_name }}.rtfd.org."""
 history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 setup(
     name='{{ cookiecutter.repo_name }}',
     version={{ cookiecutter.repo_name }}.__version__,
     description='{{ cookiecutter.project_short_description }}',
-    long_description=readme + '\n\n' + history,
+    long_description=readme + '\n\n' + doclink + '\n\n' + history,
     author='{{ cookiecutter.full_name }}',
     author_email='{{ cookiecutter.email }}',
     url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}',
