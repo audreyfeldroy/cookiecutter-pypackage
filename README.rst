@@ -12,10 +12,12 @@ Cookiecutter template for a Python package. See https://github.com/audreyr/cooki
 Similar Cookiecutter Templates
 ------------------------------
 
-* **cookiecutter-pyscript**: My Cookiecutter template for a Python console
-  script package. (Coming soon.)
+* `Nekroze/cookiecutter-pypackage`_: A fork of this with a PyTest test runner,
+  strict flake8 checking with Travis/Tox, and some docs and `setup.py` differences.
+
 
 .. _Travis-CI: http://travis-ci.org/
 .. _Tox: http://testrun.org/tox/
 .. _Sphinx: http://sphinx-doc.org/
 .. _ReadTheDocs: https://readthedocs.org/
+.. _`Nekroze/cookiecutter-pypackage`: https://github.com/Nekroze/cookiecutter-pypackage
