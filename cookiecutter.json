@@ -2,10 +2,10 @@
 	"full_name": "Audrey Roy",
 	"email": "audreyr@gmail.com",
 	"github_username": "audreyr",
-	"project_name": "A Lot of Effort",
-	"repo_name": "alotofeffort",
-	"project_short_description": "Deploy static HTML sites to S3 with the simple 'alotofeffort' command.",
-	"release_date": "2013-07-10",
+	"project_name": "Python Boilerplate",
+	"repo_name": "boilerplate",
+	"project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
+	"release_date": "2013-08-11",
 	"year": "2013",
 	"version": "0.1.0"
 }
