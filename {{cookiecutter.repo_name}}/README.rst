@@ -1,6 +1,6 @@
-=============================
+===============================
 {{ cookiecutter.project_name }}
-=============================
+===============================
 
 .. image:: https://badge.fury.io/py/{{ cookiecutter.repo_name }}.png
     :target: http://badge.fury.io/py/{{ cookiecutter.repo_name }}
@@ -14,21 +14,8 @@
 
 {{ cookiecutter.project_short_description}}
 
-Documentation
--------------
-
-The full documentation is at http://{{ cookiecutter.repo_name }}.rtfd.org.
-
-Quickstart
-----------
-
-Install {{ cookiecutter.project_name }}::
-
-    pip install {{ cookiecutter.repo_name }}
-
-Then use it in a project::
-
-	import {{ cookiecutter.repo_name }}
+* Free software: BSD license
+* Documentation: http://{{ cookiecutter.repo_name }}.rtfd.org.
 
 Features
 --------
