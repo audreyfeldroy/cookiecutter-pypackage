@@ -26,20 +26,26 @@ Then:
 Not Exactly What You Want?
 --------------------------
 
-If you have differences in your preferred setup, I encourage you to fork this
-to create your own version. 
-
-Once you have your fork working, add it to the list below with a brief
-explanation.
-
-I also accept pull requests on this, if they're small, atomic, and if they
-make my own packaging experience better.
+Don't worry, you have options:
 
 Similar Cookiecutter Templates
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * `Nekroze/cookiecutter-pypackage`_: A fork of this with a PyTest test runner,
   strict flake8 checking with Travis/Tox, and some docs and `setup.py` differences.
+
+Fork This
+~~~~~~~~~
+
+If you have differences in your preferred setup, I encourage you to fork this
+to create your own version. Once you have your fork working, add it to the
+list below with a brief explanation.
+
+Or Submit a Pull Request
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+I also accept pull requests on this, if they're small, atomic, and if they
+make my own packaging experience better.
 
 
 .. _Travis-CI: http://travis-ci.org/
