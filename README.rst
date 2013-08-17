@@ -9,6 +9,20 @@ Cookiecutter template for a Python package. See https://github.com/audreyr/cooki
 * Tox_ testing: Setup to easily test for Python 2.6, 2.7, 3.3
 * Sphinx_ docs: Documentation ready for generation with, for example, ReadTheDocs_
 
+Usage
+-----
+
+Generate a Python package project::
+
+    cookiecutter https://github.com/audreyr/cookiecutter-pypackage.git
+
+Then:
+
+* Add it to your Travis CI account
+* Add it to your ReadTheDocs account + turn on the GitHub ReadTheDocs service hook
+* Release your package the standard Python way. Here's a release checklist: https://gist.github.com/audreyr/5990987
+
+
 Similar Cookiecutter Templates
 ------------------------------
 
