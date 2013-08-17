@@ -23,9 +23,20 @@ Then:
 * Add the repo to your ReadTheDocs account + turn on the ReadTheDocs service hook.
 * Release your package the standard Python way. Here's a release checklist: https://gist.github.com/audreyr/5990987
 
+Not Exactly What You Want?
+--------------------------
+
+If you have differences in your preferred setup, I encourage you to fork this
+to create your own version. 
+
+Once you have your fork working, add it to the list below with a brief
+explanation.
+
+I also accept pull requests on this, if they're small, atomic, and if they
+make my own packaging experience better.
 
 Similar Cookiecutter Templates
-------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * `Nekroze/cookiecutter-pypackage`_: A fork of this with a PyTest test runner,
   strict flake8 checking with Travis/Tox, and some docs and `setup.py` differences.
