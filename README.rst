@@ -39,7 +39,8 @@ Fork This
 
 If you have differences in your preferred setup, I encourage you to fork this
 to create your own version. Once you have your fork working, add it to the
-Similar Cookiecutter Templates list with a brief explanation.
+Similar Cookiecutter Templates list with a brief explanation. It's up to you
+whether or not to rename your fork.
 
 Or Submit a Pull Request
 ~~~~~~~~~~~~~~~~~~~~~~~~
