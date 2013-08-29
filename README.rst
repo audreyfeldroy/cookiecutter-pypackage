@@ -35,6 +35,10 @@ Similar Cookiecutter Templates
 * `Nekroze/cookiecutter-pypackage`_: A fork of this with a PyTest test runner,
   strict flake8 checking with Travis/Tox, and some docs and `setup.py` differences.
 
+* `lucuma/cookiecutter-pypackage`_: Full py.test integration: custom
+  .coveragerc file and changes in the Makefile and Travis/Tox config files.
+  Used for several released packages.
+
 Fork This
 ~~~~~~~~~
 
@@ -55,3 +59,4 @@ make my own packaging experience better.
 .. _Sphinx: http://sphinx-doc.org/
 .. _ReadTheDocs: https://readthedocs.org/
 .. _`Nekroze/cookiecutter-pypackage`: https://github.com/Nekroze/cookiecutter-pypackage
+.. _`lucuma/cookiecutter-pypackage`: https://github.com/lucuma/cookiecutter-pypackage
