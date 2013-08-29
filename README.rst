@@ -39,6 +39,9 @@ Similar Cookiecutter Templates
   .coveragerc file and changes in the Makefile and Travis/Tox config files.
   Used for several released packages.
 
+* Also see the `network`_ and `family tree`_ for this repo. (If you find
+  anything that should be listed here, please add it and send a pull request!)
+
 Fork This / Create Your Own
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -65,3 +68,5 @@ make my own packaging experience better.
 .. _ReadTheDocs: https://readthedocs.org/
 .. _`Nekroze/cookiecutter-pypackage`: https://github.com/Nekroze/cookiecutter-pypackage
 .. _`lucuma/cookiecutter-pypackage`: https://github.com/lucuma/cookiecutter-pypackage
+.. _`network`: https://github.com/audreyr/cookiecutter-pypackage/network
+.. _`family tree`: https://github.com/audreyr/cookiecutter-pypackage/network/members
