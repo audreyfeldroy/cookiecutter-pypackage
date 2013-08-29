@@ -21,7 +21,7 @@ import sys, os
 
 cwd = os.getcwd()
 parent = os.path.dirname(cwd)
-sys.path.append(parent)
+sys.path.insert(0, parent)
 
 import {{ cookiecutter.repo_name }}
 
