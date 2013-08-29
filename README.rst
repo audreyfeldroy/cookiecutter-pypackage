@@ -39,13 +39,18 @@ Similar Cookiecutter Templates
   .coveragerc file and changes in the Makefile and Travis/Tox config files.
   Used for several released packages.
 
-Fork This
-~~~~~~~~~
+Fork This / Create Your Own
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you have differences in your preferred setup, I encourage you to fork this
-to create your own version. Once you have your fork working, add it to the
-Similar Cookiecutter Templates list with a brief explanation. It's up to you
-whether or not to rename your fork.
+to create your own version. Or create your own; it doesn't strictly have to
+be a fork.
+
+* Once you have your own version working, add it to the Similar Cookiecutter
+  Templates list above with a brief description. 
+
+* It's up to you whether or not to rename your fork/own version. Do whatever
+  you think sounds good.
 
 Or Submit a Pull Request
 ~~~~~~~~~~~~~~~~~~~~~~~~
