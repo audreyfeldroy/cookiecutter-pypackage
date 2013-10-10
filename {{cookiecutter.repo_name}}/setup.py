@@ -8,8 +8,8 @@ setup(
     description='{{cookiecutter.project_description}}',
     author='{{cookiecutter.name}}',
     author_email='{{cookiecutter.email}}',
-    url={{cookiecutter.repo_name}}.__url__
     packages=[{{cookiecutter.repo_name}}.__name__],
+    url={{cookiecutter.repo_name}}.__url__,
     package_dir={'{{cookiecutter.repo_name}}': '{{cookiecutter.repo_name}}'},
     include_package_data=True,
     install_requires=[
