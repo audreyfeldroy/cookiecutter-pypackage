@@ -1,6 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-__author__ = '{{ cookiecutter.full_name }}'
+__author__ = '{{ cookiecutter.name }}'
 __email__ = '{{ cookiecutter.email }}'
-__version__ = '{{ cookiecutter.version }}'
+__url__ = 'https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}'
+__version__ = '0.0.1'
