@@ -1,15 +1,11 @@
-# Config file for automatic testing at travis-ci.org
-
 language: python
-
 python:
-  - "3.3"
-  - "2.7"
-  - "2.6"
-  - "pypy"
-
-# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -r requirements.txt
-
-# command to run tests, e.g. python setup.py test
-script: python setup.py test
+    - "2.6"
+    - "2.7"
+    - "pypy"
+install:
+    - pip install -r requirements.txt --use-mirrors
+script:
+    - nosetests --with-coverage --cover-package={{ cookiecutter.repo_name }}
+after_success:
+  - coveralls
