@@ -50,7 +50,7 @@ If you are proposing a feature:
 
 ## Documentation
 
-[API Documentation][1]
+[API Documentation][(http://{{cookiecutter.repo_name}}.rtfd.org)]
 
 ## Testing
 
