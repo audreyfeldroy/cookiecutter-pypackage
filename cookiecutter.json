@@ -1,10 +1,10 @@
 {
-    "name": "Audrey Roy",
-    "email": "audreyr@gmail.com",
-    "github_username": "audreyr",
-    "project_name": "Python Boilerplate",
-    "repo_name": "boilerplate",
-    "project_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
+    "name": "Michael Joseph",
+    "email": "michaeljoseph@gmail.com",
+    "github_username": "michaeljoseph",
+    "project_name": "Python Library Boilerplate",
+    "repo_name": "skeletor",
+    "project_description": "Python Library Boilerplate contains all the boilerplate you need to create a Python package.",
     "url": "https://github.com/michaeljoseph/cookiecutter-pypackage",
     "version": "0.0.1"
 }
