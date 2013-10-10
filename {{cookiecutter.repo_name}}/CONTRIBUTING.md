@@ -1,18 +1,15 @@
-Contributing
-============
+# Contributing
 
 Contributions are welcome, and they are greatly appreciated! Every
 little bit helps, and credit will always be given.
 
 You can contribute in many ways:
 
-Types of Contributions
-----------------------
+## Types of Contributions
 
 ### Report Bugs
 
-Report bugs at <https://github.com/>{{ cookiecutter.github\_username
-}}/{{ cookiecutter.repo\_name }}/issues.
+Report bugs at <https://github.com/>{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/issues.
 
 If you are reporting a bug, please include:
 
@@ -33,15 +30,15 @@ Look through the GitHub issues for features. Anything tagged with
 
 ### Write Documentation
 
-{{ cookiecutter.project\_name }} could always use more documentation,
-whether as part of the official {{ cookiecutter.project\_name }} docs,
+{{ cookiecutter.project_name }} could always use more documentation,
+whether as part of the official {{ cookiecutter.project_name }} docs,
 in docstrings, or even on the web in blog posts, articles, and such.
 
 ### Submit Feedback
 
 The best way to send feedback is to file an issue at
-<https://github.com/>{{ cookiecutter.github\_username }}/{{
-cookiecutter.repo\_name }}/issues.
+<https://github.com/>{{ cookiecutter.github_username }}/{{
+cookiecutter.repo_name }}/issues.
 
 If you are proposing a feature:
 
@@ -51,50 +48,37 @@ If you are proposing a feature:
 -   Remember that this is a volunteer-driven project, and that
     contributions are welcome :)
 
-Get Started!
-------------
+## Documentation
 
-Ready to contribute? Here's how to set up {{ cookiecutter.repo\_name }}
-for local development.
+[API Documentation][1]
 
-1.  Fork the {{ cookiecutter.repo\_name }} repo on GitHub.
-2.  Clone your fork locally:
+## Testing
 
-        $ git clone git@github.com:your_name_here/{{ cookiecutter.repo_name }}.git
+Install development requirements:
 
-3.  Install your local copy into a virtualenv. Assuming you have
-    virtualenvwrapper installed, this is how you set up your fork for
-    local development:
+    pip install -r requirements.txt
 
-        $ mkvirtualenv {{ cookiecutter.repo_name }}
-        $ cd {{ cookiecutter.repo_name }}/
-        $ python setup.py develop
+Tests can then be run with:
 
-4.  Create a branch for local development:
+    nosetests
 
-        $ git checkout -b name-of-your-bugfix-or-feature
+Lint the project with:
 
-> Now you can make your changes locally.
+    flake8 changes tests
 
-​5. When you're done making changes, check that your changes pass flake8
-and the tests, including testing other Python versions with tox:
+## API documentation
 
-    $ flake8 {{ cookiecutter.repo_name }} tests
-      $ python setup.py test
-    $ tox
+Generate the documentation with:
 
-> To get flake8 and tox, just pip install them into your virtualenv.
+    cd docs && PYTHONPATH=.. make singlehtml
 
-6.  Commit your changes and push your branch to GitHub:
+To monitor changes to Python files and execute flake8 and nosetests
+automatically, execute the following from the root project directory:
 
-        $ git add .
-        $ git commit -m "Your detailed description of your changes."
-        $ git push origin name-of-your-bugfix-or-feature
+    stir
 
-7.  Submit a pull request through the GitHub website.
 
-Pull Request Guidelines
------------------------
+## Pull Request Guidelines
 
 Before you submit a pull request, check that it meets these guidelines:
 
@@ -103,13 +87,6 @@ Before you submit a pull request, check that it meets these guidelines:
     Put your new functionality into a function with a docstring, and add
     the feature to the list in README.rst.
 3.  The pull request should work for Python 2.6, 2.7, and 3.3, and for
-    PyPy. Check <https://travis-ci.org/>{{ cookiecutter.github\_username
-    }}/{{ cookiecutter.repo\_name }}/pull\_requests and make sure that
+    PyPy. Check <https://travis-ci.org/>{{ cookiecutter.github_username
+    }}/{{ cookiecutter.repo_name }}/pull_requests and make sure that
     the tests pass for all supported Python versions.
-
-Tips
-----
-
-To run a subset of tests:
-
-    $ python -m unittest tests.test_{{ cookiecutter.repo_name }}
