@@ -1,16 +1,17 @@
+import re
 from setuptools import setup
 
-import {{ cookiecutter.repo_name }}
+init_py = open('{{cookiecutter.repo_name}}/__init__.py').read()
+metadata = dict(re.findall("__([a-z]+)__ = '([^']+)'", init_py))
 
 setup(
-    name={{cookiecutter.repo_name}}.__name__,
-    version={{cookiecutter.repo_name}}.__version__,
-    description='{{cookiecutter.project_description}}',
-    author='{{cookiecutter.name}}',
-    author_email='{{cookiecutter.email}}',
-    url={{cookiecutter.repo_name}}.__url__,
+    name='{{cookiecutter.repo_name}}',
+    version=metadata['version'],
+    description=metadata['doc'],
+    author=metadata['author'],
+    author_email=metadata['email'],
+    url=metadata['url'],
     packages=['{{cookiecutter.repo_name}}'],
-    package_dir={'{{cookiecutter.repo_name}}': '{{cookiecutter.repo_name}}'},
     include_package_data=True,
     install_requires=[
     ],

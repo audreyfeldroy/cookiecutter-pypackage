@@ -1,3 +1,5 @@
+"""{{cookiecutter.project_description}}"""
+
 __author__ = '{{cookiecutter.name}}'
 __email__ = '{{cookiecutter.email}}'
 __url__ = 'https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.repo_name}}'
