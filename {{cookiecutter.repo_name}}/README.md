@@ -1,6 +1,6 @@
 # {{cookiecutter.repo_name}}
 
-[![Build Status](https://secure.travis-ci.org/{{cookiecutter.repo_name}}.png)](http://travis-ci.org/{{cookiecutter.github_username}}/{{cookiecutter.repo_name}})
+[![Build Status](https://secure.travis-ci.org/{{cookiecutter.github_username}}/{{cookiecutter.repo_name}}.png)](http://travis-ci.org/{{cookiecutter.github_username}}/{{cookiecutter.repo_name}})
 [![Stories in Ready](https://badge.waffle.io/{{cookiecutter.github_username}}/{{cookiecutter.repo_name}}.png?label=ready)](https://waffle.io/{{cookiecutter.github_username}}/{{cookiecutter.repo_name}}) [![pypi version](https://badge.fury.io/py/{{cookiecutter.repo_name}}.png)](http://badge.fury.io/py/{{cookiecutter.repo_name}})
 [![# of downloads](https://pypip.in/d/{{cookiecutter.repo_name}}/badge.png)](https://crate.io/packages/{{cookiecutter.repo_name}}?version=latest)
 [![code coverage](https://coveralls.io/repos/{{cookiecutter.github_username}}/{{cookiecutter.repo_name}}/badge.png?branch=master)](https://coveralls.io/r/{{cookiecutter.github_username}}/{{cookiecutter.repo_name}}?branch=master)
