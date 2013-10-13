@@ -6,6 +6,7 @@ python:
 install:
     - pip install -r requirements.txt --use-mirrors
 script:
-    - nosetests --with-coverage --cover-package={{ cookiecutter.repo_name }}
+    - nosetests --with-coverage --cover-package={{cookiecutter.repo_name}}
+    - flake8 setup.py {{cookiecutter.repo_name}} tests
 after_success:
   - coveralls
