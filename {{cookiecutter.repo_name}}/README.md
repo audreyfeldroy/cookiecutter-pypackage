@@ -20,7 +20,7 @@ Install `{{cookiecutter.repo_name}}`:
 
 ## Documentation
 
-[API Documentation][http://{{cookiecutter.repo_name}}.rtfd.org]
+[API Documentation](http://{{cookiecutter.repo_name}}.rtfd.org)
 
 ## Testing
 
