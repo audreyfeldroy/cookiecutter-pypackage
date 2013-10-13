@@ -19,6 +19,13 @@ setup(
         'docopt < 1.0.0'
     {% endif %}
     ],
+    {% if cookiecutter.include_cli == 'yes' %}
+    entry_points={
+        'console_scripts': [
+            '{{cookiecutter.repo_name}} = {{cookiecutter.repo_name}}.cli:main',
+        ],
+    },
+    {% endif %}
     test_suite='nose.collector',
     license=open('LICENSE').read(),
 )
