@@ -6,5 +6,6 @@
     "repo_name": "skeletor",
     "project_description": "Python Library Boilerplate contains all the boilerplate you need to create a Python package.",
     "url": "https://github.com/michaeljoseph/cookiecutter-pypackage",
-    "version": "0.0.1"
+    "version": "0.0.1",
+    "include_cli": "yes" 
 }

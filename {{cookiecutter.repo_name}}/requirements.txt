@@ -1,4 +1,7 @@
 coverage < 4.0.0
+{% if cookiecutter.include_cli == 'yes' %}
+docopt < 1.0.0
+{% endif %}
 flake8 < 3.0.0
 mock < 2.0.0
 nose < 2.0.0
