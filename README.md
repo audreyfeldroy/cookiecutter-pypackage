@@ -5,6 +5,7 @@ Cookiecutter template for a Python package. See
 
 
 ## Features
+-   Optional sample CLI with docopt
 -   Testing with unittest2 and nosetests
 -   [TravisCCI](http://travis-ci.org/): Ready for Travis Continuous
     Integration testing
