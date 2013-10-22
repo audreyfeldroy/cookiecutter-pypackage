@@ -9,7 +9,6 @@ metadata = dict(re.findall(
     "([a-z]+)='([^']+)'",
     open('%s/setup.py' % module_dir).read()
 ))
-print(metadata)
 
 with open('requirements.txt', 'r') as f:
     if 'docopt' not in f.read():
