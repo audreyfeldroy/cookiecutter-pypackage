@@ -15,17 +15,13 @@ setup(
     packages=['{{cookiecutter.repo_name}}'],
     include_package_data=True,
     install_requires=[
-    {% if cookiecutter.include_cli == 'yes' %}
-        'docopt < 1.0.0'
-    {% endif %}
+    {% if cookiecutter.include_cli == 'yes' %}    'docopt < 1.0.0'{% endif %}
     ],
-    {% if cookiecutter.include_cli == 'yes' %}
-    entry_points={
+    {% if cookiecutter.include_cli == 'yes' %}entry_points={
         'console_scripts': [
             '{{cookiecutter.repo_name}} = {{cookiecutter.repo_name}}.cli:main',
         ],
-    },
-    {% endif %}
+    },{% endif %}
     test_suite='nose.collector',
     license=open('LICENSE').read(),
 )

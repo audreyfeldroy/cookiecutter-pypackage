@@ -1,9 +1,9 @@
 from . import BaseTestCase
 
-from {{ cookiecutter.repo_name }} import {{ cookiecutter.repo_name }}
+from {{cookiecutter.repo_name}} import {{cookiecutter.repo_name}}
 
 
-class Test{{ cookiecutter.repo_name|capitalize }}(BaseTestCase):
+class Test{{cookiecutter.repo_name|capitalize}}(BaseTestCase):
 
     def test_something(self):
         self.assertEquals(
