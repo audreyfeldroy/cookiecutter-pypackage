@@ -7,7 +7,6 @@ nose < 2.0.0
 pinocchio < 1.0.0
 python-coveralls < 3.0.0
 sphinx-bootstrap-theme < 1.0.0
-sphinxcontrib-httpdomain < 2.0.0
 testtube < 1.0.0
-tox < 2.0.0
+travis-solo < 1.0.0
 unittest2 < 1.0.0
