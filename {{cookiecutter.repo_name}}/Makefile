@@ -1,4 +1,4 @@
-.PHONY: clean-pyc clean-build docs
+.PHONY: clean-pyc clean-build docs clean
 
 help:
 	@echo "clean-build - remove build artifacts"
@@ -12,6 +12,7 @@ help:
 	@echo "sdist - package"
 
 clean: clean-build clean-pyc
+	rm -fr htmlcov/
 
 clean-build:
 	rm -fr build/
