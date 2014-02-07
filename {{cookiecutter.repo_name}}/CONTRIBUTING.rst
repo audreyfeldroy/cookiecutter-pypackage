@@ -13,7 +13,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/issues.
+Report bugs at https://bitbucket.org/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/issues.
 
 If you are reporting a bug, please include:
 
@@ -43,7 +43,7 @@ articles, and such.
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
-The best way to send feedback is to file an issue at https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/issues.
+The best way to send feedback is to file an issue at https://bitbucket.org/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/issues.
 
 If you are proposing a feature:
 
