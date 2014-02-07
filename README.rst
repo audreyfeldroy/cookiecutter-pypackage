@@ -32,7 +32,7 @@ Don't worry, you have options:
 Similar Cookiecutter Templates
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* `audreyr/cookiecutter-pypackage`_: The original pypackage, uses unittest
+* `audreyr/cookiecutter-pypackage`: The original pypackage, uses unittest
 for testing and other minor changes.
 
 Fork This / Create Your Own
