@@ -1,17 +1,18 @@
-.PHONY: clean-pyc clean-build docs
+.PHONY: clean-pyc clean-build docs clean
 
 help:
 	@echo "clean-build - remove build artifacts"
 	@echo "clean-pyc - remove Python file artifacts"
 	@echo "lint - check style with flake8"
 	@echo "test - run tests quickly with the default Python"
-	@echo "testall - run tests on every Python version with tox"
+	@echo "test-all - run tests on every Python version with tox"
 	@echo "coverage - check code coverage quickly with the default Python"
 	@echo "docs - generate Sphinx HTML documentation, including API docs"
 	@echo "release - package and upload a release"
-	@echo "sdist - package"
+	@echo "dist - package"
 
 clean: clean-build clean-pyc
+	rm -fr htmlcov/
 
 clean-build:
 	rm -fr build/
@@ -39,8 +40,8 @@ coverage:
 	open htmlcov/index.html
 
 docs:
-	rm docs/{{ cookiecutter.repo_name }}.rst
-	rm docs/modules.rst
+	rm -f docs/{{ cookiecutter.repo_name }}.rst
+	rm -f docs/modules.rst
 	sphinx-apidoc -o docs/ {{ cookiecutter.repo_name }}
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
@@ -48,7 +49,9 @@ docs:
 
 release: clean
 	python setup.py sdist upload
+	python setup.py bdist_wheel upload
 
-sdist: clean
+dist: clean
 	python setup.py sdist
+	python setup.py bdist_wheel
 	ls -l dist
