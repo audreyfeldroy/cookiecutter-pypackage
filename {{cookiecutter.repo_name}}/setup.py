@@ -52,5 +52,5 @@ setup(
         'Programming Language :: Python :: 3.3',
     ],
     test_suite='tests',
-    tests_require=test_requirements
+    tests_requires=test_requirements
 )
