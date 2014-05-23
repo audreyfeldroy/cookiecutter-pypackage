@@ -68,6 +68,6 @@ make my own packaging experience better.
 .. _ReadTheDocs: https://readthedocs.org/
 .. _`Nekroze/cookiecutter-pypackage`: https://github.com/Nekroze/cookiecutter-pypackage
 .. _`tony/cookiecutter-pypackage`: https://github.com/tony/cookiecutter-pypackage
-.. _github comparison view: https://github.com/tony/cookiecutter-pypackage/compare/audreyr:master...compat-pocoo-reitz
+.. _github comparison view: https://github.com/tony/cookiecutter-pypackage/compare/audreyr:master...master
 .. _`network`: https://github.com/audreyr/cookiecutter-pypackage/network
 .. _`family tree`: https://github.com/audreyr/cookiecutter-pypackage/network/members
