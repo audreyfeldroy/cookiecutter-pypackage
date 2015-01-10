@@ -19,7 +19,7 @@ to look up the version.
 
 And choice B is bad because the logtopg/__init__.py file might blow up
 during install because it tries to import a some third-party module that
-hasn't been imported yet.
+hasn't been installed yet.
 
 """
 
