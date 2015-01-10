@@ -2,4 +2,5 @@
 
 __author__ = '{{ cookiecutter.full_name }}'
 __email__ = '{{ cookiecutter.email }}'
-__version__ = '{{ cookiecutter.version }}'
+
+from logtopg.version import __version__
