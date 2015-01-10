@@ -19,9 +19,11 @@ test_requirements = [
     # TODO: put package test requirements here
 ]
 
+from {{ cookiecutter.repo_name }}.version import __version__
+
 setup(
     name='{{ cookiecutter.repo_name }}',
-    version='{{ cookiecutter.version }}',
+    version=__version__,
     description='{{ cookiecutter.project_short_description }}',
     long_description=readme + '\n\n' + history,
     author='{{ cookiecutter.full_name }}',
