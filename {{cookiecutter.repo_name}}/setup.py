@@ -19,7 +19,9 @@ test_requirements = [
     # TODO: put package test requirements here
 ]
 
-from {{ cookiecutter.repo_name }}.version import __version__
+# Read __version__ from version.py
+with open("logtopg/version.py") as f:
+    exec(f.read())
 
 setup(
     name='{{ cookiecutter.repo_name }}',
