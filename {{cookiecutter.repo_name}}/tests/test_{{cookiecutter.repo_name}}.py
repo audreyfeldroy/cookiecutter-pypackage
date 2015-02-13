@@ -26,4 +26,5 @@ class Test{{ cookiecutter.repo_name|capitalize }}(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    import sys
+    sys.exit(unittest.main())
