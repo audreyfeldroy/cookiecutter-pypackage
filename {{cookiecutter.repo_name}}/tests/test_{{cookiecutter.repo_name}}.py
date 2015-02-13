@@ -21,7 +21,7 @@ class Test{{ cookiecutter.repo_name|capitalize }}(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_something(self):
+    def test_000_something(self):
         pass
 
 
