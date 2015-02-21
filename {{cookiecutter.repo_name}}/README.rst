@@ -2,13 +2,10 @@
 {{ cookiecutter.project_name }}
 ===============================
 
-.. image:: https://badge.fury.io/py/{{ cookiecutter.repo_name }}.png
-    :target: http://badge.fury.io/py/{{ cookiecutter.repo_name }}
-
-.. image:: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}.png?branch=master
+.. image:: https://img.shields.io/travis/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}.svg
         :target: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}
 
-.. image:: https://pypip.in/d/{{ cookiecutter.repo_name }}/badge.png
+.. image:: https://img.shields.io/pypi/v/{{ cookiecutter.repo_name }}.svg
         :target: https://pypi.python.org/pypi/{{ cookiecutter.repo_name }}
 
 
