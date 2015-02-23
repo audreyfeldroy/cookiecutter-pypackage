@@ -7,6 +7,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
+import re
 
 with open('README.rst') as readme_file:
     readme = readme_file.read()
@@ -14,13 +15,14 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read().replace('.. :changelog:', '')
 
-requirements = [
-    # TODO: put package requirements here
-]
+# A comment is a line starting with # or --
+is_comment = re.compile('^\s*(#|--).*').match
 
-test_requirements = [
-    # TODO: put package test requirements here
-]
+
+def load_requirements(fname):
+    with open(fname) as fo:
+        return [line.strip() for line in fo
+                if not is_comment(line) and line.strip()]
 
 setup(
     name='{{ cookiecutter.repo_name }}',
@@ -36,7 +38,7 @@ setup(
     package_dir={'{{ cookiecutter.repo_name }}':
                  '{{ cookiecutter.repo_name }}'},
     include_package_data=True,
-    install_requires=requirements,
+    install_requires=load_requirements("requirements.txt"),
     license="BSD",
     zip_safe=False,
     keywords='{{ cookiecutter.repo_name }}',
@@ -53,5 +55,5 @@ setup(
         'Programming Language :: Python :: 3.4',
     ],
     test_suite='tests',
-    tests_require=test_requirements
+    tests_requires=load_requirements("test-requirements.txt"),
 )
