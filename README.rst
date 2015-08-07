@@ -2,6 +2,9 @@
 cookiecutter-pypackage
 ======================
 
+.. image:: https://img.shields.io/travis/audreyr/cookiecutter-pypackage.svg
+   :target: https://travis-ci.org/audreyr/cookiecutter-pypackage
+
 Cookiecutter template for a Python package. See https://github.com/audreyr/cookiecutter.
 
 * Free software: BSD license
