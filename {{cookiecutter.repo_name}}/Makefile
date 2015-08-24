@@ -1,4 +1,15 @@
 .PHONY: clean-pyc clean-build docs clean
+define BROWSER_PYSCRIPT
+import os, webbrowser, sys
+try:
+	from urllib import pathname2url
+except:
+	from urllib.request import pathname2url
+
+webbrowser.open("file://" + pathname2url(os.path.abspath(sys.argv[1])))
+endef
+export BROWSER_PYSCRIPT
+BROWSER := python -c "$$BROWSER_PYSCRIPT"
 
 help:
 	@echo "clean - remove all build, test, coverage and Python artifacts"
@@ -47,7 +58,7 @@ coverage:
 	coverage run --source {{ cookiecutter.repo_name }} setup.py test
 	coverage report -m
 	coverage html
-	open htmlcov/index.html
+	$(BROWSER) htmlcov/index.html
 
 docs:
 	rm -f docs/{{ cookiecutter.repo_name }}.rst
@@ -55,7 +66,7 @@ docs:
 	sphinx-apidoc -o docs/ {{ cookiecutter.repo_name }}
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
-	open docs/_build/html/index.html
+	$(BROWSER) docs/_build/html/index.html
 
 release: clean
 	python setup.py sdist upload
