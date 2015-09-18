@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from pip.req import parse_requirements
+from pip.download import PipSession
 
 try:
     from setuptools import setup
@@ -14,7 +16,9 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read().replace('.. :changelog:', '')
 
-requirements = [
+pip_reqs = parse_requirements("requirements.txt", session=PipSession())
+
+requirements = pip_reqs + [
     # TODO: put package requirements here
 ]
 
