@@ -6,6 +6,7 @@
 	"repo_name": "boilerplate",
 	"project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
 	"release_date": "2015-01-11",
+	"pypi_username": "{{ cookiecutter.github_username }}",
 	"year": "2015",
 	"version": "0.1.0"
 }
