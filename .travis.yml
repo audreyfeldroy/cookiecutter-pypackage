@@ -5,11 +5,9 @@ python:
   - "2.7"
   - "pypy"
 
-before_install:
+install:
   - pip install cookiecutter
+
+script:
   - cookiecutter . --no-input
-
-# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -r ./boilerplate/requirements.txt
-
-script: cd ./boilerplate && python setup.py test
+  - cd ./boilerplate && python setup.py test
