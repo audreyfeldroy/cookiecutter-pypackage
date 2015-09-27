@@ -1,4 +1,5 @@
 # Config file for automatic testing at travis-ci.org
+# This file will be regenerated if you run travis_pypi_setup.py
 
 language: python
 
@@ -15,7 +16,6 @@ install: pip install -U tox
 # command to run tests, e.g. python setup.py test
 script: tox
 
-# delete this section if you don't want automated PyPI deployment via Travis
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
