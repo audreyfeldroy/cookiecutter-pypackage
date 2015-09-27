@@ -8,5 +8,6 @@
 	"release_date": "2015-01-11",
 	"pypi_username": "{{ cookiecutter.github_username }}",
 	"year": "2015",
-	"version": "0.1.0"
+	"version": "0.1.0",
+	"use_pypi_deployment_with_travis": "y"
 }
