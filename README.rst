@@ -28,6 +28,8 @@ Then:
 * Add the repo to your ReadTheDocs account + turn on the ReadTheDocs service hook.
 * Release your package the standard Python way. Here's a release checklist: 
   https://gist.github.com/audreyr/5990987
+* (Optional) If you feel like pinning the requirements for your package, you can
+  add a `requirements.txt` that specifies packages and version numbers.
 
 Not Exactly What You Want?
 --------------------------
