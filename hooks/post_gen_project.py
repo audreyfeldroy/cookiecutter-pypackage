@@ -10,5 +10,5 @@ def remove_file(filepath):
 
 
 if __name__ == '__main__':
-    if '{{ cookiecutter.use_pypi_deployment_with_travis }}'.lower() == 'n':
+    if '{{ cookiecutter.use_pypi_deployment_with_travis }}' != 'y':
         remove_file('travis_pypi_setup.py')
