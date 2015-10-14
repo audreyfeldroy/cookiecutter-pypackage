@@ -23,23 +23,23 @@ test_requirements = [
 ]
 
 setup(
-    name='{{ cookiecutter.repo_name }}',
+    name='{{ cookiecutter.project_slug }}',
     version='{{ cookiecutter.version }}',
     description="{{ cookiecutter.project_short_description }}",
     long_description=readme + '\n\n' + history,
     author="{{ cookiecutter.full_name }}",
     author_email='{{ cookiecutter.email }}',
-    url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}',
+    url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}',
     packages=[
-        '{{ cookiecutter.repo_name }}',
+        '{{ cookiecutter.project_slug }}',
     ],
-    package_dir={'{{ cookiecutter.repo_name }}':
-                 '{{ cookiecutter.repo_name }}'},
+    package_dir={'{{ cookiecutter.project_slug }}':
+                 '{{ cookiecutter.project_slug }}'},
     include_package_data=True,
     install_requires=requirements,
     license="ISCL",
     zip_safe=False,
-    keywords='{{ cookiecutter.repo_name }}',
+    keywords='{{ cookiecutter.project_slug }}',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
