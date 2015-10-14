@@ -10,4 +10,4 @@ install:
 
 script:
   - cookiecutter . --no-input
-  - cd ./boilerplate && python setup.py test
+  - cd ./python_boilerplate && python setup.py test
