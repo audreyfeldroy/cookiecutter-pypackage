@@ -25,9 +25,9 @@ test_requirements = [
 setup(
     name='{{ cookiecutter.project_slug }}',
     version='{{ cookiecutter.version }}',
-    description="{{ cookiecutter.project_short_description }}",
+    description='{{ cookiecutter.project_short_description }}',
     long_description=readme + '\n\n' + history,
-    author="{{ cookiecutter.full_name }}",
+    author='{{ cookiecutter.full_name }}',
     author_email='{{ cookiecutter.email }}',
     url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}',
     packages=[
@@ -37,7 +37,7 @@ setup(
                  '{{ cookiecutter.project_slug }}'},
     include_package_data=True,
     install_requires=requirements,
-    license="ISCL",
+    license='ISCL',
     zip_safe=False,
     keywords='{{ cookiecutter.project_slug }}',
     classifiers=[
@@ -45,7 +45,7 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: ISC License (ISCL)',
         'Natural Language :: English',
-        "Programming Language :: Python :: 2",
+        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
