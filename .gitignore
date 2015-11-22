@@ -34,6 +34,15 @@ nosetests.xml
 .project
 .pydevproject
 
+# IntelliJ Idea family of suites
+.idea
+*.iml
+## File-based project format:
+*.ipr
+*.iws
+## mpeltonen/sbt-idea plugin
+.idea_modules/
+
 # Complexity
 output/*.html
 output/*/index.html
