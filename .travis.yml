@@ -1,10 +1,11 @@
 language: python
 
-python:
-  - "3.5"
-  - "3.4"
-  - "2.7"
-  - "pypy"
+python: 3.4
+env:
+  - TOXENV=py27
+  - TOXENV=py33
+  - TOXENV=py34
+  - TOXENV=pypy
 
 install:
   - "./.travis-workarounds.sh"
