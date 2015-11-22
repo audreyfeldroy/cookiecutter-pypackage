@@ -11,4 +11,8 @@ install:
 
 script:
   - cookiecutter . --no-input
+{% if cookiecutter.use_pytest == 'y' -%}
+  - cd ./python_boilerplate && py.test
+{% else %}
   - cd ./python_boilerplate && python setup.py test
+{% endif %}
