@@ -6,9 +6,5 @@ python:
   - "2.7"
   - "pypy"
 
-install:
-  - pip install cookiecutter
-
 script:
-  - cookiecutter . --no-input
-  - cd ./python_boilerplate && python setup.py test
+  - tox
