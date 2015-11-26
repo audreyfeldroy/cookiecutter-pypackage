@@ -48,6 +48,10 @@ Similar Cookiecutter Templates
   Flask/Werkzeug-style test runner, ``_compat`` module and module/doc conventions.
   See ``README.rst`` or the `github comparison view`_ for exhaustive list of 
   additions and modifications.
+  
+* `ardydedase/cookiecutter-pypackage`_: A fork that handles all the package requirements 
+   from separate files. There's no need to hardcode the requirements in the ``setup.py`` file. 
+   See its ``README.rst`` for more details.
 
 * Also see the `network`_ and `family tree`_ for this repo. (If you find
   anything that should be listed here, please add it and send a pull request!)
@@ -78,6 +82,7 @@ make my own packaging experience better.
 .. _ReadTheDocs: https://readthedocs.org/
 .. _`Nekroze/cookiecutter-pypackage`: https://github.com/Nekroze/cookiecutter-pypackage
 .. _`tony/cookiecutter-pypackage-pythonic`: https://github.com/tony/cookiecutter-pypackage-pythonic
+.. _`ardydedase/cookiecutter-pypackage`: https://github.com/ardydedase/cookiecutter-pypackage
 .. _github comparison view: https://github.com/tony/cookiecutter-pypackage-pythonic/compare/audreyr:master...master
 .. _`network`: https://github.com/audreyr/cookiecutter-pypackage/network
 .. _`family tree`: https://github.com/audreyr/cookiecutter-pypackage/network/members
