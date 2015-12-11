@@ -1,14 +1,13 @@
 language: python
 
-python:
-  - "3.5"
-  - "3.4"
-  - "2.7"
-  - "pypy"
+python: 3.4
+env:
+  - TOXENV=py27
+  - TOXENV=py33
+  - TOXENV=py34
 
 install:
-  - pip install cookiecutter
+  - pip install -U tox
 
 script:
-  - cookiecutter . --no-input
-  - cd ./python_boilerplate && python setup.py test
+  - tox
