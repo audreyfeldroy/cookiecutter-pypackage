@@ -13,6 +13,7 @@ Contents:
 
    readme
    tutorial
+   prompts
 
 Indices and tables
 ==================
