@@ -9,11 +9,16 @@ Cookiecutter_ template for a Python package.
 
 * GitHub repo: https://github.com/audreyr/cookiecutter-pypackage/
 * Free software: BSD license
+
+Features
+--------
+
 * Vanilla testing setup with `unittest` and `python setup.py test`
 * Travis-CI_: Ready for Travis Continuous Integration testing
 * Tox_ testing: Setup to easily test for Python 2.6, 2.7, 3.3, 3.4, 3.5
 * Sphinx_ docs: Documentation ready for generation with, for example, ReadTheDocs_
 * Bumpversion: Pre-configured version bumping with a single command
+* Auto-release to PyPI when you push a new tag to master (optional)
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 
