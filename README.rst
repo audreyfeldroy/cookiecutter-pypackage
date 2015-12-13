@@ -14,8 +14,8 @@ Cookiecutter template for a Python package. See https://github.com/audreyr/cooki
 * Sphinx_ docs: Documentation ready for generation with, for example, ReadTheDocs_
 * Bumpversion: Pre-configured version bumping with a single command
 
-Usage
------
+Quickstart
+----------
 
 Generate a Python package project::
 
@@ -32,6 +32,10 @@ Then:
   https://gist.github.com/audreyr/5990987
 * (Optional) If you feel like pinning the requirements for your package, you can
   add a `requirements.txt` that specifies packages and version numbers.
+
+For more details, see the `cookiecutter-pypackage tutorial`_.
+
+.. _`cookiecutter-pypackage tutorial`: http://cookiecutter-pypackage.readthedocs.org/en/latest/tutorial.html
 
 Not Exactly What You Want?
 --------------------------
