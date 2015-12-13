@@ -9,19 +9,28 @@ Tutorial
 Step 1: Install Cookiecutter
 ----------------------------
 
-First, create a virtualenv for your new package. Install the following:
+First, create a virtualenv for your new package and install cookiecutter:
 
-```
-pip install cookiecutter
-```
+.. code-block:: python
+
+    virtualenv ~/.virtualenvs/mypackage
+    pip install cookiecutter
+
+Here, `mypackage` is the name of the package that you'll create.
 
 Step 2: Generate Your Package
 -----------------------------
 
-Generate a Python package project::
+Now it's time to generate your Python package.
+
+Use cookiecutter, pointing it at the cookiecutter-pypackage repo:
+
+.. code-block:: python
 
     cookiecutter https://github.com/audreyr/cookiecutter-pypackage.git
 
+You'll be asked to enter a bunch of values. If you don't know what to enter, 
+stick with the defaults.
 
 Step 3: Create a GitHub Repo
 ----------------------------
@@ -35,8 +44,10 @@ Log into `Travis CI`_.
 
 Add the repo to your Travis CI account.
 
-Run the script `travis_pypi_setup.py` to encrypt your PyPI password in Travis config
-  and activate automated deployment on PyPI when you push a new tag to master branch.
+Run the script `travis_pypi_setup.py`. It will:
+
+* Encrypt your PyPI password in your Travis config.
+* Activate automated deployment on PyPI when you push a new tag to master branch.
   
 .. _`Travis CI`: https://travis-ci.org/
 
@@ -45,11 +56,12 @@ Step 5: Set Up ReadTheDocs
 
 Add the repo to your ReadTheDocs account.
 
-Turn on the ReadTheDocs service hook.
+In your GitHub repo settings, turn on the ReadTheDocs service hook.
 
 Step 6: Release on PyPI
 ------------------------
 
-* Release your package the standard Python way. Here's a release checklist: 
+Release your package the standard Python way. 
+
+Here's a release checklist: 
   https://gist.github.com/audreyr/5990987
-  
