@@ -11,7 +11,7 @@ Step 1: Install Cookiecutter
 
 First, create a virtualenv for your new package and install cookiecutter:
 
-.. code-block:: python
+.. code-block:: bash
 
     virtualenv ~/.virtualenvs/mypackage
     pip install cookiecutter
@@ -25,7 +25,7 @@ Now it's time to generate your Python package.
 
 Use cookiecutter, pointing it at the cookiecutter-pypackage repo:
 
-.. code-block:: python
+.. code-block:: bash
 
     cookiecutter https://github.com/audreyr/cookiecutter-pypackage.git
 
