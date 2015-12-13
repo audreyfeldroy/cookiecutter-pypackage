@@ -3,6 +3,11 @@ Prompts
 
 When you create a package, you are prompted to enter these values.
 
+Templated Values
+----------------
+
+The following appear in various parts of your generated project.
+
 full_name
     Your full name.
 
@@ -32,6 +37,11 @@ year
 
 version
     The starting version number of the package.
-    
+
+Options
+-------
+
+The following package configuration options set up different features for your project.
+
 use_pypi_deployment_with_travis
     Whether to use PyPI deployment with Travis.
