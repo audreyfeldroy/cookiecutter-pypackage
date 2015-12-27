@@ -58,7 +58,10 @@ def fetch_public_key(repo):
     Travis API docs: http://docs.travis-ci.com/api/#repository-keys
     """
     keyurl = 'https://api.travis-ci.org/repos/{0}/key'.format(repo)
-    data = json.loads(urlopen(keyurl).read().decode())
+    raw_data = urlopen(keyurl).read()
+    if sys.version_info >= (3, 0):
+        raw_data = raw_data.decode("utf-8")
+    data = json.loads(raw_data)
     if 'key' not in data:
         errmsg = "Could not find public key for repo: {}.\n".format(repo)
         errmsg += "Have you already added your GitHub repo to Travis?"
