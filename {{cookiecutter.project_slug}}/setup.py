@@ -23,7 +23,7 @@ setup(
     name='{{ cookiecutter.project_slug }}',
     version='{{ cookiecutter.version }}',
     description="{{ cookiecutter.project_short_description }}",
-    long_description=readme + '\n\n' + history,
+    long_description=readme + '\n',
     author="{{ cookiecutter.full_name }}",
     author_email='{{ cookiecutter.email }}',
     url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}',
