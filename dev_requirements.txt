@@ -1,0 +1,13 @@
+-r requirements.txt
+mock
+nose
+pytest
+PyHamcrest
+coverage
+six
+traceback2
+pylint
+pep8
+frosted
+bumpversion
+unittest2
