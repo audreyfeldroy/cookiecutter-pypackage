@@ -1,13 +1,12 @@
 {
-	"full_name": "Audrey Roy Greenfeld",
-	"email": "aroy@alum.mit.edu",
-	"github_username": "audreyr",
-	"project_name": "Python Boilerplate",
-	"project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
-	"project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
-	"release_date": "2016-1-22",
-	"pypi_username": "{{ cookiecutter.github_username }}",
-	"year": "2016",
-	"version": "0.1.0",
-	"use_pypi_deployment_with_travis": "y"
+  "full_name": "Unravel Employee",
+  "email": "user@unravel.ie",
+  "github_username": "alan_unravel",
+  "project_name": "Unravel Python Project",
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
+  "project_short_description": "Creates a base template for a project as fits the needs of developers at Unravel Analytics.",
+  "release_date": "2016-1-22",
+  "pypi_username": "{{ cookiecutter.github_username }}",
+  "year": "2016",
+  "version": "0.1.0"
 }
