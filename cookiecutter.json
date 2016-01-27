@@ -5,8 +5,8 @@
   "project_name": "Unravel Python Project",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
   "project_short_description": "Creates a base template for a project as fits the needs of developers at Unravel Analytics.",
-  "release_date": "2016-1-22",
+  "release_date": "yyyy-m-dd",
   "pypi_username": "{{ cookiecutter.github_username }}",
-  "year": "2016",
+  "year": "yyyy",
   "version": "0.1.0"
 }
