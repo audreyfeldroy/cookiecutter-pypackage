@@ -1,4 +1,4 @@
-Copyright (c) {{ cookiecutter.year }}, {{ cookiecutter.full_name }}
+Copyright (c) {{ cookiecutter.year }}, Unravel Analytics LTD
 All rights reserved.
 
 Permission to use, copy, modify, and/or distribute this software for any
