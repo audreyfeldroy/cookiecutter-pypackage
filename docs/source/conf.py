@@ -277,6 +277,8 @@ texinfo_documents = [
    author, 'cookiecutter-pypackage', 'One line description of project.',
    'Miscellaneous'),
 ]
+# The short X.Y version.
+version = '0.1.0'
 
 # Documents to append as an appendix to all manuals.
 #texinfo_appendices = []
