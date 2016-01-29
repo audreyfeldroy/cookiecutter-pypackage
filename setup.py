@@ -18,7 +18,7 @@ def project_path(*names):
 
 setup(
     name='{{cookiecutter.project_slug}}',
-    version='{{cookiecutter.version}}',
+    version='0.1.0',
 
     install_requires=[
         'distribute',
