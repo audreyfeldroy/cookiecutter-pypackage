@@ -21,7 +21,7 @@ test_requirements = [
 
 setup(
     name='{{ cookiecutter.project_slug }}',
-    version='{{ cookiecutter.version }}',
+    version='0.1.0',
     description="{{ cookiecutter.project_short_description }}",
     long_description=readme + '\n',
     author="{{ cookiecutter.full_name }}",
@@ -40,15 +40,11 @@ setup(
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: ISC License (ISCL)',
+        'License :: Other/Proprietary License',
         'Natural Language :: English',
-        "Programming Language :: Python :: 2",
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Private :: Do Not Upload',
     ],
     test_suite='tests',
     tests_require=test_requirements
