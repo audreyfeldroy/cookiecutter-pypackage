@@ -278,7 +278,7 @@ texinfo_documents = [
    'Miscellaneous'),
 ]
 # The short X.Y version.
-version = '0.1.0'
+version = '0.1.1'
 
 # Documents to append as an appendix to all manuals.
 #texinfo_appendices = []
