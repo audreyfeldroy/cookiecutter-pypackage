@@ -9,6 +9,10 @@ Tests for `{{ cookiecutter.project_slug }}` module.
 """
 
 import unittest
+import mock
+from hamcrest import assert_that
+from hamcrest import is_, not_, has_key, is_not, empty
+from freezegun import freeze_time
 
 from {{ cookiecutter.project_slug }} import {{ cookiecutter.project_slug }}
 

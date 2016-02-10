@@ -1,0 +1,9 @@
+include tox.ini
+include pylintrc
+include *.txt
+recursive-include {{egg}} *.txt
+recursive-include {{egg}} *.cfg
+graft doc/source
+include doc/check_sphinx.py
+include doc/make.bat
+include doc/Makefile
