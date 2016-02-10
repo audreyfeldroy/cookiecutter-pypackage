@@ -18,38 +18,40 @@ def project_path(*names):
 
 setup(
         name='cookiecutter-pypackage',
-    version='0.1.1',
+        version='0.1.1',
 
-    install_requires=[
-        'distribute',
+        install_requires=[
+            'distribute',
         ],
 
-    extras_require={
-        'test': [
-            'coverage',
-            'mock',
-            'nose',
-            'tox',
-            'unittests2',
-        ],
-    },
-    test_suite='nose.collector',
+        extras_require={
+            'test': [
+                'coverage',
+                'mock',
+                'nose',
+                'tox',
+                'unittests2',
+            ],
+        },
+        test_suite='nose.collector',
 
         url="https://github.com/UnravelAnalytics/cookiecutter-pypackage",
-    author='Unravel Analytics',
-    author_email='development@unravel.ie',
-    license='(c) Unravel Analytics, all rights reserved',
-    classifiers="""\
+        author='Unravel Analytics',
+        author_email='development@unravel.ie',
+        license='(c) Unravel Analytics, all rights reserved',
+        classifiers="""\
 Programming Language :: Python :: 2.7
 Private :: Do Not Upload
 """[:-1].split('\n'),
-    description=__doc__.strip(),
-    long_description='\n\n'.join(open(project_path(name)).read() for name in (
-        'README.txt',
-            )),
+        description=__doc__.strip(),
+        long_description='\n\n'.join(
+                open(project_path(name)).read() for name in (
+                    'README.txt',
+                )),
 
-    packages=find_packages(exclude=['tests']),
-    include_package_data=True,
-    data_files=[('', glob.glob(project_path('*.txt')), glob.glob(project_path('*.rst')))],
-    zip_safe=False,
-    )
+        packages=find_packages(exclude=['tests']),
+        include_package_data=True,
+        data_files=[('', glob.glob(project_path('*.txt')),
+                     glob.glob(project_path('*.rst')))],
+        zip_safe=False,
+)
