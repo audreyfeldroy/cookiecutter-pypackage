@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 #
-# Copyright (c) {{year}} Unravel Analytics
+# Copyright (c) 2016 Unravel Analytics
 
 # This should be only one line. If it must be multi-line, indent the second
 # line onwards to keep the PKG-INFO file format intact.
-"""{{cookiecutter.description}}
+"""cooiecutter fork for internal Unravel Analytics packages
 """
 
 from setuptools import setup, find_packages
@@ -17,7 +17,7 @@ def project_path(*names):
 
 
 setup(
-    name='{{cookiecutter.project_slug}}',
+        name='cookiecutter-pypackage',
     version='0.1.1',
 
     install_requires=[
@@ -35,11 +35,7 @@ setup(
     },
     test_suite='nose.collector',
 
-    entry_points={
-        # change script_name here to something that makes sense
-        'console_scripts': ['script_name={{cookiecutter.project_slug}}.script_entry:first_script'],
-    },
-    url="",
+        url="https://github.com/UnravelAnalytics/cookiecutter-pypackage",
     author='Unravel Analytics',
     author_email='development@unravel.ie',
     license='(c) Unravel Analytics, all rights reserved',
@@ -49,7 +45,7 @@ Private :: Do Not Upload
 """[:-1].split('\n'),
     description=__doc__.strip(),
     long_description='\n\n'.join(open(project_path(name)).read() for name in (
-            'README.md',
+        'README.txt',
             )),
 
     packages=find_packages(exclude=['tests']),
