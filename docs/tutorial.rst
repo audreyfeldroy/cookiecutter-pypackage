@@ -35,7 +35,17 @@ stick with the defaults.
 Step 3: Create a GitHub Repo
 ----------------------------
 
-Create a repo and put your package there.
+Create a repo and put your package there. This can be accomplished with:
+
+.. code-block:: bash
+
+    git init .
+    git add .
+    git commit -m "Initial skeleton."
+    git remote add origin git@github.com:myname/mypackage.git
+    git push -u origin master
+    
+where `myname` and `mypackage` are the adjusted for the specific project.
 
 Step 4: Set Up Travis CI
 ------------------------
