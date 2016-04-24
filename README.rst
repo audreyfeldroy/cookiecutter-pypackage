@@ -37,7 +37,7 @@ Then:
   and activate automated deployment on PyPI when you push a new tag to master branch.
 * Add the repo to your ReadTheDocs account + turn on the ReadTheDocs service hook.
 * Release your package the standard Python way. Here's a release checklist: 
-  https://gist.github.com/audreyr/5990987
+  https://gist.github.com/audreyr/9f1564ea049c14f682f4
 * (Optional) If you feel like pinning the requirements for your package, you can
   add a `requirements.txt` that specifies packages and version numbers.
 
