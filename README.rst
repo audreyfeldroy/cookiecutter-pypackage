@@ -33,6 +33,7 @@ Then:
 
 * Create a repo and put it there.
 * Add the repo to your Travis CI account.
+* Install the dev requirements into a virtualenv. (`pip install -r requirements_dev.txt`)
 * Run the script `travis_pypi_setup.py` to encrypt your PyPI password in Travis config
   and activate automated deployment on PyPI when you push a new tag to master branch.
 * Add the repo to your ReadTheDocs account + turn on the ReadTheDocs service hook.
