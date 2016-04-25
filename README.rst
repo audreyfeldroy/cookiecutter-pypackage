@@ -36,8 +36,7 @@ Then:
 * Run the script `travis_pypi_setup.py` to encrypt your PyPI password in Travis config
   and activate automated deployment on PyPI when you push a new tag to master branch.
 * Add the repo to your ReadTheDocs account + turn on the ReadTheDocs service hook.
-* Release your package the standard Python way. Here's a release checklist: 
-  https://gist.github.com/audreyr/5990987
+* Release your package by pushing a new tag to master.
 * (Optional) If you feel like pinning the requirements for your package, you can
   add a `requirements.txt` that specifies packages and version numbers.
 
@@ -55,12 +54,12 @@ Similar Cookiecutter Templates
 
 * `Nekroze/cookiecutter-pypackage`_: A fork of this with a PyTest test runner,
   strict flake8 checking with Travis/Tox, and some docs and `setup.py` differences.
-  
-* `tony/cookiecutter-pypackage-pythonic`_: Fork with py2.7+3.3 optimizations. 
+
+* `tony/cookiecutter-pypackage-pythonic`_: Fork with py2.7+3.3 optimizations.
   Flask/Werkzeug-style test runner, ``_compat`` module and module/doc conventions.
-  See ``README.rst`` or the `github comparison view`_ for exhaustive list of 
+  See ``README.rst`` or the `github comparison view`_ for exhaustive list of
   additions and modifications.
-  
+
 * `ardydedase/cookiecutter-pypackage`_: A fork with separate requirements files rather than a requirements list in the ``setup.py`` file.
 
 * Also see the `network`_ and `family tree`_ for this repo. (If you find
@@ -74,7 +73,7 @@ to create your own version. Or create your own; it doesn't strictly have to
 be a fork.
 
 * Once you have your own version working, add it to the Similar Cookiecutter
-  Templates list above with a brief description. 
+  Templates list above with a brief description.
 
 * It's up to you whether or not to rename your fork/own version. Do whatever
   you think sounds good.
