@@ -5,9 +5,9 @@
 	"project_name": "Python Boilerplate",
 	"project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
 	"project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
-	"release_date": "2015-12-13",
+	"release_date": "{% now 'local' %}",
 	"pypi_username": "{{ cookiecutter.github_username }}",
-	"year": "2015",
+	"year": "{{ cookiecutter.release_date[:4] }}",
 	"version": "0.1.0",
 	"use_pypi_deployment_with_travis": "y"
 }

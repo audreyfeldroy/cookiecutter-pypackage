@@ -35,9 +35,28 @@ stick with the defaults.
 Step 3: Create a GitHub Repo
 ----------------------------
 
-Create a repo and put your package there.
+Create a repo and put your package there. This can be accomplished with:
 
-Step 4: Set Up Travis CI
+.. code-block:: bash
+
+    git init .
+    git add .
+    git commit -m "Initial skeleton."
+    git remote add origin git@github.com:myname/mypackage.git
+    git push -u origin master
+    
+where `myname` and `mypackage` are the adjusted for the specific project.
+
+Step 4: Install Dev Requirements
+--------------------------------
+
+Install the new project's local development requirements into a virtualenv:
+
+.. code-block:: bash
+
+    pip install -r requirements_dev.txt
+
+Step 5: Set Up Travis CI
 ------------------------
 
 Log into `Travis CI`_.
@@ -48,17 +67,19 @@ Run the script `travis_pypi_setup.py`. It will:
 
 * Encrypt your PyPI password in your Travis config.
 * Activate automated deployment on PyPI when you push a new tag to master branch.
+
+See :ref:`travis-pypi-setup`.
   
 .. _`Travis CI`: https://travis-ci.org/
 
-Step 5: Set Up ReadTheDocs
+Step 6: Set Up ReadTheDocs
 --------------------------
 
 Add the repo to your ReadTheDocs account.
 
 In your GitHub repo settings, turn on the ReadTheDocs service hook.
 
-Step 6: Release on PyPI
+Step 7: Release on PyPI
 ------------------------
 
 Release your package the standard Python way. 
