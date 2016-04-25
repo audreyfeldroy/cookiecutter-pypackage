@@ -30,7 +30,7 @@ For Every Release
 
         bumpversion minor
 
-# Install the package again for local development, but with the new version number:
+#. Install the package again for local development, but with the new version number:
 
     .. code-block:: bash
 
