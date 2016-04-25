@@ -14,6 +14,7 @@ Getting Started
 
    readme
    tutorial
+   pypi_release_checklist
 
 Basics
 ------
@@ -38,4 +39,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
