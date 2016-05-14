@@ -8,11 +8,28 @@ test_{{ cookiecutter.project_slug }}
 Tests for `{{ cookiecutter.project_slug }}` module.
 """
 
+{% if cookiecutter.use_pytest == 'y' -%}
+import pytest
+{% else %}
 import unittest
+{%- endif %}
 
 from {{ cookiecutter.project_slug }} import {{ cookiecutter.project_slug }}
 
+{% if cookiecutter.use_pytest == 'y' -%}
+class Test{{ cookiecutter.repo_name|capitalize }}(object):
 
+    @classmethod
+    def setup_class(cls):
+        pass
+
+    def test_something(self):
+        pass
+
+    @classmethod
+    def teardown_class(cls):
+        pass
+{% else %}
 class Test{{ cookiecutter.project_slug|capitalize }}(unittest.TestCase):
 
     def setUp(self):
@@ -28,3 +45,4 @@ class Test{{ cookiecutter.project_slug|capitalize }}(unittest.TestCase):
 if __name__ == '__main__':
     import sys
     sys.exit(unittest.main())
+{%- endif %}

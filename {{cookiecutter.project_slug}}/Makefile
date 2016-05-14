@@ -49,13 +49,21 @@ lint:
 	flake8 {{ cookiecutter.project_slug }} tests
 
 test:
+{% if cookiecutter.use_pytest == 'y' -%}
+	py.test
+{% else %}
 	python setup.py test
+{%- endif %}
 
 test-all:
 	tox
 
 coverage:
+{% if cookiecutter.use_pytest == 'y' -%}
+	coverage run --source {{ cookiecutter.project_slug }} py.test
+{% else %}
 	coverage run --source {{ cookiecutter.project_slug }} setup.py test
+{% endif %}
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html

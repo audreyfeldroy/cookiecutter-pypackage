@@ -9,5 +9,6 @@
 	"pypi_username": "{{ cookiecutter.github_username }}",
 	"year": "{{ cookiecutter.release_date[:4] }}",
 	"version": "0.1.0",
+	"use_pytest": "n",
 	"use_pypi_deployment_with_travis": "y"
 }
