@@ -17,7 +17,7 @@ import unittest
 from {{ cookiecutter.project_slug }} import {{ cookiecutter.project_slug }}
 
 {% if cookiecutter.use_pytest == 'y' -%}
-class Test{{ cookiecutter.repo_name|capitalize }}(object):
+class Test{{ cookiecutter.project_slug|title }}(object):
 
     @classmethod
     def setup_class(cls):
@@ -30,7 +30,7 @@ class Test{{ cookiecutter.repo_name|capitalize }}(object):
     def teardown_class(cls):
         pass
 {% else %}
-class Test{{ cookiecutter.project_slug|capitalize }}(unittest.TestCase):
+class Test{{ cookiecutter.project_slug|title }}(unittest.TestCase):
 
     def setUp(self):
         pass
