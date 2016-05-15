@@ -13,7 +13,7 @@ Cookiecutter_ template for a Python package.
 Features
 --------
 
-* Vanilla testing setup with `unittest` and `python setup.py test` or `py.test`
+* Testing setup with ``unittest`` and ``python setup.py test`` or ``py.test``
 * Travis-CI_: Ready for Travis Continuous Integration testing
 * Tox_ testing: Setup to easily test for Python 2.6, 2.7, 3.3, 3.4, 3.5
 * Sphinx_ docs: Documentation ready for generation with, for example, ReadTheDocs_
@@ -33,7 +33,7 @@ Then:
 
 * Create a repo and put it there.
 * Add the repo to your Travis CI account.
-* Install the dev requirements into a virtualenv. (`pip install -r requirements_dev.txt`)
+* Install the dev requirements into a virtualenv. (``pip install -r requirements_dev.txt``)
 * Run the script `travis_pypi_setup.py` to encrypt your PyPI password in Travis config
   and activate automated deployment on PyPI when you push a new tag to master branch.
 * Add the repo to your ReadTheDocs account + turn on the ReadTheDocs service hook.
