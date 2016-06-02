@@ -32,6 +32,11 @@ setup(
     ],
     package_dir={'{{ cookiecutter.project_slug }}':
                  '{{ cookiecutter.project_slug }}'},
+    entry_points={
+        'console_scripts': [
+            '{{ cookiecutter.repo_name }}.main:main'
+        ]
+    },
     include_package_data=True,
     install_requires=requirements,
     license="ISCL",
