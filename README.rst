@@ -25,6 +25,10 @@ Features
 Quickstart
 ----------
 
+Install cookiecutter if you haven't installed it yet)::
+
+    pip install cookiecutter
+
 Generate a Python package project::
 
     cookiecutter https://github.com/audreyr/cookiecutter-pypackage.git
