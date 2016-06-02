@@ -21,6 +21,10 @@ def run_inside_dir(command, dirpath):
     with inside_dir(dirpath):
         return subprocess.check_call(shlex.split(command))
 
+def check_output_inside_dir(command, dirpath):
+    "Run a command from inside a given directory, returning the command output"
+    with inside_dir(dirpath):
+        return subprocess.check_output(shlex.split(command))
 
 def test_bake_with_defaults(cookies):
     result = cookies.bake()
@@ -42,7 +46,7 @@ def test_bake_and_run_tests(cookies):
     run_inside_dir('python setup.py test', str(result.project)) == 0
 
 def test_bake_withspecialchars_and_run_tests(cookies):
-    """Ensure that a `full_name` with double quotes does not break setup.py""" 
+    """Ensure that a `full_name` with double quotes does not break setup.py"""
     result = cookies.bake(extra_context={'full_name': 'name "quote" name'})
     assert result.project.isdir()
     run_inside_dir('python setup.py test', str(result.project)) == 0
@@ -62,3 +66,8 @@ def test_bake_and_run_travis_pypi_setup(cookies):
     assert "secure" in result_travis_config["deploy"]["password"],\
         "missing password config in .travis.yml"
 
+def test_make_help(cookies):
+    result = cookies.bake()
+
+    output = check_output_inside_dir('make help', str(result.project))
+    assert b"check code coverage quickly with the default Python" in output
