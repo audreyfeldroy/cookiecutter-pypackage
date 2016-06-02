@@ -70,4 +70,4 @@ def test_make_help(cookies):
     result = cookies.bake()
 
     output = check_output_inside_dir('make help', str(result.project))
-    assert "check code coverage quickly with the default Python" in output
+    assert b"check code coverage quickly with the default Python" in output
