@@ -6,6 +6,7 @@ import yaml
 import datetime
 from cookiecutter.utils import rmtree
 
+
 @contextmanager
 def inside_dir(dirpath):
     """
@@ -41,10 +42,12 @@ def run_inside_dir(command, dirpath):
     with inside_dir(dirpath):
         return subprocess.check_call(shlex.split(command))
 
+
 def check_output_inside_dir(command, dirpath):
     "Run a command from inside a given directory, returning the command output"
     with inside_dir(dirpath):
         return subprocess.check_output(shlex.split(command))
+
 
 def test_year_compute_in_license_file(cookies):
     result = cookies.bake()
@@ -74,15 +77,18 @@ def test_bake_and_run_tests(cookies):
         run_inside_dir('python setup.py test', str(result.project)) == 0
         print("test_bake_and_run_tests path", str(result.project))
 
+
 def test_bake_withspecialchars_and_run_tests(cookies):
     """Ensure that a `full_name` with double quotes does not break setup.py"""
     with bake_in_temp_dir(cookies, extra_context={'full_name': 'name "quote" name'}) as result:
         assert result.project.isdir()
         run_inside_dir('python setup.py test', str(result.project)) == 0
 
+
 def test_bake_and_run_travis_pypi_setup(cookies):
+
+    # given:
     with bake_in_temp_dir(cookies) as result:
-        # given result and :
         project_path = str(result.project)
 
         # when:
