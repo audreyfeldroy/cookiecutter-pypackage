@@ -51,7 +51,7 @@ Then:
 
 For more details, see the `cookiecutter-pypackage tutorial`_.
 
-.. _`cookiecutter-pypackage tutorial`: http://cookiecutter-pypackage.readthedocs.org/en/latest/tutorial.html
+.. _`cookiecutter-pypackage tutorial`: https://cookiecutter-pypackage.readthedocs.io/en/latest/tutorial.html
 
 Not Exactly What You Want?
 --------------------------
