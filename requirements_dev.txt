@@ -2,5 +2,5 @@ PyYAML==3.11
 pytest==2.9.2
 tox==2.1.1
 cryptography==1.0.1
-
-
+cookiecutter
+pytest-cookies
