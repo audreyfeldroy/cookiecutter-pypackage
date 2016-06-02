@@ -7,6 +7,7 @@ import yaml
 
 @contextmanager
 def inside_dir(dirpath):
+    "Execute code from inside the given directory"
     old_path = os.getcwd()
     try:
         os.chdir(dirpath)
