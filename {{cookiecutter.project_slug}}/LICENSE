@@ -1,4 +1,4 @@
-Copyright (c) {{ cookiecutter.year }}, {{ cookiecutter.full_name }}
+Copyright (c) {% now 'local', '%Y' %}, {{ cookiecutter.full_name }}
 All rights reserved.
 
 Permission to use, copy, modify, and/or distribute this software for any

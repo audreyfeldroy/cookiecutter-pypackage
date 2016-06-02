@@ -3,6 +3,7 @@ import shlex
 import os
 import subprocess
 import yaml
+import datetime
 
 
 @contextmanager
@@ -25,6 +26,13 @@ def check_output_inside_dir(command, dirpath):
     "Run a command from inside a given directory, returning the command output"
     with inside_dir(dirpath):
         return subprocess.check_output(shlex.split(command))
+
+def test_year_compute_in_license_file(cookies):
+    result = cookies.bake()
+    license_file_path = result.project.join('LICENSE')
+    now = datetime.datetime.now()
+    assert str(now.year) in license_file_path.readlines()[0]
+
 
 def test_bake_with_defaults(cookies):
     result = cookies.bake()
