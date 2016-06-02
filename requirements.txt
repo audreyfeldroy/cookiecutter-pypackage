@@ -1,0 +1,5 @@
+cookiecutter
+pytest
+pytest-cookies
+pyyaml
+cryptography
