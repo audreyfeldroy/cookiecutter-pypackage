@@ -41,6 +41,11 @@ def test_bake_and_run_tests(cookies):
     assert result.project.isdir()
     run_inside_dir('python setup.py test', str(result.project)) == 0
 
+def test_bake_withspecialchars_and_run_tests(cookies):
+    """Ensure that a `full_name` with double quotes does not break setup.py""" 
+    result = cookies.bake(extra_context={'full_name': 'name "quote" name'})
+    assert result.project.isdir()
+    run_inside_dir('python setup.py test', str(result.project)) == 0
 
 def test_bake_and_run_travis_pypi_setup(cookies):
     # given:
@@ -56,3 +61,4 @@ def test_bake_and_run_travis_pypi_setup(cookies):
     result_travis_config = yaml.load(open(os.path.join(project_path, ".travis.yml")))
     assert "secure" in result_travis_config["deploy"]["password"],\
         "missing password config in .travis.yml"
+
