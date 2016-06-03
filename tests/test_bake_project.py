@@ -20,6 +20,7 @@ def inside_dir(dirpath):
     finally:
         os.chdir(old_path)
 
+
 @contextmanager
 def bake_in_temp_dir(cookies, *args, **kwargs):
     """
@@ -98,18 +99,27 @@ def test_bake_and_run_travis_pypi_setup(cookies):
         min_size_of_encrypted_password = 50
         assert len(result_travis_config["deploy"]["password"]["secure"]) > min_size_of_encrypted_password
 
+
 def test_bake_without_travis_pypi_setup(cookies):
-     with bake_in_temp_dir(cookies, extra_context={'use_pypi_deployment_with_travis': 'n'}) as result:
+    with bake_in_temp_dir(cookies, extra_context={'use_pypi_deployment_with_travis': 'n'}) as result:
         result_travis_config = yaml.load(result.project.join(".travis.yml").open())
         assert "deploy" not in result_travis_config
         assert "python" == result_travis_config["language"]
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert 'travis_pypi_setup.py' not in found_toplevel_files
 
+
+def test_bake_without_author_file(cookies):
+    with bake_in_temp_dir(cookies, extra_context={'create_author_file': 'n'}) as result:
+        found_toplevel_files = [f.basename for f in result.project.listdir()]
+        assert 'AUTHORS.rst' not in found_toplevel_files
+
+
 def test_make_help(cookies):
     with bake_in_temp_dir(cookies) as result:
         output = check_output_inside_dir('make help', str(result.project))
         assert b"check code coverage quickly with the default Python" in output
+
 
 def test_bake_selecting_license(cookies):
     license_strings = {
@@ -121,12 +131,14 @@ def test_bake_selecting_license(cookies):
             assert target_string in result.project.join('LICENSE').read()
             assert license in result.project.join('setup.py').read()
 
+
 def test_using_pytest(cookies):
     with bake_in_temp_dir(cookies, extra_context={'use_pytest': 'y'}) as result:
         assert result.project.isdir()
         test_file_path = result.project.join('tests/test_python_boilerplate.py')
         lines = test_file_path.readlines()
         assert "import pytest" in ''.join(lines)
+
 
 def test_not_using_pytest(cookies):
     with bake_in_temp_dir(cookies) as result:
