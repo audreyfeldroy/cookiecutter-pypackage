@@ -109,7 +109,7 @@ def test_bake_without_travis_pypi_setup(cookies):
 def test_make_help(cookies):
     with bake_in_temp_dir(cookies) as result:
         output = check_output_inside_dir('make help', str(result.project))
-        assert b"check code coverage quickly with the default Python" in output
+        assert "check code coverage quickly with the default Python" in output
 
 def test_bake_selecting_license(cookies):
     license_strings = {
@@ -134,3 +134,8 @@ def test_not_using_pytest(cookies):
         lines = test_file_path.readlines()
         assert "import unittest" in ''.join(lines)
         assert "import pytest" not in ''.join(lines)
+
+
+def test_project_with_invalid_module_name(cookies):
+    result = cookies.bake(extra_context={'project_name': 'something-with-a-dash'})
+    assert result.project is None
