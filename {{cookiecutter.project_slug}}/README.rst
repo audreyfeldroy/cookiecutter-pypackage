@@ -12,6 +12,10 @@
         :target: https://readthedocs.io/projects/{{ cookiecutter.project_slug }}/?badge=latest
         :alt: Documentation Status
 
+.. image:: https://requires.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/requirements.svg?branch=master
+        :target: https://requires.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/requirements?branch=master
+        :alt: Dependencies
+
 
 {{ cookiecutter.project_short_description}}
 
