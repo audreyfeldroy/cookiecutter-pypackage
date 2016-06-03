@@ -120,7 +120,7 @@ Import the repository
 
 In your GitHub repo settings > Webhooks & services, turn on the ReadTheDocs service hook.
 
-.. _ `ReadTheDocs`: https://readthedocs.org/
+.. _ `ReadTheDocs`: https://readthedocs.io/
 
 Step 7: Release on PyPI
 ------------------------
