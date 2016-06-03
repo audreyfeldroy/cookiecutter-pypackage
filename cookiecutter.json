@@ -8,5 +8,6 @@
 	"pypi_username": "{{ cookiecutter.github_username }}",
 	"version": "0.1.0",
 	"use_pytest": "n",
-	"use_pypi_deployment_with_travis": "y"
+	"use_pypi_deployment_with_travis": "y",
+	"open_source_license": ["MIT", "BSD", "Not open source"]
 }
