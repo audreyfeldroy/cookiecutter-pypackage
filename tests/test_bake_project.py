@@ -3,7 +3,11 @@ import shlex
 import os
 import subprocess
 import yaml
+import importlib
 
+from click.testing import CliRunner
+
+runner = CliRunner()
 
 @contextmanager
 def inside_dir(dirpath):
@@ -56,3 +60,44 @@ def test_bake_and_run_travis_pypi_setup(cookies):
     result_travis_config = yaml.load(open(os.path.join(project_path, ".travis.yml")))
     assert "secure" in result_travis_config["deploy"]["password"],\
         "missing password config in .travis.yml"
+
+def test_bake_with_no_console_script(cookies):
+    context = {'create_console_script': 'n'}
+    result = cookies.bake(extra_context=context)
+    project_path = str(result.project)
+    project_slug = os.path.split(project_path)[-1]
+    project_dir = os.path.join(project_path, project_slug)
+    found_project_files = os.listdir(project_dir)
+    assert "__main__.py" not in found_project_files
+    
+    setup_path = os.path.join(project_path, 'setup.py')
+    with open(setup_path, 'r') as setup_file:
+        assert 'entry_points' not in setup_file.read()
+
+def test_bake_with_console_script(cookies):
+    context = {'create_console_script': 'y'}
+    result = cookies.bake(extra_context=context)
+    project_path = str(result.project)
+    project_slug = os.path.split(project_path)[-1]
+    project_dir = os.path.join(project_path, project_slug)
+    found_project_files = os.listdir(project_dir)
+    assert "__main__.py" in found_project_files
+    
+    setup_path = os.path.join(project_path, 'setup.py')
+    with open(setup_path, 'r') as setup_file:
+        assert 'entry_points' in setup_file.read()
+
+    module_path = '.'.join([project_slug, '__main__'])
+    main_module = importlib.import_module(module_path)
+    noarg_output = runner.invoke(main_module.main).output
+    expected_noarg_output = ' '.join(['Add a console script for', project_slug])
+    assert expected_noarg_output in noarg_output
+    help_output = runner.invoke(main_module.main, ['--help']).output
+    assert 'Console script for python_boilerplate' in help_output
+    
+
+    
+
+    
+    
+    
