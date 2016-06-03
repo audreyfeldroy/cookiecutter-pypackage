@@ -50,14 +50,13 @@ def check_output_inside_dir(command, dirpath):
 
 
 def test_year_compute_in_license_file(cookies):
-    result = cookies.bake()
-    license_file_path = result.project.join('LICENSE')
-    now = datetime.datetime.now()
-    assert str(now.year) in license_file_path.read()
+    with bake_in_temp_dir(cookies) as result:
+        license_file_path = result.project.join('LICENSE')
+        now = datetime.datetime.now()
+        assert str(now.year) in license_file_path.read()
 
 
 def test_bake_with_defaults(cookies):
-
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
         assert result.exit_code == 0
@@ -86,7 +85,6 @@ def test_bake_withspecialchars_and_run_tests(cookies):
 
 
 def test_bake_and_run_travis_pypi_setup(cookies):
-
     # given:
     with bake_in_temp_dir(cookies) as result:
         project_path = str(result.project)
@@ -95,12 +93,18 @@ def test_bake_and_run_travis_pypi_setup(cookies):
         travis_setup_cmd = ('python travis_pypi_setup.py'
                             ' --repo audreyr/cookiecutter-pypackage --password invalidpass')
         run_inside_dir(travis_setup_cmd, project_path)
-
         # then:
-        result_travis_config = yaml.load(open(os.path.join(project_path, ".travis.yml")))
-        assert "secure" in result_travis_config["deploy"]["password"],\
-            "missing password config in .travis.yml"
+        result_travis_config = yaml.load(result.project.join(".travis.yml").open())
+        min_size_of_encrypted_password = 50
+        assert len(result_travis_config["deploy"]["password"]["secure"]) > min_size_of_encrypted_password
 
+def test_bake_without_travis_pypi_setup(cookies):
+     with bake_in_temp_dir(cookies, extra_context={'use_pypi_deployment_with_travis': 'n'}) as result:
+        result_travis_config = yaml.load(result.project.join(".travis.yml").open())
+        assert "deploy" not in result_travis_config
+        assert "python" == result_travis_config["language"]
+        found_toplevel_files = [f.basename for f in result.project.listdir()]
+        assert 'travis_pypi_setup.py' not in found_toplevel_files
 
 def test_make_help(cookies):
     with bake_in_temp_dir(cookies) as result:
@@ -115,3 +119,18 @@ def test_bake_selecting_license(cookies):
     for license, target_string in license_strings.items():
         with bake_in_temp_dir(cookies, extra_context={'open_source_license': license}) as result:
             assert target_string in result.project.join('LICENSE').read()
+
+def test_using_pytest(cookies):
+    with bake_in_temp_dir(cookies, extra_context={'use_pytest': 'y'}) as result:
+        assert result.project.isdir()
+        test_file_path = result.project.join('tests/test_python_boilerplate.py')
+        lines = test_file_path.readlines()
+        assert "import pytest" in ''.join(lines)
+
+def test_not_using_pytest(cookies):
+    with bake_in_temp_dir(cookies) as result:
+        assert result.project.isdir()
+        test_file_path = result.project.join('tests/test_python_boilerplate.py')
+        lines = test_file_path.readlines()
+        assert "import unittest" in ''.join(lines)
+        assert "import pytest" not in ''.join(lines)
