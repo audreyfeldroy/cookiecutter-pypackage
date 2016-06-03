@@ -134,3 +134,8 @@ def test_not_using_pytest(cookies):
         lines = test_file_path.readlines()
         assert "import unittest" in ''.join(lines)
         assert "import pytest" not in ''.join(lines)
+
+
+def test_project_with_invalid_module_name(cookies):
+    result = cookies.bake(extra_context={'project_name': 'something-with-a-dash'})
+    assert result.project is None
