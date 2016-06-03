@@ -1,0 +1,54 @@
+.. _console-script-setup:
+
+
+Console Script Setup
+=================
+
+Optionally, your package can include a console script using the Click library
+
+How It Works
+------------
+
+If the 'create_console_script' option is set to 'y' during setup, cookiecutter will
+add a file '__main__.py' in the project_slug subdirectory. An entry point is added to
+setup.py that points to the main function in __main__.py.
+
+Usage
+------------
+To use the console script in development:
+
+.. code-block: bash
+    pip install -e projectdir
+
+'projectdir' should be the top level project directory with the setup.py file
+
+The script will be generated with two commands available
+
+--help
+    show help menu and exit
+    
+(no arguments)
+    show default message and exit
+
+Known Issues
+------------
+Installing the project in a development environment using
+
+.. code-block:: bash
+    python setup.py develop
+
+will not set up the entry point correctly. This is a known issue with Click.
+The following will work as expected:
+
+.. code-block:: bash
+    python setup.py install
+    pip install mypackage
+
+With 'mypackage' adjusted to the specific project.
+
+
+More Details
+------------
+
+You can read more about Click at:
+http://click.pocoo.org/
