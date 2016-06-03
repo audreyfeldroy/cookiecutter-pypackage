@@ -4,6 +4,9 @@ cookiecutter-pypackage
 
 .. image:: https://img.shields.io/travis/audreyr/cookiecutter-pypackage.svg
    :target: https://travis-ci.org/audreyr/cookiecutter-pypackage
+.. image:: https://requires.io/github/audreyr/cookiecutter-pypackage/requirements.svg?branch=default
+   :target: https://requires.io/github/audreyr/cookiecutter-pypackage/requirements?branch=default
+   :alt: Dependencies
 
 Cookiecutter_ template for a Python package.
 
