@@ -53,7 +53,7 @@ def test_year_compute_in_license_file(cookies):
     result = cookies.bake()
     license_file_path = result.project.join('LICENSE')
     now = datetime.datetime.now()
-    assert str(now.year) in license_file_path.readlines()[0]
+    assert str(now.year) in license_file_path.read()
 
 
 def test_bake_with_defaults(cookies):
@@ -107,3 +107,11 @@ def test_make_help(cookies):
         output = check_output_inside_dir('make help', str(result.project))
         assert b"check code coverage quickly with the default Python" in output
 
+def test_bake_selecting_license(cookies):
+    license_strings = {
+        'MIT': 'MIT ',
+        'BSD': 'Redistributions of source code must retain the above copyright notice, this',
+    }
+    for license, target_string in license_strings.items():
+        with bake_in_temp_dir(cookies, extra_context={'open_source_license': license}) as result:
+            assert target_string in result.project.join('LICENSE').read()
