@@ -89,11 +89,13 @@ def test_bake_with_console_script(cookies):
 
     module_path = '.'.join([project_slug, '__main__'])
     main_module = importlib.import_module(module_path)
-    noarg_output = runner.invoke(main_module.main).output
+    noarg_result = runner.invoke(main_module.main)
+    assert noarg_result.exit_code == 0
     expected_noarg_output = ' '.join(['Add a console script for', project_slug])
-    assert expected_noarg_output in noarg_output
-    help_output = runner.invoke(main_module.main, ['--help']).output
-    assert 'Console script for python_boilerplate' in help_output
+    assert expected_noarg_output in noarg_result.output
+    help_result = runner.invoke(main_module.main, ['--help'])
+    assert help_result.exit_code == 0
+    assert 'Console script for python_boilerplate' in help_result.output
     
 
     
