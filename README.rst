@@ -39,14 +39,18 @@ Generate a Python package project::
 Then:
 
 * Create a repo and put it there.
-* Add the repo to your Travis CI account.
+* Add the repo to your Travis-CI_ account.
 * Install the dev requirements into a virtualenv. (``pip install -r requirements_dev.txt``)
 * Run the script `travis_pypi_setup.py` to encrypt your PyPI password in Travis config
   and activate automated deployment on PyPI when you push a new tag to master branch.
-* Add the repo to your ReadTheDocs account + turn on the ReadTheDocs service hook.
+* Add the repo to your ReadTheDocs_ account + turn on the ReadTheDocs service hook.
 * Release your package by pushing a new tag to master.
-* (Optional) If you feel like pinning the requirements for your package, you can
-  add a `requirements.txt` that specifies packages and version numbers.
+* Add a `requirements.txt` file that specifies the packages you will need for
+  your project and their versions. For more information see the `pip documentation
+  for requirements files`_.
+* Activate your project on RequiresIO_.
+
+.. _`pip documentation for requirements files`: https://pip.pypa.io/en/stable/user_guide/#requirements-files
 
 For more details, see the `cookiecutter-pypackage tutorial`_.
 
@@ -97,6 +101,7 @@ make my own packaging experience better.
 .. _Tox: http://testrun.org/tox/
 .. _Sphinx: http://sphinx-doc.org/
 .. _ReadTheDocs: https://readthedocs.org/
+.. _RequiresIO: https://requires.io/
 .. _`Nekroze/cookiecutter-pypackage`: https://github.com/Nekroze/cookiecutter-pypackage
 .. _`tony/cookiecutter-pypackage-pythonic`: https://github.com/tony/cookiecutter-pypackage-pythonic
 .. _`ardydedase/cookiecutter-pypackage`: https://github.com/ardydedase/cookiecutter-pypackage
