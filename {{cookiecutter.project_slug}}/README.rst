@@ -9,9 +9,8 @@
         :target: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
 
 .. image:: https://readthedocs.org/projects/{{ cookiecutter.project_slug }}/badge/?version=latest
-        :target: https://readthedocs.org/projects/{{ cookiecutter.project_slug }}/?badge=latest
+        :target: https://{{ cookiecutter.project_slug }}.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
-
 
 {{ cookiecutter.project_short_description}}
 
