@@ -45,3 +45,6 @@ The following package configuration options set up different features for your p
 
 use_pypi_deployment_with_travis
     Whether to use PyPI deployment with Travis.
+
+create_console_script
+    Whether to create a console script using Click. Console script entry point will match the project_slug.
