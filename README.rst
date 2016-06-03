@@ -19,6 +19,7 @@ Features
 * Sphinx_ docs: Documentation ready for generation with, for example, ReadTheDocs_
 * Bumpversion: Pre-configured version bumping with a single command
 * Auto-release to PyPI when you push a new tag to master (optional)
+* Command line interface using Click (Optional)
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 
