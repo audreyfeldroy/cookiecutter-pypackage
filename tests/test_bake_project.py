@@ -109,7 +109,7 @@ def test_bake_without_travis_pypi_setup(cookies):
 def test_make_help(cookies):
     with bake_in_temp_dir(cookies) as result:
         output = check_output_inside_dir('make help', str(result.project))
-        assert "check code coverage quickly with the default Python" in output
+        assert b"check code coverage quickly with the default Python" in output
 
 def test_bake_selecting_license(cookies):
     license_strings = {
