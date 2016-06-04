@@ -5,12 +5,12 @@ import sys
 import subprocess
 import yaml
 
-if sys.version_info > (3,0):
+from click.testing import CliRunner
+
+if sys.version_info > (3, 0):
     import importlib
 else:
     import imp
-
-from click.testing import CliRunner
 
 runner = CliRunner()
 
@@ -31,12 +31,13 @@ def run_inside_dir(command, dirpath):
     with inside_dir(dirpath):
         return subprocess.check_call(shlex.split(command))
 
+
 def project_info(result):
     """Get toplevel dir, project_slug, and project dir from baked cookies"""
     project_path = str(result.project)
     project_slug = os.path.split(project_path)[-1]
     project_dir = os.path.join(project_path, project_slug)
-    return project_path, project_slug, project_dir    
+    return project_path, project_slug, project_dir
 
 
 def test_bake_with_defaults(cookies):
@@ -98,17 +99,18 @@ def test_bake_with_console_script_files(cookies):
     with open(setup_path, 'r') as setup_file:
         assert 'entry_points' in setup_file.read()
 
+
 def test_bake_with_console_script_cli(cookies):
     context = {'create_console_script': 'y'}
     result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     module_path = os.path.join(project_dir, 'cli.py')
     module_name = '.'.join([project_slug, 'cli'])
-    if sys.version_info >= (3,5):
+    if sys.version_info >= (3, 5):
         spec = importlib.util.spec_from_file_location(module_name, module_path)
         cli = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(cli)
-    elif sys.version_info >= (3,3):
+    elif sys.version_info >= (3, 3):
         file_loader = importlib.machinery.SourceFileLoader
         cli = file_loader(module_name, module_path).load_module()
     else:
@@ -116,8 +118,8 @@ def test_bake_with_console_script_cli(cookies):
     print(dir(cli))
     noarg_result = runner.invoke(cli.main)
     assert noarg_result.exit_code == 0
-    expected_noarg_output = ' '.join(['Add a console script for', project_slug])
-    assert expected_noarg_output in noarg_result.output
+    noarg_output = ' '.join(['Add a console script for', project_slug])
+    assert noarg_output in noarg_result.output
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
     assert 'Console script for python_boilerplate' in help_result.output
