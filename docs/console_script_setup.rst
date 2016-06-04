@@ -18,6 +18,7 @@ Usage
 To use the console script in development:
 
 .. code-block:: bash
+
     pip install -e projectdir
 
 'projectdir' should be the top level project directory with the setup.py file
@@ -29,15 +30,17 @@ The script will be generated with output for no arguments and --help.
 
 Known Issues
 ------------
-Installing the project in a development environment using
+Installing the project in a development environment using:
 
 .. code-block:: bash
+
     python setup.py develop
 
 will not set up the entry point correctly. This is a known issue with Click.
 The following will work as expected:
 
 .. code-block:: bash
+
     python setup.py install
     pip install mypackage
 
