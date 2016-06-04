@@ -26,7 +26,7 @@ The script will be generated with two commands available
 
 --help
     show help menu and exit
-    
+
 (no arguments)
     show default message and exit
 

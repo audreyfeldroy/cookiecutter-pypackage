@@ -37,7 +37,7 @@ setup(
                  '{{ cookiecutter.project_slug }}'},
     {%- if cookiecutter.create_console_script == 'y' %}
     entry_points={
-        'console_scripts' : [
+        'console_scripts': [
             '{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.__main__:main'
         ]
     },

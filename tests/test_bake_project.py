@@ -9,6 +9,7 @@ from click.testing import CliRunner
 
 runner = CliRunner()
 
+
 @contextmanager
 def inside_dir(dirpath):
     "Execute code from inside the given directory"
@@ -61,6 +62,7 @@ def test_bake_and_run_travis_pypi_setup(cookies):
     assert "secure" in result_travis_config["deploy"]["password"],\
         "missing password config in .travis.yml"
 
+
 def test_bake_with_no_console_script(cookies):
     context = {'create_console_script': 'n'}
     result = cookies.bake(extra_context=context)
@@ -69,10 +71,11 @@ def test_bake_with_no_console_script(cookies):
     project_dir = os.path.join(project_path, project_slug)
     found_project_files = os.listdir(project_dir)
     assert "__main__.py" not in found_project_files
-    
+
     setup_path = os.path.join(project_path, 'setup.py')
     with open(setup_path, 'r') as setup_file:
         assert 'entry_points' not in setup_file.read()
+
 
 def test_bake_with_console_script(cookies):
     context = {'create_console_script': 'y'}
@@ -82,7 +85,7 @@ def test_bake_with_console_script(cookies):
     project_dir = os.path.join(project_path, project_slug)
     found_project_files = os.listdir(project_dir)
     assert "__main__.py" in found_project_files
-    
+
     setup_path = os.path.join(project_path, 'setup.py')
     with open(setup_path, 'r') as setup_file:
         assert 'entry_points' in setup_file.read()
