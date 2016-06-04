@@ -1,5 +1,5 @@
 ======================
-cookiecutter-pypackage
+Cookiecutter PyPackage
 ======================
 
 .. image:: https://img.shields.io/travis/audreyr/cookiecutter-pypackage.svg
