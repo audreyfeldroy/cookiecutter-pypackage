@@ -17,18 +17,15 @@ Usage
 ------------
 To use the console script in development:
 
-.. code-block: bash
+.. code-block:: bash
     pip install -e projectdir
 
 'projectdir' should be the top level project directory with the setup.py file
 
-The script will be generated with two commands available
+The script will be generated with output for no arguments and --help.
 
 --help
     show help menu and exit
-
-(no arguments)
-    show default message and exit
 
 Known Issues
 ------------
