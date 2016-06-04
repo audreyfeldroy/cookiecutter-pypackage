@@ -20,9 +20,9 @@ test_requirements = [
 ]
 
 {%- set license_classifiers = {
-    'MIT': 'License :: OSI Approved :: MIT License',
-    'BSD': 'License :: OSI Approved :: BSD License',
-    'ISCL': 'License :: OSI Approved :: ISC License (ISCL)',
+    'MIT license': 'License :: OSI Approved :: MIT License',
+    'BSD license': 'License :: OSI Approved :: BSD License',
+    'ISC license': 'License :: OSI Approved :: ISC License (ISCL)',
 } %}
 
 setup(
