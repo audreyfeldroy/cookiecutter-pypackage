@@ -93,4 +93,4 @@ target/
 
 # Cookiecutter
 output/
-boilerplate/
+python_boilerplate/
