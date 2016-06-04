@@ -96,10 +96,3 @@ def test_bake_with_console_script(cookies):
     help_result = runner.invoke(main_module.main, ['--help'])
     assert help_result.exit_code == 0
     assert 'Console script for python_boilerplate' in help_result.output
-    
-
-    
-
-    
-    
-    
