@@ -15,7 +15,9 @@ Contents:
    installation
    usage
    contributing
-   authors
+   {% if cookiecutter.create_author_file == 'y' -%}
+      authors
+   {% endif -%}
    history
 
 Indices and tables
