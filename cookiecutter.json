@@ -11,5 +11,5 @@
 	"version": "0.1.0",
 	"use_pytest": "n",
 	"use_pypi_deployment_with_travis": "y",
-    "create_console_script": "n"
+        "create_console_script": "n"
 }
