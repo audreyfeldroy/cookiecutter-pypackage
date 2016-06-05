@@ -23,6 +23,7 @@ test_requirements = [
     'MIT license': 'License :: OSI Approved :: MIT License',
     'BSD license': 'License :: OSI Approved :: BSD License',
     'ISC license': 'License :: OSI Approved :: ISC License (ISCL)',
+    'GNU General Public License v3': 'License :: OSI Approved :: GNU General Public License'
 } %}
 
 setup(
