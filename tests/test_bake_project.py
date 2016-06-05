@@ -123,8 +123,8 @@ def test_make_help(cookies):
 
 def test_bake_selecting_license(cookies):
     license_strings = {
-        'MIT': 'MIT ',
-        'BSD': 'Redistributions of source code must retain the above copyright notice, this',
+        'MIT license': 'MIT ',
+        'BSD license': 'Redistributions of source code must retain the above copyright notice, this',
     }
     for license, target_string in license_strings.items():
         with bake_in_temp_dir(cookies, extra_context={'open_source_license': license}) as result:
