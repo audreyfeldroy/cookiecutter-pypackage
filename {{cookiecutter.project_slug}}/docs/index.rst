@@ -15,9 +15,7 @@ Contents:
    installation
    usage
    contributing
-   {% if cookiecutter.create_author_file == 'y' -%}
-      authors
-   {% endif -%}
+   {% if cookiecutter.create_author_file == 'y' -%}authors{% endif -%}
    history
 
 Indices and tables
@@ -26,4 +24,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
