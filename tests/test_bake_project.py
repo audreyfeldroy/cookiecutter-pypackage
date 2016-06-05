@@ -126,6 +126,8 @@ def test_bake_selecting_license(cookies):
         'MIT license': 'MIT ',
         'BSD license': 'Redistributions of source code must retain the above copyright notice, this',
         'GNU General Public License v3': 'GNU GENERAL PUBLIC LICENSE',
+        'ISC license': 'ISC License',
+        'Apache Software License 2.0': 'Licensed under the Apache License, Version 2.0'
     }
     for license, target_string in license_strings.items():
         with bake_in_temp_dir(cookies, extra_context={'open_source_license': license}) as result:
