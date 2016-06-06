@@ -9,7 +9,7 @@ Tutorial
 Step 1: Install Cookiecutter
 ----------------------------
 
-First, create a virtualenv for your new package:
+First, you need to create and activate a virtualenv for the package project. Use your favorite method, or create a virtualenv for your new package like this:
 
 .. code-block:: bash
 
@@ -18,13 +18,13 @@ First, create a virtualenv for your new package:
 
 Here, `mypackage` is the name of the package that you'll create.
 
-Activate your environment
+Activate your environment:
 
 .. code-block:: bash
 
     source bin/activate
 
-On Windows
+On Windows, activate it like this. You may find that using a Command Prompt window works better than gitbash.
 
 .. code-block:: bash
 
@@ -55,9 +55,15 @@ If you don't know what to enter, stick with the defaults.
 Step 3: Create a GitHub Repo
 ----------------------------
 
-Create a repo and put your package there.
+You will find one folder named after the `[project_slug]` from your answers to running cookiecutter. Move into this folder:
 
-``Be sure to add you environment folder into the .gitignore file.``
+.. code-block:: bash
+
+    cd mypackage
+
+Now you need to create a GitHub repo and put your package there. In your GitHub account, create a repo named `mypackage`.
+
+** Note: If your `virtualenv` folder is within your project folder, be sure to add the folder name to the ``.gitignore` file.
 
 This can be accomplished with:
 
@@ -80,9 +86,9 @@ You'll need a ssh key to push the repo. You can `Generate`_ a key or `Add`_ exis
 Step 4: Install Dev Requirements
 --------------------------------
 
-Make sure you are in the folder containing the ``requirements_dev.txt`` file.
+You should now be in the folder containing the ``requirements_dev.txt`` file.
 
-Install the new project's local development requirements into a virtualenv:
+Your virtualenv should still be activated. Install the new project's local development requirements:
 
 .. code-block:: bash
 
