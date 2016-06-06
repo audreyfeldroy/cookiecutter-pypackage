@@ -40,7 +40,7 @@ class Test{{ cookiecutter.project_slug|title }}(object):
         runner = CliRunner()
         result = runner.invoke(cli.main)
         assert result.exit_code == 0
-        assert 'script for {{ cookiecutter.project_slug }}' in result.output
+        assert '{{ cookiecutter.project_slug }}.cli.main' in result.output
         help_result = runner.invoke(cli.main, ['--help'])
         assert help_result.exit_code == 0
         assert '--help  Show this message and exit.' in help_result.output
@@ -66,12 +66,12 @@ class Test{{ cookiecutter.project_slug|title }}(unittest.TestCase):
         runner = CliRunner()
         result = runner.invoke(cli.main)
         assert result.exit_code == 0
-        assert 'script for {{ cookiecutter.project_slug }}' in result.output
+        assert '{{ cookiecutter.project_slug }}.cli.main' in result.output
         help_result = runner.invoke(cli.main, ['--help'])
         assert help_result.exit_code == 0
         assert '--help  Show this message and exit.' in help_result.output
 
-{%- endif %}        
+{%- endif %}
 
 
 if __name__ == '__main__':

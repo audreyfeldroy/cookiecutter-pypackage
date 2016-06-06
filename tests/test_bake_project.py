@@ -238,4 +238,4 @@ def test_bake_with_console_script_cli(cookies):
     assert noarg_output in noarg_result.output
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
-    assert 'Console script for python_boilerplate' in help_result.output
+    assert 'Show this message' in help_result.output
