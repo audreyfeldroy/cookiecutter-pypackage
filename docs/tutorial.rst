@@ -55,7 +55,7 @@ If you don't know what to enter, stick with the defaults.
 Step 3: Create a GitHub Repo
 ----------------------------
 
-Go to your GitHub account and create a new repo named ``mypackage``.
+Go to your GitHub account and create a new repo named ``mypackage``. The name of the repo should match the ``[project_slug]`` in order for Travis CI to find it; we'll do that in Step 5.
 
 ``If your virtualenv folder is within your project folder, be sure to add the virtualenv folder name to your .gitignore file.
 
@@ -101,7 +101,7 @@ Step 5: Set Up Travis CI
 
 Login using your Github credentials.
 
-Add the public repo to your Travis CI account.
+Add the public repo to your Travis CI account by clicking the switch "on" in the list of GitHub repos.
 
 Go to your terminal and run the script ``travis_pypi_setup.py``. It will:
 
@@ -122,7 +122,7 @@ Step 6: Set Up ReadTheDocs
 
 Log into your account at `ReadTheDocs`_ .
 
-Import the repository
+Import the repository.
 
 In your GitHub repo settings > Webhooks & services, turn on the ReadTheDocs service hook.
 
