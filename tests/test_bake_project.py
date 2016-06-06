@@ -12,8 +12,6 @@ if sys.version_info > (3, 0):
 else:
     import imp
 
-runner = CliRunner()
-
 
 @contextmanager
 def inside_dir(dirpath):
@@ -77,7 +75,7 @@ def test_bake_and_run_travis_pypi_setup(cookies):
 
 
 def test_bake_with_no_console_script(cookies):
-    context = {'create_console_script': 'n'}
+    context = {'command_line_interface': 'no'}
     result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     found_project_files = os.listdir(project_dir)
@@ -89,7 +87,7 @@ def test_bake_with_no_console_script(cookies):
 
 
 def test_bake_with_console_script_files(cookies):
-    context = {'create_console_script': 'y'}
+    context = {'command_line_interface': 'click'}
     result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     found_project_files = os.listdir(project_dir)
@@ -101,7 +99,7 @@ def test_bake_with_console_script_files(cookies):
 
 
 def test_bake_with_console_script_cli(cookies):
-    context = {'create_console_script': 'y'}
+    context = {'command_line_interface': 'click'}
     result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     module_path = os.path.join(project_dir, 'cli.py')
@@ -115,7 +113,7 @@ def test_bake_with_console_script_cli(cookies):
         cli = file_loader(module_name, module_path).load_module()
     else:
         cli = imp.load_source(module_name, module_path)
-    print(dir(cli))
+    runner = CliRunner()
     noarg_result = runner.invoke(cli.main)
     assert noarg_result.exit_code == 0
     noarg_output = ' '.join(['Add a console script for', project_slug])
