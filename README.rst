@@ -22,6 +22,7 @@ Features
 * Sphinx_ docs: Documentation ready for generation with, for example, ReadTheDocs_
 * Bumpversion_: Pre-configured version bumping with a single command
 * Auto-release to PyPI_ when you push a new tag to master (optional)
+* Command line interface using Click (optional)
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 
@@ -46,11 +47,10 @@ Then:
 * Add the repo to your ReadTheDocs_ account + turn on the ReadTheDocs service hook.
 * Release your package by pushing a new tag to master.
 * Add a `requirements.txt` file that specifies the packages you will need for
-  your project and their versions. For more information see the `pip documentation
-  for requirements files`_.
+  your project and their versions. For more info see the `pip docs for requirements files`_.
 * Activate your project on RequiresIO_.
 
-.. _`pip documentation for requirements files`: https://pip.pypa.io/en/stable/user_guide/#requirements-files
+.. _`pip docs for requirements files`: https://pip.pypa.io/en/stable/user_guide/#requirements-files
 
 For more details, see the `cookiecutter-pypackage tutorial`_.
 
