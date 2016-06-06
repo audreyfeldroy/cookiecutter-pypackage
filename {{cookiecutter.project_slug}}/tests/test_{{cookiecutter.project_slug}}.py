@@ -7,7 +7,6 @@ test_{{ cookiecutter.project_slug }}
 
 Tests for `{{ cookiecutter.project_slug }}` module.
 """
-from pprint import pprint
 {% if cookiecutter.use_pytest == 'y' -%}
 import pytest
 {% else %}
@@ -25,7 +24,7 @@ from {{ cookiecutter.project_slug }} import cli
 {%- endif %}
 
 
-{%- if cookiecutter.use_pytest == 'y' -%}
+{% if cookiecutter.use_pytest == 'y' -%}
 class Test{{ cookiecutter.project_slug|title }}(object):
 
     @classmethod
@@ -37,7 +36,13 @@ class Test{{ cookiecutter.project_slug|title }}(object):
 
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
     def test_command_line_interface(self):
-        runner = click.CliRunner()
+        runner = CliRunner()
+        result = runner.invoke(cli.main)
+        assert result.exit_code == 0
+        assert 'script for {{ cookiecutter.project_slug }}' in result.output
+        help_result = runner.invoke(cli.main, ['--help'])
+        assert help_result.exit_code == 0
+        assert '--help  Show this message and exit.' in help_result.output
 
 {%- endif %}
 
