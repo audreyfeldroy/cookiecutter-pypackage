@@ -55,29 +55,24 @@ If you don't know what to enter, stick with the defaults.
 Step 3: Create a GitHub Repo
 ----------------------------
 
-You will find one folder named after the `[project_slug]` from your answers to running cookiecutter. Move into this folder:
+Go to your GitHub account and create a new repo named ``mypackage``.
+
+**If your ``virtualenv`` folder is within your project folder, be sure to add the ``virtualenv`` folder name to the ``.gitignore`` file.**
+
+You will find one folder named after the `[project_slug]` from your answers to running cookiecutter. Move into this folder, and then setup git to use your GitHub repo and upload the code:
 
 .. code-block:: bash
 
     cd mypackage
-
-Now you need to create a GitHub repo and put your package there. In your GitHub account, create a repo named `mypackage`.
-
-** Note: If your `virtualenv` folder is within your project folder, be sure to add the folder name to the ``.gitignore` file.
-
-This can be accomplished with:
-
-.. code-block:: bash
-
     git init .
     git add .
     git commit -m "Initial skeleton."
     git remote add origin git@github.com:myusername/mypackage.git
     git push -u origin master
 
-Where `myusername` and `mypackage` are the adjusted for the specific project.
+Where ``myusername`` and ``mypackage`` are adjusted for your username and package name.
 
-You'll need a ssh key to push the repo. You can `Generate`_ a key or `Add`_ existing one.
+You'll need a ssh key to push the repo. You can `Generate`_ a key or `Add`_ an existing one.
 
 .. _`Generate`: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
 .. _`Add`: https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
@@ -88,7 +83,7 @@ Step 4: Install Dev Requirements
 
 You should now be in the folder containing the ``requirements_dev.txt`` file.
 
-Your virtualenv should still be activated. Install the new project's local development requirements:
+Your virtualenv should still be activated. If it isn't, activate it now. Install the new project's local development requirements:
 
 .. code-block:: bash
 
@@ -110,7 +105,7 @@ Add the public repo to your Travis CI account.
 
 [#] For private projects got to `Travis CI com`_
 
-Go to your terminal and run the script `travis_pypi_setup.py`. It will:
+Go to your terminal and run the script ``travis_pypi_setup.py``. It will:
 
 * Encrypt your PyPI password in your Travis config.
 * Activate automated deployment on PyPI when you push a new tag to master branch.
@@ -122,6 +117,7 @@ See :ref:`travis-pypi-setup`.
 
 Step 6: Set Up ReadTheDocs
 --------------------------
+
 `ReadTheDocs`_ hosts documentation for the open source community. Think of it as Continuous Documentation.
 
 Log into your account at `ReadTheDocs`_ .
