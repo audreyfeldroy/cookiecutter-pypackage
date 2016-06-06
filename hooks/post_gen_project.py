@@ -12,6 +12,6 @@ def remove_file(filepath):
 if __name__ == '__main__':
     if '{{ cookiecutter.use_pypi_deployment_with_travis }}' != 'y':
         remove_file('travis_pypi_setup.py')
-    if '{{ cookiecutter.create_console_script }}' != 'y':
+    if 'no' in '{{ cookiecutter.command_line_interface|lower }}':
         filepath = os.path.join('{{ cookiecutter.project_slug }}', 'cli.py')
         remove_file(filepath)
