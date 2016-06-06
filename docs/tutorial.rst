@@ -16,7 +16,7 @@ First, you need to create and activate a virtualenv for the package project. Use
     virtualenv ~/.virtualenvs/mypackage
 
 
-Here, `mypackage` is the name of the package that you'll create.
+Here, ``mypackage`` is the name of the package that you'll create.
 
 Activate your environment:
 
@@ -57,9 +57,9 @@ Step 3: Create a GitHub Repo
 
 Go to your GitHub account and create a new repo named ``mypackage``.
 
-**If your ``virtualenv`` folder is within your project folder, be sure to add the ``virtualenv`` folder name to the ``.gitignore`` file.**
+``If your virtualenv folder is within your project folder, be sure to add the virtualenv folder name to your .gitignore file.
 
-You will find one folder named after the `[project_slug]` from your answers to running cookiecutter. Move into this folder, and then setup git to use your GitHub repo and upload the code:
+You will find one folder named after the ``[project_slug]`` from your answers to running cookiecutter. Move into this folder, and then setup git to use your GitHub repo and upload the code:
 
 .. code-block:: bash
 
@@ -91,26 +91,26 @@ Your virtualenv should still be activated. If it isn't, activate it now. Install
 
 If you have issues building the wheel for cryptography. Make sure that the required dependencies are installed. Follow the `Cryptography Instruction`_ for your OS
 
-.. _ `Cryptography Instruction `:https://cryptography.io/en/latest/installation/
+.. _`Cryptography Instruction`: https://cryptography.io/en/latest/installation/
 
 
 Step 5: Set Up Travis CI
 ------------------------
 
-`Travis CI org`_ is a continuous integration tool used to prevent integration problems. Every commit to the master branch will trigger automated builds to create the necessary files to run the application.
+`Travis CI org`_ [*] is a continuous integration tool used to prevent integration problems. Every commit to the master branch will trigger automated builds of the application.
 
 Login using your Github credentials.
 
 Add the public repo to your Travis CI account.
-
-[#] For private projects got to `Travis CI com`_
 
 Go to your terminal and run the script ``travis_pypi_setup.py``. It will:
 
 * Encrypt your PyPI password in your Travis config.
 * Activate automated deployment on PyPI when you push a new tag to master branch.
 
-See :ref:`travis-pypi-setup`.
+Take a look at your ``travis_pypi_setup.py`` file to see what it is doing. It's good to know what goes on behind the scenes!
+
+[*] For private projects go to `Travis CI com`_
 
 .. _`Travis CI org`: https://travis-ci.org/
 .. _`Travis CI com`: https://travis-ci.com/
@@ -126,18 +126,18 @@ Import the repository
 
 In your GitHub repo settings > Webhooks & services, turn on the ReadTheDocs service hook.
 
-.. _ `ReadTheDocs`: https://readthedocs.io/
+.. _`ReadTheDocs`: https://readthedocs.io/
 
 Step 7: Release on PyPI
 ------------------------
 
-The Python Package Index or `PyPI`_ is the official third-party software repository for the Python programming language. Python developers intend it to be a comprehensive catalog of all open source Python packages.[1]
+The Python Package Index or `PyPI`_ is the official third-party software repository for the Python programming language. Python developers intend it to be a comprehensive catalog of all open source Python packages.
 
 Release your package the standard Python way.
 
-`PyPI Help`_ submitting a package.
+See `PyPI Help`_ for more information about submitting a package.
 
-Here's a release checklist: https://gist.github.com/audreyr/5990987
+Here's a release checklist you can use: https://gist.github.com/audreyr/5990987
 
-.. _ `PyPI`: https://pypi.python.org/pypi
-.. _ `PyPI Help`: http://peterdowns.com/posts/first-time-with-pypi.html
+.. _`PyPI`: https://pypi.python.org/pypi
+.. _`PyPI Help`: http://peterdowns.com/posts/first-time-with-pypi.html
