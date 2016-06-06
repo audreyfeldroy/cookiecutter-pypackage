@@ -193,7 +193,7 @@ def test_project_with_invalid_module_name(cookies):
 
 
 def test_bake_with_no_console_script(cookies):
-    context = {'command_line_interface': 'no'}
+    context = {'command_line_interface': "No command-line interface"}
     result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     found_project_files = os.listdir(project_dir)
