@@ -26,19 +26,19 @@ If you are reporting a bug, please include:
 Fix Bugs
 ~~~~~~~~
 
-Look through the GitHub issues for bugs. Anything tagged with "bug"
+Look through the GitHub issues for bugs. Anything tagged with "Bug"
 is open to whoever wants to implement it.
 
 Implement Features
 ~~~~~~~~~~~~~~~~~~
 
-Look through the GitHub issues for features. Anything tagged with "feature"
-is open to whoever wants to implement it.
+Look through the GitHub issues for features. Anything tagged with "Feature"
+and "Please Help" is open to whoever wants to implement it.
 
 Write Documentation
 ~~~~~~~~~~~~~~~~~~~
 
-`cookiecutter-pypackage` could always use more documentation, whether as part of the
+Cookiecutter PyPackage could always use more documentation, whether as part of the
 official docs, in docstrings, or even on the web in blog posts, articles, and such.
 
 Submit Feedback
@@ -46,7 +46,7 @@ Submit Feedback
 
 The best way to send feedback is to file an issue at https://github.com/audreyr/cookiecutter-pypackage/issues.
 
-If you are proposing a feature:
+If you are proposing a new feature:
 
 * Explain in detail how it would work.
 * Keep the scope as narrow as possible, to make it easier to implement.
