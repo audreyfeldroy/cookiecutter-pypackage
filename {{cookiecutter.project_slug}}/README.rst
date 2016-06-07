@@ -8,8 +8,8 @@
 .. image:: https://img.shields.io/travis/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}.svg
         :target: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
 
-.. image:: https://readthedocs.io/projects/{{ cookiecutter.project_slug }}/badge/?version=latest
-        :target: https://readthedocs.io/projects/{{ cookiecutter.project_slug }}/?badge=latest
+.. image:: https://readthedocs.org/projects/{{ cookiecutter.project_slug }}/badge/?version=latest
+        :target: https://{{ cookiecutter.project_slug }}.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
 .. image:: https://requires.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/requirements.svg?branch=master
