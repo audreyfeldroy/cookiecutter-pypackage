@@ -24,13 +24,13 @@ If you are reporting a bug, please include:
 Fix Bugs
 ~~~~~~~~
 
-Look through the GitHub issues for bugs. Anything tagged with "Bug"
-is open to whoever wants to implement it.
+Look through the GitHub issues for bugs. Anything tagged with "bug"
+is open to whoever wants to implement a fix for it.
 
 Implement Features
 ~~~~~~~~~~~~~~~~~~
 
-Look through the GitHub issues for features. Anything tagged with "Feature"
+Look through the GitHub issues for features. Anything tagged with "enhancement"
 and "Please Help" is open to whoever wants to implement it.
 
 Write Documentation
