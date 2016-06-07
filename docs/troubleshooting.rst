@@ -10,8 +10,8 @@ Troubleshooting
 .. _`Edit this file`: https://github.com/audreyr/cookiecutter-pypackage/blob/master/docs/troubleshooting.rst
 
 
-Windows  Issues
----------------
+Windows Issues
+--------------
 
 * Some people have reported issues using gitbash; try using the Command Terminal instead.
 

@@ -144,6 +144,7 @@ Now your documentation will get rebuilt when you make documentation changes to y
 
 .. _`ReadTheDocs`: https://readthedocs.org/
 
+
 Step 7: Release on PyPI
 ------------------------
 
@@ -157,3 +158,11 @@ Here's a release checklist you can use: https://gist.github.com/audreyr/5990987
 
 .. _`PyPI`: https://pypi.python.org/pypi
 .. _`PyPI Help`: http://peterdowns.com/posts/first-time-with-pypi.html
+
+
+Having problems?
+----------------
+
+Visit :ref:`troubleshooting` page for help. If that doesn't help, go to our `Issues`_ page and create a new Issue. Be sure to give as much information as possible.
+
+.. _`Issues`: https://github.com/audreyr/cookiecutter-pypackage/issues
