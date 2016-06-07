@@ -1,5 +1,3 @@
-.. highlight:: shell
-
 ============
 Contributing
 ============
@@ -62,10 +60,14 @@ you already have `virtualenv` and `Git` installed and ready to go.
 1. Fork the `cookiecutter-pypackage` repo on GitHub.
 2. Clone your fork locally::
 
+  .. code-block:: bash
+
     $ cd path_for_the_repo
     $ git clone git@github.com:YOUR_NAME/cookiecutter-pypackage.git
 
 3. Assuming you have virtualenv installed (If you have Python3.5 this should already be there), you can create a new environment for your local development by typing::
+
+  .. code-block:: bash
 
     $ virtualenv cookiecutter-pypackage-env
     $ source cookiecutter-pypackage-env/bin/activate
@@ -75,6 +77,8 @@ you already have `virtualenv` and `Git` installed and ready to go.
 
 4. Create a branch for local development::
 
+  .. code-block:: bash
+
     $ git checkout -b name-of-your-bugfix-or-feature
 
    Now you can make your changes locally.
@@ -82,9 +86,13 @@ you already have `virtualenv` and `Git` installed and ready to go.
 5. When you're done making changes, check that your changes pass flake8. Since, this package contains mostly templates the flake should
    be run for tests directory::
 
+  .. code-block:: bash
+
     $ flake8 ./tests
 
 6. The next step would be to run the test cases. `cookiecutter-pypackage` uses py.test, you can run PyTest. Before you run pytest you should ensure all dependancies are installed::
+
+  .. code-block:: bash
 
     $ pip install -rrequirements_dev.txt
     $ py.test ./tests
@@ -97,6 +105,8 @@ you already have `virtualenv` and `Git` installed and ready to go.
 
 7. Before raising a pull request you should also run tox. This will run the tests across different versions of Python::
 
+  .. code-block:: bash
+
     $ tox
 
    .. note::
@@ -105,6 +115,8 @@ you already have `virtualenv` and `Git` installed and ready to go.
 8. If your contribution is a bug fix or new feature, you may want to add a test to the existing test suite. See section Add a New Test below for details. 
 
 9. Commit your changes and push your branch to GitHub::
+
+  .. code-block:: bash
 
     $ git add .
     $ git commit -m "Your detailed description of your changes."
