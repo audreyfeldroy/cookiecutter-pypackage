@@ -5,6 +5,18 @@ Troubleshooting
 Windows  Issues
 ---------------
 
-* You may have issues using gitbash instead of the Command Terminal.
+* Some people have reported issues using gitbash; try using the Command Terminal instead.
+
+* Virtual environments can sometimes be tricky on Windows. If you have Python 3.5 installed, this should get you a virtualenv named ``myenv`` created inside the current folder:
+
+.. code-block:: powershell
+
+    > c:\Python35\python -m venv myenv
+
+Or:
+
+.. code-block:: powershell
+
+    > c:\Python35\python c:\Python35\Tools\Scripts\pyvenv.py myenv
 
 * Some people have found that they have to re-activate their virtualenv whenever they change directory, so you should remember the path to the virtualenv in case you need it.

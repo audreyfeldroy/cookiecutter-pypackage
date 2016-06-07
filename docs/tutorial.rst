@@ -6,6 +6,12 @@ Tutorial
 
 .. _`Edit this file`: https://github.com/audreyr/cookiecutter-pypackage/blob/master/docs/tutorial.rst
 
+To start with, you will need a `GitHub account`_ and an account on `PyPI`_. Create these before you get started on this tutorial. If you are new to Git and GitHub, you should probably spend a few minutes on some of the tutorials at the top of the page at `GitHub Help`_.
+
+.. _`GitHub account`: https://github.com/
+.. _`PyPI`: https://pypi.python.org/pypi
+.. _`GitHub Help`: https://help.github.com/
+
 Step 1: Install Cookiecutter
 ----------------------------
 
@@ -14,7 +20,6 @@ First, you need to create and activate a virtualenv for the package project. Use
 .. code-block:: bash
 
     virtualenv ~/.virtualenvs/mypackage
-
 
 Here, ``mypackage`` is the name of the package that you'll create.
 
@@ -55,11 +60,11 @@ If you don't know what to enter, stick with the defaults.
 Step 3: Create a GitHub Repo
 ----------------------------
 
-Go to your GitHub account and create a new repo named ``mypackage``. The name of the repo should match the ``[project_slug]`` in order for Travis CI to find it; we'll do that in Step 5.
+Go to your GitHub account and create a new repo named ``mypackage``. The name of the repo should match the ``[project_slug]`` from your answers to running cookiecutter in order for Travis CI to find it when we get to Step 5.
 
 ``If your virtualenv folder is within your project folder, be sure to add the virtualenv folder name to your .gitignore file.
 
-You will find one folder named after the ``[project_slug]`` from your answers to running cookiecutter. Move into this folder, and then setup git to use your GitHub repo and upload the code:
+You will find one folder named after the ``[project_slug]``. Move into this folder, and then setup git to use your GitHub repo and upload the code:
 
 .. code-block:: bash
 
@@ -81,7 +86,7 @@ You'll need a ssh key to push the repo. You can `Generate`_ a key or `Add`_ an e
 Step 4: Install Dev Requirements
 --------------------------------
 
-You should now be in the folder containing the ``requirements_dev.txt`` file.
+You should still be in the folder containing the ``requirements_dev.txt`` file.
 
 Your virtualenv should still be activated. If it isn't, activate it now. Install the new project's local development requirements:
 
@@ -89,7 +94,7 @@ Your virtualenv should still be activated. If it isn't, activate it now. Install
 
     pip install -r requirements_dev.txt
 
-If you have issues building the wheel for cryptography. Make sure that the required dependencies are installed. Follow the `Cryptography Instruction`_ for your OS
+If you have issues building the wheel for cryptography, make sure that the required dependencies are installed. Follow the `Cryptography Instruction`_ for your OS
 
 .. _`Cryptography Instruction`: https://cryptography.io/en/latest/installation/
 
@@ -97,11 +102,11 @@ If you have issues building the wheel for cryptography. Make sure that the requi
 Step 5: Set Up Travis CI
 ------------------------
 
-`Travis CI org`_ [*] is a continuous integration tool used to prevent integration problems. Every commit to the master branch will trigger automated builds of the application.
+`Travis CI org`_ [*]_ is a continuous integration tool used to prevent integration problems. Every commit to the master branch will trigger automated builds of the application.
 
-Login using your Github credentials.
+Login using your Github credentials. It may take a few minutes for Travis CI to load up a list of all your GitHub repos. They will be listed with boxes to the left of the repo name, where the boxes have an ``X`` in them, meaning it is not connected to Travis CI.
 
-Add the public repo to your Travis CI account by clicking the switch "on" in the list of GitHub repos.
+Add the public repo to your Travis CI account by clicking the ``X`` to switch it "on" in the box next to the ``mypackage`` repo.
 
 Go to your terminal and run the script ``travis_pypi_setup.py``. It will:
 
@@ -110,7 +115,7 @@ Go to your terminal and run the script ``travis_pypi_setup.py``. It will:
 
 Take a look at your ``travis_pypi_setup.py`` file to see what it is doing. It's good to know what goes on behind the scenes!
 
-[*] For private projects go to `Travis CI com`_
+.. [*] For private projects go to `Travis CI com`_
 
 .. _`Travis CI org`: https://travis-ci.org/
 .. _`Travis CI com`: https://travis-ci.com/
@@ -120,20 +125,22 @@ Step 6: Set Up ReadTheDocs
 
 `ReadTheDocs`_ hosts documentation for the open source community. Think of it as Continuous Documentation.
 
-Log into your account at `ReadTheDocs`_ .
+Log into your account at `ReadTheDocs`_ . If you don't have one, create one and log into it.
 
-Import the repository.
+If you are not at your dashboard, choose the pull-down next to your username in the upper right, and select "My Projects". Choose the button to Import the repository and follow the directions.
 
-In your GitHub repo settings > Webhooks & services, turn on the ReadTheDocs service hook.
+In your GitHub repo, select Settings > Webhooks & Services, turn on the ReadTheDocs service hook.
 
-.. _`ReadTheDocs`: https://readthedocs.io/
+Now your documentation will get rebuilt when you make documentation changes to your package.
+
+.. _`ReadTheDocs`: https://readthedocs.org/
 
 Step 7: Release on PyPI
 ------------------------
 
 The Python Package Index or `PyPI`_ is the official third-party software repository for the Python programming language. Python developers intend it to be a comprehensive catalog of all open source Python packages.
 
-Release your package the standard Python way.
+When you are ready, release your package the standard Python way.
 
 See `PyPI Help`_ for more information about submitting a package.
 
