@@ -32,7 +32,7 @@ Activate your environment:
 
 On Windows, activate it like this. You may find that using a Command Prompt window works better than gitbash.
 
-.. code-block:: bash
+.. code-block:: powershell
 
     > \path\to\env\Scripts\activate
 
@@ -108,13 +108,13 @@ Step 5: Set Up Travis CI
 
 Login using your Github credentials. It may take a few minutes for Travis CI to load up a list of all your GitHub repos. They will be listed with boxes to the left of the repo name, where the boxes have an ``X`` in them, meaning it is not connected to Travis CI.
 
-Add the public repo to your Travis CI account by clicking the ``X`` to switch it "on" in the box next to the ``mypackage`` repo. Do not try to follow the other instructions, that will be taken care of next:
+Add the public repo to your Travis CI account by clicking the ``X`` to switch it "on" in the box next to the ``mypackage`` repo. Do not try to follow the other instructions, that will be taken care of next.
 
-Go to your terminal and run the script to do your Travis CI setup:
+In your terminal, your virtualenv should still be activated. If it isn't, activate it now. Run the script to do your Travis CI setup:
 
 .. code-block:: bash
 
-    travis_pypi_setup.py
+    python travis_pypi_setup.py
 
 This will:
 
@@ -163,6 +163,6 @@ Here's a release checklist you can use: https://gist.github.com/audreyr/5990987
 Having problems?
 ----------------
 
-Visit :ref:`troubleshooting` page for help. If that doesn't help, go to our `Issues`_ page and create a new Issue. Be sure to give as much information as possible.
+Visit our :ref:`troubleshooting` page for help. If that doesn't help, go to our `Issues`_ page and create a new Issue. Be sure to give as much information as possible.
 
 .. _`Issues`: https://github.com/audreyr/cookiecutter-pypackage/issues

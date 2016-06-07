@@ -13,9 +13,9 @@ Troubleshooting
 Windows Issues
 --------------
 
-* Some people have reported issues using gitbash; try using the Command Terminal instead.
+* Some people have reported issues using git bash; try using the Command Terminal instead.
 
-* Virtual environments can sometimes be tricky on Windows. If you have Python 3.5 installed (recommended), this should get you a virtualenv named ``myenv`` created inside the current folder:
+* Virtual environments can sometimes be tricky on Windows. If you have Python 3.5 or above installed (recommended), this should get you a virtualenv named ``myenv`` created inside the current folder:
 
 .. code-block:: powershell
 
