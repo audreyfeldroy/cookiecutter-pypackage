@@ -12,6 +12,7 @@ To start with, you will need a `GitHub account`_ and an account on `PyPI`_. Crea
 .. _`PyPI`: https://pypi.python.org/pypi
 .. _`GitHub Help`: https://help.github.com/
 
+
 Step 1: Install Cookiecutter
 ----------------------------
 
@@ -36,7 +37,7 @@ On Windows, activate it like this. You may find that using a Command Prompt wind
     > \path\to\env\Scripts\activate
 
 
-Install cookiecutter
+Install cookiecutter:
 
 .. code-block:: bash
 
@@ -57,12 +58,13 @@ Use cookiecutter, pointing it at the cookiecutter-pypackage repo:
 You'll be asked to enter a bunch of values to set the package up.
 If you don't know what to enter, stick with the defaults.
 
+
 Step 3: Create a GitHub Repo
 ----------------------------
 
-Go to your GitHub account and create a new repo named ``mypackage``. The name of the repo should match the ``[project_slug]`` from your answers to running cookiecutter in order for Travis CI to find it when we get to Step 5.
+Go to your GitHub account and create a new repo named ``mypackage``, where ``mypackage`` matches the ``[project_slug]`` from your answers to running cookiecutter. This is so that Travis CI can find it when we get to Step 5.
 
-``If your virtualenv folder is within your project folder, be sure to add the virtualenv folder name to your .gitignore file.
+``If your virtualenv folder is within your project folder, be sure to add the virtualenv folder name to your .gitignore file.``
 
 You will find one folder named after the ``[project_slug]``. Move into this folder, and then setup git to use your GitHub repo and upload the code:
 
@@ -106,9 +108,15 @@ Step 5: Set Up Travis CI
 
 Login using your Github credentials. It may take a few minutes for Travis CI to load up a list of all your GitHub repos. They will be listed with boxes to the left of the repo name, where the boxes have an ``X`` in them, meaning it is not connected to Travis CI.
 
-Add the public repo to your Travis CI account by clicking the ``X`` to switch it "on" in the box next to the ``mypackage`` repo.
+Add the public repo to your Travis CI account by clicking the ``X`` to switch it "on" in the box next to the ``mypackage`` repo. Do not try to follow the other instructions, that will be taken care of next:
 
-Go to your terminal and run the script ``travis_pypi_setup.py``. It will:
+Go to your terminal and run the script to do your Travis CI setup:
+
+.. code-block:: bash
+
+    travis_pypi_setup.py
+
+This will:
 
 * Encrypt your PyPI password in your Travis config.
 * Activate automated deployment on PyPI when you push a new tag to master branch.
@@ -119,6 +127,7 @@ Take a look at your ``travis_pypi_setup.py`` file to see what it is doing. It's 
 
 .. _`Travis CI org`: https://travis-ci.org/
 .. _`Travis CI com`: https://travis-ci.com/
+
 
 Step 6: Set Up ReadTheDocs
 --------------------------
