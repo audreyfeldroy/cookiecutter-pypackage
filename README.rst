@@ -30,9 +30,10 @@ Features
 Quickstart
 ----------
 
-Install cookiecutter if you haven't installed it yet)::
+Install the latest Cookiecutter if you haven't installed it yet (this requires 
+Cookiecutter 1.4.0 or higher)::
 
-    pip install cookiecutter
+    pip install -U cookiecutter
 
 Generate a Python package project::
 
