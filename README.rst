@@ -2,8 +2,6 @@
 Cookiecutter PyPackage
 ======================
 
-.. image:: https://img.shields.io/travis/audreyr/cookiecutter-pypackage.svg
-   :target: https://travis-ci.org/audreyr/cookiecutter-pypackage
 .. image:: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/shield.svg
      :target: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/
      :alt: Updates
@@ -26,6 +24,21 @@ Features
 * Command line interface using Click (optional)
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
+
+Build Status
+-------------
+
+Linux:
+
+.. image:: https://img.shields.io/travis/audreyr/cookiecutter-pypackage.svg
+    :target: https://travis-ci.org/audreyr/cookiecutter-pypackage
+    :alt: Linux build status on Travis CI
+
+Windows:
+
+.. image:: https://ci.appveyor.com/api/projects/status/github/audreyr/cookiecutter-pypackage?branch=master
+    :target: https://ci.appveyor.com/project/audreyr/cookiecutter-pypackage/branch/master
+    :alt: Windows build status on Appveyor
 
 Quickstart
 ----------
