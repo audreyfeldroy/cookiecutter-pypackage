@@ -15,9 +15,9 @@
         :alt: Documentation Status
 {%- endif %}
 
-.. image:: https://requires.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/requirements.svg?branch=master
-        :target: https://requires.io/github/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/requirements?branch=master
-        :alt: Dependencies
+.. image:: https://pyup.io/repos/github/{{ cookiecutter.github_username }}/cookiecutter-django/shield.svg
+     :target: https://pyup.io/repos/github/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/
+     :alt: Updates
 
 
 {{ cookiecutter.project_short_description }}
@@ -39,3 +39,4 @@ This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypack
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+

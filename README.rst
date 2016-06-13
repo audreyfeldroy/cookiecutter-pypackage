@@ -43,7 +43,7 @@ Windows:
 Quickstart
 ----------
 
-Install the latest Cookiecutter if you haven't installed it yet (this requires 
+Install the latest Cookiecutter if you haven't installed it yet (this requires
 Cookiecutter 1.4.0 or higher)::
 
     pip install -U cookiecutter
@@ -63,7 +63,7 @@ Then:
 * Release your package by pushing a new tag to master.
 * Add a `requirements.txt` file that specifies the packages you will need for
   your project and their versions. For more info see the `pip docs for requirements files`_.
-* Activate your project on RequiresIO_.
+* Activate your project on `pyup.io`_.
 
 .. _`pip docs for requirements files`: https://pip.pypa.io/en/stable/user_guide/#requirements-files
 
@@ -116,7 +116,7 @@ make my own packaging experience better.
 .. _Tox: http://testrun.org/tox/
 .. _Sphinx: http://sphinx-doc.org/
 .. _ReadTheDocs: https://readthedocs.io/
-.. _RequiresIO: https://requires.io/
+.. _`pyup.io`: https://pyup.io/
 .. _Bumpversion: https://github.com/peritus/bumpversion
 .. _PyPi: https://pypi.python.org/pypi
 

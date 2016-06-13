@@ -62,7 +62,7 @@ If you don't know what to enter, stick with the defaults.
 Step 3: Create a GitHub Repo
 ----------------------------
 
-Go to your GitHub account and create a new repo named ``mypackage``, where ``mypackage`` matches the ``[project_slug]`` from your answers to running cookiecutter. This is so that Travis CI can find it when we get to Step 5.
+Go to your GitHub account and create a new repo named ``mypackage``, where ``mypackage`` matches the ``[project_slug]`` from your answers to running cookiecutter. This is so that Travis CI and pyup.io can find it when we get to Step 5.
 
 ``If your virtualenv folder is within your project folder, be sure to add the virtualenv folder name to your .gitignore file.``
 
@@ -144,9 +144,23 @@ Now your documentation will get rebuilt when you make documentation changes to y
 
 .. _`ReadTheDocs`: https://readthedocs.org/
 
+Step 7: Set Up pyup.io
+----------------------
 
-Step 7: Release on PyPI
-------------------------
+`pyup.io`_ is a service that helps you to keep your requirements files up to date. It sends you automated
+pull requests whenever there's a new release for one of your dependencies.
+
+To use it, create a new account at `pyup.io`_ or log into your existing account.
+
+Click on the green ``Add Repo`` button in the top left corner and select the repo you created in Step 3. A popup will
+ask you whether you want to pin your dependencies. Click on ``Pin`` to add the repo.
+
+Once your repo is set up correctly, the pyup.io badge will show your current update status.
+
+.. _`pyup.io`: https://pyup.io/
+
+Step 8: Release on PyPI
+-----------------------
 
 The Python Package Index or `PyPI`_ is the official third-party software repository for the Python programming language. Python developers intend it to be a comprehensive catalog of all open source Python packages.
 
