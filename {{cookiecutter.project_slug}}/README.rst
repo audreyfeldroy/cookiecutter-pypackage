@@ -15,7 +15,7 @@
         :alt: Documentation Status
 {%- endif %}
 
-.. image:: https://pyup.io/repos/github/{{ cookiecutter.github_username }}/cookiecutter-django/shield.svg
+.. image:: https://pyup.io/repos/github/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/shield.svg
      :target: https://pyup.io/repos/github/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/
      :alt: Updates
 
