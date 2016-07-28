@@ -44,7 +44,7 @@ test_script:
   - "%PYTHON%/Scripts/tox -e %TOX_ENV%"
 
 after_test:
-  - "%PYTHON%/python setup.py bdist"
+  - "%PYTHON%/python setup.py --command-packages wheel bdist_wheel"
   - ps: "ls dist"
 
 artifacts:
