@@ -1,0 +1,6 @@
+[run]
+branch=true
+source=.
+omit=
+    setup.py
+    venv/*
