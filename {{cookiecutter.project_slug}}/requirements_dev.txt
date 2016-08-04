@@ -1,13 +1,10 @@
-pip==8.1.2
 bumpversion==0.5.3
-wheel==0.29.0
-watchdog==0.8.3
-flake8==2.6.0
-tox==2.3.1
 coverage==4.1
-Sphinx==1.4.4
-{% if cookiecutter.use_pypi_deployment_with_travis == 'y' -%}
-cryptography==1.4
-PyYAML==3.11{% endif %}
-{% if cookiecutter.use_pytest == 'y' -%}
-pytest==2.9.2{%- endif %}
+flake8-blind-except==0.1.1
+flake8-import-order==0.9.1
+flake8-print==2.0.2
+flake8-quotes==0.8.1
+flake8==3.0.3
+pep8-naming==0.4.1
+pytest==2.9.2
+watchdog==0.8.3
