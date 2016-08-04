@@ -6,7 +6,7 @@ from setuptools import setup
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
-with open('HISTORY.rst') as history_file:
+with open('CHANGELOG.rst') as history_file:
     history = history_file.read()
 
 requirements = [
