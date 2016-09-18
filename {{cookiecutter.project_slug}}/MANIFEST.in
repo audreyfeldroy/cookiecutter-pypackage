@@ -1,3 +1,4 @@
+graft {{ cookiecutter.project_slug }}
 {% if cookiecutter.create_author_file == 'y' %}
 include AUTHORS.rst
 {% endif %}
