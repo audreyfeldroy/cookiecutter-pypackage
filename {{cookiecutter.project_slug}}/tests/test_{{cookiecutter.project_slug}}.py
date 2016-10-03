@@ -26,30 +26,26 @@ from {{ cookiecutter.project_slug }} import cli
 
 
 {% if cookiecutter.use_pytest == 'y' -%}
-class Test{{ cookiecutter.project_slug|title }}(object):
+@pytest.fixture
+def some_fixture():
+    pass
 
-    @classmethod
-    def setup_class(cls):
-        pass
 
-    def test_something(self):
-        pass
+def test_something(some_fixture):
+    pass
+
 
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
-    def test_command_line_interface(self):
-        runner = CliRunner()
-        result = runner.invoke(cli.main)
-        assert result.exit_code == 0
-        assert '{{ cookiecutter.project_slug }}.cli.main' in result.output
-        help_result = runner.invoke(cli.main, ['--help'])
-        assert help_result.exit_code == 0
-        assert '--help  Show this message and exit.' in help_result.output
+def test_command_line_interface(self):
+    runner = CliRunner()
+    result = runner.invoke(cli.main)
+    assert result.exit_code == 0
+    assert '{{ cookiecutter.project_slug }}.cli.main' in result.output
+    help_result = runner.invoke(cli.main, ['--help'])
+    assert help_result.exit_code == 0
+    assert '--help  Show this message and exit.' in help_result.output
 
 {%- endif %}
-
-    @classmethod
-    def teardown_class(cls):
-        pass
 {% else %}
 class Test{{ cookiecutter.project_slug|title }}(unittest.TestCase):
 
@@ -72,8 +68,4 @@ class Test{{ cookiecutter.project_slug|title }}(unittest.TestCase):
         assert '--help  Show this message and exit.' in help_result.output
 
 {%- endif %}
-
-
-if __name__ == '__main__':
-    sys.exit(unittest.main())
 {%- endif %}
