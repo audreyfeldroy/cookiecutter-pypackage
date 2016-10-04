@@ -27,16 +27,24 @@ from {{ cookiecutter.project_slug }} import cli
 
 {% if cookiecutter.use_pytest == 'y' -%}
 @pytest.fixture
-def some_fixture():
+def response():
+    """Sample pytest fixture.
+    See more at: http://doc.pytest.org/en/latest/fixture.html
+    """
+    # import requests
+    # return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
     pass
 
 
-def test_something(some_fixture):
+def test_response(response):
+    """Sample pytest test function with the pytest fixture as an argument.
+    """
+    # assert response.status_code == 200
     pass
 
 
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
-def test_command_line_interface(self):
+def test_command_line_interface():
     runner = CliRunner()
     result = runner.invoke(cli.main)
     assert result.exit_code == 0
