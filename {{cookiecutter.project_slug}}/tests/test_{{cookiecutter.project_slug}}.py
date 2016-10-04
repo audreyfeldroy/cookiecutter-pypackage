@@ -33,14 +33,13 @@ def response():
     """
     # import requests
     # return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
-    pass
 
 
-def test_response(response):
+def test_content(response):
     """Sample pytest test function with the pytest fixture as an argument.
     """
-    # assert response.status_code == 200
-    pass
+    # from bs4 import BeautifulSoup
+    # assert 'GitHub' in BeautifulSoup(r.content).title.string
 
 
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
