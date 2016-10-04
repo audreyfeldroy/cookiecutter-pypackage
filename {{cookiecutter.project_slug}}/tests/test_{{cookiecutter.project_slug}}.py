@@ -39,7 +39,7 @@ def test_content(response):
     """Sample pytest test function with the pytest fixture as an argument.
     """
     # from bs4 import BeautifulSoup
-    # assert 'GitHub' in BeautifulSoup(r.content).title.string
+    # assert 'GitHub' in BeautifulSoup(response.content).title.string
 
 
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
