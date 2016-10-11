@@ -101,6 +101,13 @@ def test_bake_withspecialchars_and_run_tests(cookies):
         run_inside_dir('python setup.py test', str(result.project)) == 0
 
 
+def test_bake_with_apostrophe_and_run_tests(cookies):
+    """Ensure that a `full_name` with apostrophes does not break setup.py"""
+    with bake_in_temp_dir(cookies, extra_context={'full_name': "O'connor"}) as result:
+        assert result.project.isdir()
+        run_inside_dir('python setup.py test', str(result.project)) == 0
+
+
 def test_bake_and_run_travis_pypi_setup(cookies):
     # given:
     with bake_in_temp_dir(cookies) as result:
