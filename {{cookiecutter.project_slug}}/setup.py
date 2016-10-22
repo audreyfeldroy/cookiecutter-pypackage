@@ -54,7 +54,7 @@ setup(
     license="{{ cookiecutter.open_source_license }}",
 {%- endif %}
     zip_safe=False,
-    keywords='{{ cookiecutter.project_slug }}',
+    keywords=['{{ cookiecutter.project_slug }}',],
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
