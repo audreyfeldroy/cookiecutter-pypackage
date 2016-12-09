@@ -7,7 +7,7 @@ tox==2.3.1
 coverage==4.1
 Sphinx==1.4.8
 {% if cookiecutter.use_pypi_deployment_with_travis == 'y' -%}
-cryptography==1.4
+cryptography==1.5
 PyYAML==3.11{% endif %}
 {% if cookiecutter.use_pytest == 'y' -%}
 pytest==2.9.2{%- endif %}
