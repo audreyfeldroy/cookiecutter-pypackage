@@ -5,4 +5,4 @@ cryptography==1.7
 cookiecutter>=1.4.0
 pytest-cookies==0.2.0
 watchdog==0.8.3
-alabaster==0.7.8
+alabaster==0.7.9
