@@ -57,6 +57,7 @@ Then:
 * Create a repo and put it there.
 * Add the repo to your Travis-CI_ account.
 * Install the dev requirements into a virtualenv. (``pip install -r requirements_dev.txt``)
+* Register_ your project with PyPI.
 * Run the script `travis_pypi_setup.py` to encrypt your PyPI password in Travis config
   and activate automated deployment on PyPI when you push a new tag to master branch.
 * Add the repo to your ReadTheDocs_ account + turn on the ReadTheDocs service hook.
@@ -66,6 +67,7 @@ Then:
 * Activate your project on `pyup.io`_.
 
 .. _`pip docs for requirements files`: https://pip.pypa.io/en/stable/user_guide/#requirements-files
+.. _Register: https://packaging.python.org/distributing/#register-your-project
 
 For more details, see the `cookiecutter-pypackage tutorial`_.
 
