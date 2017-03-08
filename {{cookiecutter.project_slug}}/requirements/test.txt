@@ -1,0 +1,6 @@
+-r production.txt
+coverage==4.3.4
+mock>=1.0.1
+flake8>=2.1.0
+tox>=1.7.0
+codecov>=2.0.0

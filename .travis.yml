@@ -13,13 +13,5 @@ install:
 script:
   - tox
 
-deploy:
-  provider: pypi
-  distributions: sdist
-  user: audreyr
-  password:
-    secure: PLEASE_REPLACE_ME
-  on:
-    tags: true
-    repo: audreyr/python_boilerplate
-    condition: $TOXENV == py27
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
