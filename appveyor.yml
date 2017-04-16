@@ -36,7 +36,7 @@ init:
 install:
   - "%PYTHON%/Scripts/easy_install -U pip"
   - "%PYTHON%/Scripts/pip install tox"
-  - "%PYTHON%/Scripts/pip install wheel"
+  - "%PYTHON%/python -m pip install -U wheel setuptools"
 
 build: false  # Not a C# project, build stuff at the test step instead.
 
