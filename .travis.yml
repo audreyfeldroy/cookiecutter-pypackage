@@ -1,17 +1,17 @@
 language: python
 
-python: 3.5
-env:
-  - TOXENV=py27
-  - TOXENV=py33
-  - TOXENV=py34
-  - TOXENV=py35
+python: 
+  - 2.7
+  - 3.3
+  - 3.4
+  - 3.5
+  - 3.6
 
 install:
   - pip install -U tox
 
 script:
-  - tox
+  - tox -e ${TRAVIS_PYTHON_VERSION//./}
 
 deploy:
   provider: pypi
