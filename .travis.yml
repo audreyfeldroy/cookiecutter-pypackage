@@ -9,9 +9,11 @@ python:
 
 install:
   - pip install -U tox
+  - export TOXENV=${TRAVIS_PYTHON_VERSION}
+  # Add "py" prefix and remove the dot
+  - if [[ $TRAVIS_PYTHON_VERSION != 'pypy'* ]]; then export TOXENV=py${TRAVIS_PYTHON_VERSION//./}; fi
 
-script:
-  - tox -e ${TRAVIS_PYTHON_VERSION//./}
+script: tox
 
 deploy:
   provider: pypi
