@@ -12,10 +12,14 @@ python:
   - pypy
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -U tox
+install:
+  - pip install -U tox
+  - export TOXENV=${TRAVIS_PYTHON_VERSION}
+  # Add "py" prefix and remove the dot
+  - if [[ $TRAVIS_PYTHON_VERSION != 'pypy'* ]]; then export TOXENV=py${TRAVIS_PYTHON_VERSION//./}; fi
 
 # command to run tests, e.g. python setup.py test
-script: tox -e ${TRAVIS_PYTHON_VERSION//./}
+script: tox
 
 {% if cookiecutter.use_pypi_deployment_with_travis == 'y' -%}
 # After you create the Github repo and add it to Travis, run the
