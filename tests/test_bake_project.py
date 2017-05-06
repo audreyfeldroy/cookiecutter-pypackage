@@ -195,10 +195,9 @@ def test_not_using_pytest(cookies):
         assert "import pytest" not in ''.join(lines)
 
 
-def test_project_with_invalid_module_name(cookies):
+def test_project_with_hyphen_in_module_name(cookies):
     result = cookies.bake(extra_context={'project_name': 'something-with-a-dash'})
-    assert result.project is None
-    result = cookies.bake()
+    assert result.project is not None
     project_path = str(result.project)
 
     # when:
