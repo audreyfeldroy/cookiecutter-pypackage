@@ -19,8 +19,9 @@ from {{ cookiecutter.project_slug }} import {{ cookiecutter.project_slug }}
 from {{ cookiecutter.project_slug }} import cli
 {%- endif %}
 
+{%- if cookiecutter.use_pytest == 'y' %}
 
-{% if cookiecutter.use_pytest == 'y' -%}
+
 @pytest.fixture
 def response():
     """Sample pytest fixture.
@@ -35,9 +36,9 @@ def test_content(response):
     """Sample pytest test function with the pytest fixture as an argument."""
     # from bs4 import BeautifulSoup
     # assert 'GitHub' in BeautifulSoup(response.content).title.string
-
-
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
+
+
 def test_command_line_interface():
     """Test the CLI."""
     runner = CliRunner()
@@ -47,9 +48,10 @@ def test_command_line_interface():
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
     assert '--help  Show this message and exit.' in help_result.output
-
 {%- endif %}
-{% else %}
+{%- else %}
+
+
 class Test{{ cookiecutter.project_slug|title }}(unittest.TestCase):
     """Tests for `{{ cookiecutter.project_slug }}.{{ cookiecutter.project_slug }}` module."""
 
@@ -61,7 +63,8 @@ class Test{{ cookiecutter.project_slug|title }}(unittest.TestCase):
 
     def test_000_something(self):
         """Test something."""
-{% if cookiecutter.command_line_interface|lower == 'click' %}
+{%- if cookiecutter.command_line_interface|lower == 'click' %}
+
     def test_command_line_interface(self):
         """Test the CLI."""
         runner = CliRunner()
@@ -71,6 +74,5 @@ class Test{{ cookiecutter.project_slug|title }}(unittest.TestCase):
         help_result = runner.invoke(cli.main, ['--help'])
         assert help_result.exit_code == 0
         assert '--help  Show this message and exit.' in help_result.output
-
 {%- endif %}
 {%- endif %}
