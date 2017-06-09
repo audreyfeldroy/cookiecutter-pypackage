@@ -16,10 +16,9 @@
 import sys
 import os
 
-# If extensions (or modules to document with autodoc) are in another
-# directory, add these directories to sys.path here. If the directory is
-# relative to the documentation root, use os.path.abspath to make it
-# absolute, like shown here.
+# If extensions (or modules to document with autodoc) are in another directory,
+# add these directories to sys.path here. If the directory is relative to the
+# documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
 
 # Get the project root dir, which is the parent dir of this
@@ -33,14 +32,18 @@ sys.path.insert(0, project_root)
 
 import {{ cookiecutter.project_slug }}
 
-# -- General configuration ---------------------------------------------
+# -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
 #needs_sphinx = '1.0'
 
 # Add any Sphinx extension module names here, as strings. They can be
-# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode']
+# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
+# ones.
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.viewcode',
+]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -58,9 +61,9 @@ master_doc = 'index'
 project = u'{{ cookiecutter.project_name }}'
 copyright = u"{% now 'local', '%Y' %}, {{ cookiecutter.full_name }}"
 
-# The version info for the project you're documenting, acts as replacement
-# for |version| and |release|, also used in various other places throughout
-# the built documents.
+# The version info for the project you're documenting, acts as replacement for
+# |version| and |release|, also used in various other places throughout the
+# built documents.
 #
 # The short X.Y version.
 version = {{ cookiecutter.project_slug }}.__version__
@@ -71,8 +74,8 @@ release = {{ cookiecutter.project_slug }}.__version__
 # for a list of supported languages.
 #language = None
 
-# There are two options for replacing |today|: either, you set today to
-# some non-false value, then it is used:
+# There are two options for replacing |today|: either, you set today to some
+# non-false value, then it is used:
 #today = ''
 # Else, today_fmt is used as the format for a strftime call.
 #today_fmt = '%B %d, %Y'
@@ -102,19 +105,18 @@ pygments_style = 'sphinx'
 # A list of ignored prefixes for module index sorting.
 #modindex_common_prefix = []
 
-# If true, keep warnings as "system message" paragraphs in the built
-# documents.
+# If true, keep warnings as "system message" paragraphs in the built documents.
 #keep_warnings = False
 
 
-# -- Options for HTML output -------------------------------------------
+# -- Options for HTML output ----------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 html_theme = 'default'
 
-# Theme options are theme-specific and customize the look and feel of a
-# theme further.  For a list of options available for each theme, see the
+# Theme options are theme-specific and customize the look and feel of a theme
+# further.  For a list of options available for each theme, see the
 # documentation.
 #html_theme_options = {}
 
@@ -125,27 +127,25 @@ html_theme = 'default'
 # "<project> v<release> documentation".
 #html_title = None
 
-# A shorter title for the navigation bar.  Default is the same as
-# html_title.
+# A shorter title for the navigation bar.  Default is the same as html_title.
 #html_short_title = None
 
-# The name of an image file (relative to this directory) to place at the
-# top of the sidebar.
+# The name of an image file (relative to this directory) to place at the top
+# of the sidebar.
 #html_logo = None
 
-# The name of an image file (within the static path) to use as favicon
-# of the docs.  This file should be a Windows icon file (.ico) being
-# 16x16 or 32x32 pixels large.
+# The name of an image file (within the static path) to use as favicon of the
+# docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
+# pixels large.
 #html_favicon = None
 
-# Add any paths that contain custom static files (such as style sheets)
-# here, relative to this directory. They are copied after the builtin
-# static files, so a file named "default.css" will overwrite the builtin
-# "default.css".
+# Add any paths that contain custom static files (such as style sheets) here,
+# relative to this directory. They are copied after the builtin static files,
+# so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-# If not '', a 'Last updated on:' timestamp is inserted at every page
-# bottom, using the given strftime format.
+# If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
+# using the given strftime format.
 #html_last_updated_fmt = '%b %d, %Y'
 
 # If true, SmartyPants will be used to convert quotes and dashes to
@@ -155,8 +155,8 @@ html_static_path = ['_static']
 # Custom sidebar templates, maps document names to template names.
 #html_sidebars = {}
 
-# Additional templates that should be rendered to pages, maps page names
-# to template names.
+# Additional templates that should be rendered to pages, maps page names to
+# template names.
 #html_additional_pages = {}
 
 # If false, no module index is generated.
@@ -171,17 +171,15 @@ html_static_path = ['_static']
 # If true, links to the reST sources are added to the pages.
 #html_show_sourcelink = True
 
-# If true, "Created using Sphinx" is shown in the HTML footer.
-# Default is True.
+# If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
 #html_show_sphinx = True
 
-# If true, "(C) Copyright ..." is shown in the HTML footer.
-# Default is True.
+# If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
 #html_show_copyright = True
 
-# If true, an OpenSearch description file will be output, and all pages
-# will contain a <link> tag referring to it.  The value of this option
-# must be the base URL from which the finished HTML is served.
+# If true, an OpenSearch description file will be output, and all pages will
+# contain a <link> tag referring to it.  The value of this option must be the
+# base URL from which the finished HTML is served.
 #html_use_opensearch = ''
 
 # This is the file name suffix for HTML files (e.g. ".xhtml").
@@ -191,34 +189,34 @@ html_static_path = ['_static']
 htmlhelp_basename = '{{ cookiecutter.project_slug }}doc'
 
 
-# -- Options for LaTeX output ------------------------------------------
+# -- Options for LaTeX output ---------------------------------------------
 
 latex_elements = {
-    # The paper size ('letterpaper' or 'a4paper').
-    #'papersize': 'letterpaper',
+# The paper size ('letterpaper' or 'a4paper').
+#'papersize': 'letterpaper',
 
-    # The font size ('10pt', '11pt' or '12pt').
-    #'pointsize': '10pt',
+# The font size ('10pt', '11pt' or '12pt').
+#'pointsize': '10pt',
 
-    # Additional stuff for the LaTeX preamble.
-    #'preamble': '',
+# Additional stuff for the LaTeX preamble.
+#'preamble': '',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
-# (source start file, target name, title, author, documentclass
-# [howto/manual]).
+# (source start file, target name, title,
+#  author, documentclass [howto/manual]).
 latex_documents = [
     ('index', '{{ cookiecutter.project_slug }}.tex',
      u'{{ cookiecutter.project_name }} Documentation',
      u'{{ cookiecutter.full_name }}', 'manual'),
 ]
 
-# The name of an image file (relative to this directory) to place at
-# the top of the title page.
+# The name of an image file (relative to this directory) to place at the top of
+# the title page.
 #latex_logo = None
 
-# For "manual" documents, if this is true, then toplevel headings
-# are parts, not chapters.
+# For "manual" documents, if this is true, then toplevel headings are parts,
+# not chapters.
 #latex_use_parts = False
 
 # If true, show page references after internal links.
@@ -234,7 +232,7 @@ latex_documents = [
 #latex_domain_indices = True
 
 
-# -- Options for manual page output ------------------------------------
+# -- Options for manual page output ---------------------------------------
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
@@ -248,7 +246,7 @@ man_pages = [
 #man_show_urls = False
 
 
-# -- Options for Texinfo output ----------------------------------------
+# -- Options for Texinfo output -------------------------------------------
 
 # Grouping the document tree into Texinfo files. List of tuples
 # (source start file, target name, title, author,
