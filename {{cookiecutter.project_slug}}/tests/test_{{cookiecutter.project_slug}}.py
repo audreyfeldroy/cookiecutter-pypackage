@@ -6,11 +6,9 @@
 {% if cookiecutter.use_pytest == 'y' -%}
 import pytest
 {% else %}
-import sys
 import unittest
 {%- endif %}
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
-from contextlib import contextmanager
 from click.testing import CliRunner
 {%- endif %}
 
