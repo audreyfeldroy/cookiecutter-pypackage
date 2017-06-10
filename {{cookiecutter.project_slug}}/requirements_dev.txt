@@ -1,13 +1,13 @@
-pip==8.1.2
+pip==9.0.1
 bumpversion==0.5.3
 wheel==0.29.0
 watchdog==0.8.3
-flake8==2.6.0
-tox==2.3.1
-coverage==4.1
-Sphinx==1.4.8
+flake8==3.3.0
+tox==2.7.0
+coverage==4.3.4
+Sphinx==1.5.5
 {% if cookiecutter.use_pypi_deployment_with_travis == 'y' -%}
 cryptography==1.7
-PyYAML==3.11{% endif %}
+PyYAML==3.12{% endif %}
 {% if cookiecutter.use_pytest == 'y' -%}
-pytest==2.9.2{%- endif %}
+pytest==3.0.7{%- endif %}
