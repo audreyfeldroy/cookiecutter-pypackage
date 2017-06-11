@@ -2,21 +2,18 @@
 # This file will be regenerated if you run travis_pypi_setup.py
 
 language: python
-python: 3.5
-
-env:
-  - TOXENV=py35
-  - TOXENV=py34
-  - TOXENV=py33
-  - TOXENV=py27
-  - TOXENV=py26
-  - TOXENV=pypy
+python:
+  - 3.5
+  - 3.4
+  - 3.3
+  - 2.7
+  - 2.6
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -U tox
+install: pip install -U tox-travis
 
 # command to run tests, e.g. python setup.py test
-script: tox -e ${TOXENV}
+script: tox
 
 {% if cookiecutter.use_pypi_deployment_with_travis == 'y' -%}
 # After you create the Github repo and add it to Travis, run the
@@ -30,5 +27,5 @@ deploy:
   on:
     tags: true
     repo: {{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
-    condition: $TOXENV == py27
+    python: 2.7
 {%- endif %}
