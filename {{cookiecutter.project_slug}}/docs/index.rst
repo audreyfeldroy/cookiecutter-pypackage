@@ -12,7 +12,8 @@ Contents:
    modules
    contributing
    {% if cookiecutter.create_author_file == 'y' -%}authors
-   {% endif -%}history
+   {% endif -%}
+   history
 
 Indices and tables
 ==================
