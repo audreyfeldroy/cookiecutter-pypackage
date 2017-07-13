@@ -51,11 +51,11 @@ lint: ## check style with flake8
 	flake8 {{ cookiecutter.project_slug }} tests
 
 test: ## run tests quickly with the default Python
-	{% if cookiecutter.use_pytest == 'y' -%}
-		py.test
-	{% else %}
-		python setup.py test
-	{%- endif %}
+{%- if cookiecutter.use_pytest == 'y' %}
+	py.test
+{%- else %}
+	python setup.py test
+{%- endif %}
 
 test-all: ## run tests on every Python version with tox
 	tox
