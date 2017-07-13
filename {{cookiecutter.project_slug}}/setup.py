@@ -15,21 +15,21 @@ requirements = [
     {%- if cookiecutter.command_line_interface|lower == 'click' %}
     'Click>=6.0',
     {%- endif %}
-    # TODO: put package requirements here
+    # TODO: Put package requirements here
 ]
 
 setup_requirements = [
 {%- if cookiecutter.use_pytest == 'y' %}
     'pytest-runner',
 {%- endif %}
-    # TODO({{ cookiecutter.github_username }}): put setup requirements (distutils extensions, etc.) here
+    # TODO({{ cookiecutter.github_username }}): Put setup requirements (distutils extensions, etc.) here
 ]
 
 test_requirements = [
 {%- if cookiecutter.use_pytest == 'y' %}
     'pytest',
 {%- endif %}
-    # TODO: put package test requirements here
+    # TODO: Put package test requirements here
 ]
 
 {%- set license_classifiers = {
@@ -70,7 +70,7 @@ setup(
         '{{ license_classifiers[cookiecutter.open_source_license] }}',
 {%- endif %}
         'Natural Language :: English',
-        "Programming Language :: Python :: 2",
+        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
