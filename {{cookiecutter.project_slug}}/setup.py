@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from setuptools import setup
+"""The setup script."""
+
+from setuptools import setup, find_packages
 
 with open('README.rst') as readme_file:
     readme = readme_file.read()
@@ -16,7 +18,17 @@ requirements = [
     # TODO: put package requirements here
 ]
 
+setup_requirements = [
+{%- if cookiecutter.use_pytest == 'y' %}
+    'pytest-runner',
+{%- endif %}
+    # TODO({{ cookiecutter.github_username }}): put setup requirements (distutils extensions, etc.) here
+]
+
 test_requirements = [
+{%- if cookiecutter.use_pytest == 'y' %}
+    'pytest',
+{%- endif %}
     # TODO: put package test requirements here
 ]
 
@@ -36,11 +48,7 @@ setup(
     author="{{ cookiecutter.full_name.replace('\"', '\\\"') }}",
     author_email='{{ cookiecutter.email }}',
     url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}',
-    packages=[
-        '{{ cookiecutter.project_slug }}',
-    ],
-    package_dir={'{{ cookiecutter.project_slug }}':
-                 '{{ cookiecutter.project_slug }}'},
+    packages=find_packages(include=['{{ cookiecutter.project_slug }}']),
     {%- if 'no' not in cookiecutter.command_line_interface|lower %}
     entry_points={
         'console_scripts': [
@@ -71,5 +79,6 @@ setup(
         'Programming Language :: Python :: 3.5',
     ],
     test_suite='tests',
-    tests_require=test_requirements
+    tests_require=test_requirements,
+    setup_requires=setup_requirements,
 )
