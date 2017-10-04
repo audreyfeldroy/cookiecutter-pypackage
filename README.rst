@@ -2,15 +2,20 @@
 Cookiecutter PyPackage
 ======================
 
-.. image:: https://pyup.io/repos/github/wooyek/cookiecutter-pylib/shield.svg
-     :target: https://pyup.io/repos/github/wooyek/cookiecutter-pylib/
-     :alt: Updates
-
-Cookiecutter_ template for a Python package.
+Cookiecutter_ template for a Python PyPI ready package library.
 
 * GitHub repo: https://github.com/wooyek/cookiecutter-pylib/
 * Documentation: https://cookiecutter-pylib.readthedocs.io/
 * Free software: BSD license
+
+.. image:: https://img.shields.io/travis/wooyek/cookiecutter-pylib.svg
+:target: https://travis-ci.org/wooyek/cookiecutter-pylib
+    :alt: Linux build status on Travis CI
+
+.. image:: https://ci.appveyor.com/api/projects/status/github/wooyek/cookiecutter-pylib?branch=master&svg=true
+:target: https://ci.appveyor.com/project/wooyek/cookiecutter-pylib/branch/master
+    :alt: Windows build status on Appveyor
+
 
 Features
 --------
@@ -21,30 +26,18 @@ Features
 * Sphinx_ docs: Documentation ready for generation with, for example, ReadTheDocs_
 * Bumpversion_: Pre-configured version bumping with a single command
 * Auto-release to PyPI_ when you push a new tag to master (optional)
+* Split file requirements management with inheritance
 * Command line interface using Click (optional)
+* Initialization of GIT repo, github origin remote and git-flow
+* Python virtual environment bootstrapping
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 
-Build Status
--------------
-
-Linux:
-
-.. image:: https://img.shields.io/travis/wooyek/cookiecutter-pylib.svg
-    :target: https://travis-ci.org/wooyek/cookiecutter-pylib
-    :alt: Linux build status on Travis CI
-
-Windows:
-
-.. image:: https://ci.appveyor.com/api/projects/status/github/wooyek/cookiecutter-pylib?branch=master&svg=true
-    :target: https://ci.appveyor.com/project/wooyek/cookiecutter-pylib/branch/master
-    :alt: Windows build status on Appveyor
 
 Quickstart
 ----------
 
-Install the latest Cookiecutter if you haven't installed it yet (this requires
-Cookiecutter 1.4.0 or higher)::
+Install the latest Cookiecutter if you haven't installed it yet::
 
     pip install -U cookiecutter
 
@@ -54,16 +47,14 @@ Generate a Python package project::
 
 Then:
 
-* Create a repo and put it there.
 * Add the repo to your Travis-CI_ account.
-* Install the dev requirements into a virtualenv. (``pip install -r requirements_dev.txt``)
+* Install the dev requirements into a virtualenv. (``pip install -r requirements.txt``)
 * Run the script `travis_pypi_setup.py` to encrypt your PyPI password in Travis config
   and activate automated deployment on PyPI when you push a new tag to master branch.
 * Add the repo to your ReadTheDocs_ account + turn on the ReadTheDocs service hook.
 * Release your package by pushing a new tag to master.
-* Add a `requirements.txt` file that specifies the packages you will need for
+* Update `requirements/base.txt` file that specifies the packages you will need for
   your project and their versions. For more info see the `pip docs for requirements files`_.
-* Activate your project on `pyup.io`_.
 
 .. _`pip docs for requirements files`: https://pip.pypa.io/en/stable/user_guide/#requirements-files
 
@@ -79,15 +70,7 @@ Don't worry, you have options:
 Similar Cookiecutter Templates
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* `Nekroze/cookiecutter-pylib`_: A fork of this with a PyTest test runner,
-  strict flake8 checking with Travis/Tox, and some docs and `setup.py` differences.
-
-* `tony/cookiecutter-pylib-pythonic`_: Fork with py2.7+3.3 optimizations.
-  Flask/Werkzeug-style test runner, ``_compat`` module and module/doc conventions.
-  See ``README.rst`` or the `github comparison view`_ for exhaustive list of
-  additions and modifications.
-
-* `ardydedase/cookiecutter-pylib`_: A fork with separate requirements files rather than a requirements list in the ``setup.py`` file.
+* `available cookiecutters`_: View curated list of cookiecutters
 
 * Also see the `network`_ and `family tree`_ for this repo. (If you find
   anything that should be listed here, please add it and send a pull request!)
@@ -120,7 +103,7 @@ make my own packaging experience better.
 .. _Bumpversion: https://github.com/peritus/bumpversion
 .. _PyPi: https://pypi.python.org/pypi
 
-.. _`Nekroze/cookiecutter-pylib`: https://github.com/Nekroze/cookiecutter-pylib
+.. _`available cookiecutters`: http://cookiecutter.readthedocs.io/en/latest/readme.html#available-cookiecutters
 .. _`tony/cookiecutter-pylib-pythonic`: https://github.com/tony/cookiecutter-pylib-pythonic
 .. _`ardydedase/cookiecutter-pylib`: https://github.com/ardydedase/cookiecutter-pylib
 .. _github comparison view: https://github.com/tony/cookiecutter-pylib-pythonic/compare/audreyr:master...master
