@@ -2,13 +2,13 @@
 Cookiecutter PyPackage
 ======================
 
-.. image:: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/shield.svg
-     :target: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/
+.. image:: https://pyup.io/repos/github/wooyek/cookiecutter-pylib/shield.svg
+     :target: https://pyup.io/repos/github/wooyek/cookiecutter-pylib/
      :alt: Updates
 
 Cookiecutter_ template for a Python package.
 
-* GitHub repo: https://github.com/audreyr/cookiecutter-pypackage/
+* GitHub repo: https://github.com/wooyek/cookiecutter-pylib/
 * Documentation: https://cookiecutter-pypackage.readthedocs.io/
 * Free software: BSD license
 
@@ -30,14 +30,14 @@ Build Status
 
 Linux:
 
-.. image:: https://img.shields.io/travis/audreyr/cookiecutter-pypackage.svg
-    :target: https://travis-ci.org/audreyr/cookiecutter-pypackage
+.. image:: https://img.shields.io/travis/wooyek/cookiecutter-pylib.svg
+    :target: https://travis-ci.org/wooyek/cookiecutter-pylib
     :alt: Linux build status on Travis CI
 
 Windows:
 
-.. image:: https://ci.appveyor.com/api/projects/status/github/audreyr/cookiecutter-pypackage?branch=master&svg=true
-    :target: https://ci.appveyor.com/project/audreyr/cookiecutter-pypackage/branch/master
+.. image:: https://ci.appveyor.com/api/projects/status/github/wooyek/cookiecutter-pylib?branch=master&svg=true
+    :target: https://ci.appveyor.com/project/wooyek/cookiecutter-pylib/branch/master
     :alt: Windows build status on Appveyor
 
 Quickstart
@@ -50,7 +50,7 @@ Cookiecutter 1.4.0 or higher)::
 
 Generate a Python package project::
 
-    cookiecutter https://github.com/audreyr/cookiecutter-pypackage.git
+    cookiecutter https://github.com/wooyek/cookiecutter-pylib.git
 
 Then:
 
@@ -124,5 +124,5 @@ make my own packaging experience better.
 .. _`tony/cookiecutter-pypackage-pythonic`: https://github.com/tony/cookiecutter-pypackage-pythonic
 .. _`ardydedase/cookiecutter-pypackage`: https://github.com/ardydedase/cookiecutter-pypackage
 .. _github comparison view: https://github.com/tony/cookiecutter-pypackage-pythonic/compare/audreyr:master...master
-.. _`network`: https://github.com/audreyr/cookiecutter-pypackage/network
-.. _`family tree`: https://github.com/audreyr/cookiecutter-pypackage/network/members
+.. _`network`: https://github.com/wooyek/cookiecutter-pylib/network
+.. _`family tree`: https://github.com/wooyek/cookiecutter-pylib/network/members
