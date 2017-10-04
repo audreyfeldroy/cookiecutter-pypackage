@@ -14,6 +14,6 @@
   "command_line_interface": ["Click", "No command-line interface"],
   "create_author_file": "y",
   "sphinx_theme": ["sphinx-rtd-theme", "sphinx-py3doc-enhanced-theme"],
-  "create_virtual_environment": "Y",
-  "git_init": "Y"
+  "create_virtual_environment": "n",
+  "git_init": "n"
 }

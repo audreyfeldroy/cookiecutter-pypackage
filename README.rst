@@ -9,7 +9,7 @@ Cookiecutter PyPackage
 Cookiecutter_ template for a Python package.
 
 * GitHub repo: https://github.com/wooyek/cookiecutter-pylib/
-* Documentation: https://cookiecutter-pypackage.readthedocs.io/
+* Documentation: https://cookiecutter-pylib.readthedocs.io/
 * Free software: BSD license
 
 Features
@@ -67,9 +67,9 @@ Then:
 
 .. _`pip docs for requirements files`: https://pip.pypa.io/en/stable/user_guide/#requirements-files
 
-For more details, see the `cookiecutter-pypackage tutorial`_.
+For more details, see the `cookiecutter-pylib tutorial`_.
 
-.. _`cookiecutter-pypackage tutorial`: https://cookiecutter-pypackage.readthedocs.io/en/latest/tutorial.html
+.. _`cookiecutter-pylib tutorial`: https://cookiecutter-pylib.readthedocs.io/en/latest/tutorial.html
 
 Not Exactly What You Want?
 --------------------------
@@ -79,15 +79,15 @@ Don't worry, you have options:
 Similar Cookiecutter Templates
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* `Nekroze/cookiecutter-pypackage`_: A fork of this with a PyTest test runner,
+* `Nekroze/cookiecutter-pylib`_: A fork of this with a PyTest test runner,
   strict flake8 checking with Travis/Tox, and some docs and `setup.py` differences.
 
-* `tony/cookiecutter-pypackage-pythonic`_: Fork with py2.7+3.3 optimizations.
+* `tony/cookiecutter-pylib-pythonic`_: Fork with py2.7+3.3 optimizations.
   Flask/Werkzeug-style test runner, ``_compat`` module and module/doc conventions.
   See ``README.rst`` or the `github comparison view`_ for exhaustive list of
   additions and modifications.
 
-* `ardydedase/cookiecutter-pypackage`_: A fork with separate requirements files rather than a requirements list in the ``setup.py`` file.
+* `ardydedase/cookiecutter-pylib`_: A fork with separate requirements files rather than a requirements list in the ``setup.py`` file.
 
 * Also see the `network`_ and `family tree`_ for this repo. (If you find
   anything that should be listed here, please add it and send a pull request!)
@@ -120,9 +120,9 @@ make my own packaging experience better.
 .. _Bumpversion: https://github.com/peritus/bumpversion
 .. _PyPi: https://pypi.python.org/pypi
 
-.. _`Nekroze/cookiecutter-pypackage`: https://github.com/Nekroze/cookiecutter-pypackage
-.. _`tony/cookiecutter-pypackage-pythonic`: https://github.com/tony/cookiecutter-pypackage-pythonic
-.. _`ardydedase/cookiecutter-pypackage`: https://github.com/ardydedase/cookiecutter-pypackage
-.. _github comparison view: https://github.com/tony/cookiecutter-pypackage-pythonic/compare/audreyr:master...master
+.. _`Nekroze/cookiecutter-pylib`: https://github.com/Nekroze/cookiecutter-pylib
+.. _`tony/cookiecutter-pylib-pythonic`: https://github.com/tony/cookiecutter-pylib-pythonic
+.. _`ardydedase/cookiecutter-pylib`: https://github.com/ardydedase/cookiecutter-pylib
+.. _github comparison view: https://github.com/tony/cookiecutter-pylib-pythonic/compare/audreyr:master...master
 .. _`network`: https://github.com/wooyek/cookiecutter-pylib/network
 .. _`family tree`: https://github.com/wooyek/cookiecutter-pylib/network/members

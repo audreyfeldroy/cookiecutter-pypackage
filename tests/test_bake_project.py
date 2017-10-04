@@ -69,7 +69,7 @@ def project_info(result):
     """Get toplevel dir, project_slug, and project dir from baked cookies"""
     project_path = str(result.project)
     project_slug = os.path.split(project_path)[-1]
-    project_dir = os.path.join(project_path, project_slug)
+    project_dir = os.path.join(project_path, 'src', project_slug)
     return project_path, project_slug, project_dir
 
 
@@ -81,7 +81,7 @@ def test_bake_with_defaults(cookies):
 
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert 'setup.py' in found_toplevel_files
-        assert 'python_boilerplate' in found_toplevel_files
+        assert 'src' in found_toplevel_files
         assert 'tox.ini' in found_toplevel_files
         assert 'tests' in found_toplevel_files
         assert 'travis_pypi_setup.py' in found_toplevel_files
@@ -243,7 +243,7 @@ def test_bake_with_console_script_cli(cookies):
     context = {'command_line_interface': 'click'}
     result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
-    module_path = os.path.join(project_dir, 'cli.py')
+    module_path = os.path.join(project_dir, 'src', 'cli.py')
     package_name = '.'.join([project_slug, 'cli'])
     if sys.version_info >= (3, 5):
         spec = importlib.util.spec_from_file_location(package_name, module_path)

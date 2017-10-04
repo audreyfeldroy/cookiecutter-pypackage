@@ -49,7 +49,7 @@ Step 2: Generate Your Package
 
 Now it's time to generate your Python package.
 
-Use cookiecutter, pointing it at the cookiecutter-pypackage repo:
+Use cookiecutter, pointing it at the cookiecutter-pylib repo:
 
 .. code-block:: bash
 

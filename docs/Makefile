@@ -87,9 +87,9 @@ qthelp:
 	@echo
 	@echo "Build finished; now you can run "qcollectiongenerator" with the" \
 	      ".qhcp project file in $(BUILDDIR)/qthelp, like this:"
-	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/cookiecutter-pypackage.qhcp"
+	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/cookiecutter-pylib.qhcp"
 	@echo "To view the help file:"
-	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/cookiecutter-pypackage.qhc"
+	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/cookiecutter-pylib.qhc"
 
 applehelp:
 	$(SPHINXBUILD) -b applehelp $(ALLSPHINXOPTS) $(BUILDDIR)/applehelp
@@ -104,8 +104,8 @@ devhelp:
 	@echo
 	@echo "Build finished."
 	@echo "To view the help file:"
-	@echo "# mkdir -p $$HOME/.local/share/devhelp/cookiecutter-pypackage"
-	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/cookiecutter-pypackage"
+	@echo "# mkdir -p $$HOME/.local/share/devhelp/cookiecutter-pylib"
+	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/cookiecutter-pylib"
 	@echo "# devhelp"
 
 epub:
