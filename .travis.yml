@@ -1,4 +1,5 @@
 language: python
+sudo: false
 
 python: 3.5
 env:
@@ -7,11 +8,25 @@ env:
   - TOXENV=py34
   - TOXENV=py35
 
+before_install:
+  - python --version
+  - uname -a
+  - lsb_release -a
+
 install:
-  - pip install -U tox
+  - pip install -U tox setuptools pip
+  - virtualenv --version
+  - easy_install --version
+  - pip --version
+  - tox --version
 
 script:
-  - tox
+  - tox -v
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
