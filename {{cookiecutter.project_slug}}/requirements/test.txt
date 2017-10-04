@@ -1,6 +1,16 @@
--r production.txt
-coverage==4.3.4
-mock>=1.0.1
-flake8>=2.1.0
-tox>=1.7.0
-codecov>=2.0.0
+-r base.txt
+coverage
+mock
+flake8
+tox
+codecov
+factory-boy
+watchdog
+Sphinx==1.4.8
+{% if cookiecutter.use_pytest == 'y' -%}
+pytest
+pytest-xdist
+pytest-html
+pytest-django
+pytest-runner{% endif %}
+

@@ -52,7 +52,7 @@ lint: ## check style with flake8
 
 test: ## run tests quickly with the default Python
 	{% if cookiecutter.use_pytest == 'y' -%}
-		py.test
+		pytest
 	{% else %}
 		python setup.py test
 	{%- endif %}
@@ -81,7 +81,7 @@ docs: ## generate Sphinx HTML documentation, including API docs
 servedocs: docs ## compile the docs watching for changes
 	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
 
-release: clean ## package and upload a release
+publish: clean ## package and upload a release
 	python setup.py sdist upload
 	python setup.py bdist_wheel upload
 
@@ -92,3 +92,23 @@ dist: clean ## builds source and wheel package
 
 install: clean ## install the package to the active Python's site-packages
 	python setup.py install
+
+sync: ## Sync master and develop branches in both directions
+	git checkout develop
+	git pull origin develop --verbose
+	git checkout master
+	git pull origin master --verbose
+	git checkout develop
+	git merge master --verbose
+	git checkout master
+	git merge develop --verbose
+	git checkout develop
+
+bump: ## increment version number
+	bumpversion patch
+
+release: sync test-all bump publish ## package and upload a release
+	git checkout develop
+	git merge master --verbose
+	git push origin develop --verbose
+	git push origin master --verbose

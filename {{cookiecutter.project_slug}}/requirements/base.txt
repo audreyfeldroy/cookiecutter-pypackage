@@ -1,0 +1,4 @@
+# {{ cookiecutter.project_name }} dependencies
+# For development we keep them unfreezed to work and test on newest versions as soon as they are released
+# Local proprietary packages
+--find-links=requirements
