@@ -39,6 +39,7 @@ setup_requirements = [
 {%- endif %}
 ]
 
+
 def get_version(*file_paths):
     """Retrieves the version from path"""
     filename = os.path.join(os.path.dirname(__file__), *file_paths)

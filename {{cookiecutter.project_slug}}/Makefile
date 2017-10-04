@@ -48,7 +48,10 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 
 lint: ## check style with flake8
-	flake8 {{ cookiecutter.project_slug }} tests
+	python setup.py check --strict --metadata --restructuredtext
+	check-manifest  --ignore .idea,.idea/* .
+	flake8 src tests setup.py
+	isort --verbose --check-only --diff --recursive src tests setup.py
 
 test: ## run tests quickly with the default Python
 	{% if cookiecutter.use_pytest == 'y' -%}
@@ -62,13 +65,13 @@ test-all: ## run tests on every Python version with tox
 
 coverage: ## check code coverage quickly with the default Python
 {%- if cookiecutter.use_pytest == 'y' %}
-	coverage run --source {{ cookiecutter.project_slug }} -m pytest
+	coverage run --source src -m pytest
 {%- else %}
-	coverage run --source {{ cookiecutter.project_slug }} setup.py test
+	coverage run --source src setup.py test
 {%- endif %}
 	coverage report -m
 	coverage html
-	$(BROWSER) htmlcov/index.html
+	$(BROWSER) tmp/coverage/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/{{ cookiecutter.project_slug }}.rst

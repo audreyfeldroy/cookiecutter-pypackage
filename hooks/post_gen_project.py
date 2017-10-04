@@ -24,7 +24,7 @@ if __name__ == '__main__':
         remove_file('LICENSE')
 
 def boostrap_venv():
-    print("\n### Bootstrapping virtual environment")
+    print("### Bootstrapping virtual environment")
     from subprocess import call
     call(["python3", "-m", "venv", "--clear", ".pve"])
     call([".pve/bin/pip", "install", "-U", "pip", "setuptools"])
@@ -36,7 +36,7 @@ if '{{ cookiecutter.create_virtual_environment }}'.lower() == 'y':
 
 
 def git_init():
-    print("\n### Initializing git repo")
+    print("### Initializing git repo")
     from subprocess import call
     call(["git", "init"])
     call(["git", "add", "--all"])

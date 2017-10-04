@@ -4,11 +4,15 @@
 -e .
 
 # Other locally needed tooling
-pip
-setuptools
 bumpversion
 wheel
 invoke
+docutils
+check-manifest
+flake8
+readme-renderer
+pygments
+isort
 {% if cookiecutter.use_pypi_deployment_with_travis == 'y' -%}
 cryptography==1.7
 PyYAML==3.11{% endif %}
