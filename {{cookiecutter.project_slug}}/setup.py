@@ -17,13 +17,6 @@ try:
 except ImportError:
     from distutils.core import setup
 
-{%- set license_classifiers = {
-    'Apache Software License 2.0': 'License :: OSI Approved :: Apache Software License',
-    'BSD': 'License :: OSI Approved :: BSD License',
-    'ISCL': 'License :: OSI Approved :: ISC License (ISCL)',
-    'MIT': 'License :: OSI Approved :: MIT License',
-} %}
-
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
@@ -75,6 +68,14 @@ if sys.argv[-1] == 'tag':
     os.system("git tag -a %s -m 'version %s'" % (version, version))
     os.system("git push --tags")
     sys.exit()
+
+{%- set license_classifiers = {
+    'MIT license': 'License :: OSI Approved :: MIT License',
+    'BSD license': 'License :: OSI Approved :: BSD License',
+    'ISC license': 'License :: OSI Approved :: ISC License (ISCL)',
+    'Apache Software License 2.0': 'License :: OSI Approved :: Apache Software License',
+    'GNU General Public License v3': 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)'
+} %}
 
 setup(
     name='{{ cookiecutter.project_slug }}',
