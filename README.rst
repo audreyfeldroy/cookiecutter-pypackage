@@ -1,6 +1,6 @@
-======================
-Cookiecutter PyPackage
-======================
+==================
+Cookiecutter PyLib
+==================
 
 Cookiecutter_ template for a Python PyPI ready package library.
 
