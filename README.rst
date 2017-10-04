@@ -2,7 +2,7 @@
 Cookiecutter PyLib
 ==================
 
-Cookiecutter_ template for a Python PyPI ready package library.
+Cookiecutter_ template for a Python PyPI ready package library, based on `audreyr/cookiecutter-pypackage`_
 
 * GitHub repo: https://github.com/wooyek/cookiecutter-pylib/
 * Documentation: https://cookiecutter-pylib.readthedocs.io/
@@ -104,7 +104,7 @@ make my own packaging experience better.
 .. _PyPi: https://pypi.python.org/pypi
 
 .. _`available cookiecutters`: http://cookiecutter.readthedocs.io/en/latest/readme.html#available-cookiecutters
-.. _`tony/cookiecutter-pylib-pythonic`: https://github.com/tony/cookiecutter-pylib-pythonic
+.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage/
 .. _`ardydedase/cookiecutter-pylib`: https://github.com/ardydedase/cookiecutter-pylib
 .. _github comparison view: https://github.com/tony/cookiecutter-pylib-pythonic/compare/audreyr:master...master
 .. _`network`: https://github.com/wooyek/cookiecutter-pylib/network
