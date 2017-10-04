@@ -11,6 +11,5 @@ Sphinx==1.4.8
 pytest
 pytest-xdist
 pytest-html
-pytest-django
 pytest-runner{% endif %}
 

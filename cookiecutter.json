@@ -2,15 +2,18 @@
   "full_name": "Your full name",
   "email": "Your email used for package publication",
   "github_username": "Used to initialize GIT repo origin remote",
-  "project_name": "Python Boilerplate",
+  "project_name": "Python PyPI library boilerplate",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
-  "module_name": "{{ cookiecutter.project_slug.lower()|replace(' ', '_')|replace('-', '_') }}",
-  "project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
+  "package_name": "{{ cookiecutter.project_slug.lower()|replace(' ', '_')|replace('-', '_') }}",
+  "project_short_description": "Boilerplate you need to create a PyPI Python package.",
   "pypi_username": "{{ cookiecutter.github_username }}",
   "version": "0.1.0",
-  "use_pytest": "n",
+  "open_source_license": ["MIT license", "BSD license", "ISC license", "Apache Software License 2.0", "GNU General Public License v3", "Not open source"],
+  "use_pytest": "y",
   "use_pypi_deployment_with_travis": "y",
   "command_line_interface": ["Click", "No command-line interface"],
   "create_author_file": "y",
-  "open_source_license": ["MIT license", "BSD license", "ISC license", "Apache Software License 2.0", "GNU General Public License v3", "Not open source"]
+  "sphinx_theme": ["sphinx-rtd-theme", "sphinx-py3doc-enhanced-theme"],
+  "create_virtual_environment": "Y",
+  "git_init": "Y"
 }

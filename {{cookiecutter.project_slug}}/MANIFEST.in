@@ -16,7 +16,7 @@ include tox.ini
 
 recursive-include .github *.*
 recursive-include requirements *.*
-recursive-include {{cookiecutter.module_name}} *.html *.png *.gif *js *.css *jpg *jpeg *svg *py
+recursive-include {{cookiecutter.package_name}} *.html *.png *.gif *js *.css *jpg *jpeg *svg *py
 recursive-include docs *.bat
 recursive-include docs *.py
 recursive-include docs *.rst

@@ -5,17 +5,19 @@
 
 {% if cookiecutter.use_pytest == 'y' -%}
 import pytest
-{% else %}
+{%- else -%}
 import unittest
 {%- endif %}
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
 from click.testing import CliRunner
 {%- endif %}
 
-from {{ cookiecutter.module_name }} import *
+import {{ cookiecutter.package_name }}
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
-from {{ cookiecutter.module_name }} import cli
+from {{ cookiecutter.package_name }} import cli
 {%- endif %}
+
+{{ cookiecutter.package_name }}.__version__
 
 {%- if cookiecutter.use_pytest == 'y' %}
 
@@ -42,7 +44,7 @@ def test_command_line_interface():
     runner = CliRunner()
     result = runner.invoke(cli.main)
     assert result.exit_code == 0
-    assert '{{ cookiecutter.module_name }}.cli.main' in result.output
+    assert '{{ cookiecutter.package_name }}.cli.main' in result.output
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
     assert '--help  Show this message and exit.' in help_result.output
@@ -50,8 +52,8 @@ def test_command_line_interface():
 {%- else %}
 
 
-class Test{{ cookiecutter.module_name|title }}(unittest.TestCase):
-    """Tests for `{{ cookiecutter.module_name }}` package."""
+class Test{{ cookiecutter.package_name|title }}(unittest.TestCase):
+    """Tests for `{{ cookiecutter.package_name }}` package."""
 
     def setUp(self):
         """Set up test fixtures, if any."""
@@ -68,7 +70,7 @@ class Test{{ cookiecutter.module_name|title }}(unittest.TestCase):
         runner = CliRunner()
         result = runner.invoke(cli.main)
         assert result.exit_code == 0
-        assert '{{ cookiecutter.module_name }}.cli.main' in result.output
+        assert '{{ cookiecutter.package_name }}.cli.main' in result.output
         help_result = runner.invoke(cli.main, ['--help'])
         assert help_result.exit_code == 0
         assert '--help  Show this message and exit.' in help_result.output

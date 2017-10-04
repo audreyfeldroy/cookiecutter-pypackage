@@ -9,6 +9,7 @@ import sys
 import uuid
 from glob import glob
 from os.path import basename, splitext
+
 from pip.req import parse_requirements
 
 try:
@@ -50,7 +51,7 @@ def get_version(*file_paths):
     raise RuntimeError('Unable to find version string.')
 
 
-version = get_version("src", "{{ cookiecutter.module_name }}", "__init__.py")
+version = get_version("src", "{{ cookiecutter.package_name }}", "__init__.py")
 
 
 if sys.argv[-1] == 'publish':

@@ -199,7 +199,7 @@ def test_not_using_pytest(cookies):
         assert "import pytest" not in ''.join(lines)
 
 
-def test_project_with_hyphen_in_module_name(cookies):
+def test_project_with_hyphen_in_package_name(cookies):
     result = cookies.bake(extra_context={'project_name': 'something-with-a-dash'})
     assert result.project is not None
     project_path = str(result.project)
@@ -244,16 +244,16 @@ def test_bake_with_console_script_cli(cookies):
     result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     module_path = os.path.join(project_dir, 'cli.py')
-    module_name = '.'.join([project_slug, 'cli'])
+    package_name = '.'.join([project_slug, 'cli'])
     if sys.version_info >= (3, 5):
-        spec = importlib.util.spec_from_file_location(module_name, module_path)
+        spec = importlib.util.spec_from_file_location(package_name, module_path)
         cli = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(cli)
     elif sys.version_info >= (3, 3):
         file_loader = importlib.machinery.SourceFileLoader
-        cli = file_loader(module_name, module_path).load_module()
+        cli = file_loader(package_name, module_path).load_module()
     else:
-        cli = imp.load_source(module_name, module_path)
+        cli = imp.load_source(package_name, module_path)
     runner = CliRunner()
     noarg_result = runner.invoke(cli.main)
     assert noarg_result.exit_code == 0
