@@ -16,6 +16,10 @@ Cookiecutter_ template for a Python PyPI ready package library, based on `audrey
     :target: https://ci.appveyor.com/project/wooyek/cookiecutter-pylib/branch/master
     :alt: Windows build status on Appveyor
 
+.. image:: https://readthedocs.org/projects/cookiecutter-pylib/badge/?version=latest
+    :target: http://cookiecutter-pylib.readthedocs.io/en/latest/
+    :alt: Documentation build status
+
 
 Features
 --------
