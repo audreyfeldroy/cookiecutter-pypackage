@@ -33,6 +33,11 @@ test_requirements = parse_requirements(
     session=uuid.uuid1()
 )
 
+setup_requirements = [
+{%- if cookiecutter.use_pytest == 'y' %}
+    'pytest-runner',
+{%- endif %}
+]
 
 def get_version(*file_paths):
     """Retrieves the version from path"""
@@ -119,4 +124,5 @@ setup(
     ],
     test_suite='tests',
     tests_require=[str(r.req) for r in test_requirements],
+    setup_requires=setup_requirements,
 )

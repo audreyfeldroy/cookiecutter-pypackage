@@ -181,7 +181,7 @@ def test_bake_not_open_source(cookies):
 def test_using_pytest(cookies):
     with bake_in_temp_dir(cookies, extra_context={'use_pytest': 'y'}) as result:
         assert result.project.isdir()
-        test_file_path = result.project.join('tests/test_python_boilerplate.py')
+        test_file_path = result.project.join('tests/test_python_pypi_library_boilerplate.py')
         lines = test_file_path.readlines()
         assert "import pytest" in ''.join(lines)
         # Test the new pytest target
@@ -191,9 +191,9 @@ def test_using_pytest(cookies):
 
 
 def test_not_using_pytest(cookies):
-    with bake_in_temp_dir(cookies) as result:
+    with bake_in_temp_dir(cookies, extra_context={'use_pytest': 'n'}) as result:
         assert result.project.isdir()
-        test_file_path = result.project.join('tests/test_python_boilerplate.py')
+        test_file_path = result.project.join('tests/test_python_pypi_library_boilerplate.py')
         lines = test_file_path.readlines()
         assert "import unittest" in ''.join(lines)
         assert "import pytest" not in ''.join(lines)
@@ -243,7 +243,7 @@ def test_bake_with_console_script_cli(cookies):
     context = {'command_line_interface': 'click'}
     result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
-    module_path = os.path.join(project_dir, 'src', 'cli.py')
+    module_path = os.path.join(project_dir, 'cli.py')
     package_name = '.'.join([project_slug, 'cli'])
     if sys.version_info >= (3, 5):
         spec = importlib.util.spec_from_file_location(package_name, module_path)
