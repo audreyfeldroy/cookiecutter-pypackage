@@ -9,11 +9,11 @@ Cookiecutter_ template for a Python PyPI ready package library.
 * Free software: BSD license
 
 .. image:: https://img.shields.io/travis/wooyek/cookiecutter-pylib.svg
-:target: https://travis-ci.org/wooyek/cookiecutter-pylib
+    :target: https://travis-ci.org/wooyek/cookiecutter-pylib
     :alt: Linux build status on Travis CI
 
 .. image:: https://ci.appveyor.com/api/projects/status/github/wooyek/cookiecutter-pylib?branch=master&svg=true
-:target: https://ci.appveyor.com/project/wooyek/cookiecutter-pylib/branch/master
+    :target: https://ci.appveyor.com/project/wooyek/cookiecutter-pylib/branch/master
     :alt: Windows build status on Appveyor
 
 
