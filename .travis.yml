@@ -35,7 +35,8 @@ jobs:
           - cookiecutter --no-input .
           - cd python_pypi_library_boilerplate
           - source .pve/bin/activate
-          - pip install -r requirements/local.txt
+          - which python
+          - python -m pip install -r requirements/local.txt
           - make bump
           - make lint
           - make test
