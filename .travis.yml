@@ -5,8 +5,8 @@ python: 3.5
 
 env:
   - TOXENV=py35
-  - TOXENV=py34
-  - TOXENV=py27
+  #- TOXENV=py34
+  #- TOXENV=py27
 
 before_install:
   - python --version
@@ -23,20 +23,23 @@ install:
   - python3 -m venv -h
 
 script:
-  - cookiecutter --no-input .
-  - tox -v
+#  - cookiecutter --no-input .
+#  - tox -v
+   - echo
 
 jobs:
   include:
     - stage: make
       script:
           - cookiecutter --no-input .
-          - make -C python_pypi_library_boilerplate bump
-          - make -C python_pypi_library_boilerplate lint
-          - make -C python_pypi_library_boilerplate test
-          - make -C python_pypi_library_boilerplate test-all
-          - make -C python_pypi_library_boilerplate dist
-          - make -C python_pypi_library_boilerplate install
+          - cd python_pypi_library_boilerplate
+          - source .pve/bin/activate
+          - make bump
+          - make lint
+          - make test
+          - make test-all
+          - make dist
+          - make install
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
