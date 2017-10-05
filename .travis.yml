@@ -47,6 +47,8 @@ jobs:
           - make dist
           - make install
           - make docs
+          # Lint again after docs generation
+          - make lint
           - make clean
 
 after_success:

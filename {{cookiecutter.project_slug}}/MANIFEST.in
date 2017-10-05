@@ -1,6 +1,4 @@
-{% if cookiecutter.create_author_file == 'y' -%}
 include AUTHORS.rst
-{% endif -%}
 include CONTRIBUTING.rst
 include HISTORY.rst
 include LICENSE
@@ -16,17 +14,13 @@ include tox.ini
 
 recursive-include .github *.*
 recursive-include requirements *.*
-recursive-include {{cookiecutter.package_name}} *.html *.png *.gif *js *.css *jpg *jpeg *svg *py
+recursive-include src *.html *.png *.gif *js *.css *jpg *jpeg *svg *py
 recursive-include docs *.bat
 recursive-include docs *.py
 recursive-include docs *.rst
 recursive-include docs *.txt
 recursive-include docs Makefile
-recursive-exclude docs _build
-recursive-include example_project *.html
-recursive-include example_project *.md
-recursive-include example_project *.py
-recursive-include example_project *.txt
+recursive-exclude docs/_build *
 recursive-include src *.py
 recursive-include src *.css
 recursive-include src *.html
@@ -36,4 +30,3 @@ recursive-include tests *.env
 recursive-include tests *.py
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
-
