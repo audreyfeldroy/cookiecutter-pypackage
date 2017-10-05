@@ -3,11 +3,13 @@
 # We want to install (not modifiy PYTHONPATH) local package in editable mode
 -e .
 
+# Documentaion
+-r ../docs/requirements.txt
+
 # Other locally needed tooling
 bumpversion
 wheel
 invoke
-docutils
 check-manifest
 flake8
 readme-renderer

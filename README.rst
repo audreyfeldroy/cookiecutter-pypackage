@@ -2,7 +2,7 @@
 Cookiecutter PyLib
 ==================
 
-Cookiecutter_ template for a Python PyPI ready package library, based on `audreyr/cookiecutter-pypackage`_
+Cookiecutter_ template for a Python PyPI ready package library, extends upon `audreyr/cookiecutter-pypackage`_
 
 * GitHub repo: https://github.com/wooyek/cookiecutter-pylib/
 * Documentation: https://cookiecutter-pylib.readthedocs.io/
@@ -30,13 +30,18 @@ Features
 * Sphinx_ docs: Documentation ready for generation with, for example, ReadTheDocs_
 * Bumpversion_: Pre-configured version bumping with a single command
 * Auto-release to PyPI_ when you push a new tag to master (optional)
-* Split file requirements management with inheritance
+* Split file requirements_ management with inheritance and support for private locally installed packages
 * Command line interface using Click (optional)
-* Initialization of GIT repo, github origin remote and git-flow
-* Python virtual environment bootstrapping
+* `Initialization of Git`_ repo, github origin remote and git-flow
+* Python `virtual environment bootstrapping`_
+* Git master/develop local/origin sync with a single command
+* Release_ (sync, test, bump, publish) with a single command
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
-
+.. _requirements: https://github.com/wooyek/cookiecutter-pylib/tree/master/%7B%7Bcookiecutter.project_slug%7D%7D/requirements
+.. _Initialization of Git: https://github.com/wooyek/cookiecutter-pylib/blob/master/hooks/post_gen_project.py
+.. _virtual environment bootstrapping: https://github.com/wooyek/cookiecutter-pylib/blob/master/hooks/post_gen_project.py
+.. _Release: https://github.com/wooyek/cookiecutter-pylib/blob/master/%7B%7Bcookiecutter.project_slug%7D%7D/Makefile
 
 Quickstart
 ----------
@@ -52,7 +57,7 @@ Generate a Python package project::
 Then:
 
 * Add the repo to your Travis-CI_ account.
-* Install the dev requirements into a virtualenv. (``pip install -r requirements.txt``)
+* Install the dev requirements into a virtualenv. (``pip install -r requirements/local.txt``)
 * Run the script `travis_pypi_setup.py` to encrypt your PyPI password in Travis config
   and activate automated deployment on PyPI when you push a new tag to master branch.
 * Add the repo to your ReadTheDocs_ account + turn on the ReadTheDocs service hook.
