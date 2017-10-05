@@ -22,6 +22,7 @@ recursive-include docs *.py
 recursive-include docs *.rst
 recursive-include docs *.txt
 recursive-include docs Makefile
+recursive-exclude docs _build
 recursive-include example_project *.html
 recursive-include example_project *.md
 recursive-include example_project *.py
@@ -35,3 +36,4 @@ recursive-include tests *.env
 recursive-include tests *.py
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
+

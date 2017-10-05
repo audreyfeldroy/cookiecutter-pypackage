@@ -21,7 +21,6 @@ install:
   - tox --version
   - git --version
   - python3 -m venv -h
-  - python -m pip install -r requirements/local.txt
 
 script:
   # If test fail with vague messages, uncomment this and see generation log
