@@ -4,9 +4,9 @@ sudo: false
 python: 3.5
 
 env:
-  - TOXENV=py27
-  - TOXENV=py34
   - TOXENV=py35
+  - TOXENV=py34
+  - TOXENV=py27
 
 before_install:
   - python --version
@@ -22,7 +22,7 @@ install:
 
 jobs:
   include:
-    - script:
+    script:
           - tox -v
           - cookiecutter --no-input .
     - stage: make
