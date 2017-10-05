@@ -98,7 +98,7 @@ setup(
     {%- if 'no' not in cookiecutter.command_line_interface|lower %}
     entry_points={
         'console_scripts': [
-            '{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:main'
+            '{{ cookiecutter.package_name }}={{ cookiecutter.package_name }}.cli:main'
         ]
     },
     {%- endif %}
