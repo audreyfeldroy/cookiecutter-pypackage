@@ -69,7 +69,7 @@ def project_info(result):
     """Get toplevel dir, project_slug, and project dir from baked cookies"""
     project_path = str(result.project)
     project_slug = os.path.split(project_path)[-1]
-    project_dir = os.path.join(project_path, 'src', project_slug)
+    project_dir = os.path.join(project_path, 'src', project_slug.replace('-', '_'))
     return project_path, project_slug, project_dir
 
 
