@@ -37,6 +37,9 @@ jobs:
           - source .pve/bin/activate
           - which python
           - python -m pip install -r requirements/local.txt
+          - ls -la .pve/bin/
+          - pwd
+          - la -la
           - make bump
           - make lint
           - make test
