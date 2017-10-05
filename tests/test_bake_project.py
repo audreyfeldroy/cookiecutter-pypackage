@@ -257,7 +257,7 @@ def test_bake_with_console_script_cli(cookies):
     runner = CliRunner()
     noarg_result = runner.invoke(cli.main)
     assert noarg_result.exit_code == 0
-    noarg_output = ' '.join(['Replace this message by putting your code into', project_slug])
+    noarg_output = ' '.join(['Replace this message by putting your code into', project_slug.replace('-', '_')])
     assert noarg_output in noarg_result.output
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
