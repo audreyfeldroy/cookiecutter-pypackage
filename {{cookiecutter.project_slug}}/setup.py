@@ -43,6 +43,7 @@ setup_requirements = [
 def get_version(*file_paths):
     """Retrieves the version from path"""
     filename = os.path.join(os.path.dirname(__file__), *file_paths)
+    print("Looking for version in: {}".format(filename))
     version_file = open(filename).read()
     version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", version_file, re.M)
     if version_match:

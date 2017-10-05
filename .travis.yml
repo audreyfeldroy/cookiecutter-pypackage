@@ -38,8 +38,9 @@ jobs:
           - which python
           - python -m pip install -r requirements/local.txt
           - ls -la .pve/bin/
+          - tox --version
           - pwd
-          - la -la
+          - ls -la
           - make bump
           - make lint
           - make test
