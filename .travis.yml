@@ -24,7 +24,7 @@ install:
 
 script:
   # If test fail with vague messages, uncomment this and see generation log
-  # - cookiecutter --no-input .
+  - cookiecutter --no-input .
   - tox -v
 
 jobs:
