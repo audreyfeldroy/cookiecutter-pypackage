@@ -21,6 +21,7 @@ install:
   - tox --version
 
 script:
+  - cookiecutter --no-input .
   - tox -v
 
 jobs:
