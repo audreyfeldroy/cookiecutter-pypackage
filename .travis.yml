@@ -5,8 +5,8 @@ python: 3.5
 
 env:
   - TOXENV=py35
-  #- TOXENV=py34
-  #- TOXENV=py27
+  - TOXENV=py34
+  - TOXENV=py27
 
 before_install:
   - python --version
@@ -25,8 +25,7 @@ install:
 script:
   # If test fail with vague messages, uncomment this and see generation log
   # - cookiecutter --no-input .
-  # - tox -v
-  echo
+  - tox -v
 
 jobs:
   include:
@@ -34,13 +33,12 @@ jobs:
       script:
           - cookiecutter --no-input .
           - cd python_pypi_library_boilerplate
-#          - which python
-#          - python -m pip install -r requirements/local.txt
-#          - ls -la .pve/bin/
-#          - ls -la /home/travis/virtualenv/python3.5.3
-#          - tox --version
-#          - pwd
-#          - ls -la
+          - which python
+          - ls -la .pve/bin/
+          - ls -la /home/travis/virtualenv/python3.5.3/bin
+          - tox --version
+          - pwd
+          - ls -la
           - make bump
           - make lint
           - make test
