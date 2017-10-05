@@ -19,6 +19,8 @@ install:
   - easy_install --version
   - pip --version
   - tox --version
+  - git --version
+  - python3 -m venv -h
 
 script:
   - cookiecutter --no-input .
