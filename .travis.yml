@@ -34,13 +34,13 @@ jobs:
       script:
           - cookiecutter --no-input .
           - cd python_pypi_library_boilerplate
-          - which python
-          - python -m pip install -r requirements/local.txt
-          - ls -la .pve/bin/
-          - ls -la /home/travis/virtualenv/python3.5.3
-          - tox --version
-          - pwd
-          - ls -la
+#          - which python
+#          - python -m pip install -r requirements/local.txt
+#          - ls -la .pve/bin/
+#          - ls -la /home/travis/virtualenv/python3.5.3
+#          - tox --version
+#          - pwd
+#          - ls -la
           - make bump
           - make lint
           - make test
