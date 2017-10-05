@@ -33,7 +33,7 @@ jobs:
     - stage: make
       script:
           - cookiecutter --no-input .
-          - cd python_pypi_library_boilerplate
+          - cd python-pypi-library-boilerplate
           - which python
           - ls -la .pve/bin/
           - ls -la /home/travis/virtualenv/python3.5.3/bin
