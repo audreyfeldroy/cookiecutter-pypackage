@@ -20,9 +20,11 @@ install:
   - pip --version
   - tox --version
 
+script:
+  - tox -v
+
 jobs:
   include:
-    - script: tox -v
     - stage: make
       script:
           - cookiecutter --no-input .
