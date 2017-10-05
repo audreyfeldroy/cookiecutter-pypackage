@@ -16,23 +16,23 @@ install:
   - tox --version
 
 jobs:
-    include:
-        - stage: tox
-            env:
-              - TOXENV=py27
-              - TOXENV=py34
-              - TOXENV=py35
-            script:
-              - tox -v
-              - cookiecutter --no-input .
-        - stage: make
-            script:
-              - make -C python_pypi_library_boilerplate bump
-              - make -C python_pypi_library_boilerplate lint
-              - make -C python_pypi_library_boilerplate test
-              - make -C python_pypi_library_boilerplate test-all
-              - make -C python_pypi_library_boilerplate dist
-              - make -C python_pypi_library_boilerplate install
+  include:
+    - stage: tox
+      env:
+          - TOXENV=py27
+          - TOXENV=py34
+          - TOXENV=py35
+      script:
+          - tox -v
+          - cookiecutter --no-input .
+    - stage: make
+      script:
+          - make -C python_pypi_library_boilerplate bump
+          - make -C python_pypi_library_boilerplate lint
+          - make -C python_pypi_library_boilerplate test
+          - make -C python_pypi_library_boilerplate test-all
+          - make -C python_pypi_library_boilerplate dist
+          - make -C python_pypi_library_boilerplate install
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
