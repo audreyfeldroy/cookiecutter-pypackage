@@ -28,6 +28,7 @@ def boostrap_venv():
     from subprocess import call
     call(["python3", "-m", "venv", "--clear", ".pve"])
     call([".pve/bin/python", "-Im", "ensurepip", "--upgrade", "--default-pip", "-v"])
+    call([".pve/bin/python", "-m", "pip", "--version"])
     call(["ls", "-la"])
     call(["ls", "-la", ".pve"])
     call(["ls", "-la", ".pve/bin"])
