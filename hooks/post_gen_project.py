@@ -27,10 +27,6 @@ def boostrap_venv():
     print("### Bootstrapping virtual environment")
     from subprocess import call
     call(["python3", "-m", "venv", "--clear", ".pve"])
-    call(["ls", "-la"])
-    call(["ls", "-la", ".pve"])
-    call(["ls", "-la", ".pve", "bin"])
-
     call([".pve/bin/pip", "install", "-U", "pip", "setuptools"])
     call([".pve/bin/pip", "install", "-r", "requirements/local.txt"])
 
