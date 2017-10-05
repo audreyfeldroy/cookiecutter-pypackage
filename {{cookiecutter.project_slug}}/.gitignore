@@ -109,3 +109,4 @@ fabric.properties
 .pve
 .cache
 tmp
+python_pypi_library_boilerplate/

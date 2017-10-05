@@ -79,6 +79,8 @@ docs: ## generate Sphinx HTML documentation, including API docs
 	sphinx-apidoc -o docs/ src
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
+
+docs-view: docs ## generate Sphinx HTML documentation, including API docs
 	$(BROWSER) docs/_build/html/index.html
 
 servedocs: docs ## compile the docs watching for changes
