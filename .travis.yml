@@ -45,8 +45,11 @@ jobs:
           - make lint
           - make test
           - make test-all
+          - make coverage
           - make dist
           - make install
+          - make docs
+          - make clean
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

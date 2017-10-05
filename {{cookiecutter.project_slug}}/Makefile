@@ -69,6 +69,8 @@ coverage: ## check code coverage quickly with the default Python
 {%- else %}
 	coverage run --source src setup.py test
 {%- endif %}
+
+coverage-report: coverage ## check code coverage and view report in the browser
 	coverage report -m
 	coverage html
 	$(BROWSER) tmp/coverage/index.html
