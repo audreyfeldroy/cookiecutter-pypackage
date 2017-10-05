@@ -25,21 +25,22 @@ install:
 script:
   # If test fail with vague messages, uncomment this and see generation log
   # - cookiecutter --no-input .
-  - tox -v
+  # - tox -v
+  echo
 
-#jobs:
-#  include:
-#    - stage: make
-#      script:
-#          - cookiecutter --no-input .
-#          - cd python_pypi_library_boilerplate
-#          - source .pve/bin/activate
-#          - make bump
-#          - make lint
-#          - make test
-#          - make test-all
-#          - make dist
-#          - make install
+jobs:
+  include:
+    - stage: make
+      script:
+          - cookiecutter --no-input .
+          - cd python_pypi_library_boilerplate
+          - source .pve/bin/activate
+          - make bump
+          - make lint
+          - make test
+          - make test-all
+          - make dist
+          - make install
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
