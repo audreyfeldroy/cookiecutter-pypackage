@@ -34,7 +34,6 @@ jobs:
       script:
           - cookiecutter --no-input .
           - cd python_pypi_library_boilerplate
-          - source .pve/bin/activate
           - which python
           - python -m pip install -r requirements/local.txt
           - ls -la .pve/bin/
