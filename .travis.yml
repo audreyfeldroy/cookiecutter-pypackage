@@ -21,6 +21,7 @@ install:
   - tox --version
   - git --version
   - python3 -m venv -h
+  - python -m pip install -r requirements/local.txt
 
 script:
   # If test fail with vague messages, uncomment this and see generation log
@@ -38,6 +39,7 @@ jobs:
           - which python
           - python -m pip install -r requirements/local.txt
           - ls -la .pve/bin/
+          - ls -la /home/travis/virtualenv/python3.5.3
           - tox --version
           - pwd
           - ls -la
