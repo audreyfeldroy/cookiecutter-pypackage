@@ -22,11 +22,10 @@ install:
 
 jobs:
   include:
-    script:
-          - tox -v
-          - cookiecutter --no-input .
+    - script: tox -v
     - stage: make
       script:
+          - cookiecutter --no-input .
           - make -C python_pypi_library_boilerplate bump
           - make -C python_pypi_library_boilerplate lint
           - make -C python_pypi_library_boilerplate test
