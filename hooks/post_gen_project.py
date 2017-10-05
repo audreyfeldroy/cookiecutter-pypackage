@@ -30,7 +30,7 @@ def boostrap_venv():
     call([".pve/bin/python", "-Im", "ensurepip", "--upgrade", "--default-pip", "-v"])
     call(["ls", "-la"])
     call(["ls", "-la", ".pve"])
-    call(["ls", "-la", ".pve/bib"])
+    call(["ls", "-la", ".pve/bin"])
 
     call([".pve/bin/pip", "install", "-U", "pip", "setuptools"])
     call([".pve/bin/pip", "install", "-r", "requirements/local.txt"])
