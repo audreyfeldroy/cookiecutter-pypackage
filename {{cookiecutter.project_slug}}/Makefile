@@ -78,7 +78,7 @@ coverage-report: coverage ## check code coverage and view report in the browser
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/{{ cookiecutter.project_slug }}.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ src
+	sphinx-apidoc -o docs/ -H "Api docs" src
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 
