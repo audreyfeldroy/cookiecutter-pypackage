@@ -42,7 +42,7 @@ def git_init():
     call(["git", "add", "--all"])
     call(["git", "commit", "-am", "init"])
     call(["git", "flow", "init", "-d"])
-    call(["git", "remote", "add", "origin", "git://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}.git"])
+    call(["git", "remote", "add", "origin", "git://github.com:{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}.git"])
 
 
 if '{{ cookiecutter.git_init }}'.lower() == 'y':
