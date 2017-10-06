@@ -106,6 +106,6 @@ crashlytics-build.properties
 fabric.properties
 
 # Custom project ignores
-.pve
+.pyvenv
 .cache
 tmp

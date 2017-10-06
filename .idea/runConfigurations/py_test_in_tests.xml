@@ -3,7 +3,7 @@
     <option name="INTERPRETER_OPTIONS" value="" />
     <option name="PARENT_ENVS" value="true" />
     <envs />
-    <option name="SDK_HOME" value="$PROJECT_DIR$/.pve/bin/python" />
+    <option name="SDK_HOME" value="$PROJECT_DIR$/.pyvenv/bin/python" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/" />
     <option name="IS_MODULE_SDK" value="false" />
     <option name="ADD_CONTENT_ROOTS" value="true" />

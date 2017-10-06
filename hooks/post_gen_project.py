@@ -26,9 +26,9 @@ if __name__ == '__main__':
 def boostrap_venv():
     print("### Bootstrapping virtual environment")
     from subprocess import call
-    call(["python3", "-m", "venv", "--clear", ".pve"])
-    call([".pve/bin/python", "-m", "pip", "install", "-U", "pip", "setuptools"])
-    call([".pve/bin/python", "-m", "pip", "install", "-r", "requirements/local.txt"])
+    call(["python3", "-m", "venv", "--clear", ".pyvenv"])
+    call([".pyvenv/bin/python", "-m", "pip", "install", "-U", "pip", "setuptools"])
+    call([".pyvenv/bin/python", "-m", "pip", "install", "-r", "requirements/local.txt"])
 
 
 if '{{ cookiecutter.create_virtual_environment }}'.lower() == 'y':

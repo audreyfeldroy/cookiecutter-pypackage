@@ -35,7 +35,7 @@ jobs:
           - cookiecutter --no-input .
           - cd python-pypi-library-boilerplate
           - which python
-          - ls -la .pve/bin/
+          - ls -la .pyvenv/bin/
           - ls -la /home/travis/virtualenv/python3.5.3/bin
           - tox --version
           - pwd
