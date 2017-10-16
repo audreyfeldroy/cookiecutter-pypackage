@@ -3,8 +3,10 @@
 # We want to install (not modifiy PYTHONPATH) local package in editable mode
 -e .
 
+{% if cookiecutter.use_read_the_docs == 'y' -%}
 # Documentaion
 -r ../docs/requirements.txt
+{% endif %}
 
 # Other locally needed tooling
 bumpversion

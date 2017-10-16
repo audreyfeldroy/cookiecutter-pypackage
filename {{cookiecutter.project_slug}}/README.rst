@@ -7,19 +7,25 @@
 .. image:: https://img.shields.io/pypi/v/{{ cookiecutter.project_slug }}.svg
         :target: https://pypi.python.org/pypi/{{ cookiecutter.project_slug }}
 
-.. image:: https://img.shields.io/travis/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}.svg
-        :target: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
+{% if cookiecutter.use_travis_ci == 'y' -%}
+.. image:: https://img.shields.io/travis/{{ cookiecutter.repo_username }}/{{ cookiecutter.project_slug }}.svg
+        :target: https://travis-ci.org/{{ cookiecutter.repo_username }}/{{ cookiecutter.project_slug }}
+{%- endif %}
 
+{% if cookiecutter.use_read_the_docs == 'y' -%}
 .. image:: https://readthedocs.org/projects/{{ cookiecutter.project_slug | replace("_", "-") }}/badge/?version=latest
         :target: https://{{ cookiecutter.project_slug | replace("_", "-") }}.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
+{%- endif %}
 {%- endif %}
 
 {{ cookiecutter.project_short_description }}
 
 {% if is_open_source %}
 * Free software: {{ cookiecutter.open_source_license }}
+{% if cookiecutter.use_read_the_docs == 'y' -%}
 * Documentation: https://{{ cookiecutter.project_slug | replace("_", "-") }}.readthedocs.io.
+{%- endif %}
 {% endif %}
 
 Features
