@@ -21,12 +21,14 @@
 
 {{ cookiecutter.project_short_description }}
 
-{% if is_open_source %}
+{% if is_open_source -%}
 * Free software: {{ cookiecutter.open_source_license }}
+{%- else -%}
+* Propertiary software of {{ cookiecutter.copyright }}, please obtain a license before use.
+{%- endif %}
 {% if cookiecutter.use_read_the_docs == 'y' -%}
 * Documentation: https://{{ cookiecutter.project_slug | replace("_", "-") }}.readthedocs.io.
 {%- endif %}
-{% endif %}
 
 Features
 --------

@@ -21,6 +21,7 @@
         "GNU General Public License v3",
         "Not open source"
     ],
+    "copyright": "{{ cookiecutter.full_name }}",
     "command_line_interface": [
         "Click",
         "No command-line interface"

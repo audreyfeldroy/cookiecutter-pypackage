@@ -39,9 +39,6 @@ if __name__ == '__main__':
         cli_file = os.path.join('src', '{{ cookiecutter.package_name }}', 'cli.py')
         remove_file(cli_file)
 
-    if 'Not open source' == '{{ cookiecutter.open_source_license }}':
-        remove_file('LICENSE')
-
     if '{{ cookiecutter.include_sphinx_doc }}' != 'y':
         shutil.rmtree(os.path.join(PROJECT_DIRECTORY, 'docs'))
 
