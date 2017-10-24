@@ -1,14 +1,13 @@
 language: python
 
-python: 3.5
-env:
-  - TOXENV=py27
-  - TOXENV=py34
-  - TOXENV=py35
-  - TOXENV=py36
+python:
+  - 3.6
+  - 3.5
+  - 3.4
+  - 2.7
 
 install:
-  - pip install -U tox
+  - pip install -U tox-travis
 
 script:
   - tox
@@ -22,4 +21,4 @@ deploy:
   on:
     tags: true
     repo: audreyr/python_boilerplate
-    condition: $TOXENV == py27
+    python: 2.7
