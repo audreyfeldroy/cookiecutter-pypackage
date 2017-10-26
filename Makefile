@@ -14,3 +14,6 @@ watch: bake
 replay: BAKE_OPTIONS=--replay
 replay: watch
 	;
+
+upgrade-requirements:
+	pip-compile -U --allow-unsafe --annotate

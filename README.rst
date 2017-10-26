@@ -8,7 +8,7 @@ Cookiecutter_ template for a Python PyPI ready package library, extends upon `au
 * Documentation: https://cookiecutter-pylib.readthedocs.io/
 * Free software: BSD license
 
-.. image:: https://img.shields.io/travis/wooyek/cookiecutter-pylib.svg
+.. image:: https://travis-ci.org/wooyek/cookiecutter-pylib.svg
     :target: https://travis-ci.org/wooyek/cookiecutter-pylib
     :alt: Linux build status on Travis CI
 
@@ -54,55 +54,51 @@ Generate a Python package project::
 
     cookiecutter https://github.com/wooyek/cookiecutter-pylib.git
 
-Then:
+You'll be prompted for some infomation, based on your choices cookiecutter create a directory that is your new package.
 
+This directory should contain fully initialized project. Empty but passing tests and ready to be pushed and released.
+
+Post generation provisioning
+----------------------------
+
+* Activate virtual environemnt and run tests with ``tox``
+* Create a repo on Github (or Bitbucket)
 * Add the repo to your Travis-CI_ account.
-* Install the dev requirements into a virtualenv. (``pip install -r requirements/local.txt``)
-* Run the script `travis_pypi_setup.py` to encrypt your PyPI password in Travis config
-  and activate automated deployment on PyPI when you push a new tag to master branch.
 * Add the repo to your ReadTheDocs_ account + turn on the ReadTheDocs service hook.
-* Release your package by pushing a new tag to master.
 * Update `requirements/base.txt` file that specifies the packages you will need for
   your project and their versions. For more info see the `pip docs for requirements files`_.
 
-.. _`pip docs for requirements files`: https://pip.pypa.io/en/stable/user_guide/#requirements-files
-
 For more details, see the `cookiecutter-pylib tutorial`_.
 
-.. _`cookiecutter-pylib tutorial`: https://cookiecutter-pylib.readthedocs.io/en/latest/tutorial.html
+Running Tests
+~~~~~~~~~~~~~
 
-Not Exactly What You Want?
---------------------------
+Code has been written, but does it actually work? Let's find out!
 
-Don't worry, you have options:
+::
 
-Similar Cookiecutter Templates
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    source .pyvenv/bin/activate
+    (pyvenv) $ pip install -r requirements/local.txt
+    (pyvenv) $ python runtests.py
 
-* View curated list of `available cookiecutters`_
+Register releasing on PyPI
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Also see the `network`_ and `family tree`_ for this repo. (If you find
-  anything that should be listed here, please add it and send a pull request!)
+First make sure you have newest setuptools installed::
 
-Fork This / Create Your Own
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    pip install pip setuptools -U
 
-If you have differences in your preferred setup, I encourage you to fork this
-to create your own version. Or create your own; it doesn't strictly have to
-be a fork.
+Once you've got at least a prototype working and tests running, 
+it's time to register the app on PyPI::
 
-* Once you have your own version working, add it to the Similar Cookiecutter
-  Templates list above with a brief description.
+    python setup.py register
 
-* It's up to you whether or not to rename your fork/own version. Do whatever
-  you think sounds good.
 
-Or Submit a Pull Request
-~~~~~~~~~~~~~~~~~~~~~~~~
+Time to release a new version? Bam!
 
-I also accept pull requests on this, if they're small, atomic, and if they
-make my own packaging experience better.
+    $ make release
 
+It will sync your local and origin repo, test, increment version number, setup and release package then push to origin master.
 
 .. _Travis-CI: http://travis-ci.org/
 .. _Tox: http://testrun.org/tox/
@@ -118,3 +114,5 @@ make my own packaging experience better.
 .. _github comparison view: https://github.com/tony/cookiecutter-pylib-pythonic/compare/audreyr:master...master
 .. _`network`: https://github.com/wooyek/cookiecutter-pylib/network
 .. _`family tree`: https://github.com/wooyek/cookiecutter-pylib/network/members
+.. _`pip docs for requirements files`: https://pip.pypa.io/en/stable/user_guide/#requirements-files
+.. _`cookiecutter-pylib tutorial`: https://cookiecutter-pylib.readthedocs.io/en/latest/tutorial.html

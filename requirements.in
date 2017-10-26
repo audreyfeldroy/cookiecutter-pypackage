@@ -1,0 +1,14 @@
+alabaster
+cookiecutter
+cryptography
+flake8
+pip
+pip-tools
+pytest
+pytest-cookies
+pytest-cov
+pytest-xdist
+PyYAML
+sh
+tox
+watchdog
