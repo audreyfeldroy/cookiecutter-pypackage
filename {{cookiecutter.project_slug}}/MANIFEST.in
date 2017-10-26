@@ -1,13 +1,34 @@
-{% if cookiecutter.create_author_file == 'y' -%}
+{% if cookiecutter.create_author_file == 'y' %}
 include AUTHORS.rst
-{% endif -%}
+{% endif %}
 include CONTRIBUTING.rst
 include HISTORY.rst
 include LICENSE
 include README.rst
 
-recursive-include tests *
+include *.py
+include *.yml
+include .bumpversion.cfg
+include .coveragerc
+include .editorconfig
+include Makefile
+include tox.ini
+
+recursive-include .github *.*
+recursive-include requirements *.*
+recursive-include src *.html *.png *.gif *js *.css *jpg *jpeg *svg *py
+recursive-include docs *.bat
+recursive-include docs *.py
+recursive-include docs *.rst
+recursive-include docs *.txt
+recursive-include docs Makefile
+recursive-exclude docs/_build *
+recursive-include src *.py
+recursive-include src *.css
+recursive-include src *.html
+recursive-include src *.js
+recursive-include src .gitignore
+recursive-include tests *.env
+recursive-include tests *.py
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
-
-recursive-include docs *.rst conf.py Makefile make.bat *.jpg *.png *.gif

@@ -1,0 +1,15 @@
+-r base.txt
+coverage
+mock
+flake8
+tox
+codecov
+factory-boy
+watchdog
+{% if cookiecutter.use_pytest == 'y' -%}
+pytest
+pytest-xdist
+pytest-html
+pytest-runner
+pytest-cov{% endif %}
+

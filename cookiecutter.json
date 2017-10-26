@@ -1,15 +1,44 @@
 {
-  "full_name": "Audrey Roy Greenfeld",
-  "email": "aroy@alum.mit.edu",
-  "github_username": "audreyr",
-  "project_name": "Python Boilerplate",
-  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
-  "project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
-  "pypi_username": "{{ cookiecutter.github_username }}",
-  "version": "0.1.0",
-  "use_pytest": "n",
-  "use_pypi_deployment_with_travis": "y",
-  "command_line_interface": ["Click", "No command-line interface"],
-  "create_author_file": "y",
-  "open_source_license": ["MIT license", "BSD license", "ISC license", "Apache Software License 2.0", "GNU General Public License v3", "Not open source"]
+    "project_name": "Python PyPI library boilerplate",
+    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '-') }}",
+    "package_name": "{{ cookiecutter.project_slug.lower()|replace('-', '_') }}",
+    "project_short_description": "Boilerplate you need to create a PyPI Python package.",
+    "repo_domain": [
+        "github.com",
+        "bitbucket.org"
+    ],
+    "repo_username": "Used to initialize GIT repo origin remote",
+    "repo_url": "git://{{ cookiecutter.repo_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.project_slug }}/",
+    "project_url": "https://{{ cookiecutter.repo_domain }}/{{ cookiecutter.repo_username }}/{{ cookiecutter.project_slug }}/",
+    "full_name": "Your full name",
+    "email": "Your email used for package publication",
+    "version": "0.1.0",
+    "open_source_license": [
+        "MIT license",
+        "BSD license",
+        "ISC license",
+        "Apache Software License 2.0",
+        "GNU General Public License v3",
+        "Not open source"
+    ],
+    "copyright": "{{ cookiecutter.full_name }}",
+    "command_line_interface": [
+        "Click",
+        "No command-line interface"
+    ],
+    "create_author_file": "y",
+    "use_travis_ci": "y",
+    "pypi_username": "{{ cookiecutter.repo_username }}",
+    "use_pypi_deployment_with_travis": "{{ cookiecutter.use_travis_ci }}",
+    "use_pytest": "y",
+    "use_read_the_docs": "y",
+    "sphinx_theme": [
+        "sphinx-rtd-theme",
+        "sphinx-py3doc-enhanced-theme",
+        "alabaster"
+    ],
+    "include_sphinx_doc": "{{ cookiecutter.use_read_the_docs }}",
+    "create_virtual_environment": "y",
+    "git_init": "y",
+    "run_tests_on_init": "y"
 }

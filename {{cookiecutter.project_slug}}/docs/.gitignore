@@ -1,3 +1,1 @@
-/{{ cookiecutter.project_slug }}.rst
-/{{ cookiecutter.project_slug }}.*.rst
-/modules.rst
+_build

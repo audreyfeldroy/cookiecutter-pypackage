@@ -1,25 +1,61 @@
 language: python
+sudo: false
 
 python: 3.5
+
 env:
-  - TOXENV=py27
-  - TOXENV=py33
-  - TOXENV=py34
   - TOXENV=py35
+  - TOXENV=py34
+  - TOXENV=py27
+
+before_install:
+  - python --version
+  - uname -a
+  - lsb_release -a
+  - sudo apt-get install -y git-flow
 
 install:
-  - pip install -U tox
+  - pip install -U tox setuptools pip cookiecutter
+  - virtualenv --version
+  - easy_install --version
+  - pip --version
+  - tox --version
+  - git --version
+  - python3 -m venv -h
 
 script:
-  - tox
+  # If test fail with vague messages, uncomment this and see generation log
+  - cookiecutter --no-input .
+  - tox -v
 
-deploy:
-  provider: pypi
-  distributions: sdist
-  user: audreyr
-  password:
-    secure: PLEASE_REPLACE_ME
-  on:
-    tags: true
-    repo: audreyr/python_boilerplate
-    condition: $TOXENV == py27
+jobs:
+  include:
+    - stage: make
+      script:
+          - cookiecutter --no-input .
+          - cd python-pypi-library-boilerplate
+          - which python
+          - ls -la .pyvenv/bin/
+          - ls -la /home/travis/virtualenv/python3.5.3/bin
+          - tox --version
+          - pwd
+          - ls -la
+          - make bump
+          - make lint
+          - make test
+          - make test-all
+          - make coverage
+          - make dist
+          - make install
+          - make docs
+          # Lint again after docs generation
+          - make lint
+          - make clean
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always

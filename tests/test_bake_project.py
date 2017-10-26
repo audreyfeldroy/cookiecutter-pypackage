@@ -69,7 +69,7 @@ def project_info(result):
     """Get toplevel dir, project_slug, and project dir from baked cookies"""
     project_path = str(result.project)
     project_slug = os.path.split(project_path)[-1]
-    project_dir = os.path.join(project_path, project_slug)
+    project_dir = os.path.join(project_path, 'src', project_slug.replace('-', '_'))
     return project_path, project_slug, project_dir
 
 
@@ -81,7 +81,7 @@ def test_bake_with_defaults(cookies):
 
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert 'setup.py' in found_toplevel_files
-        assert 'python_boilerplate' in found_toplevel_files
+        assert 'src' in found_toplevel_files
         assert 'tox.ini' in found_toplevel_files
         assert 'tests' in found_toplevel_files
         assert 'travis_pypi_setup.py' in found_toplevel_files
@@ -115,7 +115,7 @@ def test_bake_and_run_travis_pypi_setup(cookies):
 
         # when:
         travis_setup_cmd = ('python travis_pypi_setup.py'
-                            ' --repo audreyr/cookiecutter-pypackage --password invalidpass')
+                            ' --repo wooyek/cookiecutter-pylib --password invalidpass')
         run_inside_dir(travis_setup_cmd, project_path)
         # then:
         result_travis_config = yaml.load(result.project.join(".travis.yml").open())
@@ -174,14 +174,14 @@ def test_bake_not_open_source(cookies):
     with bake_in_temp_dir(cookies, extra_context={'open_source_license': 'Not open source'}) as result:
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert 'setup.py' in found_toplevel_files
-        assert 'LICENSE' not in found_toplevel_files
-        assert 'License' not in result.project.join('README.rst').read()
+        assert 'LICENSE' in found_toplevel_files
+        assert 'Propertiary' in result.project.join('README.rst').read()
 
 
 def test_using_pytest(cookies):
     with bake_in_temp_dir(cookies, extra_context={'use_pytest': 'y'}) as result:
         assert result.project.isdir()
-        test_file_path = result.project.join('tests/test_python_boilerplate.py')
+        test_file_path = result.project.join('tests/test_python_pypi_library_boilerplate.py')
         lines = test_file_path.readlines()
         assert "import pytest" in ''.join(lines)
         # Test the new pytest target
@@ -191,22 +191,22 @@ def test_using_pytest(cookies):
 
 
 def test_not_using_pytest(cookies):
-    with bake_in_temp_dir(cookies) as result:
+    with bake_in_temp_dir(cookies, extra_context={'use_pytest': 'n'}) as result:
         assert result.project.isdir()
-        test_file_path = result.project.join('tests/test_python_boilerplate.py')
+        test_file_path = result.project.join('tests/test_python_pypi_library_boilerplate.py')
         lines = test_file_path.readlines()
         assert "import unittest" in ''.join(lines)
         assert "import pytest" not in ''.join(lines)
 
 
-def test_project_with_hyphen_in_module_name(cookies):
+def test_project_with_hyphen_in_package_name(cookies):
     result = cookies.bake(extra_context={'project_name': 'something-with-a-dash'})
     assert result.project is not None
     project_path = str(result.project)
 
     # when:
     travis_setup_cmd = ('python travis_pypi_setup.py'
-                        ' --repo audreyr/cookiecutter-pypackage --password invalidpass')
+                        ' --repo wooyek/cookiecutter-pylib --password invalidpass')
     run_inside_dir(travis_setup_cmd, project_path)
 
     # then:
@@ -244,20 +244,20 @@ def test_bake_with_console_script_cli(cookies):
     result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     module_path = os.path.join(project_dir, 'cli.py')
-    module_name = '.'.join([project_slug, 'cli'])
+    package_name = '.'.join([project_slug, 'cli'])
     if sys.version_info >= (3, 5):
-        spec = importlib.util.spec_from_file_location(module_name, module_path)
+        spec = importlib.util.spec_from_file_location(package_name, module_path)
         cli = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(cli)
     elif sys.version_info >= (3, 3):
         file_loader = importlib.machinery.SourceFileLoader
-        cli = file_loader(module_name, module_path).load_module()
+        cli = file_loader(package_name, module_path).load_module()
     else:
-        cli = imp.load_source(module_name, module_path)
+        cli = imp.load_source(package_name, module_path)
     runner = CliRunner()
     noarg_result = runner.invoke(cli.main)
     assert noarg_result.exit_code == 0
-    noarg_output = ' '.join(['Replace this message by putting your code into', project_slug])
+    noarg_output = ' '.join(['Replace this message by putting your code into', project_slug.replace('-', '_')])
     assert noarg_output in noarg_result.output
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0

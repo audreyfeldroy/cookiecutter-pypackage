@@ -1,0 +1,4 @@
+sphinx>=1.3
+{{ cookiecutter.sphinx_theme|replace('_', '-') }}
+# https://github.com/sphinx-doc/sphinx/issues/3212
+docutils==0.13.1

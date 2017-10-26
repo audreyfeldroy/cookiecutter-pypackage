@@ -1,116 +1,104 @@
-======================
-Cookiecutter PyPackage
-======================
+==================
+Cookiecutter PyLib
+==================
 
-.. image:: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/shield.svg
-     :target: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/
-     :alt: Updates
+Cookiecutter_ template for a Python PyPI ready package library, extends upon `audreyr/cookiecutter-pypackage`_
 
-Cookiecutter_ template for a Python package.
-
-* GitHub repo: https://github.com/audreyr/cookiecutter-pypackage/
-* Documentation: https://cookiecutter-pypackage.readthedocs.io/
+* GitHub repo: https://github.com/wooyek/cookiecutter-pylib/
+* Documentation: https://cookiecutter-pylib.readthedocs.io/
 * Free software: BSD license
+
+.. image:: https://travis-ci.org/wooyek/cookiecutter-pylib.svg
+    :target: https://travis-ci.org/wooyek/cookiecutter-pylib
+    :alt: Linux build status on Travis CI
+
+.. image:: https://ci.appveyor.com/api/projects/status/github/wooyek/cookiecutter-pylib?branch=master&svg=true
+    :target: https://ci.appveyor.com/project/wooyek/cookiecutter-pylib/branch/master
+    :alt: Windows build status on Appveyor
+
+.. image:: https://readthedocs.org/projects/cookiecutter-pylib/badge/?version=latest
+    :target: http://cookiecutter-pylib.readthedocs.io/en/latest/
+    :alt: Documentation build status
+
 
 Features
 --------
 
 * Testing setup with ``unittest`` and ``python setup.py test`` or ``py.test``
 * Travis-CI_: Ready for Travis Continuous Integration testing
-* Tox_ testing: Setup to easily test for Python 2.6, 2.7, 3.3, 3.4, 3.5
+* Tox_ testing: Setup to easily test for Python 2.6, 2.7, 3.4, 3.5
 * Sphinx_ docs: Documentation ready for generation with, for example, ReadTheDocs_
 * Bumpversion_: Pre-configured version bumping with a single command
 * Auto-release to PyPI_ when you push a new tag to master (optional)
+* Split file requirements_ management with inheritance and support for private locally installed packages
 * Command line interface using Click (optional)
+* `Initialization of Git`_ repo, github origin remote and git-flow
+* Python `virtual environment bootstrapping`_
+* Git master/develop local/origin sync with a single command
+* Release_ (sync, test, bump, publish) with a single command
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
-
-Build Status
--------------
-
-Linux:
-
-.. image:: https://img.shields.io/travis/audreyr/cookiecutter-pypackage.svg
-    :target: https://travis-ci.org/audreyr/cookiecutter-pypackage
-    :alt: Linux build status on Travis CI
-
-Windows:
-
-.. image:: https://ci.appveyor.com/api/projects/status/github/audreyr/cookiecutter-pypackage?branch=master&svg=true
-    :target: https://ci.appveyor.com/project/audreyr/cookiecutter-pypackage/branch/master
-    :alt: Windows build status on Appveyor
+.. _requirements: https://github.com/wooyek/cookiecutter-pylib/tree/master/%7B%7Bcookiecutter.project_slug%7D%7D/requirements
+.. _Initialization of Git: https://github.com/wooyek/cookiecutter-pylib/blob/master/hooks/post_gen_project.py
+.. _virtual environment bootstrapping: https://github.com/wooyek/cookiecutter-pylib/blob/master/hooks/post_gen_project.py
+.. _Release: https://github.com/wooyek/cookiecutter-pylib/blob/master/%7B%7Bcookiecutter.project_slug%7D%7D/Makefile
 
 Quickstart
 ----------
 
-Install the latest Cookiecutter if you haven't installed it yet (this requires
-Cookiecutter 1.4.0 or higher)::
+Install the latest Cookiecutter if you haven't installed it yet::
 
     pip install -U cookiecutter
 
 Generate a Python package project::
 
-    cookiecutter https://github.com/audreyr/cookiecutter-pypackage.git
+    cookiecutter https://github.com/wooyek/cookiecutter-pylib.git
 
-Then:
+You'll be prompted for some infomation, based on your choices cookiecutter create a directory that is your new package.
 
-* Create a repo and put it there.
+This directory should contain fully initialized project. Empty but passing tests and ready to be pushed and released.
+
+Post generation provisioning
+----------------------------
+
+* Activate virtual environemnt and run tests with ``tox``
+* Create a repo on Github (or Bitbucket)
 * Add the repo to your Travis-CI_ account.
-* Install the dev requirements into a virtualenv. (``pip install -r requirements_dev.txt``)
-* Run the script `travis_pypi_setup.py` to encrypt your PyPI password in Travis config
-  and activate automated deployment on PyPI when you push a new tag to master branch.
 * Add the repo to your ReadTheDocs_ account + turn on the ReadTheDocs service hook.
-* Release your package by pushing a new tag to master.
-* Add a `requirements.txt` file that specifies the packages you will need for
+* Update `requirements/base.txt` file that specifies the packages you will need for
   your project and their versions. For more info see the `pip docs for requirements files`_.
-* Activate your project on `pyup.io`_.
 
-.. _`pip docs for requirements files`: https://pip.pypa.io/en/stable/user_guide/#requirements-files
+For more details, see the `cookiecutter-pylib tutorial`_.
 
-For more details, see the `cookiecutter-pypackage tutorial`_.
+Running Tests
+~~~~~~~~~~~~~
 
-.. _`cookiecutter-pypackage tutorial`: https://cookiecutter-pypackage.readthedocs.io/en/latest/tutorial.html
+Code has been written, but does it actually work? Let's find out!
 
-Not Exactly What You Want?
---------------------------
+::
 
-Don't worry, you have options:
+    source .pyvenv/bin/activate
+    (pyvenv) $ pip install -r requirements/local.txt
+    (pyvenv) $ python runtests.py
 
-Similar Cookiecutter Templates
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Register releasing on PyPI
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* `Nekroze/cookiecutter-pypackage`_: A fork of this with a PyTest test runner,
-  strict flake8 checking with Travis/Tox, and some docs and `setup.py` differences.
+First make sure you have newest setuptools installed::
 
-* `tony/cookiecutter-pypackage-pythonic`_: Fork with py2.7+3.3 optimizations.
-  Flask/Werkzeug-style test runner, ``_compat`` module and module/doc conventions.
-  See ``README.rst`` or the `github comparison view`_ for exhaustive list of
-  additions and modifications.
+    pip install pip setuptools -U
 
-* `ardydedase/cookiecutter-pypackage`_: A fork with separate requirements files rather than a requirements list in the ``setup.py`` file.
+Once you've got at least a prototype working and tests running, 
+it's time to register the app on PyPI::
 
-* Also see the `network`_ and `family tree`_ for this repo. (If you find
-  anything that should be listed here, please add it and send a pull request!)
+    python setup.py register
 
-Fork This / Create Your Own
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you have differences in your preferred setup, I encourage you to fork this
-to create your own version. Or create your own; it doesn't strictly have to
-be a fork.
+Time to release a new version? Bam!
 
-* Once you have your own version working, add it to the Similar Cookiecutter
-  Templates list above with a brief description.
+    $ make release
 
-* It's up to you whether or not to rename your fork/own version. Do whatever
-  you think sounds good.
-
-Or Submit a Pull Request
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-I also accept pull requests on this, if they're small, atomic, and if they
-make my own packaging experience better.
-
+It will sync your local and origin repo, test, increment version number, setup and release package then push to origin master.
 
 .. _Travis-CI: http://travis-ci.org/
 .. _Tox: http://testrun.org/tox/
@@ -120,9 +108,11 @@ make my own packaging experience better.
 .. _Bumpversion: https://github.com/peritus/bumpversion
 .. _PyPi: https://pypi.python.org/pypi
 
-.. _`Nekroze/cookiecutter-pypackage`: https://github.com/Nekroze/cookiecutter-pypackage
-.. _`tony/cookiecutter-pypackage-pythonic`: https://github.com/tony/cookiecutter-pypackage-pythonic
-.. _`ardydedase/cookiecutter-pypackage`: https://github.com/ardydedase/cookiecutter-pypackage
-.. _github comparison view: https://github.com/tony/cookiecutter-pypackage-pythonic/compare/audreyr:master...master
-.. _`network`: https://github.com/audreyr/cookiecutter-pypackage/network
-.. _`family tree`: https://github.com/audreyr/cookiecutter-pypackage/network/members
+.. _`available cookiecutters`: http://cookiecutter.readthedocs.io/en/latest/readme.html#available-cookiecutters
+.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage/
+.. _`ardydedase/cookiecutter-pylib`: https://github.com/ardydedase/cookiecutter-pylib
+.. _github comparison view: https://github.com/tony/cookiecutter-pylib-pythonic/compare/audreyr:master...master
+.. _`network`: https://github.com/wooyek/cookiecutter-pylib/network
+.. _`family tree`: https://github.com/wooyek/cookiecutter-pylib/network/members
+.. _`pip docs for requirements files`: https://pip.pypa.io/en/stable/user_guide/#requirements-files
+.. _`cookiecutter-pylib tutorial`: https://cookiecutter-pylib.readthedocs.io/en/latest/tutorial.html

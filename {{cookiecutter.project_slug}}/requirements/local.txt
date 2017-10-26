@@ -1,0 +1,22 @@
+# For local development we ween all there is in testing
+-r test.txt
+# We want to install (not modifiy PYTHONPATH) local package in editable mode
+-e .
+
+{% if cookiecutter.use_read_the_docs == 'y' -%}
+# Documentaion
+-r ../docs/requirements.txt
+{% endif %}
+
+# Other locally needed tooling
+bumpversion
+wheel
+invoke
+check-manifest
+flake8
+readme-renderer
+pygments
+isort
+{% if cookiecutter.use_pypi_deployment_with_travis == 'y' -%}
+cryptography==1.7
+PyYAML==3.11{% endif %}

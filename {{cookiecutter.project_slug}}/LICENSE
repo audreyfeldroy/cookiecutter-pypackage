@@ -1,7 +1,7 @@
 {% if cookiecutter.open_source_license == 'MIT license' %}
 MIT License
 
-Copyright (c) {% now 'local', '%Y' %}, {{ cookiecutter.full_name }}
+Copyright (c) {% now 'local', '%Y' %}, {{ cookiecutter.copyright }}
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -11,7 +11,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 {% elif cookiecutter.open_source_license == 'BSD license' %}
 BSD License
 
-Copyright (c) {% now 'local', '%Y' %}, {{ cookiecutter.full_name }}
+Copyright (c) {% now 'local', '%Y' %}, {{ cookiecutter.copyright }}
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -41,7 +41,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 {% elif cookiecutter.open_source_license == 'ISC license' %}
 ISC License
 
-Copyright (c) {% now 'local', '%Y' %}, {{ cookiecutter.full_name }}
+Copyright (c) {% now 'local', '%Y' %}, {{ cookiecutter.copyright }}
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 
@@ -49,7 +49,7 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 {% elif cookiecutter.open_source_license == 'Apache Software License 2.0' %}
 Apache Software License 2.0
 
-Copyright (c) {% now 'local', '%Y' %}, {{ cookiecutter.full_name }}
+Copyright (c) {% now 'local', '%Y' %}, {{ cookiecutter.copyright }}
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -67,7 +67,7 @@ GNU GENERAL PUBLIC LICENSE
                       Version 3, 29 June 2007
 
     {{ cookiecutter.project_short_description }}
-    Copyright (C) {% now 'local', '%Y' %}  {{ cookiecutter.full_name }}
+    Copyright (C) {% now 'local', '%Y' %}  {{ cookiecutter.copyright }}
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -96,4 +96,13 @@ the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 <http://www.gnu.org/philosophy/why-not-lgpl.html>.
 
+{% elif cookiecutter.open_source_license == 'Not open source' %}
+{{ cookiecutter.project_short_description }}
+Copyright (C) {% now 'local', '%Y' %} {{ cookiecutter.copyright }}
+All rights reserved.
+
+This source code and all resulting intermediate files are CONFIDENTIAL and
+PROPRIETY TRADE SECRETS of {{ cookiecutter.copyright }}
+Use of this software is a subject to separately given license terms.
+Use without a license is prohibited.
 {% endif %}
