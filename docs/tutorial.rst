@@ -152,7 +152,7 @@ pull requests whenever there's a new release for one of your dependencies.
 
 To use it, create a new account at `pyup.io`_ or log into your existing account.
 
-Click on the green ``Add Repo`` button in the top left corner and select the repo you created in Step 3. A popup will
+Click on the green ``Add Repo`` button in the top right corner and select the repo you created in Step 3. A popup will
 ask you whether you want to pin your dependencies. Click on ``Pin`` to add the repo.
 
 Once your repo is set up correctly, the pyup.io badge will show your current update status.
