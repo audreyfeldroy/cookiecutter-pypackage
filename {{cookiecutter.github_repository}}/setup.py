@@ -19,16 +19,12 @@ requirements = [
 ]
 
 setup_requirements = [
-{%- if cookiecutter.use_pytest == 'y' %}
     'pytest-runner',
-{%- endif %}
     # TODO({{ cookiecutter.github_username }}): put setup requirements (distutils extensions, etc.) here
 ]
 
 test_requirements = [
-{%- if cookiecutter.use_pytest == 'y' %}
     'pytest',
-{%- endif %}
     # TODO: put package test requirements here
 ]
 
@@ -41,18 +37,18 @@ test_requirements = [
 } %}
 
 setup(
-    name='{{ cookiecutter.project_slug }}',
+    name='{{ cookiecutter.github_repository }}',
     version='{{ cookiecutter.version }}',
     description="{{ cookiecutter.project_short_description }}",
     long_description=readme + '\n\n' + history,
     author="{{ cookiecutter.full_name.replace('\"', '\\\"') }}",
     author_email='{{ cookiecutter.email }}',
-    url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}',
-    packages=find_packages(include=['{{ cookiecutter.project_slug }}']),
+    url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.github_repository }}',
+    packages=find_packages(include=['{{ cookiecutter.github_repository }}']),
     {%- if 'no' not in cookiecutter.command_line_interface|lower %}
     entry_points={
         'console_scripts': [
-            '{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:main'
+            '{{ cookiecutter.github_repository }}={{ cookiecutter.github_repository }}.cli:main'
         ]
     },
     {%- endif %}
@@ -62,7 +58,7 @@ setup(
     license="{{ cookiecutter.open_source_license }}",
 {%- endif %}
     zip_safe=False,
-    keywords='{{ cookiecutter.project_slug }}',
+    keywords='{{ cookiecutter.github_repository }}',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',

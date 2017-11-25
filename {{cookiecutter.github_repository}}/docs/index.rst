@@ -11,8 +11,8 @@ Contents:
    usage
    modules
    contributing
-   {% if cookiecutter.create_author_file == 'y' -%}authors
-   {% endif -%}history
+   authors
+   history
 
 Indices and tables
 ==================

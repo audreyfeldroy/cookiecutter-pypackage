@@ -115,9 +115,9 @@ if "%1" == "qthelp" (
 	echo.
 	echo.Build finished; now you can run "qcollectiongenerator" with the ^
 .qhcp project file in %BUILDDIR%/qthelp, like this:
-	echo.^> qcollectiongenerator %BUILDDIR%\qthelp\{{ cookiecutter.project_slug }}.qhcp
+	echo.^> qcollectiongenerator %BUILDDIR%\qthelp\{{ cookiecutter.github_repository }}.qhcp
 	echo.To view the help file:
-	echo.^> assistant -collectionFile %BUILDDIR%\qthelp\{{ cookiecutter.project_slug }}.ghc
+	echo.^> assistant -collectionFile %BUILDDIR%\qthelp\{{ cookiecutter.github_repository }}.ghc
 	goto end
 )
 
