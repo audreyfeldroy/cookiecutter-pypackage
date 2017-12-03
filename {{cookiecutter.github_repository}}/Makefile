@@ -11,8 +11,7 @@ help:
 	@echo "release - package and upload a release"
 	@echo "sdist - package"
 
-init:
-	pip install pipenv --upgrade
+init:	
 	pipenv install --dev --skip-lock
 	pipenv install -r requirements_dev.txt
 
