@@ -10,5 +10,5 @@ Sphinx==1.6.5
 cryptography==2.1.4
 PyYAML==3.11{% endif %}
 {% if cookiecutter.use_pytest == 'y' -%}
-pytest==3.3.2
+pytest==3.4.0
 pytest-runner==2.11.1{% endif %}
