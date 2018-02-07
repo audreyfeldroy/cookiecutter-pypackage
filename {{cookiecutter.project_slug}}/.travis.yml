@@ -8,10 +8,10 @@ python:
   - 3.4
   - 2.7
 
-# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+# Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: pip install -U tox-travis
 
-# command to run tests, e.g. python setup.py test
+# Command to run tests, e.g. python setup.py test
 script: tox
 
 {% if cookiecutter.use_pypi_deployment_with_travis == 'y' -%}
