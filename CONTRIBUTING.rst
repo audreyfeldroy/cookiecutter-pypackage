@@ -112,7 +112,7 @@ you already have `virtualenv` and `Git` installed and ready to go.
    .. note::
       If you are missing flake8, pytest and/or tox, just pip install them into your virtualenv.
 
-8. If your contribution is a bug fix or new feature, you may want to add a test to the existing test suite. See section Add a New Test below for details. 
+8. If your contribution is a bug fix or new feature, you may want to add a test to the existing test suite. See section Add a New Test below for details.
 
 9. Commit your changes and push your branch to GitHub::
 
@@ -135,20 +135,20 @@ Before you submit a pull request, check that it meets these guidelines:
    your new functionality into a function with a docstring, and add the
    feature to the list in README.rst.
 
-3. The pull request should work for Python 2.6, 2.7, 3.3, 3.4 and 3.5, and for PyPy. Check
+3. The pull request should work for Python 2.7, 3.4, 3.5 and 3.6, and for PyPy. Check
    https://travis-ci.org/audreyr/cookiecutter-pypackage/pull_requests
    and make sure that the tests pass for all supported Python versions.
 
 Add a New Test
 ---------------
-When fixing a bug or adding features, it's good practice to add a test to demonstrate your fix or new feature behaves as expected. These tests should focus on one tiny bit of functionality and prove changes are correct. 
+When fixing a bug or adding features, it's good practice to add a test to demonstrate your fix or new feature behaves as expected. These tests should focus on one tiny bit of functionality and prove changes are correct.
 
 To write and run your new test, follow these steps:
 
-1. Add the new test to `tests/test_bake_project.py`. Focus your test on the specific bug or a small part of the new feature. 
+1. Add the new test to `tests/test_bake_project.py`. Focus your test on the specific bug or a small part of the new feature.
 
 2. If you have already made changes to the code, stash your changes and confirm all your changes were stashed::
-  
+
     $ git stash
     $ git stash list
 
