@@ -15,21 +15,21 @@ requirements = [
     {%- if cookiecutter.command_line_interface|lower == 'click' %}
     'Click>=6.0',
     {%- endif %}
-    # TODO: put package requirements here
+    # TODO: Put package requirements here
 ]
 
 setup_requirements = [
 {%- if cookiecutter.use_pytest == 'y' %}
     'pytest-runner',
 {%- endif %}
-    # TODO({{ cookiecutter.github_username }}): put setup requirements (distutils extensions, etc.) here
+    # TODO({{ cookiecutter.github_username }}): Put setup requirements (distutils extensions, etc.) here
 ]
 
 test_requirements = [
 {%- if cookiecutter.use_pytest == 'y' %}
     'pytest',
 {%- endif %}
-    # TODO: put package test requirements here
+    # TODO: Put package test requirements here
 ]
 
 {%- set license_classifiers = {
@@ -52,8 +52,8 @@ setup(
     {%- if 'no' not in cookiecutter.command_line_interface|lower %}
     entry_points={
         'console_scripts': [
-            '{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:main'
-        ]
+            '{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:main',
+        ],
     },
     {%- endif %}
     include_package_data=True,
@@ -71,12 +71,11 @@ setup(
 {%- endif %}
         'Natural Language :: English',
         "Programming Language :: Python :: 2",
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
     test_suite='tests',
     tests_require=test_requirements,
