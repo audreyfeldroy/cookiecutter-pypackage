@@ -3,6 +3,7 @@
   "email": "david.mougeolle@moodule.net",
   "project_name": "Some Progress",
   "project_short_description": "Ease your eagerness to change the world !",
+  "module_name": "{{ cookiecutter.project_name.lower().replace(' ', '_') }}",
   "github_username": "moodule",
   "github_repository": "{{ cookiecutter.project_name.lower().replace(' ', '-') }}",
   "pypi_username": "{{ cookiecutter.github_username }}",

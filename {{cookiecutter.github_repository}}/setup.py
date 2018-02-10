@@ -37,18 +37,18 @@ test_requirements = [
 } %}
 
 setup(
-    name='{{ cookiecutter.github_repository }}',
+    name='{{ cookiecutter.module_name }}',
     version='{{ cookiecutter.version }}',
     description="{{ cookiecutter.project_short_description }}",
     long_description=readme + '\n\n' + history,
     author="{{ cookiecutter.full_name.replace('\"', '\\\"') }}",
     author_email='{{ cookiecutter.email }}',
     url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.github_repository }}',
-    packages=find_packages(include=['{{ cookiecutter.github_repository }}']),
+    packages=find_packages(include=['{{ cookiecutter.module_name }}']),
     {%- if 'no' not in cookiecutter.command_line_interface|lower %}
     entry_points={
         'console_scripts': [
-            '{{ cookiecutter.github_repository }}={{ cookiecutter.github_repository }}.cli:main'
+            '{{ cookiecutter.module_name }}={{ cookiecutter.module_name }}.cli:main'
         ]
     },
     {%- endif %}
@@ -58,7 +58,7 @@ setup(
     license="{{ cookiecutter.open_source_license }}",
 {%- endif %}
     zip_safe=False,
-    keywords='{{ cookiecutter.github_repository }}',
+    keywords='{{ cookiecutter.module_name }}',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
