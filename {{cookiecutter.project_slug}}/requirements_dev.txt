@@ -4,7 +4,7 @@ wheel==0.30.0
 watchdog==0.8.3
 flake8==3.5.0
 tox==2.9.1
-coverage==4.4.2
+coverage==4.5.1
 Sphinx==1.6.5
 twine==1.9.1
 {% if cookiecutter.use_pypi_deployment_with_travis == 'y' -%}
