@@ -36,3 +36,6 @@ if __name__ == '__main__':
 
     if 'Not open source' == '{{ cookiecutter.open_source_license }}':
         remove_file('LICENSE')
+        remove_file('CONTRIBUTING.rst')
+        remove_file('docs/contributing.rst')
+        remove_dir('.github')
