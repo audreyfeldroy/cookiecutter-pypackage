@@ -45,6 +45,9 @@ nosetests.xml
 coverage.xml
 *.cover
 .hypothesis/
+*.log
+*.lock
+testdata.json
 
 # Translations
 *.mo
@@ -62,7 +65,10 @@ instance/
 .scrapy
 
 # Sphinx documentation
-docs/_build/
+docs/make.bat
+docs/doctrees/
+docs/html/
+docs/build/
 
 # PyBuilder
 target/
@@ -99,3 +105,38 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# custom configs
+custom.cfg
+Makefile.config
+
+# R
+*.Rhistory
+
+
+# Eclipse / PyDev
+.project
+.pydevproject
+.settings
+
+# PyCharm
+*.idea
+
+# Kate
+*.kate-swp
+
+# Sublime Text Editor
+*.sublime*
+
+# buildout
+bin
+.installed.cfg
+.mr.developer.cfg
+bootstrap-buildout.py
+bootstrap.py
+
+# gcc/fortran
+*.o
+*.a
+*.mod
+*.out
