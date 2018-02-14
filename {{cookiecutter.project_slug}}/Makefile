@@ -1,3 +1,55 @@
+VERSION := {{ cookiecutter.version }}
+RELEASE := master
+
+# Include custom config if it is available
+-include Makefile.config
+
+# Application
+APP_ROOT := $(CURDIR)
+APP_NAME := $(shell basename $(APP_ROOT))
+
+# guess OS (Linux, Darwin, ...)
+OS_NAME := $(shell uname -s 2>/dev/null || echo "unknown")
+CPU_ARCH := $(shell uname -m 2>/dev/null || uname -p 2>/dev/null || echo "unknown")
+
+# Python
+SETUPTOOLS_VERSION := 36.5.0
+CONDA_VERSION := 4.4
+BUILDOUT_VERSION := 2.10.0
+
+# Anaconda
+ANACONDA_HOME ?= $(HOME)/anaconda
+CONDA_ENV ?= $(APP_NAME)
+CONDA_ENVS_DIR ?= $(HOME)/.conda/envs
+CONDA_ENV_PATH := $(CONDA_ENVS_DIR)/$(CONDA_ENV)
+CONDA_PINNED := $(APP_ROOT)/requirements/conda_pinned
+
+# Configuration used by update-config
+HOSTNAME ?= localhost
+HTTP_PORT ?= 8094
+OUTPUT_PORT ?= 8090
+
+# choose anaconda installer depending on your OS
+ANACONDA_URL = https://repo.continuum.io/miniconda
+ifeq "$(OS_NAME)" "Linux"
+FN := Miniconda2-latest-Linux-x86_64.sh
+else ifeq "$(OS_NAME)" "Darwin"
+FN := Miniconda2-latest-MacOSX-x86_64.sh
+else
+FN := unknown
+endif
+
+# Buildout files and folders
+DOWNLOAD_CACHE := $(APP_ROOT)/downloads
+BUILDOUT_FILES := parts eggs develop-eggs bin .installed.cfg .mr.developer.cfg *.egg-info bootstrap-buildout.py *.bak.* $(DOWNLOAD_CACHE)
+
+# Docker
+DOCKER_IMAGE := birdhouse/$(APP_NAME)
+DOCKER_CONTAINER := $(APP_NAME)
+
+# end of configuration
+
+
 .PHONY: clean clean-test clean-pyc clean-build docs help
 .DEFAULT_GOAL := help
 
@@ -52,15 +104,15 @@ clean-test: ## remove test and coverage artifacts
 lint: ## check style with flake8
 	flake8 {{ cookiecutter.project_slug }} tests
 
-test: ## run tests quickly with the default Python
-{%- if cookiecutter.use_pytest == 'y' %}
-	py.test
-{%- else %}
-	python setup.py test
-{%- endif %}
+#test: ## run tests quickly with the default Python
+#{%- if cookiecutter.use_pytest == 'y' %}
+#	py.test
+#{%- else %}
+#	python setup.py test
+#{%- endif %}
 
-test-all: ## run tests on every Python version with tox
-	tox
+#test-all: ## run tests on every Python version with tox
+#	tox
 
 coverage: ## check code coverage quickly with the default Python
 {%- if cookiecutter.use_pytest == 'y' %}
@@ -92,107 +144,10 @@ dist: clean ## builds source and wheel package
 	python setup.py bdist_wheel
 	ls -l dist
 
-install: clean ## install the package to the active Python's site-packages
-	python setup.py install
-
-## EMU ##
-
-VERSION := 0.3.14
-RELEASE := master
-
-# Include custom config if it is available
--include Makefile.config
-
-# Application
-APP_ROOT := $(CURDIR)
-APP_NAME := $(shell basename $(APP_ROOT))
-
-# guess OS (Linux, Darwin, ...)
-OS_NAME := $(shell uname -s 2>/dev/null || echo "unknown")
-CPU_ARCH := $(shell uname -m 2>/dev/null || uname -p 2>/dev/null || echo "unknown")
-
-# Python
-SETUPTOOLS_VERSION := 36.5.0
-CONDA_VERSION := 4.4
-BUILDOUT_VERSION := 2.10.0
-
-# Anaconda
-ANACONDA_HOME ?= $(HOME)/anaconda
-CONDA_ENV ?= $(APP_NAME)
-CONDA_ENVS_DIR ?= $(HOME)/.conda/envs
-CONDA_ENV_PATH := $(CONDA_ENVS_DIR)/$(CONDA_ENV)
-CONDA_PINNED := $(APP_ROOT)/requirements/conda_pinned
-
-# Configuration used by update-config
-HOSTNAME ?= localhost
-HTTP_PORT ?= 8094
-OUTPUT_PORT ?= 8090
-
-# choose anaconda installer depending on your OS
-ANACONDA_URL = https://repo.continuum.io/miniconda
-ifeq "$(OS_NAME)" "Linux"
-FN := Miniconda2-latest-Linux-x86_64.sh
-else ifeq "$(OS_NAME)" "Darwin"
-FN := Miniconda2-latest-MacOSX-x86_64.sh
-else
-FN := unknown
-endif
-
-# Buildout files and folders
-DOWNLOAD_CACHE := $(APP_ROOT)/downloads
-BUILDOUT_FILES := parts eggs develop-eggs bin .installed.cfg .mr.developer.cfg *.egg-info bootstrap-buildout.py *.bak.* $(DOWNLOAD_CACHE)
-
-# Docker
-DOCKER_IMAGE := birdhouse/$(APP_NAME)
-DOCKER_CONTAINER := $(APP_NAME)
-
-# end of configuration
-
-.DEFAULT_GOAL := help
-
-.PHONY: all
-all: help
-
-.PHONY: help
-help:
-	@echo "Please use \`make <target>' where <target> is one of"
-	@echo "  help        to print this help message. (Default)"
-	@echo "  version     to print version number of this Makefile."
-	@echo "  info        to print information about $(APP_NAME)."
-	@echo "  install     to install $(APP_NAME) by running 'bin/buildout -c custom.cfg'."
-	@echo "  sysinstall  to install system packages from requirements.sh. You can also call 'bash requirements.sh' directly."
-	@echo "  update      to update your application by running 'bin/buildout -o -c custom.cfg' (buildout offline mode)."
-	@echo "  clean       to delete all files that are created by running buildout."
-	@echo "\nTesting targets:"
-	@echo "  test        to run tests (but skip long running tests)."
-	@echo "  testall     to run all tests (including long running tests)."
-	@echo "  pep8        to run pep8 code style checks."
-	@echo "\nSphinx targets:"
-	@echo "  docs        to generate HTML documentation with Sphinx."
-	@echo "  linkcheck   to check all external links in documentation for integrity."
-	@echo "  doc8        to run doc8 documentation style checks."
-	@echo "\nSupporting targets:"
-	@echo "  envclean    to remove the conda enviroment $(CONDA_ENV)."
-	@echo "  srcclean    to remove all *.pyc files."
-	@echo "  distclean   to remove *all* files that are not controlled by 'git'. WARNING: use it *only* if you know what you do!"
-	@echo "  passwd      to generate password for 'phoenix-password' in custom.cfg."
-	@echo "  export      to export the conda environment. Caution! You always need to check it the enviroment.yml is working."
-	@echo "  selfupdate  to update this Makefile."
-	@echo "\nSupervisor targets:"
-	@echo "  start       to start supervisor service."
-	@echo "  stop        to stop supervisor service."
-	@echo "  restart     to restart supervisor service."
-	@echo "  status      to show supervisor status"
-	@echo "\nDocker targets:"
-	@echo "  Dockerfile  to generate a Dockerfile for $(APP_NAME)."
-	@echo "  dockerbuild to build a docker image for $(APP_NAME)."
-
-.PHONY: version
-version:
+version: ## Print the version number
 	@echo "Version: $(VERSION)"
 
-.PHONY: info
-info:
+info: ## Print information about the bird
 	@echo "Informations about your Bird:"
 	@echo "  OS_NAME             $(OS_NAME)"
 	@echo "  CPU_ARCH            $(CPU_ARCH)"
@@ -204,51 +159,46 @@ info:
 	@echo "  DOWNLOAD_CACHE      $(DOWNLOAD_CACHE)"
 	@echo "  DOCKER_IMAGE        $(DOCKER_IMAGE)"
 
+## EMU ##
+
 ## Helper targets ... ensure that Makefile etc are in place
 
-.PHONY: backup
-backup:
+backup: ## Backup custom configuration.
 	@echo "Backup custom config ..."
 	@-test -f custom.cfg && cp -v --update --backup=numbered --suffix=.bak custom.cfg custom.cfg.bak
 
-.PHONY: .gitignore
-.gitignore:
+.gitignore: ## Checkout .gitignore file.
 	@echo "Setup default .gitignore ..."
 	@curl "https://raw.githubusercontent.com/bird-house/birdhousebuilder.bootstrap/$(RELEASE)/dot_gitignore" --silent --insecure --output .gitignore
 
-.PHONY: bootstrap.sh
-bootstrap.sh:
+bootstrap.sh: ## Checkout bootstrap.sh
 	@echo "Update bootstrap.sh ..."
 	@curl "https://raw.githubusercontent.com/bird-house/birdhousebuilder.bootstrap/$(RELEASE)/bootstrap.sh" --silent --insecure --output bootstrap.sh "https://raw.githubusercontent.com/bird-house/birdhousebuilder.bootstrap/$(RELEASE)/bootstrap.sh"
 	@chmod 755 bootstrap.sh
 
-custom.cfg:
+custom.cfg: ## Use custom.cfg for buildout
 	@echo "Using custom.cfg for buildout ..."
 	@test -f custom.cfg || cp -v custom.cfg.example custom.cfg
 
-.PHONY: downloads
-downloads:
+downloads: ## Create download cache directory if it does not exist.
 	@echo "Using DOWNLOAD_CACHE $(DOWNLOAD_CACHE)"
 	@test -d $(DOWNLOAD_CACHE) || mkdir -v -p $(DOWNLOAD_CACHE)
 
-.PHONY: init
 init: custom.cfg downloads
 
-bootstrap-buildout.py:
+bootstrap-buildout.py: ## Checkout the bootstrap-buildout.py file
 	@echo "Update buildout bootstrap-buildout.py ..."
 	@test -f boostrap-buildout.py || curl https://bootstrap.pypa.io/bootstrap-buildout.py --insecure --silent --output bootstrap-buildout.py
 
 ## Anaconda targets
 
-.PHONY: anaconda
-anaconda:
+anaconda: ## Install Anaconda
 	@echo "Installing Anaconda ..."
 	@test -d $(ANACONDA_HOME) || curl $(ANACONDA_URL)/$(FN) --silent --insecure --output "$(DOWNLOAD_CACHE)/$(FN)"
 	@test -d $(ANACONDA_HOME) || bash "$(DOWNLOAD_CACHE)/$(FN)" -b -p $(ANACONDA_HOME)
 	@echo "Add '$(ANACONDA_HOME)/bin' to your PATH variable in '.bashrc'."
 
-.PHONY: conda_config
-conda_config: anaconda
+conda_config: anaconda ## Configure conda
 	@echo "Update ~/.condarc"
 	@-"$(ANACONDA_HOME)/bin/conda" install -y conda=$(CONDA_VERSION) requests
 	@"$(ANACONDA_HOME)/bin/conda" config --add envs_dirs $(CONDA_ENVS_DIR)
@@ -260,159 +210,131 @@ conda_config: anaconda
 	@"$(ANACONDA_HOME)/bin/conda" config --append channels birdhouse
 	@"$(ANACONDA_HOME)/bin/conda" config --append channels conda-forge
 
-.PHONY: conda_env
-conda_env: anaconda conda_config
+conda_env: anaconda conda_config  ## Update conda environment
 	@echo "Update conda environment $(CONDA_ENV) ..."
 	@test -d $(CONDA_ENV_PATH) || "$(ANACONDA_HOME)/bin/conda" env create -n $(CONDA_ENV) -f environment.yml
 	"$(ANACONDA_HOME)/bin/conda" install -y -n $(CONDA_ENV) setuptools=$(SETUPTOOLS_VERSION)
 
-.PHONY: conda_pinned
 conda_pinned: conda_env
 	@echo "Update pinned conda packages ..."
 	@-test -d $(CONDA_ENV_PATH) && test -f $(CONDA_PINNED) && cp -f "$(CONDA_PINNED)" "$(CONDA_ENV_PATH)/conda-meta/pinned"
 
-.PHONY: export
-export:
+export: ## Export conda environment
 	@echo "Exporting conda enviroment ..."
 	@test -d $(CONDA_ENV_PATH) && "$(ANACONDA_HOME)/bin/conda" env export -n $(CONDA_ENV) -f environment.yml
 
 ## Build targets
 
-.PHONY: bootstrap
-bootstrap: init conda_env conda_pinned bootstrap-buildout.py
+bootstrap: init conda_env conda_pinned bootstrap-buildout.py ## Bootstrap buildout
 	@echo "Bootstrap buildout ..."
 	@test -f bin/buildout || bash -c "source $(ANACONDA_HOME)/bin/activate $(CONDA_ENV);python bootstrap-buildout.py -c custom.cfg --allow-site-packages --setuptools-version=$(SETUPTOOLS_VERSION) --buildout-version=$(BUILDOUT_VERSION)"
 
-.PHONY: sysinstall
-sysinstall:
+sysinstall: ## Install system packages for bootstrap
 	@echo "\nInstalling system packages for bootstrap ..."
 	@bash bootstrap.sh -i
 	@echo "\nInstalling system packages for your application ..."
 	@-test -f requirements.sh && bash requirements.sh
 
-.PHONY: install
-install: bootstrap
+install: bootstrap ## Install {{cookiecutter.project_name}}
 	@echo "Installing application with buildout ..."
 	@-bash -c "source $(ANACONDA_HOME)/bin/activate $(CONDA_ENV);bin/buildout buildout:anaconda-home=$(ANACONDA_HOME) -c custom.cfg"
 	@echo "\nStart service with \`make start'"
 
-.PHONY: update
-update:
+update: ## Update application configuration with buildout
 	@echo "Update application config with buildout (offline mode) ..."
 	@-bash -c "source $(ANACONDA_HOME)/bin/activate $(CONDA_ENV);bin/buildout buildout:anaconda-home=$(ANACONDA_HOME) -o -c custom.cfg"
 
-.PHONY: update-config
-update-config:
+update-config: ## Update application config with buildout (offline mode) and environment variables
 	@echo "Update application config with buildout (offline mode) and environment variables..."
 	@-bash -c "source $(ANACONDA_HOME)/bin/activate $(CONDA_ENV);bin/buildout buildout:anaconda-home=$(ANACONDA_HOME) settings:hostname=$(HOSTNAME) settings:output-port=$(OUTPUT_PORT) settings:http-port=$(HTTP_PORT) -o -c custom.cfg"
 
-.PHONY: clean
-clean: srcclean envclean
+clean: srcclean envclean ## Clean buildout files
 	@echo "Cleaning buildout files ..."
 	@-for i in $(BUILDOUT_FILES); do \
             test -e $$i && rm -v -rf $$i; \
         done
 
-.PHONY: envclean
-envclean: stop
+envclean: stop ## Remove conda environment
 	@echo "Removing conda env $(CONDA_ENV)"
 	@-test -d $(CONDA_ENV_PATH) && "$(ANACONDA_HOME)/bin/conda" remove -n $(CONDA_ENV) --yes --all
 
-.PHONY: srcclean
-srcclean:
+srcclean: ## Remove *.pyc files
 	@echo "Removing *.pyc files ..."
 	@-find $(APP_ROOT) -type f -name "*.pyc" -print | xargs rm
 
-.PHONY: distclean
-distclean: backup clean
+distclean: backup clean ## Clean distribution
 	@echo "Cleaning distribution ..."
 	@git diff --quiet HEAD || echo "There are uncommited changes! Not doing 'git clean' ..."
 	@-git clean -dfx -e *.bak -e custom.cfg -e Makefile.config
 
-.PHONY: passwd
-passwd: custom.cfg
+passwd: custom.cfg  ## Generate a Phoenix password
 	@echo "Generate Phoenix password ..."
 	@echo "Enter a password with at least 8 characters."
 	@bash -c "source $(ANACONDA_HOME)/bin/activate $(CONDA_ENV); python -c 'from IPython.lib import passwd; pw = passwd(algorithm=\"sha256\"); lines = [\"phoenix-password = \" + pw + \"\\n\" if line.startswith(\"phoenix-password\") else line for line in open(\"custom.cfg\", \"r\")]; file = open(\"custom.cfg\", \"w\"); file.writelines(lines); file.close()'"
 	@echo ""
 	@echo "Run \`make install restart' to activate this password."
 
-.PHONY: test
-test:
+test: ## Run tests (skip slow and online tests)
 	@echo "Running tests (skip slow and online tests) ..."
 	bash -c "source $(ANACONDA_HOME)/bin/activate $(CONDA_ENV); bin/py.test -v -m 'not slow and not online'"
 
-.PHONY: testall
-testall:
+testall: ## Run all tests
 	@echo "Running all tests (including slow and online tests) ..."
 	bash -c "source $(ANACONDA_HOME)/bin/activate $(CONDA_ENV); bin/py.test -v"
 
-.PHONY: pep8
-pep8:
+pep8: ## PEP8 code style checks
 	@echo "Running pep8 code style checks ..."
 	$(CONDA_ENV_PATH)/bin/flake8
 
-.PHONY: docs
-docs:
-	@echo "Generating docs with Sphinx ..."
-	$(MAKE) -C $@ clean html
-	@echo "open your browser: firefox docs/build/html/index.html"
+#docs:
+#	@echo "Generating docs with Sphinx ..."
+#	$(MAKE) -C $@ clean html
+#	@echo "open your browser: firefox docs/build/html/index.html"
 
-.PHONY: linkcheck
-linkcheck:
+linkcheck: ## Run link checker
 	@echo "Run link checker on docs..."
 	$(MAKE) -C docs linkcheck
 
-.PHONY: doc8
-doc8:
+doc8: ## Run doc8 doc style checks
 	@echo "Running doc8 doc style checks ..."
 	$(CONDA_ENV_PATH)/bin/doc8 docs/
 
-.PHONY: selfupdate
-selfupdate: bootstrap.sh .gitignore
+selfupdate: bootstrap.sh .gitignore ## TODO
 	@curl "https://raw.githubusercontent.com/bird-house/birdhousebuilder.bootstrap/$(RELEASE)/Makefile" --silent --insecure --output Makefile
 
 ## Supervisor targets
 
-.PHONY: start
-start:
+start: ## Launch server
 	@echo "Starting supervisor service ..."
 	bin/supervisord start
 
-.PHONY: stop
-stop:
+stop: ## Stop server
 	@echo "Stopping supervisor service ..."
 	-bin/supervisord stop
 
-.PHONY: restart
-restart:
+restart: ## Restart server
 	@echo "Restarting supervisor service ..."
 	bin/supervisord restart
 
-.PHONY: status
-status:
+status: ## Print server status
 	@echo "Supervisor status ..."
 	bin/supervisorctl status
 
 
 ## Docker targets
 
-.PHONY: Dockerfile
-Dockerfile: bootstrap
+Dockerfile: bootstrap ## Update Dockerfile
 	@echo "Update Dockerfile ..."
 	bin/buildout -c custom.cfg install docker
 
-.PHONY: dockerrmi
-dockerrmi:
+dockerrmi: ## Remove docker image
 	@echo "Removing previous docker image ..."
 	docker rmi $(DOCKER_IMAGE)
 
-.PHONY: dockerbuild
-dockerbuild: Dockerfile
+dockerbuild: Dockerfile ## Build docker image
 	@echo "Building docker image ..."
 	docker build --rm -t $(DOCKER_IMAGE) .
 
-.PHONY: dockerrun
-dockerrun: dockerbuild
+dockerrun: dockerbuild ## Run docker image
 	@echo "Run docker image ..."
 	docker run -i -t -p 9001:9001 --name=$(DOCKER_CONTAINER) $(DOCKER_IMAGE) /bin/bash
