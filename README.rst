@@ -1,15 +1,20 @@
-======================
-Cookiecutter PyPackage
-======================
+==============================
+Cookiecutter Birdhouse Package
+==============================
 
-.. image:: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/shield.svg
-     :target: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/
-     :alt: Updates
+.. todo::
 
-Cookiecutter_ template for a Python package.
+   Review all this README.
 
-* GitHub repo: https://github.com/audreyr/cookiecutter-pypackage/
-* Documentation: https://cookiecutter-pypackage.readthedocs.io/
+..
+    .. image:: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/shield.svg
+         :target: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/
+         :alt: Updates
+
+Cookiecutter_ template for a Birdhouse bird package (pyWPS server).
+
+* GitHub repo: https://github.com/birdhouse/cookiecutter-birdhouse/
+* Documentation: https://birdhouse.readthedocs.io/
 * Free software: BSD license
 
 Features
@@ -34,12 +39,6 @@ Linux:
     :target: https://travis-ci.org/audreyr/cookiecutter-pypackage
     :alt: Linux build status on Travis CI
 
-Windows:
-
-.. image:: https://ci.appveyor.com/api/projects/status/github/audreyr/cookiecutter-pypackage?branch=master&svg=true
-    :target: https://ci.appveyor.com/project/audreyr/cookiecutter-pypackage/branch/master
-    :alt: Windows build status on Appveyor
-
 Quickstart
 ----------
 
@@ -50,7 +49,7 @@ Cookiecutter 1.4.0 or higher)::
 
 Generate a Python package project::
 
-    cookiecutter https://github.com/audreyr/cookiecutter-pypackage.git
+    cookiecutter https://github.com/birdhouse/cookiecutter-birdhouse.git
 
 Then:
 
@@ -72,50 +71,6 @@ Then:
 For more details, see the `cookiecutter-pypackage tutorial`_.
 
 .. _`cookiecutter-pypackage tutorial`: https://cookiecutter-pypackage.readthedocs.io/en/latest/tutorial.html
-
-Not Exactly What You Want?
---------------------------
-
-Don't worry, you have options:
-
-Similar Cookiecutter Templates
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* `Nekroze/cookiecutter-pypackage`_: A fork of this with a PyTest test runner,
-  strict flake8 checking with Travis/Tox, and some docs and `setup.py` differences.
-
-* `tony/cookiecutter-pypackage-pythonic`_: Fork with py2.7+3.3 optimizations.
-  Flask/Werkzeug-style test runner, ``_compat`` module and module/doc conventions.
-  See ``README.rst`` or the `github comparison view`_ for exhaustive list of
-  additions and modifications.
-
-* `ardydedase/cookiecutter-pypackage`_: A fork with separate requirements files rather than a requirements list in the ``setup.py`` file.
-
-* `lgiordani/cookiecutter-pypackage`_: A fork of Cookiecutter that uses Punch_ instead of Bumpversion_ and with separate requirements files.
-
-* Also see the `network`_ and `family tree`_ for this repo. (If you find
-  anything that should be listed here, please add it and send a pull request!)
-
-Fork This / Create Your Own
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-If you have differences in your preferred setup, I encourage you to fork this
-to create your own version. Or create your own; it doesn't strictly have to
-be a fork.
-
-* Once you have your own version working, add it to the Similar Cookiecutter
-  Templates list above with a brief description.
-
-* It's up to you whether or not to rename your fork/own version. Do whatever
-  you think sounds good.
-
-Or Submit a Pull Request
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-I also accept pull requests on this, if they're small, atomic, and if they
-make my own packaging experience better.
-
-
 .. _Travis-CI: http://travis-ci.org/
 .. _Tox: http://testrun.org/tox/
 .. _Sphinx: http://sphinx-doc.org/
@@ -125,10 +80,3 @@ make my own packaging experience better.
 .. _Punch: https://github.com/lgiordani/punch
 .. _PyPi: https://pypi.python.org/pypi
 
-.. _`Nekroze/cookiecutter-pypackage`: https://github.com/Nekroze/cookiecutter-pypackage
-.. _`tony/cookiecutter-pypackage-pythonic`: https://github.com/tony/cookiecutter-pypackage-pythonic
-.. _`ardydedase/cookiecutter-pypackage`: https://github.com/ardydedase/cookiecutter-pypackage
-.. _`lgiordani/cookiecutter-pypackage`: https://github.com/lgiordani/cookiecutter-pypackage
-.. _github comparison view: https://github.com/tony/cookiecutter-pypackage-pythonic/compare/audreyr:master...master
-.. _`network`: https://github.com/audreyr/cookiecutter-pypackage/network
-.. _`family tree`: https://github.com/audreyr/cookiecutter-pypackage/network/members
