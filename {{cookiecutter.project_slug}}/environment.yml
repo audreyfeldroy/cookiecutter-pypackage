@@ -40,3 +40,6 @@ dependencies:
 - drmaa
 - pip:
   - sphinx-autoapi==0.5.0
+  -e git+https://github.com/huard/sphinx-autodoc-pywps.git#egg=sphinx_autodoc_pywps
+  - sphinx_rtd_theme
+
