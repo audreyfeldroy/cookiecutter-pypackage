@@ -1,4 +1,4 @@
-emu:
+{{ cookiecutter.project_slug }}:
   image: birdhouse/{{ cookiecutter.project_slug }}
   environment:
     HOSTNAME: $HOSTNAME

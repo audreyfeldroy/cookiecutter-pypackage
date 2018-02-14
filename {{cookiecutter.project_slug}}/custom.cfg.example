@@ -5,7 +5,7 @@ extends = buildout.cfg
 
 [settings]
 hostname = localhost
-http-port = {{ cookiecutter.http-port }}
+http-port = {{ cookiecutter.http_port }}
 output-port = 8090
 #log-level = WARN
 

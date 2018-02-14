@@ -14,6 +14,6 @@
   "create_author_file": "y",
   "open_source_license": ["MIT license", "BSD license", "ISC license", "Apache Software License 2.0", "GNU General Public License v3", "Not open source"],
   "port_digits": "94",
-  "http-port": "80{{ cookiecutter.port_digits }}",
-  "https-port": "280{{ cookiecutter.port_digits }}",
+  "http_port": "80{{ cookiecutter.port_digits }}",
+  "https_port": "280{{ cookiecutter.port_digits }}"
 }
