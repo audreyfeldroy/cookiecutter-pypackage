@@ -1,0 +1,22 @@
+{
+  "editor.tabSize": 4,
+  "editor.wordWrap": "on",
+  "editor.wrappingIndent": "indent",
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true,
+  "python.linting.flake8Args": [
+    "--ignore=E114,E111"
+  ],
+  {% if cookiecutter.use_yapf == 'y' %}
+  "python.formatting.provider": "yapf",
+  {% else %}
+  "python.formatting.provider": "autopep8",
+  {% endif %}
+  {% if cookiecutter.use_pytest == 'y' %}
+  "python.unitTest.pyTestEnabled": true,
+  "python.unitTest.unittestEnabled": false
+  {% else %}
+  "python.unitTest.pyTestEnabled": false,
+  "python.unitTest.unittestEnabled": true
+  {% endif %}
+}
