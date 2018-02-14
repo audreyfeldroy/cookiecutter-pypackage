@@ -1,0 +1,17 @@
+[buildout]
+
+extends = buildout.cfg
+#extends = profiles/development.cfg
+
+[settings]
+hostname = localhost
+http-port = {{ cookiecutter.http-port }}
+output-port = 8090
+#log-level = WARN
+
+## deployment options
+#prefix =  /opt/birdhouse
+#user = www-data
+#etc-user = root
+
+
