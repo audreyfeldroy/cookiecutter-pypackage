@@ -84,7 +84,6 @@ def test_bake_with_defaults(cookies):
         assert 'python_boilerplate' in found_toplevel_files
         assert 'tox.ini' in found_toplevel_files
         assert 'tests' in found_toplevel_files
-        assert 'travis_pypi_setup.py' in found_toplevel_files
 
 
 def test_bake_and_run_tests(cookies):
@@ -129,7 +128,6 @@ def test_bake_without_travis_pypi_setup(cookies):
         assert "deploy" not in result_travis_config
         assert "python" == result_travis_config["language"]
         found_toplevel_files = [f.basename for f in result.project.listdir()]
-        assert 'travis_pypi_setup.py' not in found_toplevel_files
 
 
 def test_bake_without_author_file(cookies):
