@@ -67,3 +67,6 @@ target/
 
 # pyenv python configuration file
 .python-version
+
+# Datasets & NN models
+*.csv
