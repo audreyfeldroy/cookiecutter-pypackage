@@ -31,8 +31,7 @@ clean-pyc:
 	find . -name '*~' -exec rm -f {} +
 
 lint:
-	pipenv run flake8 --output-file=.flake8.txt {{ cookiecutter.module_name }} tests 
-	pipenv run pylint --report=y {{ cookiecutter.module_name }} tests
+	pipenv run flake8 --output-file=.flake8.txt {{ cookiecutter.module_name }} tests 	
 
 test:
 	pipenv run py.test --junitxml=report.xml
