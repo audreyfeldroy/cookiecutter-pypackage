@@ -5,11 +5,9 @@ watchdog==0.8.3
 flake8==3.5.0
 tox==2.9.1
 coverage==4.5.1
-Sphinx==1.6.5
-twine==1.9.1
-{% if cookiecutter.use_pypi_deployment_with_travis == 'y' -%}
-cryptography==2.1.4
-PyYAML==3.11{% endif %}
+Sphinx==1.7.0
+{% if cookiecutter.command_line_interface == 'y' -%}
+click==6.7{% endif %}
 {% if cookiecutter.use_pytest == 'y' -%}
-pytest==3.3.2
+pytest==3.4.1
 pytest-runner==2.11.1{% endif %}

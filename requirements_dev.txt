@@ -1,7 +1,5 @@
-PyYAML==3.12
 pytest==3.4.0
 tox==2.9.1
-cryptography==2.1.4
 cookiecutter>=1.4.0
 pytest-cookies==0.3.0
 watchdog==0.8.3
