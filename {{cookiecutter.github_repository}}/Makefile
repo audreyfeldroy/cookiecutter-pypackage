@@ -34,7 +34,7 @@ lint:
 	pipenv run flake8 --output-file=.flake8.txt {{ cookiecutter.module_name }} tests 	
 
 test:
-	pipenv run py.test --junitxml=report.xml
+	pipenv run py.test --junitxml=tests_report.xml
 
 test-all:
 	tox
