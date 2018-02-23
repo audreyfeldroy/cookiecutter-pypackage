@@ -1,3 +1,7 @@
+####
+TODO
+####
+
 Project
 -------
 
@@ -28,4 +32,12 @@ Environment
         - install all the dev packages with \'make init\'
 - [ ] configure with a given Python version :
   - [ ] tests : tox & py.test
-  - [ ] pipenv
+  - [ ] pipenv (--two --three or --python xxx)
+
+Installation
+------------
+
+- [ ] factor the dependencies, spread in the files :
+  - requirements.txt
+  - requirements_dev.txt
+  - setup.py
