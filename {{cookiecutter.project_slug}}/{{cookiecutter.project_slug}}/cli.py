@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """Console script for {{cookiecutter.project_slug}}."""
-
+import sys
 import click
 
 
@@ -15,5 +15,4 @@ def main(args=None):
 
 
 if __name__ == "__main__":
-    import sys
-    sys.exit(main())
+    sys.exit(main())  # noqa
