@@ -39,7 +39,7 @@ extensions = ['sphinx.ext.autodoc',
               ]
 
 autoapi_type = 'python'
-autoapi_dirs = ['../{{ cookiecutter.project_slug }}']
+autoapi_dirs = ['../../{{ cookiecutter.project_slug }}']
 autoapi_file_pattern = '*.py'
 autoapi_options = ['members', 'undoc-members', 'private-members']
 
@@ -92,17 +92,7 @@ todo_include_todos = False
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-#
-# on_rtd is whether we are on readthedocs.org, this line of code grabbed from docs.readthedocs.org
-# http://docs.readthedocs.org/en/latest/faq.html?highlight=autodoc#how-do-i-change-behavior-for-read-the-docs
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
-
-if on_rtd:
-    html_theme = 'default'
-else:  # only import and set the theme if we're building docs locally
-    import sphinx_rtd_theme
-    html_theme = 'sphinx_rtd_theme'
-    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+html_theme = 'alabaster'
 
 # Theme options are theme-specific and customize the look and feel of a
 # theme further.  For a list of options available for each theme, see the
@@ -176,6 +166,3 @@ texinfo_documents = [
      'One line description of project.',
      'Miscellaneous'),
 ]
-
-
-

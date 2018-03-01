@@ -1,17 +1,4 @@
-pip==9.0.1
-bumpversion==0.5.3
-wheel==0.30.0
-watchdog==0.8.3
-flake8==3.5.0
-tox==2.9.1
-coverage==4.4.2
-Sphinx==1.6.5
+pytest
+flake8
+sphinx
 -e git+https://github.com/huard/sphinx-autodoc-pywps.git#egg=sphinx_autodoc_pywps
-sphinx_rtd_theme
-twine==1.9.1
-{% if cookiecutter.use_pypi_deployment_with_travis == 'y' -%}
-cryptography==2.1.4
-PyYAML==3.11{% endif %}
-{% if cookiecutter.use_pytest == 'y' -%}
-pytest==3.3.2
-pytest-runner==2.11.1{% endif %}

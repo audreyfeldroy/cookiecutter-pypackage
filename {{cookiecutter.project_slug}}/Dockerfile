@@ -1,12 +1,11 @@
 # vim:set ft=dockerfile:
 FROM birdhouse/bird-base:latest
-MAINTAINER https://github.com/bird-house/{{ cookiecutter.project_slug }}
+MAINTAINER https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
 
-LABEL Description="{{ cookiecutter.project_slug }} application" Vendor="Birdhouse" Version="{{ cookiecutter.version }}"
+LABEL Description="{{ cookiecutter.project_slug }} WPS" Vendor="Birdhouse"
 
 # Configure hostname and ports for services
-ENV HTTP_PORT 8080
-ENV HTTPS_PORT 8443
+ENV HTTP_PORT 5000
 ENV OUTPUT_PORT 8000
 ENV HOSTNAME localhost
 
@@ -20,10 +19,10 @@ COPY . /opt/birdhouse/src/{{ cookiecutter.project_slug }}
 WORKDIR /opt/birdhouse/src/{{ cookiecutter.project_slug }}
 
 # Provide custom.cfg with settings for docker image
-RUN printf "[buildout]\nextends=profiles/docker.cfg" > custom.cfg
+COPY .docker.cfg custom.cfg
 
 # Install system dependencies
-RUN bash bootstrap.sh -i && bash requirements.sh
+RUN bash bootstrap.sh -i
 
 # Set conda enviroment
 ENV ANACONDA_HOME /opt/conda
@@ -39,7 +38,7 @@ VOLUME /opt/birdhouse/var/log
 VOLUME /opt/birdhouse/etc
 
 # Ports used in birdhouse
-EXPOSE 9001 $HTTP_PORT $HTTPS_PORT $OUTPUT_PORT
+EXPOSE $HTTP_PORT $OUTPUT_PORT
 
 # Start supervisor in foreground
 ENV DAEMON_OPTS --nodaemon

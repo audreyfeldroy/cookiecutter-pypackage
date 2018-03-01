@@ -1,17 +1,18 @@
 [buildout]
-
 extends = buildout.cfg
-#extends = profiles/development.cfg
 
 [settings]
-hostname = localhost
-http-port = {{ cookiecutter.http_port }}
-output-port = 8090
-#log-level = WARN
+# hostname = localhost
+# http-port = {{ cookiecutter.http_port }}
+# output-port = {{ cookiecutter.output_port }}
+
+## development options
+# log-level = WARN
+# versions = noversions
 
 ## deployment options
-#prefix =  /opt/birdhouse
-#user = www-data
-#etc-user = root
+# prefix =  /opt/birdhouse
+# user = www-data
+# etc-user = root
 
-
+[noversions]

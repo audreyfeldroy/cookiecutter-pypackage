@@ -1,17 +1,12 @@
-{{ cookiecutter.project_slug }}:
-  image: birdhouse/{{ cookiecutter.project_slug }}
-  environment:
-    HOSTNAME: $HOSTNAME
-    HTTP_PORT: $HTTP_PORT
-    HTTPS_PORT: $HTTPS_PORT
-    OUTPUT_PORT: $OUTPUT_PORT
-  ports:
-    - "$SUPERVISOR_PORT:9001"
-    - "$HTTP_PORT:$HTTP_PORT"
-    - "$HTTPS_PORT:$HTTPS_PORT"
-    - "$OUTPUT_PORT:$OUTPUT_PORT"
-#  volumes:
-#    - /tmp/data:/opt/birdhouse/var/lib
-#    - /tmp/log:/opt/birdhouse/var/log
-#    - /tmp/etc:/opt/birdhouse/etc
-#  volume_driver: local
+version: '3'
+services:
+  emu:
+    buildout: .
+    image: birdhouse/{{ cookiecutter.project_slug }}
+    environment:
+      HOSTNAME: $HOSTNAME
+      HTTP_PORT: $HTTP_PORT
+      OUTPUT_PORT: $OUTPUT_PORT
+    ports:
+      - "$HTTP_PORT:$HTTP_PORT"
+      - "$OUTPUT_PORT:$OUTPUT_PORT"
