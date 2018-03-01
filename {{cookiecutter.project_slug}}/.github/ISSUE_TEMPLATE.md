@@ -1,15 +1,19 @@
-* {{ cookiecutter.project_name }} version:
-* Python version:
+## Description
+
+Describe what you were trying to get done or your feature request.
+
+## Environment
+
+* Cookiecutter version used, if any:
+* Python version, if any:
 * Operating System:
 
-### Description
-
-Describe what you were trying to get done.
-Tell us what happened, what went wrong, and what you expected to happen.
-
-### What I Did
+## Steps to Reproduce
 
 ```
 Paste the command(s) you ran and the output.
-If there was a crash, please include the traceback here.
 ```
+
+## Additional Information
+
+Links to other issues or sources.

@@ -1,20 +1,12 @@
-# Config file for automatic testing at travis-ci.org
-# This file will be regenerated if you run travis_pypi_setup.py
-
 language: python
+#branches:
+#  only:
+#    - master
 python:
-  - 3.6
-  - 3.5
-  - 3.4
-  - 2.7
+  - "2.7"
 os:
   - linux
-branches:
-  only:
-    - master
-    - develop
-
-# Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+#  - osx
 sudo: false
 install:
   - make install
@@ -24,25 +16,5 @@ before_script:
 script:
   - make testall
   - make pep8
-#install: pip install -U tox-travis
-
-# Command to run tests, e.g. python setup.py test
-#script: tox
-
-{% if cookiecutter.use_pypi_deployment_with_travis == 'y' -%}
-# After you create the Github repo and add it to Travis, run the
-# travis_pypi_setup.py script to finish PyPI deployment setup
-deploy:
-  provider: pypi
-  distributions: sdist bdist_wheel
-  user: {{ cookiecutter.pypi_username }}
-  password:
-    secure: PLEASE_REPLACE_ME
-  on:
-    tags: true
-    repo: {{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
-    python: 2.7
-{%- endif %}
-
-
-
+#after_success:
+# - coveralls

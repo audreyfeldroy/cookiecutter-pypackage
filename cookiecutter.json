@@ -1,19 +1,13 @@
 {
-  "full_name": "David Huard",
-  "email": "huard.david@ouranos.ca",
-  "github_username": "huard",
-  "project_name": "Birdname",
+  "full_name": "Full Name",
+  "email": "your@email",
+  "github_username": "bird-house",
+  "project_name": "Babybird",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
-  "project_short_description": "WPS climate data analysis",
-  "pypi_username": "{{ cookiecutter.github_username }}",
+  "project_short_description": "A Web Processing Service for Climate Data Analysis.",
   "version": "0.1.0",
-  "use_pytest": "y",
-  "use_pypi_deployment_with_travis": "y",
-  "add_pyup_badge": "n",
-  "command_line_interface": ["No command-line interface"],
-  "create_author_file": "y",
-  "open_source_license": ["MIT license", "BSD license", "ISC license", "Apache Software License 2.0", "GNU General Public License v3", "Not open source"],
-  "port_digits": "94",
-  "http_port": "80{{ cookiecutter.port_digits }}",
-  "https_port": "280{{ cookiecutter.port_digits }}"
+  "open_source_license": ["Apache Software License 2.0", "MIT license", "BSD license", "ISC license", "GNU General Public License v3"],
+  "http_port": "5000",
+  "https_port": "2{{ cookiecutter.http_port }}",
+  "output_port": "8090"
 }

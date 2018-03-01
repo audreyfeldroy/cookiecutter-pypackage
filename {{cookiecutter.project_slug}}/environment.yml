@@ -13,33 +13,23 @@ dependencies:
 # buildout
 - mako
 # tests
-- pytest=3.1
+- pytest
 # pep8
-- flake8=3.3
-- pycodestyle=2.3
-# ipython
-- ipython
+- flake8
+- pycodestyle
 # docs
-- sphinx=1.6
+- sphinx
 - six
 - doc8
 # wps
 - pywps=4.0.0
+- click=6
 - nginx=1.10.3
 - supervisor=3.3
 - gunicorn=19.7
-- gevent=1.2
 - lxml=3.7
 - libxslt=1.1.29
-- eventlet
 - genshi=0.7
-# postgres
-- psycopg2
-# scheduler
-- dill
-- drmaa
 - pip:
   - sphinx-autoapi==0.5.0
-  -e git+https://github.com/huard/sphinx-autodoc-pywps.git#egg=sphinx_autodoc_pywps
-  - sphinx_rtd_theme
-
+  - -e git+https://github.com/huard/sphinx-autodoc-pywps.git#egg=sphinx_autodoc_pywps
