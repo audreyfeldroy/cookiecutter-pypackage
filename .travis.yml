@@ -10,6 +10,6 @@ install:
   - bash miniconda.sh -b -p $HOME/miniconda
   - export PATH="$HOME/miniconda/bin:$PATH"
   - hash -r
-  - conda env update -f environment.yml
+  - conda env update -n root -f environment.yml
 script:
   - pytest -v
