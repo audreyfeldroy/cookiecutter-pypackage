@@ -19,12 +19,19 @@ requirements = [
 ]
 
 setup_requirements = [
-    'pytest-runner',
+    'bumpversion>=0.5.3',
+    'wheel>=0.29.0',
+    'watchdog>=0.8.3',
+    'Sphinx>=1.4.8',
     # TODO({{ cookiecutter.github_username }}): put setup requirements (distutils extensions, etc.) here
 ]
 
 test_requirements = [
-    'pytest',
+    'pytest>=2.9.2',
+    'pytest-runner>=2.11.1',
+    'flake8>=2.6.0',
+    'tox>=2.3.1',
+    'coverage>=4.1'
     # TODO: put package test requirements here
 ]
 

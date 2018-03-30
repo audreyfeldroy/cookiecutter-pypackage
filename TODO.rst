@@ -6,6 +6,7 @@ Project
 -------
 
 - [ ] Fork the `original project <https://cookiecutter-pypackage.readthedocs.io/en/latest/tutorial.html>`_ rather than Nekroze's
+- [ ] Fill test / dist dependencies in setup.py
 
 Process
 -------
@@ -13,6 +14,11 @@ Process
 - [x] Allow the \'-\' in the project & repository names : cf hooks/pre
 - [x] Distinguish the project / repository / module names : cf cookiecutter.json
 - [x] Remove the publish part (to pypi)
+
+TMP
+---
+
+- [ ] put reports, cache and tmp files in a specific sub directory
 
 Data
 ----
@@ -32,7 +38,7 @@ Environment
         - install all the dev packages with \'make init\'
 - [ ] configure with a given Python version :
   - [ ] tests : tox & py.test
-  - [ ] pipenv (--two --three or --python xxx)
+  - [ ] pipenv (--two --three or --python xxx)
 
 Installation
 ------------
