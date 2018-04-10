@@ -52,7 +52,7 @@ setup(name='{{ cookiecutter.project_slug }}',
       license="{{ cookiecutter.open_source_license }}",
 {%- endif %}
       keywords='wps pywps birdhouse {{ cookiecutter.project_slug }}',
-      packages=find_packages(include=['{{ cookiecutter.project_slug }}']),
+      packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
       test_suite='{{ cookiecutter.project_slug }}',
