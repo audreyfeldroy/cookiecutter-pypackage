@@ -35,7 +35,7 @@ import {{ cookiecutter.project_slug }}
 extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.viewcode',
               'sphinx.ext.napoleon',
-              'sphinx_autodoc_pywps',
+              #'pywps.ext_autodoc', # Available on master branch. Will be distributed with the 4.2 release.
               ]
 
 autoapi_type = 'python'
