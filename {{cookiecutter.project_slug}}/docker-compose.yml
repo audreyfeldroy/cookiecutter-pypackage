@@ -1,6 +1,6 @@
 version: '3'
 services:
-  emu:
+  {{ cookiecutter.project_slug }}:
     buildout: .
     image: birdhouse/{{ cookiecutter.project_slug }}
     environment:

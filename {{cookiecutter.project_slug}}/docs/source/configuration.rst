@@ -7,7 +7,7 @@ If you want to run on a different hostname or port then change the default value
 
 .. code-block:: sh
 
-   $ cd emu
+   $ cd {{ cookiecutter.project_slug }}
    $ vim custom.cfg
    $ cat custom.cfg
    [settings]
