@@ -12,6 +12,7 @@ help:
 	@echo "sdist - package"
 
 init:	
+	pipenv --three
 	pipenv install --dev --skip-lock
 	pipenv install -r requirements_dev.txt
 
@@ -34,7 +35,7 @@ lint:
 	pipenv run flake8 --output-file=.flake8.txt {{ cookiecutter.module_name }} tests 	
 
 test:
-	pipenv run py.test --junitxml=tests_report.xml
+	pipenv run py.test --junitxml=.tests_report.xml
 
 test-all:
 	tox
