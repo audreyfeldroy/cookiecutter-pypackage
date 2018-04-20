@@ -8,3 +8,4 @@ coverage>=4.1
 Sphinx>=1.4.8
 pytest>=2.9.2
 pytest-runner>=2.11.1
+Click>=6.0
