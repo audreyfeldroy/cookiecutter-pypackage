@@ -188,13 +188,32 @@ def test_using_pytest(cookies):
         run_inside_dir('python setup.py test', str(result.project)) == 0
 
 
-def test_not_using_pytest(cookies):
+def test_using_codecov(cookies):
+    with bake_in_temp_dir(cookies, extra_context={'use_codecov': 'y'}) as result:
+        assert result.project.isdir()
+        travis_file_path = result.project.join('.travis.yml')
+        lines = travis_file_path .readlines()
+        assert "codecov" in ''.join(lines)
+        requirements_file_path = result.project.join('requirements_dev.txt')
+        lines = requirements_file_path .readlines()
+        assert "codecov==" in ''.join(lines)
+        readme_file_path = result.project.join('README.rst')
+        lines = readme_file_path.readlines()
+        assert "codecov.io" in ''.join(lines)
+
+
+def test_not_using_codecov(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        test_file_path = result.project.join('tests/test_python_boilerplate.py')
-        lines = test_file_path.readlines()
-        assert "import unittest" in ''.join(lines)
-        assert "import pytest" not in ''.join(lines)
+        travis_file_path = result.project.join('.travis.yml')
+        lines = travis_file_path .readlines()
+        assert "codecov" not in ''.join(lines)
+        requirements_file_path = result.project.join('requirements_dev.txt')
+        lines = requirements_file_path .readlines()
+        assert "codecov==" not in ''.join(lines)
+        readme_file_path = result.project.join('README.rst')
+        lines = readme_file_path.readlines()
+        assert "codecov.io" not in ''.join(lines)
 
 
 # def test_project_with_hyphen_in_module_name(cookies):
