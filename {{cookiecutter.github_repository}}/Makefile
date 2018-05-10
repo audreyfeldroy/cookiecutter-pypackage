@@ -1,4 +1,4 @@
-.PHONY: help init clean clean-pyc clean-docs clean-build lint test test-all coverage docs release sdist
+.PHONY: help init update clean clean-pyc clean-docs clean-build lint test test-all coverage docs release sdist
 
 help:
 	@echo "clean-build - remove build artifacts"
@@ -15,6 +15,11 @@ init:
 	pipenv --three
 	pipenv install --dev --skip-lock
 	pipenv install -r requirements_dev.txt
+	pipenv run setup.py develop
+
+update:
+	pipenv update
+	pipenv lock -r
 
 clean: clean-build clean-pyc
 
@@ -48,10 +53,10 @@ docs: clean-docs
 	@echo "\033[95m\n\nBuild successful! View the docs homepage at docs/_build/html/index.html.\n\033[0m"
 
 release: clean
-	python setup.py sdist upload
-	python setup.py bdist_wheel upload
+	pipenv run setup.py sdist upload
+	pipenv run setup.py bdist_wheel upload
 
 sdist: clean
-	python setup.py sdist
-	python setup.py bdist_wheel upload
+	pipenv run setup.py sdist
+	pipenv run setup.py bdist_wheel upload
 	ls -l dist
