@@ -106,7 +106,7 @@ environment as follows::
   # bake a new bird with default settings
   $ make bake
 
-  # the bird is created in the cookies folder
+  # the new "baked" bird is created in the cookies folder
   $ ls -l cookies/
   babybird
 

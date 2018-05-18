@@ -10,7 +10,7 @@ import os
 from pywps import configuration
 
 from . import wsgi
-from ._compat import urlparse
+from six.moves.urllib.parse import urlparse
 
 import logging
 logging.basicConfig(format='%(message)s', level=logging.INFO)

@@ -16,19 +16,19 @@ dependencies:
 - pytest
 # pep8
 - flake8
-- pycodestyle
+# py2/3 compat
+- six
 # docs
 - sphinx
-- six
 - doc8
 # wps
 - pywps=4.0.0
 - click=6
 - nginx=1.10.3
 - supervisor=3.3
-- gunicorn=19.7
-- lxml=3.7
-- libxslt=1.1.29
+- gunicorn=19
+- lxml
+- libxslt
 - genshi=0.7
 - pip:
   - sphinx-autoapi==0.5.0
