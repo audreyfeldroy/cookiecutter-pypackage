@@ -90,12 +90,12 @@ you already have `virtualenv` and `Git` installed and ready to go.
 
     $ flake8 ./tests
 
-6. The next step would be to run the test cases. `cookiecutter-pypackage` uses py.test, you can run PyTest. Before you run pytest you should ensure all dependancies are installed::
+6. The next step would be to run the test cases. `cookiecutter-pypackage` uses pytest, you can run PyTest. Before you run pytest you should ensure all dependancies are installed::
 
   .. code-block:: bash
 
     $ pip install -rrequirements_dev.txt
-    $ py.test ./tests
+    $ pytest ./tests
 
    If you get any errors while installing cryptography package (something like #include <openssl/aes.h>).
    Please update your pip version and try again::
@@ -154,7 +154,7 @@ To write and run your new test, follow these steps:
 
 3. Run your test and confirm that your test fails. If your test does not fail, rewrite the test until it fails on the original code::
 
-    $ py.test ./tests
+    $ pytest ./tests
 
 4. (Optional) Run the tests with tox to ensure that the code changes work with different Python versions::
 
