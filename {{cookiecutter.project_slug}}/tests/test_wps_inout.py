@@ -3,7 +3,7 @@ import pytest
 from pywps import Service
 from pywps.tests import assert_response_success
 
-from {{ cookiecutter.project_slug }}.tests.common import client_for
+from . common import client_for
 from {{ cookiecutter.project_slug }}.processes.wps_inout import InOut
 
 
