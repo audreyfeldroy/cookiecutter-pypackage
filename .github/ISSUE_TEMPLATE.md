@@ -4,7 +4,7 @@ Describe what you were trying to get done or your feature request.
 
 ## Environment
 
-* Emu version used, if any:
+* Cookiecutter version used, if any:
 * Python version, if any:
 * Operating System:
 
