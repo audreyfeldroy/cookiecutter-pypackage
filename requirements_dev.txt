@@ -1,7 +1,8 @@
-PyYAML==3.12
-pytest==3.4.1
-cryptography==2.1.4
+PyYAML
+cryptography
+pytest
+pytest-cookies
 cookiecutter>=1.6.0
-pytest-cookies==0.3.0
-watchdog==0.8.3
+bumpversion
+watchdog
 sphinx>=1.7

@@ -2,3 +2,4 @@ pytest
 flake8
 sphinx
 -e git+https://github.com/huard/sphinx-autodoc-pywps.git#egg=sphinx_autodoc_pywps
+bumpversion

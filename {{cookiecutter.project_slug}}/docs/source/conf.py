@@ -65,7 +65,7 @@ author = u"{{ cookiecutter.full_name }}"
 # the built documents.
 #
 # The short X.Y version.
-version = {{ cookiecutter.project_slug }}.__version__
+version = ''
 # The full version, including alpha/beta/rc tags.
 release = {{ cookiecutter.project_slug }}.__version__
 
