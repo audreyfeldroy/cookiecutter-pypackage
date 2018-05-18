@@ -4,3 +4,4 @@ cryptography==2.1.4
 cookiecutter>=1.6.0
 pytest-cookies==0.3.0
 watchdog==0.8.3
+sphinx>=1.7

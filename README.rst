@@ -2,6 +2,10 @@
 Cookiecutter for Birdhouse
 ==========================
 
+.. image:: https://img.shields.io/badge/docs-latest-brightgreen.svg
+   :target: http://cookiecutter-birdhouse.readthedocs.org/en/latest/?badge=latest
+   :alt: Documentation Status
+
 .. image:: https://travis-ci.org/bird-house/cookiecutter-birdhouse.svg?branch=master
    :target: https://travis-ci.org/bird-house/cookiecutter-birdhouse
    :alt: Travis Build
