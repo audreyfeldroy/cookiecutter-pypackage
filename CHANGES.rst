@@ -1,7 +1,7 @@
 CHANGES
 ********
 
-0.2.0 (2018-05-18)
+0.2.0 (2018-05-22)
 ==================
 
 Initial Cookiecutter Birdhouse release.
