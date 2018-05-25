@@ -8,6 +8,7 @@
   "version": "0.1.0",
   "open_source_license": ["Apache Software License 2.0", "MIT license", "BSD license", "ISC license", "GNU General Public License v3"],
   "http_port": "5000",
-  "https_port": "2{{ cookiecutter.http_port }}",
-  "output_port": "8090"
+  "_copy_without_render": [
+        "{{cookiecutter.project_slug}}/templates/*.cfg"
+  ]
 }

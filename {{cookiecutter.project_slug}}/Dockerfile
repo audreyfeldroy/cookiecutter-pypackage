@@ -1,47 +1,33 @@
 # vim:set ft=dockerfile:
-FROM birdhouse/bird-base:latest
+FROM continuumio/miniconda3
 MAINTAINER https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
+LABEL Description="{{ cookiecutter.project_slug }} WPS" Vendor="Birdhouse" Version="{{ cookiecutter.version }}"
 
-LABEL Description="{{ cookiecutter.project_slug }} WPS" Vendor="Birdhouse"
+# Update Debian system
+RUN apt-get update && apt-get install -y \
+ build-essential \
+&& rm -rf /var/lib/apt/lists/*
 
-# Configure hostname and ports for services
-ENV HTTP_PORT 5000
-ENV OUTPUT_PORT 8000
-ENV HOSTNAME localhost
+# Update conda
+RUN conda update -n base conda
 
-# Set current home
-ENV HOME /root
+# Copy WPS project
+COPY . /opt/wps
 
-# Copy application sources
-COPY . /opt/birdhouse/src/{{ cookiecutter.project_slug }}
+WORKDIR /opt/wps
 
-# cd into application
-WORKDIR /opt/birdhouse/src/{{ cookiecutter.project_slug }}
+# Create conda environment
+RUN conda env create -n wps -f environment.yml
 
-# Provide custom.cfg with settings for docker image
-COPY .docker.cfg custom.cfg
+# Install WPS
+RUN ["/bin/bash", "-c", "source activate wps && python setup.py develop"]
 
-# Install system dependencies
-RUN bash bootstrap.sh -i
+# Start WPS service on port {{ cookiecutter.http_port }} on 0.0.0.0
+EXPOSE {{ cookiecutter.http_port }}
+ENTRYPOINT ["/bin/bash", "-c"]
+CMD ["source activate wps && exec emu --config /opt/wps/etc/demo.cfg"]
 
-# Set conda enviroment
-ENV ANACONDA_HOME /opt/conda
-ENV CONDA_ENVS_DIR /opt/conda/envs
-
-# Run install and fix permissions
-RUN make clean install && chmod 755 /opt/birdhouse/etc && chmod 755 /opt/birdhouse/var/run
-
-# Volume for data, cache, logfiles, ...
-VOLUME /opt/birdhouse/var/lib
-VOLUME /opt/birdhouse/var/log
-# Volume for configs
-VOLUME /opt/birdhouse/etc
-
-# Ports used in birdhouse
-EXPOSE $HTTP_PORT $OUTPUT_PORT
-
-# Start supervisor in foreground
-ENV DAEMON_OPTS --nodaemon
-
-# Start service ...
-CMD ["make", "update-config", "start"]
+# docker build -t {{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }} .
+# docker run -p {{ cookiecutter.http_port }}:{{ cookiecutter.http_port }} {{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
+# http://localhost:{{ cookiecutter.http_port }}/wps?request=GetCapabilities&service=WPS
+# http://localhost:{{ cookiecutter.http_port }}/wps?request=DescribeProcess&service=WPS&identifier=all&version=1.0.0

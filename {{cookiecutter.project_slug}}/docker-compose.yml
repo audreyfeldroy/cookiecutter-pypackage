@@ -1,12 +1,13 @@
 version: '3'
 services:
-  {{ cookiecutter.project_slug }}:
-    buildout: .
-    image: birdhouse/{{ cookiecutter.project_slug }}
-    environment:
-      HOSTNAME: $HOSTNAME
-      HTTP_PORT: $HTTP_PORT
-      OUTPUT_PORT: $OUTPUT_PORT
+  emu:
+    build: .
+    image: {{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
     ports:
-      - "$HTTP_PORT:$HTTP_PORT"
-      - "$OUTPUT_PORT:$OUTPUT_PORT"
+      - "{{ cookiecutter.http_port }}:{{ cookiecutter.http_port }}"
+
+
+# docker-compose build
+# docker-compose up
+# docker-compose down
+# docker-compose rm
