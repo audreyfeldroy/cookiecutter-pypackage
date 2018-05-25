@@ -18,10 +18,10 @@ Cookiecutter for Birdhouse
     :target: https://gitter.im/bird-house/birdhouse?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
     :alt: Join the chat at https://gitter.im/bird-house/birdhouse
 
-.. todo::
+.. warning::
 
-   * Review all this README.
-   * Add Cookiecutter logo with a Bird.
+   This is the cookiecutter template for PyWPS *without* the Buildout deployment.
+   The template for the Buildout deployment is on branch `0.2.x`_.
 
 A Cookiecutter_ template for a Birdhouse bird package (PyWPS server).
 
@@ -138,3 +138,4 @@ See the bumpversion_ documentation for details.
 .. _Sphinx: http://sphinx-doc.org/
 .. _ReadTheDocs: https://readthedocs.io/
 .. _bumpversion: https://pypi.org/project/bumpversion/
+.. _0.2.x: https://github.com/bird-house/cookiecutter-birdhouse/tree/0.2.x
