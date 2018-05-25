@@ -6,7 +6,6 @@
 
 # custom configs
 custom.cfg
-Makefile.config
 
 # Python / Extensions etc.
 *~
@@ -68,6 +67,7 @@ docs/build/
 
 # External Sources
 #src/external
+src/
 
 # tests
 *.log

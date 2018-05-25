@@ -1,20 +1,34 @@
 language: python
-#branches:
-#  only:
-#    - master
 python:
   - "2.7"
+  - "3.6"
 os:
   - linux
 #  - osx
 sudo: false
 install:
-  - make install
-  - make start
+  # Python 3.x is default
+  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  # Useful for debugging any issues with conda
+  - conda info -a
+  # Prepare env with Python version
+  - conda create -n {{ cookiecutter.project_slug }} python=$TRAVIS_PYTHON_VERSION
+  # Update now the env with our environment
+  - conda env update -f environment.yml
+  - source activate {{ cookiecutter.project_slug }}
+  # Packages for testing
+  - conda install pytest flake8
+  # Install Emu WPS
+  - python setup.py install
 before_script:
-  - sleep 10
+  # Start WPS service on port 5000 on 0.0.0.0
+  - {{ cookiecutter.project_slug }} --daemon --bind-host 0.0.0.0 --port 5000
+  - sleep 5
 script:
-  - make testall
-  - make pep8
-#after_success:
-# - coveralls
+  - pytest
+  - flake8

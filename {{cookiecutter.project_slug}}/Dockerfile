@@ -1,7 +1,7 @@
 # vim:set ft=dockerfile:
 FROM continuumio/miniconda3
 MAINTAINER https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
-LABEL Description="{{ cookiecutter.project_slug }} WPS" Vendor="Birdhouse" Version="{{ cookiecutter.version }}"
+LABEL Description="{{ cookiecutter.project_name }} WPS" Vendor="Birdhouse" Version="{{ cookiecutter.version }}"
 
 # Update Debian system
 RUN apt-get update && apt-get install -y \
