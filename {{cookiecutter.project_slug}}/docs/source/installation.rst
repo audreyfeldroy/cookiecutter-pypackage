@@ -3,86 +3,75 @@
 Installation
 ============
 
-The installation is using the Python distribution system `Anaconda`_ to maintain software dependencies.
-Anaconda will be installed during the installation process in your home directory ``~/anaconda``.
+Install from Anaconda
+---------------------
 
-The installation process setups a conda environment named ``{{ cookiecutter.project_slug }}`` with all dependent conda (and pip) packages.
-The installation folder (for configuration files etc) is by default ``~/birdhouse``.
-Configuration options can be overriden in the buildout ``custom.cfg`` file. The ``ANACONDA_HOME`` and ``CONDA_ENVS_DIR`` locations
-can be changed in the ``Makefile.config`` file.
+.. TODO:: Prepare Conda package.
 
-The default installation *does not need admin rights* and files will only be written into the ``$HOME`` folder of the installation user.
-The services are started using `supervisor <http://supervisord.org/>`_ and run as the installation user.
+Install from GitHub
+-------------------
 
-Now, check out the {{ cookiecutter.project_slug }} code from GitHub and start the installation:
+Check out code from the {{ cookiecutter.project_name }} GitHub repo and start the installation:
 
 .. code-block:: sh
 
    $ git clone https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}.git
    $ cd {{ cookiecutter.project_slug }}
-   $ make clean install
+   $ conda env create -f environment.yml
+   $ source activate {{ cookiecutter.project_slug }}
+   $ python setup.py develop
 
-After successful installation you need to start the services:
+Install the lazy way
+--------------------
+
+The previous installation instructions assume you have Anaconda installed.
+We provide also a ``Makefile`` to run this installation without additional steps:
 
 .. code-block:: sh
 
-   $ make start  # starts supervisor services
-   $ make status # shows supervisor status
+   $ git clone https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}.git
+   $ cd {{ cookiecutter.project_slug }}
+   $ make clean    # cleans up a previous Conda environment
+   $ make install  # installs Conda if necessary and runs the above installation steps
 
-The depolyed WPS service is by default available on http://localhost:{{ cookiecutter.http_port }}/wps?service=WPS&version=1.0.0&request=GetCapabilities.
+Start {{ cookiecutter.project_name }} PyWPS service
+-----------------------
+
+After successful installation you can start the service using the ``{{ cookiecutter.project_slug }}`` command-line.
+
+.. code-block:: sh
+
+   $ {{ cookiecutter.project_slug }} --help # show help
+   $ {{ cookiecutter.project_slug }}        # start service with default configuration
+
+   OR
+
+   $ {{ cookiecutter.project_slug }} --daemon # start service as daemon
+   loading configuration
+   forked process id: 42
+
+The deployed WPS service is by default available on:
+
+http://localhost:{{ cookiecutter.http_port }}/wps?service=WPS&version=1.0.0&request=GetCapabilities.
+
+.. NOTE:: Remember the process ID (PID) so you can stop the service with ``kill PID``.
 
 Check the log files for errors:
 
 .. code-block:: sh
 
-   $ tail -f  ~/birdhouse/var/log/pywps/{{ cookiecutter.project_slug }}.log
-   $ tail -f  ~/birdhouse/var/log/supervisor/{{ cookiecutter.project_slug }}.log
+   $ tail -f  pywps.log
 
-You will find more information about the installation in the `Makefile documentation <http://birdhousebuilderbootstrap.readthedocs.io/en/latest/>`_.
+Run {{ cookiecutter.project_name }} as Docker container
+---------------------------
 
-Non-default installation
-------------------------
+You can also run {{ cookiecutter.project_name }} as a Docker container, see the :ref:`Tutorial <tutorial>`.
 
-You can customize the installation to use different ports, locations and run user.
+Use Ansible to deploy {{ cookiecutter.project_name }} on your System
+----------------------------------------
 
-To change the anaconda location edit the ``Makefile.config``, for example::
+Use the `Ansible playbook`_ for PyWPS to deploy {{ cookiecutter.project_name }} on your system.
+Follow the `example`_ for {{ cookiecutter.project_name }} given in the playbook.
 
-   ANACONDA_HOME ?= /opt/anaconda
-   CONDA_ENVS_DIR ?= /opt/anaconda/envs
-
-You can install {{ cookiecutter.project_slug }} as ``root`` and run it as unprivileged user like ``www-data``:
-
-.. code-block:: sh
-
-   root$ mkdir -p /opt/birdhouse/src
-   root$ cd /opt/birdhouse/src
-   root$ git clone https://github.com/bird-house/{{ cookiecutter.project_slug }}.git
-   root$ cd {{ cookiecutter.project_slug }}
-
-Edit ``custom.cfg``:
-
-.. code-block:: ini
-
-    [buildout]
-    extends = buildout.cfg
-
-    [settings]
-    hostname = {{ cookiecutter.project_slug }}
-    http-port = 80
-    output-port = 8000
-    log-level = WARN
-
-    # deployment options
-    prefix = /opt/birdhouse
-    user = www-data
-    etc-user = root
-
-Run the installtion and start the services:
-
-.. code-block:: sh
-
-    root$ make clean install
-    root$ make start      # stop or restart
-    root$ make status
-
-.. _Anaconda: https://www.continuum.io/
+.. _Ansible playbook: http://ansible-wps-playbook.readthedocs.io/en/latest/index.html
+.. _example: http://ansible-wps-playbook.readthedocs.io/en/latest/tutorial.html
