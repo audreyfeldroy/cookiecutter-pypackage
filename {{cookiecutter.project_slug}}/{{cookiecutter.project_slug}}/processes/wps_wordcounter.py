@@ -43,7 +43,8 @@ class WordCounter(Process):
             store_supported=True,
             status_supported=True)
 
-    def _handler(self, request, response):
+    @staticmethod
+    def _handler(request, response):
         wordre = re.compile(r'\w+')
 
         def words(f):

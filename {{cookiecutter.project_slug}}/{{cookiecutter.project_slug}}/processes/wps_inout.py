@@ -116,7 +116,8 @@ class InOut(Process):
             status_supported=True,
             store_supported=True)
 
-    def _handler(self, request, response):
+    @staticmethod
+    def _handler(request, response):
         response.outputs['string'].data = request.inputs['string'][0].data
         response.outputs['int'].data = request.inputs['int'][0].data
         response.outputs['float'].data = request.inputs['float'][0].data
