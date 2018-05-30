@@ -21,8 +21,8 @@ Check out code from the {{ cookiecutter.project_name }} GitHub repo and start th
    $ source activate {{ cookiecutter.project_slug }}
    $ python setup.py develop
 
-Install the lazy way
---------------------
+... or do it the lazy way
++++++++++++++++++++++++++
 
 The previous installation instructions assume you have Anaconda installed.
 We provide also a ``Makefile`` to run this installation without additional steps:

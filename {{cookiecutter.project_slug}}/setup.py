@@ -32,8 +32,8 @@ classifiers = [
     'Natural Language :: English',
     "Programming Language :: Python :: 2",
     'Programming Language :: Python :: 2.7',
-    # 'Programming Language :: Python :: 3',
-    # 'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.6',
     'Topic :: Scientific/Engineering :: Atmospheric Science',
 {%- if cookiecutter.open_source_license in license_classifiers %}
     '{{ license_classifiers[cookiecutter.open_source_license] }}',
@@ -41,7 +41,7 @@ classifiers = [
 ]
 
 setup(name='{{ cookiecutter.project_slug }}',
-      version='{{ cookiecutter.version }}',
+      version=version,
       description="{{ cookiecutter.project_short_description }}",
       long_description=README + '\n\n' + CHANGES,
       author="{{ cookiecutter.full_name.replace('\"', '\\\"') }}",
@@ -59,5 +59,5 @@ setup(name='{{ cookiecutter.project_slug }}',
       install_requires=reqs,
       entry_points={
           'console_scripts': [
-             '{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}:cli',
+             '{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:cli',
           ]},)

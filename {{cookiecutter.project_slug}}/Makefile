@@ -74,7 +74,7 @@ install: bootstrap
 .PHONY: start
 start:
 	@echo "Starting application ..."
-	@-bash -c "source $(ANACONDA_HOME)/bin/activate $(CONDA_ENV) && $(APP_NAME) -a -d"
+	@-bash -c "source $(ANACONDA_HOME)/bin/activate $(CONDA_ENV) && $(APP_NAME) -d"
 
 .PHONY: clean
 clean: srcclean envclean
