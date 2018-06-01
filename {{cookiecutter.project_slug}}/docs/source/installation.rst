@@ -37,7 +37,7 @@ We provide also a ``Makefile`` to run this installation without additional steps
    $ make install  # installs Conda if necessary and runs the above installation steps
 
 Start {{ cookiecutter.project_name }} PyWPS service
-+{{ '=' * (cookiecutter.project_name|count + 19) }}
+-{{ '-' * (cookiecutter.project_name|count + 19) }}
 
 After successful installation you can start the service using the ``{{ cookiecutter.project_slug }}`` command-line.
 
@@ -65,12 +65,12 @@ Check the log files for errors:
    $ tail -f  pywps.log
 
 Run {{ cookiecutter.project_name }} as Docker container
-+{{ '=' * (cookiecutter.project_name|count + 23) }}
+-{{ '-' * (cookiecutter.project_name|count + 23) }}
 
 You can also run {{ cookiecutter.project_name }} as a Docker container, see the :ref:`Tutorial <tutorial>`.
 
 Use Ansible to deploy {{ cookiecutter.project_name }} on your System
-+{{ '=' * (cookiecutter.project_name|count + 36) }}
+-{{ '-' * (cookiecutter.project_name|count + 36) }}
 
 Use the `Ansible playbook`_ for PyWPS to deploy {{ cookiecutter.project_name }} on your system.
 Follow the `example`_ for {{ cookiecutter.project_name }} given in the playbook.
