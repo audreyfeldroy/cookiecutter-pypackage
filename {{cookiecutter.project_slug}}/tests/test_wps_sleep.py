@@ -14,5 +14,5 @@ def test_wps_sleep():
     resp = client.get(
         service='WPS', request='Execute', version='1.0.0', identifier='sleep',
         datainputs=datainputs)
-    print resp.data
+    print(resp.data)
     assert_response_success(resp)
