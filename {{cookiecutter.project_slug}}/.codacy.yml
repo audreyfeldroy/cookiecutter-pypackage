@@ -1,0 +1,4 @@
+---
+exclude_paths:
+  - 'tests/**'
+  - 'docs/source/conf.py'

@@ -4,8 +4,10 @@
 # Docker
 #Dockerfile
 
-# custom configs
+# PyWPS 
 custom.cfg
+.custom.cfg
+*.pid
 
 # Python / Extensions etc.
 *~

@@ -30,7 +30,9 @@ help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo "  help        to print this help message. (Default)"
 	@echo "  install     to install $(APP_NAME) by running 'python setup.py develop'."
-	@echo "  start       to start $(APP_NAME) as daemon service."
+	@echo "  start       to start $(APP_NAME) service as daemon (background process)."
+	@echo "  stop        to stop $(APP_NAME) service."
+	@echo "  status      to show status of $(APP_NAME) service."
 	@echo "  clean       to remove *all* files that are not controlled by 'git'. WARNING: use it *only* if you know what you do!"
 	@echo "\nTesting targets:"
 	@echo "  test        to run tests (but skip long running tests)."
@@ -62,7 +64,7 @@ bootstrap: conda_env bootstrap_dev
 .PHONY: bootstrap_dev
 bootstrap_dev:
 	@echo "Installing development requirements for tests and docs ..."
-	@-bash -c "$(ANACONDA_HOME)/bin/conda install -y -n $(CONDA_ENV) pytest flake8 sphinx"
+	@-bash -c "$(ANACONDA_HOME)/bin/conda install -y -n $(CONDA_ENV) pytest flake8 sphinx bumpversion"
 	@-bash -c "source $(ANACONDA_HOME)/bin/activate $(CONDA_ENV) && pip install -r requirements_dev.txt"
 
 .PHONY: install
@@ -74,7 +76,17 @@ install: bootstrap
 .PHONY: start
 start:
 	@echo "Starting application ..."
-	@-bash -c "source $(ANACONDA_HOME)/bin/activate $(CONDA_ENV) && $(APP_NAME) -d"
+	@-bash -c "source $(ANACONDA_HOME)/bin/activate $(CONDA_ENV) && $(APP_NAME) start -d"
+
+.PHONY: stop
+stop:
+	@echo "Stopping application ..."
+	@-bash -c "source $(ANACONDA_HOME)/bin/activate $(CONDA_ENV) && $(APP_NAME) stop"
+
+.PHONY: status
+status:
+	@echo "Show status ..."
+	@-bash -c "source $(ANACONDA_HOME)/bin/activate $(CONDA_ENV) && $(APP_NAME) status"
 
 .PHONY: clean
 clean: srcclean envclean
