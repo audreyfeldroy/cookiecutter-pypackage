@@ -44,11 +44,11 @@ After successful installation you can start the service using the ``{{ cookiecut
 .. code-block:: sh
 
    $ {{ cookiecutter.project_slug }} --help # show help
-   $ {{ cookiecutter.project_slug }}        # start service with default configuration
+   $ {{ cookiecutter.project_slug }} start  # start service with default configuration
 
    OR
 
-   $ {{ cookiecutter.project_slug }} --daemon # start service as daemon
+   $ {{ cookiecutter.project_slug }} start --daemon # start service as daemon
    loading configuration
    forked process id: 42
 
@@ -63,6 +63,19 @@ Check the log files for errors:
 .. code-block:: sh
 
    $ tail -f  pywps.log
+
+... or do it the lazy way
++++++++++++++++++++++++++
+
+You can also use the ``Makefile`` to start and stop the service:
+
+.. code-block:: sh
+
+  $ make start
+  $ make status
+  $ tail -f pywps.log
+  $ make stop
+
 
 Run {{ cookiecutter.project_name }} as Docker container
 -{{ '-' * (cookiecutter.project_name|count + 23) }}

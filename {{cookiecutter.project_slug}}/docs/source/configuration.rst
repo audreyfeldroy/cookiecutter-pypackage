@@ -9,13 +9,13 @@ Command-line options
 You can overwrite the default `PyWPS`_ configuration by using command-line options.
 See the {{ cookiecutter.project_name }} help which options are available::
 
-    $ {{ cookiecutter.project_slug }} --help
+    $ {{ cookiecutter.project_slug }} start --help
     --hostname HOSTNAME        hostname in PyWPS configuration.
     --port PORT                port in PyWPS configuration.
 
 Start service with different hostname and port::
 
-    $ {{ cookiecutter.project_slug }} --hostname localhost --port 5001
+    $ {{ cookiecutter.project_slug }} start --hostname localhost --port 5001
 
 Use a custom configuration file
 -------------------------------
@@ -43,7 +43,7 @@ Start the service with your custom configuration:
 .. code-block:: sh
 
    # start the service with this configuration
-   $ {{ cookiecutter.project_slug }} -c etc/custom.cfg
+   $ {{ cookiecutter.project_slug }} start -c etc/custom.cfg
 
 
 .. _PyWPS: http://pywps.org/

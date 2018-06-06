@@ -1,5 +1,7 @@
+-r requirements.txt
 pytest
 flake8
 sphinx>=1.7
 sphinx-autoapi
 -e git+https://github.com/huard/sphinx-autodoc-pywps.git#egg=sphinx_autodoc_pywps
+bumpversion
