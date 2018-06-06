@@ -5,7 +5,7 @@ class WpsTestClient(WpsClient):
 
     def get(self, *args, **kwargs):
         query = "?"
-        for key, value in kwargs.iteritems():
+        for key, value in kwargs.items():
             query += "{0}={1}&".format(key, value)
         return super(WpsTestClient, self).get(query)
 
