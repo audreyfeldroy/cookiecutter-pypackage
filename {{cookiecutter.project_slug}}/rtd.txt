@@ -1,0 +1,6 @@
+-e git+https://github.com/geopython/pywps.git#egg=pywps
+jinja2
+click
+psutil
+sphinx>=1.7
+sphinx-autoapi

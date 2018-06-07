@@ -86,6 +86,8 @@ Then:
 
 For more details, see the `cookiecutter-pypackage tutorial`_.
 
+See the `babybird <http://babybird.rtfd.io/>`_ example of a generated bird.
+
 Development
 -----------
 

@@ -6,6 +6,7 @@
 
    installation
    configuration
+   processes
    changes
 
 Indices and tables
