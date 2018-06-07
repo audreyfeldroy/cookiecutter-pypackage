@@ -35,7 +35,7 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.viewcode',
               'sphinx.ext.napoleon',
               'sphinx.ext.todo',
-              #'pywps.ext_autodoc', # Available on master branch. Will be distributed with the 4.2 release.
+              'pywps.ext_autodoc',
               ]
 
 autoapi_type = 'python'
