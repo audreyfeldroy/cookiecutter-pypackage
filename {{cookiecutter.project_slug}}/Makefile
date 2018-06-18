@@ -1,6 +1,6 @@
 # Application
 APP_ROOT := $(CURDIR)
-APP_NAME := $(shell basename $(APP_ROOT))
+APP_NAME := {{ cookiecutter.project_slug }}
 
 # Anaconda
 ANACONDA_HOME ?= $(HOME)/anaconda
