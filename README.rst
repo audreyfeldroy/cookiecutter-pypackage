@@ -18,24 +18,33 @@ Cookiecutter for Birdhouse
     :target: https://gitter.im/bird-house/birdhouse?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
     :alt: Join the chat at https://gitter.im/bird-house/birdhouse
 
-.. warning::
+*A Cookiecutter template for a Birdhouse bird package*
 
-   This is the cookiecutter template for PyWPS *without* the Buildout deployment.
-   The template for the Buildout deployment is on branch `0.2.x`_.
-
-A Cookiecutter_ template for a Birdhouse bird package (PyWPS server).
+Cookiecutter_ is a command-line utility to create projects from templates. This `cookiecutter-birdhouse`
+template creates a barebone PyWPS server adhering to Birdhouse conventions. It comes complete with a
+framework for installation, configuration, deployment, documentation and tests. It even includes a
+:file:`Dockerfile` for containerization! Create your project then get started writing new WPS
+processes in minutes.
 
 * GitHub repo: https://github.com/bird-house/cookiecutter-birdhouse/
 * Documentation: http://cookiecutter-birdhouse.readthedocs.io/en/latest/
 * Free software: BSD license
 
+
+.. warning::
+
+   This is the cookiecutter template for PyWPS *without* the Buildout deployment.
+   The template for the Buildout deployment is on branch `0.2.x`_.
+
 Features
 --------
 
-* Ready-made PyWPS service (a bird).
-* Pre-configured ``.travis.yml`` for Travis-CI_
-* Sphinx_ docs: Documentation ready for generation with, for example, ReadTheDocs_
-
+* Ready-made PyWPS server (a bird)
+* Pre-configured :file:`.travis.yml` for Travis-CI_ automated deployment and testing
+* Pre-configured :file:`.codacy.yml` for automated Codacy_ code review
+* A :file:`Dockerfile` and :file:`docker-compose.yml` for containerization
+* Preconfigured Sphinx_ documentation that can be hosted on ReadTheDocs_
+* A :file:`Makefile` to install the code, start, stop and poll the server and more
 
 Installation
 ------------
@@ -137,6 +146,7 @@ See the bumpversion_ documentation for details.
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`cookiecutter-pypackage tutorial`: https://cookiecutter-pypackage.readthedocs.io/en/latest/tutorial.html
 .. _Travis-CI: http://travis-ci.org/
+.. _Codacy: http://codacy.com
 .. _Sphinx: http://sphinx-doc.org/
 .. _ReadTheDocs: https://readthedocs.io/
 .. _bumpversion: https://pypi.org/project/bumpversion/
