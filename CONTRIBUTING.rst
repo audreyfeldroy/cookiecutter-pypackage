@@ -90,7 +90,7 @@ you already have `virtualenv` and `Git` installed and ready to go.
 
     $ flake8 ./tests
 
-6. The next step would be to run the test cases. `cookiecutter-pypackage` uses py.test, you can run PyTest. Before you run pytest you should ensure all dependancies are installed::
+6. The next step would be to run the test cases. `cookiecutter-pypackage` uses py.test, you can run PyTest. Before you run pytest you should ensure all dependencies are installed::
 
   .. code-block:: bash
 
