@@ -17,7 +17,7 @@ Check out code from the {{ cookiecutter.project_name }} GitHub repo and start th
 
 .. code-block:: sh
 
-   $ git clone https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}.git
+   $ git clone https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_repo_name }}.git
    $ cd {{ cookiecutter.project_slug }}
    $ conda env create -f environment.yml
    $ source activate {{ cookiecutter.project_slug }}
@@ -31,7 +31,7 @@ We provide also a ``Makefile`` to run this installation without additional steps
 
 .. code-block:: sh
 
-   $ git clone https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}.git
+   $ git clone https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_repo_name }}.git
    $ cd {{ cookiecutter.project_slug }}
    $ make clean    # cleans up a previous Conda environment
    $ make install  # installs Conda if necessary and runs the above installation steps
@@ -63,8 +63,8 @@ You can find which process uses a given port using the following command (here f
 .. code-block:: sh
 
    $ netstat -nlp | grep :5000
-   
-   
+
+
 Check the log files for errors:
 
 .. code-block:: sh

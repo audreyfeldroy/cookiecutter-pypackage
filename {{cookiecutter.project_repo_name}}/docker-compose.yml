@@ -2,7 +2,7 @@ version: '3'
 services:
   emu:
     build: .
-    image: {{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
+    image: {{ cookiecutter.github_username }}/{{ cookiecutter.project_repo_name }}
     ports:
       - "{{ cookiecutter.http_port }}:{{ cookiecutter.http_port }}"
 

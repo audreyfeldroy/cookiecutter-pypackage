@@ -46,7 +46,7 @@ setup(name='{{ cookiecutter.project_slug }}',
       long_description=README + '\n\n' + CHANGES,
       author="{{ cookiecutter.full_name.replace('\"', '\\\"') }}",
       author_email='{{ cookiecutter.email }}',
-      url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}',
+      url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_repo_name }}',
       classifiers=classifiers,
 {%- if cookiecutter.open_source_license in license_classifiers %}
       license="{{ cookiecutter.open_source_license }}",
