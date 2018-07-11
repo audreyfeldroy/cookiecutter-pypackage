@@ -109,7 +109,7 @@ class InOut(Process):
             # profile=['birdhouse'],
             metadata=[
                 Metadata('Birdhouse', 'http://bird-house.github.io/'),
-                Metadata('User Guide', 'http://{{cookiecutter.project_slug}}.readthedocs.io/en/latest/',
+                Metadata('User Guide', 'http://{{cookiecutter.project_repo_name}}.readthedocs.io/en/latest/',
                          role='http://www.opengis.net/spec/wps/2.0/def/process/description/documentation')],
             inputs=inputs,
             outputs=outputs,

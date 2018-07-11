@@ -2,7 +2,7 @@
 ===============================
 
 .. image:: https://img.shields.io/badge/docs-latest-brightgreen.svg
-   :target: http://{{ cookiecutter.project_slug }}.readthedocs.io/en/latest/?badge=latest
+   :target: http://{{ cookiecutter.project_repo_name }}.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
 
 .. image:: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.project_repo_name }}.svg?branch=master
@@ -24,7 +24,7 @@
 {{ cookiecutter.project_short_description }}
 
 * Free software: {{ cookiecutter.open_source_license }}
-* Documentation: https://{{ cookiecutter.project_slug | replace("_", "-") }}.readthedocs.io.
+* Documentation: https://{{ cookiecutter.project_repo_name | replace("_", "-") }}.readthedocs.io.
 
 Credits
 -------

@@ -34,7 +34,7 @@ class WordCounter(Process):
             abstract="Counts words in a given text.",
             version='1.0',
             metadata=[
-                Metadata('User Guide', 'http://{{cookiecutter.project_slug}}.readthedocs.io/en/latest/'),
+                Metadata('User Guide', 'http://{{cookiecutter.project_repo_name}}.readthedocs.io/en/latest/'),
                 Metadata('Free eBooks at Gutenberg', 'http://www.gutenberg.org/'),
                 Metadata('Example: Alice in Wonderland', 'http://www.gutenberg.org/cache/epub/19033/pg19033.txt'),
             ],
