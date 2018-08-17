@@ -4,5 +4,5 @@
   "project_dash_slug": "{{ cookiecutter.project_slug.lower().replace('_', '-')}}",
   "project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
   "version": "0.1.0",
-  "command_line_interface": ["Click", "No command-line interface"],
+  "command_line_interface": ["Click", "No command-line interface"]
 }

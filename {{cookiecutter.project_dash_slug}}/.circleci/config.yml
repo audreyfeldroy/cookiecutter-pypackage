@@ -17,7 +17,7 @@ default: &steps
 # https://discuss.circleci.com/t/cannot-use-circle-yml-environment-variables-in-cache-keys/10994/9
       - run: echo "$PYTHONVERSION" > _tmp_file
       - restore_cache:
-          key: {{ cookiecutter.project_slug  }}-{% raw %}{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "_tmp_file" }}{% endraw %}
+          key: {{ cookiecutter.project_dash_slug  }}-{% raw %}{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "_tmp_file" }}{% endraw %}
 
       - run:
           command: |
@@ -26,7 +26,7 @@ default: &steps
             pipenv install
 
       - save_cache:
-          key: {{ cookiecutter.project_slug  }}-{% raw %}{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "_tmp_file" }}{% endraw %}
+          key: {{ cookiecutter.project_dash_slug  }}-{% raw %}{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "_tmp_file" }}{% endraw %}
           paths:
             - ".venv"
             - "/usr/local/bin"
@@ -69,7 +69,7 @@ jobs:
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - run: sudo chown -R circleci:circleci /usr/local/lib/python${PYTHONVERSION}/site-packages
       - restore_cache:
-          key: {{ cookiecutter.project_slug  }}-{% raw %}{{ .Branch }}-{{ checksum "Pipfile.lock" }}-build{% endraw %}
+          key: {{ cookiecutter.project_dash_slug  }}-{% raw %}{{ .Branch }}-{{ checksum "Pipfile.lock" }}-build{% endraw %}
 
       - run:
           command: |
@@ -77,7 +77,7 @@ jobs:
             pipenv install
 
       - save_cache:
-          key: {{ cookiecutter.project_slug  }}-{% raw %}{{ .Branch }}-{{ checksum "Pipfile.lock" }}-build{% endraw %}
+          key: {{ cookiecutter.project_dash_slug  }}-{% raw %}{{ .Branch }}-{{ checksum "Pipfile.lock" }}-build{% endraw %}
           paths:
             - ".venv"
             - "/usr/local/bin"
@@ -95,8 +95,8 @@ jobs:
             # Not removing .venv
             mv Pipfile Pipfile.lock /tmp/workspace
             rm -rf *
-            tar xzf /tmp/workspace/dist/{{ cookiecutter.project_slug  }}*.tar.gz
-            mv {{ cookiecutter.project_slug  }}*/* .
+            tar xzf /tmp/workspace/dist/{{ cookiecutter.project_dash_slug  }}*.tar.gz
+            mv {{ cookiecutter.project_dash_slug  }}*/* .
             mv /tmp/workspace/{Pipfile,Pipfile.lock} .
             pipenv install -e .
             rm -rf .venv
@@ -151,7 +151,7 @@ jobs:
 
       - run: env
       - run: gem install package_cloud
-      - run: package_cloud push syapse/General/python/sdist workspace/dist/{{ cookiecutter.project_slug  }}*.tar.gz
+      - run: package_cloud push syapse/General/python/sdist workspace/dist/{{ cookiecutter.project_dash_slug  }}*.tar.gz
 
 workflows:
   version: 2
