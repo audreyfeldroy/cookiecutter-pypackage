@@ -1,0 +1,6 @@
+include *.md
+include setup.cfg
+include setup.py
+recursive-include {{cookiecutter.project_slug}} *.py
+recursive-include {{cookiecutter.project_slug}} *.yaml
+recursive-include tests *.py

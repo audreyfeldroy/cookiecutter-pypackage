@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Console script for {{cookiecutter.project_slug}}."""
+"""Console script for {{ cookiecutter.project_name }}."""
 import sys
 import click
 

@@ -1,0 +1,20 @@
+version: "2"
+
+plugins:
+  structure:
+    enabled: true
+  duplication:
+    enabled: true
+  pep8:
+    enabled: true
+  sonar-python:
+    enabled: true
+  radon:
+    enabled: true
+  shellcheck:
+    enabled: true
+  fixme:
+    enabled: true
+
+exclude_patterns:
+- "bin/"

@@ -1,0 +1,71 @@
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+
+# Editor artifacts
+*.swp
+*~
+
+# Packages
+*.egg
+*.egg-info
+.Python
+.eggs
+.installed.cfg
+*.egg
+MANIFEST
+build
+develop-eggs
+dist
+downloads
+eggs
+lib
+lib64
+parts
+sdist
+var
+wheels
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.tox/
+.coverage
+.tox
+nosetests.xml
+coverage.xml
+.pytest_cache
+
+# Translations
+*.mo
+*.log
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# Complexity
+output/*.html
+output/*/index.html
+
+# Sphinx
+docs/_build
+
+.webassets-cache
+
+# Virtualenvs
+env/
+
+# Dotenv
+.env
+
+.venv
+# Docker node data
+.docker
+
+# Mypy
+.mypy_cache
