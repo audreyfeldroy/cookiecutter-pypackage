@@ -20,6 +20,7 @@ Changes made to the original (see `GitHub view <https://github.com/audreyr/cooki
 * Support modern Python 3 only
 * Support `quality gem <https://github.com/apiology/quality>`_ for linting
 * Support pyenv-virtualenv
+* Support mypy type checking
 
 .. _apiology: https://github.com/apiology
 

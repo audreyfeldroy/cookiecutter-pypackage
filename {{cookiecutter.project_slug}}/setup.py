@@ -20,9 +20,9 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [{%- if cookiecutter.command_line_interface|lower == 'click' %}'Click>=6.0',{%- endif %} ]
 
-setup_requirements = [{%- if cookiecutter.use_pytest == 'y' %}'pytest-runner',{%- endif %} ]
+setup_requirements: List[str] = [{%- if cookiecutter.use_pytest == 'y' %}'pytest-runner',{%- endif %} ]
 
-test_requirements = [{%- if cookiecutter.use_pytest == 'y' %}'pytest',{%- endif %} ]
+test_requirements: List[str] = [{%- if cookiecutter.use_pytest == 'y' %}'pytest',{%- endif %} ]
 
 {%- set license_classifiers = {
     'MIT license': 'License :: OSI Approved :: MIT License',
@@ -31,6 +31,42 @@ test_requirements = [{%- if cookiecutter.use_pytest == 'y' %}'pytest',{%- endif 
     'Apache Software License 2.0': 'License :: OSI Approved :: Apache Software License',
     'GNU General Public License v3': 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)'
 } %}
+
+
+class MypyCleanCommand(Command):
+    """Regular clean plus mypy cache"""
+
+    description = 'Run mypy on source code'
+    user_options: List[Tuple[str, Optional[str], str]] = []
+
+    def initialize_options(self) -> None:
+        pass
+
+    def finalize_options(self) -> None:
+        pass
+
+    def run(self) -> None:
+        if os.path.exists('.mypy_cache'):
+            remove_tree('.mypy_cache')
+
+
+class MypyCommand(Command):
+    description = 'Run mypy on source code'
+    user_options: List[Tuple[str, Optional[str], str]] = []
+
+    def initialize_options(self) -> None:
+        pass
+
+    def finalize_options(self) -> None:
+        pass
+
+    def run(self) -> None:
+        """Run command."""
+        command = ['mypy', '--html-report', 'types/coverage', '.']
+        self.announce(
+            'Running command: %s' % str(command),
+            level=distutils.log.INFO)  # type: ignore
+        subprocess.check_call(command)
 
 
 class QualityCommand(Command):
@@ -102,5 +138,7 @@ setup(
     zip_safe=False,
     cmdclass={
         'quality': QualityCommand,
+        'typesclean': MypyCleanCommand,
+        'types': MypyCommand,
     },
 )
