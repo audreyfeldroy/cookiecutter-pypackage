@@ -17,6 +17,7 @@ Changes made to the original (see `GitHub view <https://github.com/audreyr/cooki
 * Added note and new travis build icon to top of README
 * Some whitespace fixes in README.rst
 * Make setup.py executable
+* Support modern Python 3 only
 
 .. _apiology: https://github.com/apiology
 
