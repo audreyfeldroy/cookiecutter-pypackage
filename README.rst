@@ -2,6 +2,26 @@
 Cookiecutter PyPackage
 ======================
 
+This is a fork
+--------------
+
+.. image:: https://img.shields.io/travis/apiology/cookiecutter-pypackage.svg
+    :target: https://travis-ci.org/apiology/cookiecutter-pypackage
+    :alt: Linux build status on Travis CI
+
+
+Hi!  I'm apiology_ and this is my fork of https://github.com/audreyr/cookiecutter-pypackage/
+
+Changes made to the original:
+
+* Added note and new travis build icon  to top of README
+
+.. _apiology: https://github.com/apiology
+
+Original README
+---------------
+
+
 .. image:: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/shield.svg
      :target: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/
      :alt: Updates
