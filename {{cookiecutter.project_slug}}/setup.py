@@ -4,6 +4,13 @@
 """The setup script."""
 
 from setuptools import setup, find_packages
+import distutils
+from distutils.cmd import Command
+import distutils.command.clean
+from distutils.dir_util import remove_tree
+import subprocess
+import os
+from typing import List, Tuple, Optional
 
 with open('README.rst') as readme_file:
     readme = readme_file.read()
@@ -24,6 +31,37 @@ test_requirements = [{%- if cookiecutter.use_pytest == 'y' %}'pytest',{%- endif 
     'Apache Software License 2.0': 'License :: OSI Approved :: Apache Software License',
     'GNU General Public License v3': 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)'
 } %}
+
+
+class QualityCommand(Command):
+    quality_target: Optional[str]
+
+    description = 'Run quality gem on source code'
+    user_options = [
+        # The format is (long option, short option, description).
+        ('quality-target=',
+         None,
+         'particular quality tool to run (default: all)')
+    ]
+
+    def initialize_options(self) -> None:
+        """Set default values for options."""
+        # Each user option must be listed here with their default value.
+        self.quality_target = None
+
+    def finalize_options(self) -> None:
+        pass
+
+    def run(self) -> None:
+        """Run command."""
+        command = ['./quality.sh']
+        if self.quality_target:
+            command.append(self.quality_target)
+        self.announce(
+            'Running command: %s' % str(command),
+            level=distutils.log.INFO)  # type: ignore
+        subprocess.check_call(command)
+
 
 setup(
     author="{{ cookiecutter.full_name.replace('\"', '\\\"') }}",
@@ -62,4 +100,7 @@ setup(
     url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}',
     version='{{ cookiecutter.version }}',
     zip_safe=False,
+    cmdclass={
+        'quality': QualityCommand,
+    },
 )

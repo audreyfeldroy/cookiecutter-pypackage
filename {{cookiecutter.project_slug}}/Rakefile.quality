@@ -1,0 +1,16 @@
+# frozen_string_literal: true
+
+require 'quality/rake/task'
+
+task :pronto do
+  sh 'pronto run -c origin/master --no-exit-code --unstaged || true'
+  sh 'pronto run -c origin/master --no-exit-code --staged || true'
+  sh 'pronto run -c origin/master --no-exit-code || true'
+end
+
+task quality: %i[pronto]
+
+Quality::Rake::Task.new do |t|
+  t.exclude_files = ['docs/conf.py', 'CONTRIBUTING.rst']
+  # t.verbose = true
+end
