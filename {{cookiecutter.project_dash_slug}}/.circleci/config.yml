@@ -47,7 +47,7 @@ default: &steps
                 }
             EOF
             mkdir test-reports
-            pipenv run python -m xmlrunner discover  -s tests -t . -p '*.py'
+            pipenv run python -m xmlrunner discover -s tests -t . -p '*.py'
             ls -1 TEST-*.xml | awk -F. -f move-results.awk | bash
 
       - store_test_results:

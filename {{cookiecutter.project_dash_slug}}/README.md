@@ -22,7 +22,7 @@ to the `tests` folder, with supporting data in the `test-data` folder.
 
 Locally use the following command to run the tests:
 ```
-pipenv run python -m unittest discover  -s tests -t . -p '*.py'
+pipenv run python -m unittest discover -s tests -t . -p '*.py'
 ```
 
 To test your code on all supported versions of python, please push to github,
