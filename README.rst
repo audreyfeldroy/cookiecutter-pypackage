@@ -19,6 +19,7 @@ Changes made to the original (see `GitHub view <https://github.com/audreyr/cooki
 * Make setup.py executable
 * Support modern Python 3 only
 * Support `quality gem <https://github.com/apiology/quality>`_ for linting
+* Support pyenv-virtualenv
 
 .. _apiology: https://github.com/apiology
 
