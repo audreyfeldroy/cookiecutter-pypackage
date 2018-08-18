@@ -1,5 +1,31 @@
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+*$py.class
+
+# OSX useful to ignore
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
 
 # C extensions
 *.so
@@ -8,45 +34,48 @@ __pycache__/
 *.swp
 *~
 
-# Packages
-*.egg
-*.egg-info
+# Distribution / packaging
 .Python
-.eggs
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
 .installed.cfg
 *.egg
-MANIFEST
-build
-develop-eggs
-dist
-downloads
-eggs
-lib
-lib64
-parts
-sdist
-var
 wheels
 
 # Installer logs
 pip-log.txt
+pip-delete-this-directory.txt
 
 # Unit test / coverage reports
+htmlcov/
 .tox/
 .coverage
-.tox
+.coverage.*
+.cache
 nosetests.xml
 coverage.xml
-.pytest_cache
+*,cover
+.hypothesis/
+.pytest_cache/
+TEST-*.xml
 
 # Translations
 *.mo
-*.log
+*.pot
 
-# Mr Developer
-.mr.developer.cfg
-.project
-.pydevproject
+# Django stuff:
+*.log
 
 # Complexity
 output/*.html
@@ -69,3 +98,27 @@ env/
 
 # Mypy
 .mypy_cache
+
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# IntelliJ Idea family of suites
+.idea
+*.iml
+## File-based project format:
+*.ipr
+*.iws
+## mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# PyBuilder
+target/
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
