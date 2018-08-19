@@ -2,12 +2,38 @@
 Cookiecutter PyPackage
 ======================
 
+This is a fork
+--------------
+
+.. image:: https://img.shields.io/travis/apiology/cookiecutter-pypackage.svg
+    :target: https://travis-ci.org/apiology/cookiecutter-pypackage
+    :alt: Linux build status on Travis CI
+
+
+Hi!  I'm apiology_ and this is my fork of https://github.com/audreyr/cookiecutter-pypackage/
+
+Changes made to the original (see `GitHub view <https://github.com/audreyr/cookiecutter-pypackage/compare/master...apiology:fork_info?expand=1>`_):
+
+* Added note and new travis build icon to top of README
+* Some whitespace fixes in README.rst
+* Make setup.py executable
+* Support modern Python 3 only
+* Support `quality gem <https://github.com/apiology/quality>`_ for linting
+* Support pyenv-virtualenv
+* Support mypy type checking
+
+.. _apiology: https://github.com/apiology
+
+Original README
+---------------
+
+
 .. image:: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/shield.svg
      :target: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/
      :alt: Updates
 
 .. image:: https://travis-ci.org/audreyr/cookiecutter-pypackage.svg?branch=master
-    :target: https://travis-ci.org/audreyr/cookiecutter-pypackage     
+    :target: https://travis-ci.org/audreyr/cookiecutter-pypackage
 
 Cookiecutter_ template for a Python package.
 
@@ -98,7 +124,7 @@ Similar Cookiecutter Templates
 
 * Also see the `network`_ and `family tree`_ for this repo. (If you find
   anything that should be listed here, please add it and send a pull request!)
-  
+
 Support this Project
 ~~~~~~~~~~~~~~~~~~~~~
 
