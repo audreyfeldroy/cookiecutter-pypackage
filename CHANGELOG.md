@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 * switched from unsupport [bumpversion](https://github.com/peritus/bumpversion), to supported fork
 [bump2version](https://github.com/c4urself/bump2version)
 * Tests for this cookiecutter template are not working.
+* Reduced python version support to 2.7, 3.6 and 3.7
 
 ### Removed
 
