@@ -1,0 +1,197 @@
+version: 2
+
+default: &steps
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python${PYTHONVERSION}/site-packages
+
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: workspace
+
+      - run: |
+          ls -lR workspace
+          mv workspace/src/* .
+          rm -rf test-data
+          mv workspace/test-data .
+
+# https://discuss.circleci.com/t/cannot-use-circle-yml-environment-variables-in-cache-keys/10994/9
+      - run: echo "$PYTHONVERSION" > _tmp_file
+      - restore_cache:
+          key: {{ cookiecutter.project_dash_slug  }}-{% raw %}{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "_tmp_file" }}{% endraw %}
+
+      - run:
+          command: |
+            cat Pipfile
+            sudo pip install pipenv
+            pipenv install
+
+      - save_cache:
+          key: {{ cookiecutter.project_dash_slug  }}-{% raw %}{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "_tmp_file" }}{% endraw %}
+          paths:
+            - ".venv"
+            - "/usr/local/bin"
+            - "/usr/local/lib/python${PYTHONVERSION}/site-packages"
+
+      - run: ls -l .venv
+
+      - run:
+          command: |
+            cat > move-results.awk <<'EOF'
+                { folder = "test-reports"
+                  for (i=2; i<NF-1; i++) {
+                    if ($i != "test") {
+                      folder = folder "/"  $i
+                    }
+                  }
+                  printf "mkdir -p %s\nmv %s %s\n", folder, $0, folder
+                }
+            EOF
+            mkdir test-reports
+            save() {
+              ls -1 TEST-*.xml | awk -F. -f move-results.awk | bash
+            }
+            pipenv run python -m xmlrunner discover -s tests -t . -p '*.py' || (save && false)
+            save
+
+      - store_test_results:
+          path: test-reports
+
+      - store_artifacts:
+          path: test-reports
+
+jobs:
+  build:
+    docker:
+      - image: circleci/python:2.7
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
+          PYTHONVERSION: 2.7
+
+    steps:
+      - checkout
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python${PYTHONVERSION}/site-packages
+      - restore_cache:
+          key: {{ cookiecutter.project_dash_slug  }}-{% raw %}{{ .Branch }}-{{ checksum "Pipfile.lock" }}-build{% endraw %}
+
+      - run:
+          command: |
+            sudo pip install pipenv
+            pipenv install
+
+      - save_cache:
+          key: {{ cookiecutter.project_dash_slug  }}-{% raw %}{{ .Branch }}-{{ checksum "Pipfile.lock" }}-build{% endraw %}
+          paths:
+            - ".venv"
+            - "/usr/local/bin"
+            - "/usr/local/lib/python${PYTHONVERSION}/site-packages"
+
+      - run:
+          command: |
+            pipenv run python setup.py sdist
+            mkdir -p /tmp/workspace/src
+            mv test-data /tmp/workspace
+            mv dist /tmp/workspace
+
+      - run:
+          command: |
+            # Not removing .venv
+            mv Pipfile Pipfile.lock /tmp/workspace
+            rm -rf *
+            tar xzf /tmp/workspace/dist/{{ cookiecutter.project_dash_slug  }}*.tar.gz
+            mv {{ cookiecutter.project_dash_slug  }}*/* .
+            mv /tmp/workspace/{Pipfile,Pipfile.lock} .
+            pipenv install -e .
+            rm -rf .venv
+            cat -n Pipfile
+            sed -i -e /^python_version/d Pipfile
+            cat -n Pipfile
+            mv * /tmp/workspace/src
+
+      - persist_to_workspace:
+           root: /tmp/workspace
+           paths:
+            - test-data
+            - dist
+            - src
+
+  test37:
+    docker:
+      - image: circleci/python:3.7
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
+          PYTHONVERSION: 3.7
+
+    steps: *steps
+
+
+  test36:
+    docker:
+      - image: circleci/python:3.6
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
+          PYTHONVERSION: 3.6
+
+    steps: *steps
+
+  test27:
+    docker:
+      - image: circleci/python:2.7
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
+          PYTHONVERSION: 2.7
+
+    steps: *steps
+
+#
+  release:
+    docker:
+      - image: circleci/ruby:2.5
+
+    steps:
+      - attach_workspace:
+          at: workspace
+
+      - run: env
+      - run: gem install package_cloud
+      - run: package_cloud push syapse/General/python/sdist workspace/dist/{{ cookiecutter.project_dash_slug  }}*.tar.gz
+
+workflows:
+  version: 2
+  test_and_release:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /.*/
+
+      - test27:
+          requires:
+          - build
+          filters:
+            tags:
+              only: /.*/
+      - test36:
+          requires:
+          - build
+          filters:
+            tags:
+              only: /.*/
+      - test37:
+          requires:
+          - build
+          filters:
+            tags:
+              only: /.*/
+
+      - release:
+          context: PACKAGECLOUD
+          requires:
+            - test27
+            - test36
+            - test37
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /.*/

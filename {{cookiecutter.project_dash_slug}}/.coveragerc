@@ -1,0 +1,5 @@
+[run]
+source = {{cookiecutter.project_slug}}/
+
+[xml]
+output = coverage.xml
