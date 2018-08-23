@@ -22,10 +22,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Changed
 
 * Tox support
+* switched from unsupport [bumpversion](https://github.com/peritus/bumpversion), to supported fork
+[bump2version](https://github.com/c4urself/bump2version)
+* Tests for this cookiecutter template are not working.
 
 ### Removed
 
-* Lots of stuff
+* Travis support (both this project, and cookie)
+* Github issue template (both this project, and cookie)
+* appveyor support
+* CONTRIBUTING guidelines
+* pytest support
+* support for named authors
+* sphinx documentation support (both this project, and cookie)
+* and more ...
 
 ## Forked from [audreyr/cookiecutter-pypackage](https://github.com/audreyr/cookiecutter-pypackage)
 
