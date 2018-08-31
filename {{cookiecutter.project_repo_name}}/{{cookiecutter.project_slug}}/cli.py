@@ -67,7 +67,7 @@ def run_process_action(action=None):
         if action == 'stop':
             os.remove(PID_FILE)
     except IOError:
-        msg = "No PID file found. Service not running?"
+        msg = 'No PID file found. Service not running? Try "netstat -nlp | grep :5000".'
     except psutil.NoSuchProcess as e:
         msg = e.msg
     click.echo(msg)
@@ -137,6 +137,9 @@ def start(config, bind_host, daemon, hostname, port,
     """Start PyWPS service.
     This service is by default available at http://localhost:{{ cookiecutter.http_port }}/wps
     """
+    if os.path.exists(PID_FILE):
+        click.echo('PID file exists: "{}". Service still running?'.format(PID_FILE))
+        os._exit(0)
     cfgfiles = []
     cfgfiles.append(write_user_config(
         wps_hostname=hostname,
