@@ -6,9 +6,9 @@ Installation
 Install from Anaconda
 ---------------------
 
-.. todo::
+.. warning::
 
-   Prepare Conda package.
+   TODO: Prepare Conda package.
 
 Install from GitHub
 -------------------
@@ -89,11 +89,15 @@ Run {{ cookiecutter.project_name }} as Docker container
 
 You can also run {{ cookiecutter.project_name }} as a Docker container.
 
+.. warning::
+
+  TODO: Describe Docker container support.
+
 Use Ansible to deploy {{ cookiecutter.project_name }} on your System
 -{{ '-' * (cookiecutter.project_name|count + 36) }}
 
 Use the `Ansible playbook`_ for PyWPS to deploy {{ cookiecutter.project_name }} on your system.
-Follow the `example`_ for {{ cookiecutter.project_name }} given in the playbook.
+
 
 Building the docs
 -----------------
@@ -105,4 +109,3 @@ First install dependencies for the documentation::
 
 
 .. _Ansible playbook: http://ansible-wps-playbook.readthedocs.io/en/latest/index.html
-.. _example: https://ansible-wps-playbook.readthedocs.io/en/latest/testing.html
