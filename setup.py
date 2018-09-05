@@ -4,7 +4,7 @@ from distutils.core import setup
 setup(
     name='cookiecutter-pypackage',
     packages=[],
-    version='0.2.0',
+    version='0.3.0',
     description='Cookiecutter template for a PyWPS service',
     license='BSD',
     author='Birdhouse',
