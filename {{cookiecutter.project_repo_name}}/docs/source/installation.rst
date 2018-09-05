@@ -87,7 +87,7 @@ You can also use the ``Makefile`` to start and stop the service:
 Run {{ cookiecutter.project_name }} as Docker container
 -{{ '-' * (cookiecutter.project_name|count + 23) }}
 
-You can also run {{ cookiecutter.project_name }} as a Docker container, see the :ref:`Tutorial <tutorial>`.
+You can also run {{ cookiecutter.project_name }} as a Docker container.
 
 Use Ansible to deploy {{ cookiecutter.project_name }} on your System
 -{{ '-' * (cookiecutter.project_name|count + 36) }}
@@ -105,4 +105,4 @@ First install dependencies for the documentation::
 
 
 .. _Ansible playbook: http://ansible-wps-playbook.readthedocs.io/en/latest/index.html
-.. _example: http://ansible-wps-playbook.readthedocs.io/en/latest/tutorial.html
+.. _example: https://ansible-wps-playbook.readthedocs.io/en/latest/testing.html
