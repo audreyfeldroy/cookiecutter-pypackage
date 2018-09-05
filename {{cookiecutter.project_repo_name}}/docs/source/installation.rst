@@ -3,6 +3,10 @@
 Installation
 ============
 
+.. contents::
+    :local:
+    :depth: 1
+
 Install from Conda
 ------------------
 
