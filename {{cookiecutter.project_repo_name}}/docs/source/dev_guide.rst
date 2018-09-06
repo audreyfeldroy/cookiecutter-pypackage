@@ -70,7 +70,8 @@ Make a new version of {{ cookiecutter.project_name }} in the following steps:
 * Dry Run: ``bumpversion --dry-run --verbose --new-version 0.8.1 patch``
 * Do it: ``bumpversion --new-version 0.8.1 patch``
 * ... or: ``bumpversion --new-version 0.9.0 minor``
-* Push it: ``git push --tags``
+* Push it: ``git push``
+* Push tag: ``git push --tags``
 
 See the bumpversion_ documentation for details.
 
