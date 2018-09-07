@@ -108,7 +108,7 @@ You can take our detailed course that covers all the features of this template, 
    :name: Creating and Distributing Python Packages image
    :align: center
    :alt: Creating and Distributing Python Packages
-   :target: https://courses.twoscoopspress.com/courses/creating-and-distributing-python-packages
+   :target: https://twoscoopspress.thinkific.com/courses/creating-and-distributing-python-packages-es
 
 También disponible en español:
 
@@ -116,7 +116,7 @@ También disponible en español:
    :name: Creating and Distributing Python Packages ES image
    :align: center
    :alt: Creating and Distributing Python Packages ES
-   :target: https://courses.twoscoopspress.com/courses/creating-and-distributing-python-packages-es
+   :target: https://twoscoopspress.thinkific.com/courses/creating-and-distributing-python-packages-es
 
 Fork This / Create Your Own
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
