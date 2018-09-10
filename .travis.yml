@@ -1,3 +1,4 @@
+{% set is_open_source = cookiecutter.open_source_license != 'Not open source' -%}
 # Config file for automatic testing at travis-ci.org
 
 language: python
@@ -12,6 +13,11 @@ install: pip install -U tox-travis
 
 # command to run tests, e.g. python setup.py test
 script: tox
+
+{% if cookiecutter.use_codecov == 'y' and is_open_source -%}
+# command to upload coverage to codecov.io service
+after_success: codecov
+{% endif -%}
 
 # deploy new versions to PyPI
 deploy:
