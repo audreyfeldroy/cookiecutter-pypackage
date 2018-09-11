@@ -34,4 +34,4 @@ The following options can be specified when creating a new service.
 | `project_short_description`   | A few words about the project.                                                           |
 | `version`                     | Semantic Version number.                                                                 |
 | `command_line_interface`      | Whether to provide a command line tool.                                                  |
-| `optional_packagecloud_token` | The token for accessing package cloud. (Do not include in this __public__ repo.              |
+| `optional_packagecloud_token` | The token for accessing package cloud. (Do not include in this __public__ repo.)         |
