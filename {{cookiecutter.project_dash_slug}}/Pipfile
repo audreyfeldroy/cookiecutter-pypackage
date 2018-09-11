@@ -3,6 +3,13 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+{% if cookiecutter.optional_packagecloud_token != '' %}
+[[source]]
+url = "https://{{ cookiecutter.optional_packagecloud_token }}:@packagecloud.io/syapse/General/pypi/simple"
+verify_ssl = true
+name = "packagecloud"
+{% endif %}
+
 [packages]
 "e1839a8" = {editable = true, path = "."}
 

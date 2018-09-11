@@ -26,11 +26,12 @@ $ docker build -t foo . && docker run -it foo
 
 The following options can be specified when creating a new service.
 
-| Prompt                      | Description                                                                              |
-| --------------------------- | -----------------------------------------------------------------------------------------|
-| `project_name`              | The human-readable name of the new project  .                                            |
-| `project_slug`              | The name of the Python module to generate. Must be a Python-compatible identifier.       |
-| `project_dash_slug`         | The top-level directory name, conventionally avoiding _.                                 |
-| `project_short_description` | A few words about the project.                                                           |
-| `version`                   | Semantic Version number.                                                                 |
-| `command_line_interface`    | Whether to provide a command line tool.                                                  |
+| Prompt                        | Description                                                                              |
+| ----------------------------- | -----------------------------------------------------------------------------------------|
+| `project_name`                | The human-readable name of the new project  .                                            |
+| `project_slug`                | The name of the Python module to generate. Must be a Python-compatible identifier.       |
+| `project_dash_slug`           | The top-level directory name, conventionally avoiding _.                                 |
+| `project_short_description`   | A few words about the project.                                                           |
+| `version`                     | Semantic Version number.                                                                 |
+| `command_line_interface`      | Whether to provide a command line tool.                                                  |
+| `optional_packagecloud_token` | The token for accessing package cloud. (Do not include in this __public__ repo.              |
