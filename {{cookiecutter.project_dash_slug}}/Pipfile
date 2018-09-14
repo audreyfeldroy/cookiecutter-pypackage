@@ -3,9 +3,10 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
-{% if cookiecutter.optional_packagecloud_token != '' %}
+{% if 'enable' in  cookiecutter.packagecloud|lower %}
 [[source]]
-url = "https://{{ cookiecutter.optional_packagecloud_token }}:@packagecloud.io/syapse/General/pypi/simple"
+# Please don't reuse the read token below in other projects. Generate a new one.
+url = "https://${READ_TOKEN}:@packagecloud.io/syapse/General/pypi/simple"
 verify_ssl = true
 name = "packagecloud"
 {% endif %}

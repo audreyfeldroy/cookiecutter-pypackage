@@ -1,9 +1,11 @@
 {
   "project_name": "Python Boilerplate",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
-  "project_dash_slug": "{{ cookiecutter.project_slug.lower().replace('_', '-')}}",
+  "project_dash_slug": "{{ cookiecutter.project_slug.lower().replace('_', '-') }}",
+  "github_repo": "syapse/{{ cookiecutter.project_dash_slug }}",
   "project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
   "version": "0.1.0",
   "command_line_interface": ["Click", "No command-line interface"],
-  "optional_packagecloud_token": ""
+  "packagecloud": ["Enable use of other libraries from package cloud",
+                   "No dependency on other package cloud libraries"]
 }
