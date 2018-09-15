@@ -14,7 +14,7 @@ help:
 init:	
 	pipenv --three
 	pipenv install --dev --skip-lock
-	pipenv install -r requirements_dev.txt
+	pipenv install -r requirements.txt
 	pipenv run setup.py develop
 
 update:
