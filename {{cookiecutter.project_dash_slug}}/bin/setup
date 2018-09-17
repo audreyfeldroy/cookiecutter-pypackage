@@ -15,6 +15,7 @@ generate_env () {
 }
 
 
+{% if cookiecutter.enable_packagecloud | lower == 'yes' %}
 configure_packagecloud () {
     # Prompt the user for a packagecloud API token if not set.
 
@@ -54,6 +55,7 @@ configure_packagecloud () {
 }
 
 
+{% endif %}
 display_instructions () {
     echo "To start developing, run \`pipenv shell\`."
 }
@@ -61,7 +63,9 @@ display_instructions () {
 
 main () {
     generate_env
+    {% if cookiecutter.enable_packagecloud | lower == 'yes' %}
     configure_packagecloud
+    {% endif %}
     display_instructions
 }
 
