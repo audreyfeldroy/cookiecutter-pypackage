@@ -14,13 +14,19 @@ generate_env () {
     fi
 }
 
-
 {% if cookiecutter.enable_packagecloud | lower == 'yes' %}
 configure_packagecloud () {
     # Prompt the user for a packagecloud API token if not set.
 
     # shellcheck disable=1091
     source .env
+
+    # If a read token already exists, return early.
+    if [[ ! -z "$PACKAGECLOUD_READ_TOKEN" ]] 
+    then
+        echo "Detected an existing PACKAGECLOUD_READ_TOKEN. Skipping configuration."
+        return
+    fi
 
     local api_token="$PACKAGECLOUD_TOKEN"
     if [[ -z "$api_token" ]]
@@ -54,7 +60,6 @@ configure_packagecloud () {
     echo "Packagecloud was successfully configured. Credentials were written to .env."
 }
 
-
 {% endif %}
 display_instructions () {
     echo "To start developing, run \`pipenv shell\`."
@@ -63,9 +68,7 @@ display_instructions () {
 
 main () {
     generate_env
-    {% if cookiecutter.enable_packagecloud | lower == 'yes' %}
-    configure_packagecloud
-    {% endif %}
+    {% if cookiecutter.enable_packagecloud | lower == 'yes' %}configure_packagecloud{% endif %}
     display_instructions
 }
 
