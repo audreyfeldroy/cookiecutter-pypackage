@@ -6,6 +6,7 @@
   "project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
   "version": "0.1.0",
   "command_line_interface": ["Click", "No command-line interface"],
-  "packagecloud": ["Enable use of other libraries from package cloud",
-                   "No dependency on other package cloud libraries"]
+  "enable_packagecloud": ["yes", "no"],
+  "packagecloud_repo": "{% if cookiecutter.enable_packagecloud | lower == 'yes' %}syapse/General{% else %}DISABLED{% endif %}",
+  "packagecloud_master_token": "{% if cookiecutter.enable_packagecloud | lower == 'yes' %}5a1f72e8a735582d8c435fc3429c1591cd869c657f9a94d7{% else %}DISABLED{% endif %}"
 }
