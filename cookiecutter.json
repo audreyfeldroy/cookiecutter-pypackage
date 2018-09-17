@@ -6,6 +6,6 @@
   "project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
   "version": "0.1.0",
   "command_line_interface": ["Click", "No command-line interface"],
-  "packagecloud": ["Enable use of other libraries from package cloud",
-                   "No dependency on other package cloud libraries"]
+  "packagecloud_repo": "syapse/General",
+  "packagecloud_master_token": ""
 }

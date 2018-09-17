@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+
+generate_env () {
+    if [[ -f '.env' ]]
+    then
+        read -p 'Do you want to overwrite .env with .env.example? [y/N]' -r
+        if [[ $REPLY =~ ^[Yy]$ ]]
+        then
+            cp .env.example .env
+        fi
+    else
+        cp .env.example .env
+    fi
+}
+
+
+configure_packagecloud () {
+    # Prompt the user for a packagecloud API token if not set.
+
+    # shellcheck disable=1091
+    source .env
+
+    local api_token="$PACKAGECLOUD_TOKEN"
+    if [[ -z "$api_token" ]]
+    then
+        echo 'No PACKAGECLOUD_TOKEN was detected. Get your token from '
+        echo '    -> https://packagecloud.io/api_token'
+        read -p 'Enter your packagecloud token: ' -r api_token
+        sed -i'' "s/PACKAGECLOUD_TOKEN=/PACKAGECLOUD_TOKEN=$api_token/" .env
+    fi
+
+    local master_token="${PACKAGECLOUD_MASTER_TOKEN?Please export PACKAGECLOUD_MASTER_TOKEN}"
+    local repo="${PACKAGECLOUD_REPO? Please export PACKAGECLOUD_REPO}"
+    local read_tokens_api="https://$api_token:@packagecloud.io/api/v1/repos/$repo/master_tokens/$master_token/read_tokens.json"
+
+    echo "Creating a read token..."
+    curl --silent --fail --output /dev/null -X POST -F "read_token[name]={{ cookiecutter.project_dash_slug }}" "$read_tokens_api" \
+        || echo "A read token already exists for this project."
+
+    echo "Fetching the read token for this project..."
+    local read_token
+    read_token=$(curl --silent --show-error --fail "$read_tokens_api" | python -c "import sys, json; print(next(t['value'] for t in json.load(sys.stdin).get('read_tokens', []) if t.get('name') == '{{cookiecutter.project_dash_slug}}') or '')")
+
+    if [[ -z "$read_token" ]]
+    then
+        >&2 echo "There was a problem fetching the read token from packagecloud. Make sure your PACKAGECLOUD_REPO and PACAKGECLOUD_MASTER_TOKEN are correctly set in your environment."
+        exit 1
+    fi
+
+    sed -i'' "s/PACKAGECLOUD_READ_TOKEN=/PACKAGECLOUD_READ_TOKEN=$read_token/" .env
+
+    echo "Packagecloud was successfully configured. Credentials were written to .env."
+}
+
+
+display_instructions () {
+    echo "To start developing, run \`pipenv shell\`."
+}
+
+
+main () {
+    generate_env
+    configure_packagecloud
+    display_instructions
+}
+
+main "$@"
