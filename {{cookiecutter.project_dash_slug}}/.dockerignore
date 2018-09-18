@@ -1,0 +1,11 @@
+*.py[codi]
+*.swp
+.circleci
+.git
+.gitignore
+.mypy_cache
+Dockerfile
+Jenkinsfile
+README.md
+autotest.sh
+docker-compose*.yml
