@@ -31,11 +31,6 @@ and look at [CircleCI](https://circleci.com/gh/syapse/{{ cookiecutter.project_da
 To build a release, tag a commit (see below), and the built package will be
 uploaded to packagecloud.
 
-It is also possible to test your code using `tox` locally, or
-```
-$ docker build -t foo . && docker run -it foo
-```
-
 ## Versioning
 
 This package uses [bumpversion](https://github.com/c4urself/bump2version).
