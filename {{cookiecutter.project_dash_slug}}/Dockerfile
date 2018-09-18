@@ -11,6 +11,17 @@ ENV PATH=$PATH:/home/user/.local/bin \
     PIPENV_NOSPIN=true \
     SHELL=/bin/sh
 
+# Install system-level packages.
+RUN apk add --no-cache --update \
+    build-base \
+    git \
+    libffi-dev \
+    linux-headers \
+    pcre-dev \
+    postgresql-client \
+    postgresql-dev \
+    python3-dev
+
 # Set a working directory
 WORKDIR /srv
 
@@ -23,5 +34,5 @@ RUN pip install --upgrade pip pipenv
 # Install environment dependencies with Pipenv
 RUN pipenv install --system --dev
 
-# Call the entry point 
+# Call the entry point
 ENTRYPOINT ["./docker-entrypoint.sh"]
