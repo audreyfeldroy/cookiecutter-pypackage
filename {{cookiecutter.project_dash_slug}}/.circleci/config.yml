@@ -9,7 +9,6 @@ default: &steps
           at: workspace
 
       - run: |
-          ls -lR workspace
           mv workspace/src/* .
           rm -rf test-data
           mv workspace/test-data .
@@ -32,24 +31,39 @@ default: &steps
             - "/usr/local/bin"
             - "/usr/local/lib/python${PYTHONVERSION}/site-packages"
 
-      - run: ls -l .venv
-
       - run:
           command: |
-            cat > move-results.awk <<'EOF'
-                { folder = "test-reports"
-                  for (i=2; i<NF-1; i++) {
-                    if ($i != "test") {
-                      folder = folder "/"  $i
-                    }
-                  }
-                  printf "mkdir -p %s\nmv %s %s\n", folder, $0, folder
-                }
+            cat > move_results.py <<'EOF'
+            """Circle Ci structures the test report on the artifact page
+            using the directory structure of the test results.
+            The xml files created by the xmlrunner are all in the same folder
+            with the package structure reflected in '.'s in the file name.
+            We move the files around to beautify the test reporting."""
+            import errno
+            import os
+            from glob import glob
+
+            for test_result in glob('TEST-*.xml'):
+                # e.g. TEST-tests.kb_lint_test.test_diff.ClassChangesTest-20180919121134.xml
+                parts = test_result.split('.')
+                # e.g. ['TEST-tests', 'kb_lint_test', 'test_diff',
+                #        'ClassChangesTest-20180919121134', 'xml']
+                folder = os.path.join('test-reports', *parts[1:-2])
+                # e.g ['kb_lint_test', 'test_diff']
+
+                try:
+                    os.makedirs(folder)
+                except OSError as e:
+                    if e.errno != errno.EEXIST:
+                        raise
+                os.rename(test_result, os.path.join(folder, '%s.xml' % parts[-2]))
+
             EOF
             mkdir test-reports
             save() {
-              ls -1 TEST-*.xml | awk -F. -f move-results.awk | bash
+              python move_results.py
             }
+            # call save whether or not the test run succeeds
             pipenv run python -m xmlrunner discover -s tests -t . -p '*.py' || (save && false)
             save
 
