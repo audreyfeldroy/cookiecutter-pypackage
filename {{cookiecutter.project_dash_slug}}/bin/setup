@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+
+generate_env () {
+    if [[ -f '.env' ]]
+    then
+        read -p 'Do you want to overwrite .env with .env.example? [y/N]' -r
+        if [[ $REPLY =~ ^[Yy]$ ]]
+        then
+            cp .env.example .env
+        fi
+    else
+        cp .env.example .env
+    fi
+}
+
+display_instructions () {
+    echo "To start developing, run \`pipenv shell\`."
+}
+
+
+main () {
+    generate_env
+    display_instructions
+}
+
+main "$@"
