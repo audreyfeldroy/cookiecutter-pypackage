@@ -62,10 +62,20 @@ default: &steps
 jobs:
   build:
     docker:
+
+{%- if cookiecutter.python_2_7|lower == 'yes' %}
       - image: circleci/python:2.7
         environment:
           PIPENV_VENV_IN_PROJECT: true
           PYTHONVERSION: 2.7
+
+{%- else %}
+      - image: circleci/python:3.6
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
+          PYTHONVERSION: 3.6
+
+{%- endif %}
 
     steps:
       - checkout
@@ -134,6 +144,8 @@ jobs:
 
     steps: *steps
 
+{%- if cookiecutter.python_2_7|lower == 'yes' %}
+
   test27:
     docker:
       - image: circleci/python:2.7
@@ -142,8 +154,8 @@ jobs:
           PYTHONVERSION: 2.7
 
     steps: *steps
+{% endif %}
 
-#
   release:
     docker:
       - image: circleci/ruby:2.5
@@ -164,13 +176,14 @@ workflows:
           filters:
             tags:
               only: /.*/
-
+{% if cookiecutter.python_2_7|lower == 'yes' %}
       - test27:
           requires:
           - build
           filters:
             tags:
               only: /.*/
+ {%- endif %}
       - test36:
           requires:
           - build
@@ -187,7 +200,8 @@ workflows:
       - release:
           context: PACKAGECLOUD
           requires:
-            - test27
+            {%- if cookiecutter.python_2_7|lower == 'yes' %}
+            - test27{%- endif %}
             - test36
             - test37
           filters:
