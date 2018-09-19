@@ -5,6 +5,16 @@
 
 ## Quickstart
 
+```
+git clone git@github.com:syapse/{{ cookiecutter.project_dash_slug }}.git
+cd {{ cookiecutter.project_dash_slug }}
+bin/setup
+pipenv shell
+# start working
+```
+
+### First committer
+
 Please enable circleci on the new repo.
 
 Please run:
