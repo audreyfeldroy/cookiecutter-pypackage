@@ -6,7 +6,7 @@ name = "pypi"
 {% if cookiecutter.enable_packagecloud | lower == 'yes' %}
 [[source]]
 # Please don't reuse the read token below in other projects. Generate a new one.
-url = "https://$PACKAGECLOUD_READ_TOKEN:@packagecloud.io/syapse/General/pypi/simple"
+url = "https://{{ cookiecutter.packagecloud_read_token }}:@packagecloud.io/syapse/General/pypi/simple"
 verify_ssl = true
 name = "packagecloud"
 

@@ -35,3 +35,5 @@ The following options can be specified when creating a new service.
 | `python_2_7`                | Include python 2.7 support.                                                              |
 | `version`                   | Semantic Version number.                                                                 |
 | `command_line_interface`    | Whether to provide a command line tool.                                                  |
+| `enable_packagecloud`       | Whether you wish to use further libraries from packagecloud.                             |
+| `packagecloud_read_token`   | Accept default value to be guided through creating one.                                  |
