@@ -5,6 +5,16 @@
 
 ## Quickstart
 
+```
+git clone git@github.com:syapse/{{ cookiecutter.project_dash_slug }}.git
+cd {{ cookiecutter.project_dash_slug }}
+bin/setup
+pipenv shell
+# start working
+```
+
+### First committer
+
 Please enable circleci on the new repo.
 
 Please run:
@@ -31,31 +41,32 @@ and look at [CircleCI](https://circleci.com/gh/syapse/{{ cookiecutter.project_da
 To build a release, tag a commit (see below), and the built package will be
 uploaded to packagecloud.
 
-It is also possible to test your code using `tox` locally, or
-```
-$ docker build -t foo . && docker run -it foo
-```
-
 ## Versioning
 
 This package uses [bumpversion](https://github.com/c4urself/bump2version).
 
-To go to the next major/minor/patch/rc version, the command:
-```
-pipenv run bumpversion [major|minor|patch|rc]
-```
-works. If the current version is a pre-release rc version, or you wish to create the first
-pre-release rc version for the next release, then you have to manually specify the version number
-(and a further ignored argument).
-e.g. If current version is 1.3.2, you may choose to do
-```
-pipenv run bumpversion ignored-arg --new-version 1.4.0-rc1
-```
-then when the pre-release process is complete for 1.4.0 you can call
-```
-pipenv run bumpversion ignored-arg --new-version 1.4.0
-```
-to complete the release.
+The workflow to create a new version is as follows:
 
-`bumpversion` both creates a commit and a tag, pushing the tag to github triggers a release
+1. Use
+```
+pipenv run bumpversion [major|minor|patch]
+```
+or, depending on your setup, simply
+```
+bumpversion [major|minor|patch]
+```
+to increment to the next major, minor or patch version number, at pre-release `rc.1`.
+You can do this at any time, either after a full release, or in the middle of a pre-release.
+
+2. To then create a second (or third) `rc` pre-release
+```
+bumpversion rc
+```
+
+3. If you are satisfied with an `rc` pre-release version, to build the final release
+```
+bumpversion release
+```
+
+`bumpversion` creates both a commit and a tag, pushing the tag to github triggers a release
 build, and circleci will push a package to [packagecloud](https://packagecloud.io/syapse/General).
