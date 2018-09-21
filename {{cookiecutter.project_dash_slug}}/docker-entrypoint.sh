@@ -1,15 +1,17 @@
 #!/bin/sh
 
+# Entrypoint script
+
 main() {
-  [ $# -lt 1 ] && run_tests
+  [ $# -lt 1 ] && pipenv_shell
   case "$1" in
-    -*) run_tests "$@";;
+    -*) pipenv_shell "$@";;
     *) exec "$@";;
   esac
 }
 
-run_tests() {
-  exec echo TBD
+pipenv_shell() {
+  pipenv shell
 }
 
 main "$@"

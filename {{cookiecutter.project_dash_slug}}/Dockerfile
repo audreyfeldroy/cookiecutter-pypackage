@@ -1,17 +1,13 @@
-FROM python:3-alpine3.7
+# Base Image
+FROM python:3.6.6-alpine3.7
 
-ENV PATH=$PATH:/home/user/.local/bin \
-    PYTHONFAULTHANDLER=1 \
-    PYTHONUNBUFFERED=1 \
-    PYTHONHASHSEED=random \
-    PIP_USER=1 \
-    PIP_NO_CACHE_DIR=off \
-    PIP_DISABLE_PIP_VERSION_CHECK=on \
-    PIPENV_COLORBLIND=true \
-    PIPENV_NOSPIN=true \
-    SHELL=/bin/sh
+# Best practice: if you build contains several layers you should order them
+# from the less frequently changed to the more frequently changed (caching)
 
-# Install system-level packages.
+# Install tools required for the project
+# Best practice:
+# 1. do not install unnecessary packages, keep it small.
+# 2. keep an alphabetic order to avoid duplicates
 RUN apk add --no-cache --update \
     build-base \
     git \
@@ -19,20 +15,28 @@ RUN apk add --no-cache --update \
     linux-headers \
     pcre-dev \
     postgresql-client \
-    postgresql-dev \
     python3-dev
 
-# Set a working directory
-WORKDIR /srv
-
-# Copy everything in the working directory
+# Run as non root user (best practice)
+ENV USERNAME=syapse
+ENV PROJECT_NAME={{cookiecutter.project_dash_slug}}
+WORKDIR /home/$USERNAME/$PROJECT_NAME
 COPY . .
+RUN addgroup -g 303 -S $USERNAME \
+    && adduser -u 303 -S -G $USERNAME -h /home/$USERNAME $USERNAME
+RUN chown -R $USERNAME:$USERNAME /home/$USERNAME/$PROJECT_NAME
+USER $USERNAME
 
-# Install the newest pipenv
-RUN pip install --upgrade pip pipenv
+# Install or update system dependencies
+ENV PIP_NO_CACHE_DIR=off
+ENV PATH=$PATH:/home/$USERNAME/.local/bin
+RUN pip install --upgrade --user pip pipenv
 
-# Install environment dependencies with Pipenv
-RUN pipenv install --system --dev
+# Install project dependencies
+RUN pipenv install --dev
 
-# Call the entry point
+# Set environment variables
+# ENV MYVAR="Your_needed_env_variables"
+
+# Set the command executed first when the container run
 ENTRYPOINT ["./docker-entrypoint.sh"]

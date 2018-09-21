@@ -1,0 +1,10 @@
+#!/bin/sh
+
+IMAGE_NAME='{{cookiecutter.project_name}}'
+
+main() {
+  echo "Building image $IMAGE_NAME"
+  docker build -t $IMAGE_NAME .
+}
+
+main "$@"
