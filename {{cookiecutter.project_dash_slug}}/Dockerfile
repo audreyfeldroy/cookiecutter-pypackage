@@ -1,5 +1,5 @@
 # Base Image
-FROM python:3.6.6-alpine3.7
+FROM python:3.6-slim-stretch
 
 # Best practice: if you build contains several layers you should order them
 # from the less frequently changed to the more frequently changed (caching)
@@ -8,29 +8,39 @@ FROM python:3.6.6-alpine3.7
 # Best practice:
 # 1. do not install unnecessary packages, keep it small.
 # 2. keep an alphabetic order to avoid duplicates
-RUN apk add --no-cache --update \
-    build-base \
-    git \
-    libffi-dev \
-    linux-headers \
-    pcre-dev \
-    postgresql-client \
-    python3-dev
+RUN apt-get update \
+ && mkdir -p /usr/share/man/man1 \
+ && mkdir -p /usr/share/man/man7 \
+ && apt-get install -y --no-install-recommends \
+      bash \
+      curl \
+      htop \
+      less \
+      postgresql-client \
+      tmux \
+      vim
 
 # Run as non root user (best practice)
-ENV USERNAME=syapse
-ENV PROJECT_NAME={{cookiecutter.project_dash_slug}}
-WORKDIR /home/$USERNAME/$PROJECT_NAME
+WORKDIR /srv
 COPY . .
-RUN addgroup -g 303 -S $USERNAME \
-    && adduser -u 303 -S -G $USERNAME -h /home/$USERNAME $USERNAME
-RUN chown -R $USERNAME:$USERNAME /home/$USERNAME/$PROJECT_NAME
-USER $USERNAME
+
+# Run as a non-root user.
+RUN useradd -ms $SHELL syapse \
+ && chown -R syapse:syapse /home/syapse
+USER syapse
+
 
 # Install or update system dependencies
-ENV PIP_NO_CACHE_DIR=off
-ENV PATH=$PATH:/home/$USERNAME/.local/bin
-RUN pip install --upgrade --user pip pipenv
+ENV PYTHONFAULTHANDLER=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    PIPENV_COLORBLIND=true \
+    PIPENV_NOSPIN=true \
+    PIP_NO_CACHE_DIR=off \
+    PIP_USER=1 \
+    PATH=$PATH:/home/syapse/.local/bin
+
+RUN python -m pip install --upgrade --user pipenv
 
 # Install project dependencies
 RUN pipenv install --dev
@@ -40,3 +50,12 @@ RUN pipenv install --dev
 
 # Set the command executed first when the container run
 ENTRYPOINT ["./docker-entrypoint.sh"]
+
+# Create a dev image for local development environments
+FROM prod as dev
+
+# Install environment dependencies with Pipenv.
+RUN pipenv install --system --dev --skip-lock
+
+# Mount a volume at /srv so code can be changed on the fly
+VOLUME /srv
