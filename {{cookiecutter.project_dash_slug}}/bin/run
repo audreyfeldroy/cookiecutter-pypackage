@@ -4,7 +4,7 @@ IMAGE_NAME='{{cookiecutter.project_name}}'
 
 main() {
   echo "Building image $IMAGE_NAME"
-  docker container run --rm -v $(pwd):/srv $IMAGE_NAME "$@"
+  docker container run --rm -v "$(pwd)":/srv $IMAGE_NAME "$@"
 }
 
 main "$@"
