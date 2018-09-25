@@ -2,16 +2,10 @@
 
 # Entrypoint script
 
-main() {
-  [ $# -lt 1 ] && pipenv_shell
-  case "$1" in
-    -*) pipenv_shell "$@";;
-    *) exec "$@";;
-  esac
-}
+#!/bin/sh
 
-pipenv_shell() {
-  pipenv shell
+main() {
+  pipenv run "$@";
 }
 
 main "$@"
