@@ -1,5 +1,5 @@
 # Base Image
-FROM python:3.6-slim-stretch
+FROM python:3.6-slim-stretch as prod
 
 # Best practice: if you build contains several layers you should order them
 # from the less frequently changed to the more frequently changed (caching)
@@ -25,8 +25,8 @@ WORKDIR /srv
 COPY . .
 
 # Run as a non-root user.
-RUN useradd -ms $SHELL syapse \
- && chown -R syapse:syapse /home/syapse
+RUN useradd -ms /bin/bash syapse \
+ && chown -R syapse:syapse /srv
 USER syapse
 
 
@@ -43,7 +43,7 @@ ENV PYTHONFAULTHANDLER=1 \
 RUN python -m pip install --upgrade --user pipenv
 
 # Install project dependencies
-RUN pipenv install --dev
+RUN pipenv install --system --ignore-pipfile
 
 # Set environment variables
 # ENV MYVAR="Your_needed_env_variables"
