@@ -62,10 +62,16 @@ configure_packagecloud () {
     true
 }
 
+
 remove_cli_code () {
     if [[ '{{ cookiecutter.command_line_interface|lower }}' =~ no ]]
     then
-        rm -f '{{ cookiecutter.project_slug }}/cli.py'
+        rm -f \
+            'Dockerfile' \
+            'bin/build' \
+            'bin/run' \
+            'docker-entrypoint.sh' \
+            '{{ cookiecutter.project_slug }}/cli.py'
     fi
 }
 
