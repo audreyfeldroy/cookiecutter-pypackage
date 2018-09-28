@@ -1,0 +1,20 @@
+#!/bin/bash
+
+IMAGE_NAME='{{cookiecutter.project_dash_slug | lower}}'
+
+main() {
+  echo "Building package..."
+  _run python setup.py build > /dev/null
+  _run "$@"
+}
+
+
+_run () {
+  docker run \
+      --rm \
+      --volume "$(pwd)":/srv \
+      "$IMAGE_NAME" \
+      "$@"
+}
+
+main "$@"
