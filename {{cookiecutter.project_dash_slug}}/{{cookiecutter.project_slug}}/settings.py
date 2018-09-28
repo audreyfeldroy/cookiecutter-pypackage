@@ -84,22 +84,3 @@ class Config(object):
     #: Default: `False`
     #:
     LOG_PRETTY: bool = config('LOG_PRETTY', False, cast=bool)
-
-    ##
-    #: The `SECRET_KEY` is used for signing and encryption. It should be
-    #: randomly generated and appropriately secured.
-    #:
-    #: Default: `None`
-    #:
-    SECRET_KEY: str = config('SECRET_KEY', None)
-
-    ##
-    #: The `BCRYPT_LOG_ROUNDS` value configures the `rounds` parameter of
-    #: `bcrypt.gensalt()` which determines the complexity of the generated
-    #: salt.
-    #:
-    #: Default: `13`
-    #:
-    BCRYPT_LOG_ROUNDS: int = 13
-
-    
