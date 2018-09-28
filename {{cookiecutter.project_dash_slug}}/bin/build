@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IMAGE_NAME='{{cookiecutter.project_name}}'
+IMAGE_NAME='{{cookiecutter.project_dash_slug | lower}}'
 
 main() {
   echo "Building image $IMAGE_NAME"
