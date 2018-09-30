@@ -33,7 +33,8 @@ def inside_dir(dirpath):
 def bake_in_temp_dir(cookies, *args, **kwargs):
     """
     Delete the temporal directory that is created when executing the tests
-    :param cookies: pytest_cookies.Cookies, cookie to be baked and its temporal files will be removed
+    :param cookies: pytest_cookies.Cookies,
+        cookie to be baked and its temporal files will be removed
     """
     result = cookies.bake(*args, **kwargs)
     try:
@@ -111,7 +112,7 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
 #     # given:
 #     with bake_in_temp_dir(cookies) as result:
 #         project_path = str(result.project)
-# 
+#
 #         # when:
 #         travis_setup_cmd = ('python travis_pypi_setup.py'
 #                             ' --repo audreyr/cookiecutter-pypackage --password invalidpass')
@@ -201,12 +202,12 @@ def test_not_using_pytest(cookies):
 #     result = cookies.bake(extra_context={'project_name': 'something-with-a-dash'})
 #     assert result.project is not None
 #     project_path = str(result.project)
-# 
+#
 #     # when:
 #     travis_setup_cmd = ('python travis_pypi_setup.py'
 #                         ' --repo audreyr/cookiecutter-pypackage --password invalidpass')
 #     run_inside_dir(travis_setup_cmd, project_path)
-# 
+#
 #     # then:
 #     result_travis_config = yaml.load(open(os.path.join(project_path, ".travis.yml")))
 #     assert "secure" in result_travis_config["deploy"]["password"],\
