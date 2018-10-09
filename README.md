@@ -15,12 +15,10 @@ $ cookiecutter git@github.com:syapse/cookiecutter-pypackage.git
 
 # Follow the prompts to configure your project. See Cookiecutter Options below.
 
-# To test locally (2.7 and 3.6 only) you can use tox, if setup correctly (black magic):
-$ tox
+You are strongly advised to follow the naming convention of starting your project name
+with 'Syapse', and hence your package name with 'syapse_'. This is to avoid name
+collisions with packages at [PyPI](https://pypi.org)
 
-# To avoid black magic, use Docker for local testing
-$ docker build -t foo . && docker run -it foo
-```
 
 ## Cookiecutter Options
 
@@ -28,8 +26,8 @@ The following options can be specified when creating a new service.
 
 | Prompt                      | Description                                                                              |
 | --------------------------- | -----------------------------------------------------------------------------------------|
-| `project_name`              | The human-readable name of the new project  .                                            |
-| `project_slug`              | The name of the Python module to generate. Must be a Python-compatible identifier.       |
+| `project_name`              | The human-readable name of the new project (Should start with 'Syapse').                 |
+| `project_slug`              | The Python-compatible identifier of the generated module. Must start 'syapse_'.          |
 | `project_dash_slug`         | The top-level directory name, conventionally avoiding _.                                 |
 | `project_short_description` | A few words about the project.                                                           |
 | `python_2_7`                | Include python 2.7 support.                                                              |

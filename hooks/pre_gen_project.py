@@ -12,3 +12,7 @@ if not re.match(MODULE_REGEX, module_name):
 
     #Exit to cancel project
     sys.exit(1)
+
+if not module_name.startswith("syapse_"):
+    print(('WARNING: the namespace for python libraries is global, and managed by pypi.org. '
+           'To avoid name collisions you are advised to use a syapse_ prefix.'))
