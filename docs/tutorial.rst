@@ -134,8 +134,6 @@ Log into your account at `ReadTheDocs`_ . If you don't have one, create one and 
 
 If you are not at your dashboard, choose the pull-down next to your username in the upper right, and select "My Projects". Choose the button to Import the repository and follow the directions.
 
-In your GitHub repo, select Settings > Webhooks & Services, turn on the ReadTheDocs service hook.
-
 Now your documentation will get rebuilt when you make documentation changes to your package.
 
 .. _`ReadTheDocs`: https://readthedocs.org/
