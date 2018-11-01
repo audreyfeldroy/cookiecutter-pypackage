@@ -7,23 +7,9 @@ Processes
     :local:
     :depth: 1
 
-Sleep
------
+Say Hello
+---------
 
-.. autoprocess:: {{ cookiecutter.project_slug }}.processes.wps_sleep.Sleep
-   :docstring:
-   :skiplines: 1
-
-Wordcounter
------------
-
-.. autoprocess:: {{ cookiecutter.project_slug }}.processes.wps_wordcounter.WordCounter
-   :docstring:
-   :skiplines: 1
-
-InOut
------
-
-.. autoprocess:: {{ cookiecutter.project_slug }}.processes.wps_inout.InOut
+.. autoprocess:: {{ cookiecutter.project_slug }}.processes.wps_say_hello.SayHello
    :docstring:
    :skiplines: 1

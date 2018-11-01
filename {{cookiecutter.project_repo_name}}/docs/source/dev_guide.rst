@@ -7,6 +7,8 @@ Developer Guide
     :local:
     :depth: 1
 
+.. WARNING:: To create new processes look at examples in Emu_.
+
 Building the docs
 -----------------
 
@@ -77,3 +79,4 @@ See the bumpversion_ documentation for details.
 
 .. _bumpversion: https://pypi.org/project/bumpversion/
 .. _pytest: https://docs.pytest.org/en/latest/
+.. _Emu: https://github.com/bird-house/emu
