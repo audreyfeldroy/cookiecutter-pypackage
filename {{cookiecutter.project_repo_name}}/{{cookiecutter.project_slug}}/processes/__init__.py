@@ -1,9 +1,5 @@
-from .wps_wordcounter import WordCounter
-from .wps_inout import InOut
-from .wps_sleep import Sleep
+from .wps_say_hello import SayHello
 
 processes = [
-    WordCounter(),
-    InOut(),
-    Sleep(),
+    SayHello(),
 ]
