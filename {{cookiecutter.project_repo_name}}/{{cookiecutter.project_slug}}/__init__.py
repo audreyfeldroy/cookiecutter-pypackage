@@ -2,8 +2,6 @@
 
 """Top-level package for {{ cookiecutter.project_name }}."""
 
-from .wsgi import application
+from .__version__ import __author__, __email__, __version__
 
-__author__ = """{{ cookiecutter.full_name }}"""
-__email__ = '{{ cookiecutter.email }}'
-__version__ = '{{ cookiecutter.version }}'
+from .wsgi import application

@@ -7,10 +7,13 @@ import os
 
 from setuptools import setup, find_packages
 
-version = __import__('{{ cookiecutter.project_slug }}').__version__
 here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.rst')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.rst')).read()
+
+about = {}
+with open(os.path.join(here, '{{ cookiecutter.project_slug }}', '__version__.py'), 'r') as f:
+    exec(f.read(), about)
 
 reqs = [line.strip() for line in open('requirements.txt')]
 
@@ -41,11 +44,11 @@ classifiers = [
 ]
 
 setup(name='{{ cookiecutter.project_slug }}',
-      version=version,
+      version=about['__version__'],
       description="{{ cookiecutter.project_short_description }}",
       long_description=README + '\n\n' + CHANGES,
-      author="{{ cookiecutter.full_name.replace('\"', '\\\"') }}",
-      author_email='{{ cookiecutter.email }}',
+      author=about['__author__'],
+      author_email=about['__email__'],
       url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_repo_name }}',
       classifiers=classifiers,
 {%- if cookiecutter.open_source_license in license_classifiers %}
