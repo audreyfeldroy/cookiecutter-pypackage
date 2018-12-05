@@ -1,6 +1,17 @@
 CHANGES
 ********
 
+0.3.1 (2018-12-05)
+==================
+
+Bugfixes for Washington release.
+
+Changes:
+
+* Raise Makefile errors (#57).
+* Get version number without importing package (#56).
+* Keep only a single *hello* process (#53).
+
 0.3.0 (2018-09-05)
 ==================
 
@@ -13,7 +24,7 @@ Changes:
 * Updated PyWPS CLI (#8 and #33).
 * Enabled Conda support for RTD (#51).
 * Using ``bumpversion`` to update version (#9)
-* numerous fixes. 
+* numerous fixes.
 
 0.2.0 (2018-05-22)
 ==================
