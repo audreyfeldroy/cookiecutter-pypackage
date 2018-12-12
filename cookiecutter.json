@@ -1,7 +1,7 @@
 {
   "full_name": "Mr Developer",
   "email": "developer@example.com",
-  "git_service": ["RWTH Git", "GitHub"],
+  "git_service": ["https://git.rwth-aachen.de", "https://github.com"],
   "git_username": "mr_developer",
   "project_name": "Your Python Project",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
