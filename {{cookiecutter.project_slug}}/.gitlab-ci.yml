@@ -2,6 +2,7 @@ image: python
 
 stages:
 - test
+- build
 
 before_script:
 - curl -O https://bootstrap.pypa.io/get-pip.py
@@ -32,3 +33,11 @@ linter:
     image: python:3.6
     stage: test
     script: tox -e flake8
+
+build:
+  stage: build
+  script: tox -e build
+  artifacts:
+    paths:
+    - dist/
+    expire_in: 1 week
