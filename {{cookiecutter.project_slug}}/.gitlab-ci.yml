@@ -9,16 +9,6 @@ before_script:
 - python get-pip.py
 - pip install -r requirements_dev.txt
 
-python2:
-    image: python:2.7
-    stage: test
-    script: tox -e py27
-
-python34:
-    image: python:3.4
-    stage: test
-    script: tox -e py34
-
 python35:
     image: python:3.5
     stage: test
