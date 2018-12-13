@@ -1,3 +1,5 @@
+{% set rwth = cookiecutter.git_service == 'https://git.rwth-aachen.de' -%}
+{% set github = cookiecutter.git_service == 'https://github.com' -%}
 .. highlight:: shell
 
 ============
@@ -26,13 +28,13 @@ If you are reporting a bug, please include:
 Fix Bugs
 ~~~~~~~~
 
-Look through the GitHub issues for bugs. Anything tagged with "bug" and "help
+Look through the {% if rwth %}GitLab{% elif github %}GitHub{% endif %} issues for bugs. Anything tagged with "bug" and "help
 wanted" is open to whoever wants to implement it.
 
 Implement Features
 ~~~~~~~~~~~~~~~~~~
 
-Look through the GitHub issues for features. Anything tagged with "enhancement"
+Look through the {% if rwth %}GitLab{% elif github %}GitHub{% endif %} issues for features. Anything tagged with "enhancement"
 and "help wanted" is open to whoever wants to implement it.
 
 Write Documentation
@@ -59,7 +61,7 @@ Get Started!
 
 Ready to contribute? Here's how to set up `{{ cookiecutter.project_slug }}` for local development.
 
-1. Fork the `{{ cookiecutter.project_slug }}` repo on GitHub.
+1. Fork the `{{ cookiecutter.project_slug }}` repo on {% if rwth %}GitLab{% elif github %}GitHub{% endif %}.
 2. Clone your fork locally::
 
     $ git clone {{ cookiecutter.git_service }}/{{ cookiecutter.git_username }}/{{ cookiecutter.project_slug }}.git
@@ -85,13 +87,13 @@ Ready to contribute? Here's how to set up `{{ cookiecutter.project_slug }}` for 
 
    To get flake8 and tox, just pip install them into your virtualenv.
 
-6. Commit your changes and push your branch to GitHub::
+6. Commit your changes and push your branch to {% if rwth %}GitLab{% elif github %}GitHub{% endif %}::
 
     $ git add .
     $ git commit -m "Your detailed description of your changes."
     $ git push origin name-of-your-bugfix-or-feature
 
-7. Submit a pull request through the GitHub website.
+7. Submit a pull request through the {% if rwth %}GitLab{% elif github %}GitHub{% endif %} website.
 
 Pull Request Guidelines
 -----------------------
