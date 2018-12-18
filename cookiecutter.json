@@ -1,8 +1,8 @@
 {
-  "full_name": "",
-  "email": "",
-  "github_username": "",
-  "project_name": "Python Package",
+  "full_name": "John Doe",
+  "email": "jdoe@cisco.com",
+  "github_username": "jdoe",
+  "project_name": "Python Boilerplate",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
   "project_short_description": "Does cool things. With code and APIs.",
   "pypi_username": "{{ cookiecutter.github_username }}",
