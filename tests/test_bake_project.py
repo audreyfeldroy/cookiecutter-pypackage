@@ -59,13 +59,6 @@ def check_output_inside_dir(command, dirpath):
         return subprocess.check_output(shlex.split(command))
 
 
-def test_year_compute_in_license_file(cookies):
-    with bake_in_temp_dir(cookies) as result:
-        license_file_path = result.project.join('LICENSE')
-        now = datetime.datetime.now()
-        assert str(now.year) in license_file_path.read()
-
-
 def project_info(result):
     """Get toplevel dir, project_slug, and project dir from baked cookies"""
     project_path = str(result.project)
@@ -153,28 +146,6 @@ def test_make_help(cookies):
     with bake_in_temp_dir(cookies) as result:
         output = check_output_inside_dir('make help', str(result.project))
         assert b"check code coverage quickly with the default Python" in output
-
-
-def test_bake_selecting_license(cookies):
-    license_strings = {
-        'MIT license': 'MIT ',
-        'BSD license': 'Redistributions of source code must retain the above copyright notice, this',
-        'ISC license': 'ISC License',
-        'Apache Software License 2.0': 'Licensed under the Apache License, Version 2.0',
-        'GNU General Public License v3': 'GNU GENERAL PUBLIC LICENSE',
-    }
-    for license, target_string in license_strings.items():
-        with bake_in_temp_dir(cookies, extra_context={'open_source_license': license}) as result:
-            assert target_string in result.project.join('LICENSE').read()
-            assert license in result.project.join('setup.py').read()
-
-
-def test_bake_not_open_source(cookies):
-    with bake_in_temp_dir(cookies, extra_context={'open_source_license': 'Not open source'}) as result:
-        found_toplevel_files = [f.basename for f in result.project.listdir()]
-        assert 'setup.py' in found_toplevel_files
-        assert 'LICENSE' not in found_toplevel_files
-        assert 'License' not in result.project.join('README.rst').read()
 
 
 def test_using_pytest(cookies):
