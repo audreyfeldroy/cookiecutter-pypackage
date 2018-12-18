@@ -42,7 +42,7 @@ $ cookiecutter cc-pypackage
 
 Please see the [PyPackage Tutorial](https://cookiecutter-pypackage.readthedocs.io/en/latest/tutorial.html) for the original PyPackage template.  If you have questions about using the Cookiecutter tool itself, please see the [Cookiecutter docs](https://cookiecutter.readthedocs.io).
 
-# Support?
+## Support?
 
 Did we break something?  If you are experiencing an issue with this fork of the PyPackage template, please open an [issue](https://github.com/CiscoSE/cc-pypackage/issues).
 
