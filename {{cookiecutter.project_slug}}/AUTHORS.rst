@@ -7,7 +7,7 @@ Development Lead
 
 * {{ cookiecutter.full_name }} <{{ cookiecutter.email }}>
 
-Contributors
-------------
+Cisco Contributors
+------------------
 
-None yet. Why not be the first?
+None yet.
