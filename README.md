@@ -32,7 +32,7 @@ $ cookiecutter https://github.com/CiscoSE/cc-pypackage
 $ cookiecutter gh:CiscoSE/cc-pypackage
 ```
 
-### Thereafter
+#### Thereafter
 
 ```bash
 $ cookiecutter cc-pypackage
