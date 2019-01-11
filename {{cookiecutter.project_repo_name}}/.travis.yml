@@ -26,7 +26,7 @@ install:
   - source activate {{ cookiecutter.project_slug }}
   # Packages for testing
   - conda install pytest flake8
-  # Install Emu WPS
+  # Install WPS
   - python setup.py install
 before_script:
   # Start WPS service on port 5000 on 0.0.0.0

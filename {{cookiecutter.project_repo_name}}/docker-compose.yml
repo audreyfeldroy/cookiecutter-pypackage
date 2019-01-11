@@ -1,6 +1,6 @@
 version: '3'
 services:
-  emu:
+  wps:
     build: .
     image: {{ cookiecutter.github_username }}/{{ cookiecutter.project_repo_name }}
     ports:

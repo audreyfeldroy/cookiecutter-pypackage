@@ -25,7 +25,7 @@ RUN ["/bin/bash", "-c", "source activate wps && python setup.py develop"]
 # Start WPS service on port {{ cookiecutter.http_port }} on 0.0.0.0
 EXPOSE {{ cookiecutter.http_port }}
 ENTRYPOINT ["/bin/bash", "-c"]
-CMD ["source activate wps && exec emu start -b 0.0.0.0 -config /opt/wps/etc/demo.cfg"]
+CMD ["source activate wps && exec {{ cookiecutter.project_slug }} start -b 0.0.0.0 -c /opt/wps/etc/demo.cfg"]
 
 # docker build -t {{ cookiecutter.github_username }}/{{ cookiecutter.project_repo_name }} .
 # docker run -p {{ cookiecutter.http_port }}:{{ cookiecutter.http_port }} {{ cookiecutter.github_username }}/{{ cookiecutter.project_repo_name }}
