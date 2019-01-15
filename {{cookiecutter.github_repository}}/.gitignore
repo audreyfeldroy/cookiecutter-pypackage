@@ -1,7 +1,74 @@
+# OSX useful to ignore
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Linux
+._*
+*~
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+
+# Dump file
+*.stackdump
+
+# Folder config file
+[Dd]esktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# Git
+*.orig
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Visual Studio
+.vscode/
 
 # C extensions
 *.so
@@ -23,6 +90,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -34,13 +102,6 @@ var/
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Pipenv
-Pipfile
-Pipfile.lock
-
-# Linting reports
-.flake8.txt
-
 # Unit test / coverage reports
 htmlcov/
 .tox/
@@ -49,9 +110,9 @@ htmlcov/
 .cache
 nosetests.xml
 coverage.xml
-.tests_report.xml
 *,cover
 .hypothesis/
+.pytest_cache/
 
 # Translations
 *.mo
@@ -59,6 +120,15 @@ coverage.xml
 
 # Django stuff:
 *.log
+local_settings.py
+db.sqlite3
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
 
 # Sphinx documentation
 docs/_build/
@@ -66,8 +136,50 @@ docs/_build/
 # PyBuilder
 target/
 
-# pyenv python configuration file
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
 .python-version
 
-# Datasets & NN models
-*.csv
+# celery beat schedule file
+celerybeat-schedule
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+
+# IntelliJ Idea family of suites
+.idea
+*.iml
+## File-based project format:
+*.ipr
+*.iws
+## mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# Cookiecutter
+output/
+python_boilerplate/
