@@ -11,3 +11,4 @@ click==6.7{% endif %}
 pluggy>=0.7
 pytest==3.8.2
 pytest-runner==4.2
+yapf==0.25.0
