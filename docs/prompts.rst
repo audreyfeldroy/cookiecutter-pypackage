@@ -26,25 +26,14 @@ project_slug
 project_short_description
     A 1-sentence description of what your Python package does.
 
-release_date
-    The date of the first release.
-
-pypi_username
-    Your Python Package Index account username.
-
-year
-    The year of the initial package copyright in the license file.
-
 version
     The starting version number of the package.
 
 Options
 -------
 
-The following package configuration options set up different features for your project.
-
-use_pypi_deployment_with_travis
-    Whether to use PyPI deployment with Travis.
-
 command_line_interface
     Whether to create a console script using Click. Console script entry point will match the project_slug. Options: ['Click', "No command-line interface"]
+
+license
+    License of the project. Options ['MCH', 'MIT']
