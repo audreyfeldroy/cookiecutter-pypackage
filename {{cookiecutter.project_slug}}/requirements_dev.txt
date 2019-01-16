@@ -6,8 +6,8 @@ flake8==3.5.0
 tox==3.5.2
 coverage==4.5.1
 Sphinx==1.8.1
-twine==1.12.1
-{% if cookiecutter.command_line_interface == 'y' -%}
+twine==1.12.1{% if cookiecutter.command_line_interface == 'y' -%}
 click==6.7{% endif %}
+pluggy>=0.7
 pytest==3.8.2
 pytest-runner==4.2
