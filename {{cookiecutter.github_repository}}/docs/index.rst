@@ -1,4 +1,4 @@
-Welcome to {{ cookiecutter.project_name }}'s documentation!
+Welcome to {{ cookiecutter.repository_name }}'s documentation!
 ======================================
 
 Contents:

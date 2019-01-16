@@ -9,7 +9,7 @@ bake:
 	cookiecutter $(BAKE_OPTIONS) . --overwrite-if-exists
 
 watch: bake
-	watchmedo shell-command -p '*.*' -c 'make bake -e BAKE_OPTIONS=$(BAKE_OPTIONS)' -W -R -D \{{cookiecutter.github_repository}}/
+	watchmedo shell-command -p '*.*' -c 'make bake -e BAKE_OPTIONS=$(BAKE_OPTIONS)' -W -R -D \{{cookiecutter.repository_slug}}/
 
 replay: BAKE_OPTIONS=--replay
 replay: watch

@@ -8,22 +8,22 @@ Templated Values
 
 The following appear in various parts of your generated project.
 
-full_name
+author_name
     Your full name.
 
-email
+author_email
     Your email address.
 
-github_username
+remote_username
     Your GitHub username.
 
-project_name
+repository_name
     The name of your new Python package project. This is used in documentation, so spaces and any characters are fine here.
     
-github_repository
-    The namespace of your Python package. This should be Python import-friendly. Typically, it is the slugified version of project_name.
+repository_slug
+    The namespace of your Python package. This should be Python import-friendly. Typically, it is the slugified version of repository_name.
 
-project_short_description
+repository_summary
     A 1-sentence description of what your Python package does.
 
 release_date
@@ -47,4 +47,4 @@ use_pypi_deployment_with_travis
     Whether to use PyPI deployment with Travis.
 
 command_line_interface
-    Whether to create a console script using Click. Console script entry point will match the github_repository. Options: ['Click', "No command-line interface"]
+    Whether to create a console script using Click. Console script entry point will match the repository_slug. Options: ['Click', "No command-line interface"]

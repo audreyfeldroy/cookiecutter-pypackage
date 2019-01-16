@@ -23,7 +23,7 @@ setup_requirements = [
     'wheel>=0.29.0',
     'watchdog>=0.8.3',
     'Sphinx>=1.4.8',
-    # TODO({{ cookiecutter.github_username }}): put setup requirements (distutils extensions, etc.) here
+    # TODO({{ cookiecutter.remote_username }}): put setup requirements (distutils extensions, etc.) here
 ]
 
 test_requirements = [
@@ -36,21 +36,21 @@ test_requirements = [
 ]
 
 {%- set license_classifiers = {
-    'MIT license': 'License :: OSI Approved :: MIT License',
-    'BSD license': 'License :: OSI Approved :: BSD License',
-    'ISC license': 'License :: OSI Approved :: ISC License (ISCL)',
-    'Apache Software License 2.0': 'License :: OSI Approved :: Apache Software License',
-    'GNU General Public License v3': 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)'
+    'MIT': 'License :: OSI Approved :: MIT License',
+    'BSD-3-Clause': 'License :: OSI Approved :: BSD License',
+    'ISC': 'License :: OSI Approved :: ISC License (ISCL)',
+    'Apache-2.0': 'License :: OSI Approved :: Apache Software License',
+    'GPL-3.0': 'License :: OSI Approved :: GPL-3.0 (GPLv3)'
 } %}
 
 setup(
     name='{{ cookiecutter.module_name }}',
-    version='{{ cookiecutter.version }}',
-    description="{{ cookiecutter.project_short_description }}",
+    version='{{ cookiecutter.module_version }}',
+    description="{{ cookiecutter.repository_summary }}",
     long_description=readme + '\n\n' + history,
-    author="{{ cookiecutter.full_name.replace('\"', '\\\"') }}",
-    author_email='{{ cookiecutter.email }}',
-    url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.github_repository }}',
+    author="{{ cookiecutter.author_name.replace('\"', '\\\"') }}",
+    author_email='{{ cookiecutter.author_email }}',
+    url='https://github.com/{{ cookiecutter.remote_username }}/{{ cookiecutter.repository_slug }}',
     packages=find_packages(include=['{{ cookiecutter.module_name }}']),
     {%- if 'no' not in cookiecutter.command_line_interface|lower %}
     entry_points={
@@ -61,16 +61,16 @@ setup(
     {%- endif %}
     include_package_data=True,
     install_requires=requirements,
-{%- if cookiecutter.open_source_license in license_classifiers %}
-    license="{{ cookiecutter.open_source_license }}",
+{%- if cookiecutter.copyright_license in license_classifiers %}
+    license="{{ cookiecutter.copyright_license }}",
 {%- endif %}
     zip_safe=False,
     keywords='{{ cookiecutter.module_name }}',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
-{%- if cookiecutter.open_source_license in license_classifiers %}
-        '{{ license_classifiers[cookiecutter.open_source_license] }}',
+{%- if cookiecutter.copyright_license in license_classifiers %}
+        '{{ license_classifiers[cookiecutter.copyright_license] }}',
 {%- endif %}
         'Natural Language :: English',
         "Programming Language :: Python :: 2",

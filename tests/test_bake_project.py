@@ -66,11 +66,11 @@ def test_year_compute_in_license_file(cookies):
 
 
 def project_info(result):
-    """Get toplevel dir, github_repository, and project dir from baked cookies"""
+    """Get toplevel dir, repository_slug, and project dir from baked cookies"""
     project_path = str(result.project)
-    github_repository = os.path.split(project_path)[-1]
-    project_dir = os.path.join(project_path, github_repository)
-    return project_path, github_repository, project_dir
+    repository_slug = os.path.split(project_path)[-1]
+    project_dir = os.path.join(project_path, repository_slug)
+    return project_path, repository_slug, project_dir
 
 
 def test_bake_with_defaults(cookies):
@@ -95,15 +95,15 @@ def test_bake_and_run_tests(cookies):
 
 
 def test_bake_withspecialchars_and_run_tests(cookies):
-    """Ensure that a `full_name` with double quotes does not break setup.py"""
-    with bake_in_temp_dir(cookies, extra_context={'full_name': 'name "quote" name'}) as result:
+    """Ensure that a `author_name` with double quotes does not break setup.py"""
+    with bake_in_temp_dir(cookies, extra_context={'author_name': 'name "quote" name'}) as result:
         assert result.project.isdir()
         run_inside_dir('python setup.py test', str(result.project)) == 0
 
 
 def test_bake_with_apostrophe_and_run_tests(cookies):
-    """Ensure that a `full_name` with apostrophes does not break setup.py"""
-    with bake_in_temp_dir(cookies, extra_context={'full_name': "O'connor"}) as result:
+    """Ensure that a `author_name` with apostrophes does not break setup.py"""
+    with bake_in_temp_dir(cookies, extra_context={'author_name': "O'connor"}) as result:
         assert result.project.isdir()
         run_inside_dir('python setup.py test', str(result.project)) == 0
 
@@ -116,27 +116,27 @@ def test_make_help(cookies):
 
 def test_bake_selecting_license(cookies):
     license_strings = {
-        'MIT license': 'MIT ',
-        'BSD license': 'Redistributions of source code must retain the above copyright notice, this',
-        'ISC license': 'ISC License',
-        'Apache Software License 2.0': 'Licensed under the Apache License, Version 2.0',
-        'GNU General Public License v3': 'GNU GENERAL PUBLIC LICENSE',
+        'MIT': 'MIT ',
+        'BSD-3-Clause': 'Redistributions of source code must retain the above copyright notice, this',
+        'ISC': 'ISC License',
+        'Apache-2.0': 'Licensed under the Apache License, Version 2.0',
+        'GPL-3.0': 'GNU GENERAL PUBLIC LICENSE',
     }
     for license, target_string in license_strings.items():
-        with bake_in_temp_dir(cookies, extra_context={'open_source_license': license}) as result:
+        with bake_in_temp_dir(cookies, extra_context={'copyright_license': license}) as result:
             assert target_string in result.project.join('LICENSE').read()
             assert license in result.project.join('setup.py').read()
 
 
 def test_bake_not_open_source(cookies):
-    with bake_in_temp_dir(cookies, extra_context={'open_source_license': 'Not open source'}) as result:
+    with bake_in_temp_dir(cookies, extra_context={'copyright_license': 'Proprietary'}) as result:
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert 'setup.py' in found_toplevel_files
         assert 'LICENSE' not in found_toplevel_files
         assert 'License' not in result.project.join('README.rst').read()
 
 def test_project_with_hyphen_in_module_name(cookies):
-    result = cookies.bake(extra_context={'project_name': 'something-with-a-dash'})
+    result = cookies.bake(extra_context={'repository_name': 'something-with-a-dash'})
     assert result.project is not None
     project_path = str(result.project)
 
@@ -154,7 +154,7 @@ def test_project_with_hyphen_in_module_name(cookies):
 def test_bake_with_no_console_script(cookies):
     context = {'command_line_interface': "No command-line interface"}
     result = cookies.bake(extra_context=context)
-    project_path, github_repository, project_dir = project_info(result)
+    project_path, repository_slug, project_dir = project_info(result)
     found_project_files = os.listdir(project_dir)
     assert "cli.py" not in found_project_files
 
@@ -166,7 +166,7 @@ def test_bake_with_no_console_script(cookies):
 def test_bake_with_console_script_files(cookies):
     context = {'command_line_interface': 'click'}
     result = cookies.bake(extra_context=context)
-    project_path, github_repository, project_dir = project_info(result)
+    project_path, repository_slug, project_dir = project_info(result)
     found_project_files = os.listdir(project_dir)
     assert "cli.py" in found_project_files
 
@@ -178,9 +178,9 @@ def test_bake_with_console_script_files(cookies):
 def test_bake_with_console_script_cli(cookies):
     context = {'command_line_interface': 'click'}
     result = cookies.bake(extra_context=context)
-    project_path, github_repository, project_dir = project_info(result)
+    project_path, repository_slug, project_dir = project_info(result)
     module_path = os.path.join(project_dir, 'cli.py')
-    module_name = '.'.join([github_repository, 'cli'])
+    module_name = '.'.join([repository_slug, 'cli'])
     if sys.version_info >= (3, 5):
         spec = importlib.util.spec_from_file_location(module_name, module_path)
         cli = importlib.util.module_from_spec(spec)
@@ -193,7 +193,7 @@ def test_bake_with_console_script_cli(cookies):
     runner = CliRunner()
     noarg_result = runner.invoke(cli.main)
     assert noarg_result.exit_code == 0
-    noarg_output = ' '.join(['Replace this message by putting your code into', github_repository])
+    noarg_output = ' '.join(['Replace this message by putting your code into', repository_slug])
     assert noarg_output in noarg_result.output
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0

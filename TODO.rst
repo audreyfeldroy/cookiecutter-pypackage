@@ -7,6 +7,8 @@ Project
 
 - [ ] Fork the `original project <https://cookiecutter-pypackage.readthedocs.io/en/latest/tutorial.html>`_ rather than Nekroze's
 - [x] Fill test / dist dependencies in setup.py
+- [ ] Merge with cookiecutter-git
+- [ ] Translate all the files into the md format
 
 Process
 -------

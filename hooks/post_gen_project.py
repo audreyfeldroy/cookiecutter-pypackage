@@ -10,8 +10,8 @@ def remove_file(filepath):
 
 if __name__ == '__main__':
     if 'no' in '{{ cookiecutter.command_line_interface|lower }}':
-        cli_file = os.path.join('{{ cookiecutter.github_repository }}', 'cli.py')
+        cli_file = os.path.join('{{ cookiecutter.repository_slug }}', 'cli.py')
         remove_file(cli_file)
 
-    if 'Not open source' == '{{ cookiecutter.open_source_license }}':
+    if 'Proprietary' == '{{ cookiecutter.copyright_license }}':
         remove_file('LICENSE')

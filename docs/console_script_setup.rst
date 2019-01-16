@@ -10,7 +10,7 @@ How It Works
 ------------
 
 If the 'command_line_interface' option is set to ['click'] during setup, cookiecutter will
-add a file 'cli.py' in the github_repository subdirectory. An entry point is added to
+add a file 'cli.py' in the repository_slug subdirectory. An entry point is added to
 setup.py that points to the main function in cli.py.
 
 Usage

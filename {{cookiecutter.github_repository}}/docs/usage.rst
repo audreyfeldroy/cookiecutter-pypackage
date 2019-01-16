@@ -2,6 +2,6 @@
 Usage
 =====
 
-To use {{ cookiecutter.project_name }} in a project::
+To use {{ cookiecutter.repository_name }} in a project::
 
     import {{ cookiecutter.module_name }}

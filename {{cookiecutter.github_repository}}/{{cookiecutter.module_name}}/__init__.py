@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-"""Top-level package for {{ cookiecutter.project_name }}."""
+"""Top-level package for {{ cookiecutter.repository_name }}."""
 
-__author__ = """{{ cookiecutter.full_name }}"""
-__email__ = '{{ cookiecutter.email }}'
-__version__ = '{{ cookiecutter.version }}'
+__author__ = """{{ cookiecutter.author_name }}"""
+__email__ = '{{ cookiecutter.author_email }}'
+__version__ = '{{ cookiecutter.module_version }}'
