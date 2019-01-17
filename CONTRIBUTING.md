@@ -33,13 +33,10 @@ you already have `virtualenv` and `Git` installed and ready to go.
   $ cd path_for_the_repo
   $ git clone git@github.com:YOUR_NAME/cookiecutter-pypackage.git
   ```
-3. Assuming you have virtualenv installed (If you have Python3.5 this should already be there), you can create a new environment for your local development by typing:
+3. Assuming you have virtualenv installed (If you have Python3.5 this should already be there), you can create a new environment with all the dependencies by typing:
   ```bash
-    $ virtualenv cookiecutter-pypackage-env
-    $ source cookiecutter-pypackage-env/bin/activate
+    $ make init
   ```
-  This should change the shell to look something like
-`(cookiecutter-pypackage-env) $`
 4. Create a branch for local development:
   ```bash
     $ git checkout -b name-of-your-bugfix-or-feature
@@ -49,30 +46,18 @@ you already have `virtualenv` and `Git` installed and ready to go.
   ```bash
       $ flake8 ./tests
   ```
-6. The next step would be to run the test cases. `cookiecutter-pypackage` uses py.test, you can run PyTest. Before you run pytest you should ensure all dependancies are installed:
-  ```bash
-  $ pip install -r requirements_dev.txt
-  $ py.test ./tests
-  ```
-  If you get any errors while installing cryptography package (something like #include <openssl/aes.h>).
-  Please update your pip version and try again::
-  ```bash
-  # Update pip
-  $ pip install -U pip
-  ```
-7. Before raising a pull request you should also run tox. This will run the tests across different versions of Python:
+6. Before raising a pull request you should also run tox. This will run the tests across different versions of Python:
   ```bash
   $ tox
   ```
-  If you are missing flake8, pytest and/or tox, just pip install them into your virtualenv.
-8. If your contribution is a bug fix or new feature, you may want to add a test to the existing test suite. See section Add a New Test below for details. 
-9. Commit your changes and push your branch to GitHub::
-```bash
-$ git add .
-$ git commit -m "Your detailed description of your changes."
-$ git push origin name-of-your-bugfix-or-feature
-```
-10. Submit a pull request through the GitHub website.
+7. If your contribution is a bug fix or new feature, you may want to add a test to the existing test suite. See section [Add a New Test](#markdown-header-add-a-new-test) below for details.
+8. Commit your changes and push your branch to GitHub::
+  ```bash
+  $ git add .
+  $ git commit -m "Your detailed description of your changes."
+  $ git push origin name-of-your-bugfix-or-feature
+  ```
+9. Submit a pull request through the GitHub website.
 
 ## Pull Request Guidelines
 
