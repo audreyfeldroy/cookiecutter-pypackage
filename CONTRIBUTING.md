@@ -51,7 +51,7 @@ you already have `pipenv` and `git` installed and ready to go.
   ```bash
   $ tox
   ```
-7. If your contribution is a bug fix or new feature, you may want to add a test to the existing test suite. See section [Add a New Test](#markdown-header-add-a-new-test) below for details.
+7. If your contribution is a bug fix or new feature, you may want to add a test to the existing test suite. See section [Add a new test](#markdown-header-add-a-new-test) below for details.
 8. Commit your changes and push your branch to GitHub::
   ```bash
   $ git add .
@@ -64,14 +64,13 @@ you already have `pipenv` and `git` installed and ready to go.
 
 Before you submit a pull request, check that it meets these guidelines:
 1. Make sure to have atomic commits and contextual commit messages!
-   [Check out this awesome blog post by Chris Beams for more information.][3]
+  [Check out this awesome blog post by Chris Beams for more information.][3]
 2. The pull request should include tests.
 3. If the pull request adds functionality, the docs should be updated:
-   1. Put your new functionality into a function with a docstring
-   2. Add the feature to the list in README.md.
-4. The pull request should work for Python 2.6, 2.7, 3.3, 3.4, 3.5,3.6 and 3.7 and for PyPy. Check
-   https://travis-ci.org/audreyr/cookiecutter-pypackage/pull_requests
-   and make sure that the tests pass for all supported Python versions.
+  1. Put your new functionality into a function with a docstring
+  2. Add the feature to the list in README.md.
+4. The pull request should work for Python 2.6, 2.7, 3.3, 3.4, 3.5, 3.6 and 3.7 and for PyPy.
+  [Check Travis-CI][4] and make sure that the tests pass for all supported Python versions.
 
 ## Add a New Test
 
@@ -102,3 +101,4 @@ To write and run your new test, follow these steps:
 [1]: https://github.com/audreyr/cookiecutter-pypackage/issues/new
 [2]: https://github.com/audreyr/cookiecutter-pypackage/compare
 [3]: http://chris.beams.io/posts/git-commit/
+[4]: https://travis-ci.org/audreyr/cookiecutter-pypackage/pull_requests
