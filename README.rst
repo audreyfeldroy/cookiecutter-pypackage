@@ -79,6 +79,9 @@ Don't worry, you have options:
 Similar Cookiecutter Templates
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+* `moodule/cookiecutter-pypackage`_: A fork using `Pipenv`, with some more
+  ops automation and minor improvements.
+
 * `Nekroze/cookiecutter-pypackage`_: A fork of this with a PyTest test runner,
   strict flake8 checking with Travis/Tox, and some docs and `setup.py` differences.
 
