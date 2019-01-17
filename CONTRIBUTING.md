@@ -25,7 +25,7 @@ Anything tagged with "help wanted" is open to whoever wants to implement it.
 ## Get Started!
 
 Ready to contribute? Here's how to set up `cookiecutter-pypackage` for local development. Please note this documentation assumes
-you already have `virtualenv` and `Git` installed and ready to go.
+you already have `pipenv` and `git` installed and ready to go.
 
 1. Fork the `cookiecutter-pypackage` repo on GitHub.
 2. Clone your fork locally:
@@ -33,9 +33,10 @@ you already have `virtualenv` and `Git` installed and ready to go.
   $ cd path_for_the_repo
   $ git clone git@github.com:YOUR_NAME/cookiecutter-pypackage.git
   ```
-3. Assuming you have virtualenv installed (If you have Python3.5 this should already be there), you can create a new environment with all the dependencies by typing:
+3. Assuming you have pipenv installed, you can create a new environment with all the dependencies by typing:
   ```bash
     $ make init
+    $ pipenv shell
   ```
 4. Create a branch for local development:
   ```bash
