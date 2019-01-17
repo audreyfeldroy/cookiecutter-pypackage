@@ -4,44 +4,23 @@ Contributions are welcome, and they are greatly appreciated!
 
 Every little bit helps, and credit will always be given.
 
-You can contribute in many ways:
-
 ## Types of Contributions
 
-### Report Bugs
+### Bug Reports, Feature Requests, and Feedback
 
-Report bugs at https://github.com/audreyr/cookiecutter-pypackage/issues
+Create a [new project issue][1]! Try to be as descriptive as possible.
 
 If you are reporting a bug, please include:
-
 * Your operating system name and version.
 * Any details about your local setup that might be helpful in troubleshooting.
 * Detailed steps to reproduce the bug.
 
-### Fix Bugs
+### Bug Fixes, New Features and Documentation
 
-Look through the GitHub issues for bugs. Anything tagged with "bug"
-and "help wanted" is open to whoever wants to implement a fix for it.
+Create a [new merge/pull request][2]! Make sure to follow the guidelines.
 
-### Implement Features
-
-Look through the GitHub issues for features. Anything tagged with "enhancement"
-and "help wanted" is open to whoever wants to implement it.
-
-### Write Documentation
-
-Cookiecutter PyPackage could always use more documentation, whether as part of the
-official docs, in docstrings, or even on the web in blog posts, articles, and such.
-
-### Submit Feedback
-
-The best way to send feedback is to file an issue at https://github.com/audreyr/cookiecutter-pypackage/issues.
-
-If you are proposing a new feature:
-* Explain in detail how it would work.
-* Keep the scope as narrow as possible, to make it easier to implement.
-* Remember that this is a volunteer-driven project, and that contributions
-  are welcome :)
+Look through the GitHub issues for features, bugs and other requests.
+Anything tagged with "help wanted" is open to whoever wants to implement it.
 
 ## Get Started!
 
@@ -72,7 +51,7 @@ you already have `virtualenv` and `Git` installed and ready to go.
   ```
 6. The next step would be to run the test cases. `cookiecutter-pypackage` uses py.test, you can run PyTest. Before you run pytest you should ensure all dependancies are installed:
   ```bash
-  $ pip install -rrequirements_dev.txt
+  $ pip install -r requirements_dev.txt
   $ py.test ./tests
   ```
   If you get any errors while installing cryptography package (something like #include <openssl/aes.h>).
@@ -98,13 +77,15 @@ $ git push origin name-of-your-bugfix-or-feature
 ## Pull Request Guidelines
 
 Before you submit a pull request, check that it meets these guidelines:
-1. The pull request should include tests.
-2. If the pull request adds functionality, the docs should be updated. Put
-  your new functionality into a function with a docstring, and add the
-  feature to the list in README.rst.
-3. The pull request should work for Python 2.6, 2.7, 3.3, 3.4 and 3.5, and for PyPy. Check
-  https://travis-ci.org/audreyr/cookiecutter-pypackage/pull_requests
-  and make sure that the tests pass for all supported Python versions.
+1. Make sure to have atomic commits and contextual commit messages!
+   [Check out this awesome blog post by Chris Beams for more information.][3]
+2. The pull request should include tests.
+3. If the pull request adds functionality, the docs should be updated:
+   1. Put your new functionality into a function with a docstring
+   2. Add the feature to the list in README.md.
+4. The pull request should work for Python 2.6, 2.7, 3.3, 3.4, 3.5,3.6 and 3.7 and for PyPy. Check
+   https://travis-ci.org/audreyr/cookiecutter-pypackage/pull_requests
+   and make sure that the tests pass for all supported Python versions.
 
 ## Add a New Test
 
@@ -132,6 +113,6 @@ To write and run your new test, follow these steps:
   ```
 6. Rerun your test and confirm that your test passes. If it passes, congratulations!
 
-.. cookiecutter: https://github.com/audreyr/cookiecutter-pypackage
-.. virtualenv: https://virtualenv.pypa.io/en/stable/installation
-.. git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+[1]: https://github.com/audreyr/cookiecutter-pypackage/issues/new
+[2]: https://github.com/audreyr/cookiecutter-pypackage/compare
+[3]: http://chris.beams.io/posts/git-commit/
