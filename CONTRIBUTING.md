@@ -35,17 +35,17 @@ you already have `pipenv` and `git` installed and ready to go.
   ```
 3. Assuming you have pipenv installed, you can create a new environment with all the dependencies by typing:
   ```bash
-    $ make init
-    $ pipenv shell
+  $ make init
+  $ pipenv shell
   ```
 4. Create a branch for local development:
   ```bash
-    $ git checkout -b name-of-your-bugfix-or-feature
+  $ git checkout -b name-of-your-bugfix-or-feature
   ```
   Now you can make your changes locally.
 5. When you're done making changes, check that your changes pass flake8. Since, this package contains mostly templates the flake should be run for tests directory:
   ```bash
-      $ flake8 ./tests
+  $ flake8 ./tests
   ```
 6. Before raising a pull request you should also run tox. This will run the tests across different versions of Python:
   ```bash
