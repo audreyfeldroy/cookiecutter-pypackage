@@ -34,12 +34,18 @@ Generate a Python package project::
 
 Then:
 
-* Create a repo and put it there.
+* Create a repo and put it there 
+    * Create localy a repository (``git init``) 
+    * Add and commit the current content (``git add .`` and ``git commit``)
+    * Create an empty repository with the same name on `Github`_ 
+    * Set the remote repository to Github (``git remote add origin git@github.com:username/new_repo``)
+    * Push the content of the local repository to Github (``git push -u origin master``)
 * Install the dev requirements into a virtualenv. (``pip install -r requirements_dev.txt``)
 * Release your package by pushing a new tag to master.
 * Add a `requirements.txt` file that specifies the packages you will need for
   your project and their versions. For more info see the `pip docs for requirements files`_.
 
 .. _`pip docs for requirements files`: https://pip.pypa.io/en/stable/user_guide/#requirements-files
+.. _`Github`: https://github.com/new
 
 
