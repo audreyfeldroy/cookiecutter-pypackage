@@ -44,10 +44,8 @@ Then:
 * Create a virtual Python environment for your project (see `pipenv`_, `virtualenv`_ or `virtualenvwrapper`_)
 * Install the dev requirements into a virtualenv. (``pipenv install --dev)
 * Release your package by pushing a new tag to master.
-* Add a `requirements.txt` file if you are working with virtualenv or virtualenvwrapper or use 
-  ``pipenv look`` to create a `Pipfile.lock` that specifies the packages you will need for
+* Adapt the `requirements.txt` and `Pipfile` files to specify the packages you will need for
   your project and their versions. For more info see the `pip docs for requirements files`_.
-* Add the `requirements.txt` or the `Pipfile.lock` file to your repository
 
 .. _`pipenv`: https://realpython.com/pipenv-guide/
 .. _`virtualenv`: https://virtualenv.pypa.io/en/stable/userguide/
