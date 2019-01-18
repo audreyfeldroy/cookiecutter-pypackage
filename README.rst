@@ -26,7 +26,7 @@ Quickstart
 Install the latest Cookiecutter if you haven't installed it yet (this requires
 Cookiecutter 1.4.0 or higher)::
 
-    pip install -U cookiecutter
+    module load python
 
 Generate a Python package project::
 
@@ -35,6 +35,7 @@ Generate a Python package project::
 Then:
 
 * Create a repo and put it there 
+    * Move to your project folder (``cd you_project``)
     * Create localy a repository (``git init``) 
     * Add and commit the current content (``git add .`` and ``git commit``)
     * Create an empty repository with the same name on `Github`_ 
