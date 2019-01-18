@@ -42,8 +42,7 @@ Then:
     * Set the remote repository to Github (``git remote add origin git@github.com:username/new_repo``)
     * Push the content of the local repository to Github (``git push -u origin master``)
 * Create a virtual Python environment for your project (see `pipenv`_, `virtualenv`_ or `virtualenvwrapper`_)
-* Install the dev requirements into a virtualenv. (``pipenv install -r requirements_dev.txt 
-  --dev`` or ``pip install -r requirements_dev.txt``)
+* Install the dev requirements into a virtualenv. (``pipenv install --dev)
 * Release your package by pushing a new tag to master.
 * Add a `requirements.txt` file if you are working with virtualenv or virtualenvwrapper or use 
   ``pipenv look`` to create a `Pipfile.lock` that specifies the packages you will need for
