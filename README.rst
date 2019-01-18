@@ -23,10 +23,10 @@ Features
 Quickstart
 ----------
 
-Install the latest Cookiecutter if you haven't installed it yet (this requires
-Cookiecutter 1.4.0 or higher)::
+At CSCS, you can load the Python module with following command. It will load the Python environment 
+and the needed script to start a new project::
 
-    module load python
+    module load python/3.7
 
 Generate a Python package project::
 
@@ -34,7 +34,6 @@ Generate a Python package project::
 
 Then:
 
-* Create a virtual Python environment (see `pipenv`_, `virtualenv`_ or `virtualenvwrapper`_)
 * Create a repo and put it there 
     * Move to your project folder (``cd you_project``)
     * Create localy a repository (``git init``) 
@@ -42,6 +41,7 @@ Then:
     * Create an empty repository with the same name on `Github`_ 
     * Set the remote repository to Github (``git remote add origin git@github.com:username/new_repo``)
     * Push the content of the local repository to Github (``git push -u origin master``)
+* Create a virtual Python environment for your project (see `pipenv`_, `virtualenv`_ or `virtualenvwrapper`_)
 * Install the dev requirements into a virtualenv. (``pipenv install -r requirements_dev.txt 
   --dev`` or ``pip install -r requirements_dev.txt``)
 * Release your package by pushing a new tag to master.
