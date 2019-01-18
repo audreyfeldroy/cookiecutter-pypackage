@@ -1,0 +1,1 @@
+{% if cookiecutter.command_line_interface == 'y' -%}click==6.7{% endif %}
