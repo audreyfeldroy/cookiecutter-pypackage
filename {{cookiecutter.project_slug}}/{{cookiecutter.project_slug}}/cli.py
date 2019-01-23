@@ -5,6 +5,9 @@ import click
 
 
 @click.command()
+@click.option('--dry-run', '-n', flag_value='dry_run', default=False, help="Perform a trial run with no changes made")
+@click.option('--verbose', '-v', count=True, help="Increase verbosity")
+@click.option('--version', '-V', help="Print version")
 def main(args=None):
     """Console script for {{cookiecutter.project_slug}}."""
     click.echo("Replace this message by putting your code into "
