@@ -5,6 +5,7 @@
 
 import pytest
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
+import logging
 from click.testing import CliRunner
 {%- endif %}
 
@@ -37,8 +38,21 @@ def test_command_line_interface():
     runner = CliRunner()
     result = runner.invoke(cli.main)
     assert result.exit_code == 0
-    assert '{{ cookiecutter.project_slug }}.cli.main' in result.output
+    assert 'test_cli_project.cli.main' in result.output
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
-    assert '--help  Show this message and exit.' in help_result.output
+    assert 'Show this message and exit.' in help_result.output
+    dry_run_result = runner.invoke(cli.main, ['-n'])
+    assert dry_run_result.exit_code == 0
+    assert 'Is dry run' in dry_run_result.output
+    version_result = runner.invoke(cli.main, ['-V'])
+    assert version_result.exit_code == 0
+    assert cli.__version__ in version_result.output
+
+
+def test_countToLogLevel():
+    assert cli.countToLogLevel(0) == logging.ERROR
+    assert cli.countToLogLevel(1) == logging.WARNING
+    assert cli.countToLogLevel(2) == logging.INFO
+    assert cli.countToLogLevel(3) == logging.DEBUG
 {%- endif %}
