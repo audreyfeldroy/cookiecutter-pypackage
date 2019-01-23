@@ -41,7 +41,7 @@ Then:
     * Create an empty repository with the same name on `Github`_ 
     * Set the remote repository to Github (``git remote add origin git@github.com:username/new_repo``)
     * Push the content of the local repository to Github (``git push -u origin master``)
-* Create a virtual Python environment for your project (see `virtual enviornments at CSCS`_)
+* Create a virtual Python environment for your project (see `virtual environments at CSCS`_)
 * Install the dev requirements into a virtualenv. (``pipenv install --dev``)
 * Release your package by pushing a new tag to master.
 * Adapt the `requirements.txt` and `Pipfile` files to specify the packages you will need for
@@ -50,7 +50,7 @@ Then:
 .. _`pipenv`: https://realpython.com/pipenv-guide/
 .. _`virtualenv`: https://virtualenv.pypa.io/en/stable/userguide/
 .. _`virtualenvwrapper`: https://virtualenvwrapper.readthedocs.io/en/latest/index.html
-.. _`virtual enviornments at CSCS`: CSCS_VENVS.rst
+.. _`virtual environments at CSCS`: CSCS_VENVS.rst
 .. _`pip docs for requirements files`: https://pip.pypa.io/en/stable/user_guide/#requirements-files
 .. _`Github`: https://github.com/new
 
