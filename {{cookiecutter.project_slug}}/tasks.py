@@ -50,11 +50,7 @@ def test(c):
     """
     Run tests
     """
-{% if cookiecutter.use_pytest == 'y' -%}
-    c.run("pytest -v {}".format(TEST_DIR), pty=True)
-{% else %}
     c.run("python {} test".format(SETUP_FILE), pty=True)
-{% endif %}
 
 
 @task
