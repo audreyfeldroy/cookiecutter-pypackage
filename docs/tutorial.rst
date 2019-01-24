@@ -16,32 +16,17 @@ To start with, you will need a `GitHub account`_ and an account on `PyPI`_. Crea
 Step 1: Install Cookiecutter
 ----------------------------
 
-First, you need to create and activate a virtualenv for the package project. Use your favorite method, or create a virtualenv for your new package like this:
-
-.. code-block:: bash
-
-    virtualenv ~/.virtualenvs/mypackage
-
-Here, ``mypackage`` is the name of the package that you'll create.
-
-Activate your environment:
-
-.. code-block:: bash
-
-    source bin/activate
-
-On Windows, activate it like this. You may find that using a Command Prompt window works better than gitbash.
-
-.. code-block:: powershell
-
-    > \path\to\env\Scripts\activate
-
-
 Install cookiecutter:
 
 .. code-block:: bash
 
     pip install cookiecutter
+
+We'll also need pipenv so install that too:
+
+.. code-block:: bash
+
+    pip install pipenv
 
 
 Step 2: Generate Your Package
@@ -88,13 +73,13 @@ You'll need a ssh key to push the repo. You can `Generate`_ a key or `Add`_ an e
 Step 4: Install Dev Requirements
 --------------------------------
 
-You should still be in the folder containing the ``requirements_dev.txt`` file.
+You should still be in the folder containing the ``Pipfile`` file.
 
-Your virtualenv should still be activated. If it isn't, activate it now. Install the new project's local development requirements:
+Install the new project's local development requirements inside a virtual environment using pipenv:
 
 .. code-block:: bash
 
-    pip install -r requirements_dev.txt
+    pipenv install
 
 
 Step 5: Set Up Travis CI
