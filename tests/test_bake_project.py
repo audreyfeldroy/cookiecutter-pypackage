@@ -210,15 +210,23 @@ def test_using_google_docstrings(cookies):
         pipfile_file_path = result.project.join('Pipfile')
         lines = pipfile_file_path.readlines()
         assert "sphinxcontrib-napoleon = \"*\"\n" in lines
+        # Test docs include sphinx extension
+        docs_conf_file_path = result.project.join('docs/conf.py')
+        lines = docs_conf_file_path.readlines()
+        assert "sphinxcontrib.napoleon" in ''.join(lines)
 
 
 def test_not_using_google_docstrings(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        # Test Pipfile doesn install napoleon
+        # Test Pipfile do not install napoleon
         pipfile_file_path = result.project.join('Pipfile')
         lines = pipfile_file_path.readlines()
         assert "sphinxcontrib-napoleon = \"*\"\n" not in lines
+        # Test docs do not include sphinx extension
+        docs_conf_file_path = result.project.join('docs/conf.py')
+        lines = docs_conf_file_path.readlines()
+        assert "sphinxcontrib.napoleon" not in ''.join(lines)
 
 
 # def test_project_with_hyphen_in_module_name(cookies):
