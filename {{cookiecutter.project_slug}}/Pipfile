@@ -21,4 +21,4 @@ yapf = "*"
 sphinxcontrib-napoleon = "*"{% endif %}
 
 [packages]
-{{cookiecutter.repo_name}} = {path = ".", editable = true}
+{{cookiecutter.project_slug}} = {path = ".", editable = true}
