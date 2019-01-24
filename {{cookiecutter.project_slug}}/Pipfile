@@ -22,6 +22,3 @@ sphinxcontrib-napoleon = "*"{% endif %}
 
 [packages]
 {{cookiecutter.repo_name}} = {path = ".", editable = true}
-
-[requires]
-python_version = "{{cookiecutter.dev_python_version}}"
