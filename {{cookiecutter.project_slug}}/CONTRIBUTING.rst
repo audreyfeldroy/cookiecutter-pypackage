@@ -126,3 +126,45 @@ $ git push
 $ git push --tags
 
 Jenkins will then deploy to PyPI if tests pass.
+
+Project Structure
+-----------------
+
+.. list-table:: Structure
+   :widths: 25 75
+   :header-rows: 1
+   
+   * - File / Directory
+     - Description
+   * - docs
+     - Directory containing the documentation
+   * - tests
+     - Directory containing the tests. The directory structure in this folder is the same as in the source folder ({{ cookiecutter.project_slug }}). For each file in the source folder, there is a file with the same name, but, with the prefix ``text_``.
+   * - {{ cookiecutter.project_slug }}
+     - Source folder
+   * - AUTHORS.rst
+     - Contains information about the lead developer and contributors
+   * - CONTRIBUTION.rst
+     - Contains all the information you need when you contribute to this project
+   * - HISTORY.rst
+     - Lists the releases and their new features
+   * - LICENSE
+     - License of this project
+   * - MANIFEST.in
+     - Specifies the files and directories which will be added to the Pip package
+   * - Makefile
+     - Build file for cleaning, creating and releasing packages, for testing and linting code, and for creating the documentation
+   * - Pipefile
+     - Contains all pip packages used in the virtual environment for development (section ``dev-packages``) or needed by the library/application (section ``packages``). The packages listed in the section ``packages`` must be the same as in the file ``requirements.txt`` and the variable ``requirements`` in the file ``setup.py``. The file is used and managed by ``pipenv``. 
+   * - README.rst
+     - Short documentation about this package. It lists features and contains a quick start.
+   * - requirements.txt
+     - Containts all pip packages needed by the library/application. The packages listed in this file must be the same as in the section ``packages`` of the file ``Pipefile`` and in the variable ``requirements`` in the file ``setup.py``
+   * - requirements_dev.txt
+     - Contains all pip packages used in the virtual environment for development. The packages listed must be the same as ones in the section ``dev-packages`` in the file ``Pipefile``.
+   * - setup.cfg
+     - Configuration file for different build tools such as bumpversion bdist, flake8, pytest, and yapf
+   * - setup.py
+     - Script used to build the package. It specifies the dependencies of the library/application and the Python verions which are compatible with this library/application. These two things are usually the only things to adapt in this file. The Python version listed here should be the same as in the file ``tox.ini``.
+   * - tox.ini
+     - A configuration file for tox carring out the test for different Python verions. The listed versions should be the same as in the file ``setup.py``.
