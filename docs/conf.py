@@ -54,8 +54,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'cookiecutter-pypackage'
-copyright = '2015, Audrey Roy Greenfeld'
-author = 'Audrey Roy Greenfeld'
+copyright = '2019, Sam Briggs'
+author = 'Sam Briggs'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
