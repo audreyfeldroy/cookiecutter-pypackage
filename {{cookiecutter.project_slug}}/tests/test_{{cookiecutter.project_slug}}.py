@@ -12,6 +12,7 @@ from click.testing import CliRunner
 from {{ cookiecutter.project_slug }} import {{ cookiecutter.project_slug }}
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
 from {{ cookiecutter.project_slug }} import cli
+from {{ cookiecutter.project_slug }} import utils
 {%- endif %}
 
 
@@ -50,9 +51,9 @@ def test_command_line_interface():
     assert cli.__version__ in version_result.output
 
 
-def test_countToLogLevel():
-    assert cli.countToLogLevel(0) == logging.ERROR
-    assert cli.countToLogLevel(1) == logging.WARNING
-    assert cli.countToLogLevel(2) == logging.INFO
-    assert cli.countToLogLevel(3) == logging.DEBUG
+def test_count_to_log_level():
+    assert utils.count_to_log_level(0) == logging.ERROR
+    assert utils.count_to_log_level(1) == logging.WARNING
+    assert utils.count_to_log_level(2) == logging.INFO
+    assert utils.count_to_log_level(3) == logging.DEBUG
 {%- endif %}

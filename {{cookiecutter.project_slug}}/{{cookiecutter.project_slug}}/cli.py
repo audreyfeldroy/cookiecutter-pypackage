@@ -4,6 +4,8 @@ import sys
 import click
 import logging
 
+from {{ cookiecutter.project_slug }} import utils
+
 __version__ = '{{ cookiecutter.version }}'
 
 
@@ -19,7 +21,7 @@ __version__ = '{{ cookiecutter.version }}'
 def main(*args, **kwargs):
     """Console script for test_cli_project."""
 
-    logging.basicConfig(level=countToLogLevel(kwargs['verbose']))
+    logging.basicConfig(level=count_to_log_level(kwargs['verbose']))
 
     logging.warning("This is a warning.")
     logging.info("This is an info message.")
@@ -39,18 +41,6 @@ def main(*args, **kwargs):
     click.echo("See click documentation at http://click.pocoo.org/")
 
     return 0
-
-
-def countToLogLevel(count: int) -> int:
-    """Map the occurence of the command line option verbose to the log level"""
-    if count == 0:
-        return logging.ERROR
-    elif count == 1:
-        return logging.WARNING
-    elif count == 2:
-        return logging.INFO
-    else:
-        return logging.DEBUG
 
 
 if __name__ == "__main__":
