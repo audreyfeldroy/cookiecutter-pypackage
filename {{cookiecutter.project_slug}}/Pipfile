@@ -17,8 +17,6 @@ pylint = "*"
 pytest = "*"{% endif %}
 isort = "*"
 yapf = "*"
-{% if cookiecutter.use_google_docstrings == 'y' -%}
-sphinxcontrib-napoleon = "*"{% endif %}
 
 [packages]
 {{cookiecutter.project_slug}} = {path = ".", editable = true}
