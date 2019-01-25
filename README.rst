@@ -4,7 +4,7 @@ MeteoSwiss Python Blueprint
 
 Cookiecutter_ template for a Python package.
 
-* GitHub repo: https://github.com/donatperler/mch-python-blueprint/
+* GitHub repo: https://github.com/MeteoSwiss-APN/mch-python-blueprint/
 * Free software: BSD license
 
 Features
@@ -30,7 +30,7 @@ and the needed script to start a new project::
 
 Generate a Python package project::
 
-    cookiecutter https://github.com/donatperler/mch-python-blueprint.git
+    cookiecutter https://github.com/MeteoSwiss-APN/mch-python-blueprint.git
 
 Then:
 
