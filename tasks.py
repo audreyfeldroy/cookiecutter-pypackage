@@ -1,13 +1,27 @@
 """Development tasks for the cookiecutter template project"""
 
 import webbrowser
-from pathlib import Path
+try:
+    from pathlib import Path
+    Path().expanduser()
+except (ImportError, AttributeError):
+    from pathlib2 import Path
 
 from invoke import task
 
-DOCS_DIR = Path('docs')
+ROOT_DIR = Path(__file__).parent
+DOCS_DIR = ROOT_DIR.joinpath('docs')
 DOCS_BUILD_DIR = DOCS_DIR.joinpath('_build')
 DOCS_INDEX = DOCS_BUILD_DIR.joinpath('index.html')
+TEST_DIR = ROOT_DIR.joinpath('tests')
+
+
+@task
+def test(c):
+    """
+    Run tests
+    """
+    c.run("pytest".format(TEST_DIR), pty=True)
 
 
 @task
