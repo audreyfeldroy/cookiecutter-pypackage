@@ -204,7 +204,7 @@ def test_not_using_pytest(cookies):
 
 
 def test_using_google_docstrings(cookies):
-    with bake_in_temp_dir(cookies, extra_context={'use_google_docstrings': 'y'}) as result:
+    with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
         # Test docs include sphinx extension
         docs_conf_file_path = result.project.join('docs/conf.py')
@@ -213,7 +213,7 @@ def test_using_google_docstrings(cookies):
 
 
 def test_not_using_google_docstrings(cookies):
-    with bake_in_temp_dir(cookies) as result:
+    with bake_in_temp_dir(cookies, extra_context={'use_google_docstrings': 'n'}) as result:
         assert result.project.isdir()
         # Test docs do not include sphinx extension
         docs_conf_file_path = result.project.join('docs/conf.py')
