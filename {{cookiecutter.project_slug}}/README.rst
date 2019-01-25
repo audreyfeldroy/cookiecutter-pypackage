@@ -26,7 +26,7 @@ Features
 Credits
 -------
 
-This package was created with Cookiecutter_ and the `donatperler/mch-python-blueprint`_ project template.
+This package was created with Cookiecutter_ and the `MeteoSwiss-APN/mch-python-blueprint`_ project template.
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`donatperler/mch-python-blueprint`: https://github.com/donatperler/mch-python-blueprint
+.. _`MeteoSwiss-APN/mch-python-blueprint`: https://github.com/MeteoSwiss-APN/mch-python-blueprint
