@@ -38,7 +38,7 @@ Use cookiecutter, pointing it at the cookiecutter-pypackage repo:
 
 .. code-block:: bash
 
-    cookiecutter https://github.com/audreyr/cookiecutter-pypackage.git
+    cookiecutter https://github.com/briggySmalls/cookiecutter-pypackage.git
 
 You'll be asked to enter a bunch of values to set the package up.
 If you don't know what to enter, stick with the defaults.
@@ -48,8 +48,6 @@ Step 3: Create a GitHub Repo
 ----------------------------
 
 Go to your GitHub account and create a new repo named ``mypackage``, where ``mypackage`` matches the ``[project_slug]`` from your answers to running cookiecutter. This is so that Travis CI and pyup.io can find it when we get to Step 5.
-
-``If your virtualenv folder is within your project folder, be sure to add the virtualenv folder name to your .gitignore file.``
 
 You will find one folder named after the ``[project_slug]``. Move into this folder, and then setup git to use your GitHub repo and upload the code:
 
@@ -79,7 +77,7 @@ Install the new project's local development requirements inside a virtual enviro
 
 .. code-block:: bash
 
-    pipenv install
+    pipenv install --dev
 
 
 Step 5: Set Up Travis CI

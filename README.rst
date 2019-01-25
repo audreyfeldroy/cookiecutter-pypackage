@@ -9,18 +9,19 @@ Cookiecutter PyPackage
 .. image:: https://travis-ci.org/audreyr/cookiecutter-pypackage.svg?branch=master
     :target: https://travis-ci.org/audreyr/cookiecutter-pypackage
 
-Cookiecutter_ template for a Python package, forked from original_pypackage_<audreyr/cookiecutter-pypackage>.
+Cookiecutter_ template for a Python package, forked from `audreyr/cookiecutter-pypackage`_.
 
 * GitHub repo: https://github.com/briggySmalls/cookiecutter-pypackage/
 * Documentation: https://cookiecutter-pypackage.readthedocs.io/
 * Free software: BSD license
 
+.. _audreyr/cookiecutter-pypackage: https://github.com/audreyr/cookiecutter-pypackage
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 
 Features
 --------
 
-This template has all of the features of the original original_pypackage_<audreyr/cookiecutter-pypackage>, plus the following:
+This template has all of the features of the original `audreyr/cookiecutter-pypackage`_, plus the following:
 
 * Dependency tracking using pipenv_
 * Linting provided by both pylint_ and flake8_ [executed by Tox]
@@ -59,14 +60,13 @@ Then:
 
 * Create a repo and put it there.
 * Add the repo to your Travis-CI_ account.
-* Install the dev requirements into a virtualenv. (``pip install -r requirements_dev.txt``)
+* Install the dev requirements into a virtualenv. (``pipenv install --dev``)
 * Register_ your project with PyPI.
 * Run the Travis CLI command `travis encrypt --add deploy.password` to encrypt your PyPI password in Travis config
   and activate automated deployment on PyPI when you push a new tag to master branch.
 * Add the repo to your ReadTheDocs_ account + turn on the ReadTheDocs service hook.
 * Release your package by pushing a new tag to master.
-* Add a `requirements.txt` file that specifies the packages you will need for
-  your project and their versions. For more info see the `pip docs for requirements files`_.
+* Get your code on! 😎 Add your package dependencies to your setup.py as you go, and lock them into your virtual environment with ``pipenv install``.
 * Activate your project on `pyup.io`_.
 
 .. _`pip docs for requirements files`: https://pip.pypa.io/en/stable/user_guide/#requirements-files
