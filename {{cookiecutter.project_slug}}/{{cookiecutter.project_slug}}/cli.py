@@ -14,7 +14,7 @@ __version__ = '{{ cookiecutter.version }}'
     flag_value='dry_run',
     default=False,
     help="Perform a trial run with no changes made")
-@click.option('--verbose', '-v', count=True, help="Increase verbosity")
+@click.option('--verbose', '-v', count=True, help="Increase verbosity (specify multiple times for more)")
 @click.option('--version', '-V', is_flag=True, help="Print version")
 def main(*args, **kwargs):
     """Console script for test_cli_project."""
