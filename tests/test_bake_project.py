@@ -1,6 +1,7 @@
 from contextlib import contextmanager
 import shlex
 import os
+import pytest
 import sys
 import subprocess
 import yaml
@@ -149,12 +150,6 @@ def test_bake_without_author_file(cookies):
             assert 'AUTHORS.rst' not in manifest_file.read()
 
 
-def test_make_help(cookies):
-    with bake_in_temp_dir(cookies) as result:
-        output = check_output_inside_dir('make help', str(result.project))
-        assert b"check code coverage quickly with the default Python" in output
-
-
 def test_bake_selecting_license(cookies):
     license_strings = {
         'MIT license': 'MIT ',
@@ -180,6 +175,11 @@ def test_bake_not_open_source(cookies):
 def test_using_pytest(cookies):
     with bake_in_temp_dir(cookies, extra_context={'use_pytest': 'y'}) as result:
         assert result.project.isdir()
+        # Test Pipfile installs pytest
+        pipfile_file_path = result.project.join('Pipfile')
+        lines = pipfile_file_path.readlines()
+        assert "pytest = \"*\"\n" in lines
+        # Test contents of test file
         test_file_path = result.project.join('tests/test_python_boilerplate.py')
         lines = test_file_path.readlines()
         assert "import pytest" in ''.join(lines)
@@ -192,10 +192,33 @@ def test_using_pytest(cookies):
 def test_not_using_pytest(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
+        # Test Pipfile doesn install pytest
+        pipfile_file_path = result.project.join('Pipfile')
+        lines = pipfile_file_path.readlines()
+        assert "pytest = \"*\"\n" not in lines
+        # Test contents of test file
         test_file_path = result.project.join('tests/test_python_boilerplate.py')
         lines = test_file_path.readlines()
         assert "import unittest" in ''.join(lines)
         assert "import pytest" not in ''.join(lines)
+
+
+def test_using_google_docstrings(cookies):
+    with bake_in_temp_dir(cookies, extra_context={'use_google_docstrings': 'y'}) as result:
+        assert result.project.isdir()
+        # Test docs include sphinx extension
+        docs_conf_file_path = result.project.join('docs/conf.py')
+        lines = docs_conf_file_path.readlines()
+        assert "sphinxcontrib.napoleon" in ''.join(lines)
+
+
+def test_not_using_google_docstrings(cookies):
+    with bake_in_temp_dir(cookies) as result:
+        assert result.project.isdir()
+        # Test docs do not include sphinx extension
+        docs_conf_file_path = result.project.join('docs/conf.py')
+        lines = docs_conf_file_path.readlines()
+        assert "sphinxcontrib.napoleon" not in ''.join(lines)
 
 
 # def test_project_with_hyphen_in_module_name(cookies):
