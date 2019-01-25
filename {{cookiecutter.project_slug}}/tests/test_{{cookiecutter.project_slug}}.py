@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """Tests for `{{ cookiecutter.project_slug }}` package."""
-
 import pytest
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
 import logging
@@ -12,9 +10,7 @@ from click.testing import CliRunner
 from {{ cookiecutter.project_slug }} import {{ cookiecutter.project_slug }}
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
 from {{ cookiecutter.project_slug }} import cli
-from {{ cookiecutter.project_slug }} import utils
-{%- endif %}
-
+from {{ cookiecutter.project_slug }} import utils{%- endif %}
 
 
 @pytest.fixture
