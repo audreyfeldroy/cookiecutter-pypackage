@@ -1,4 +1,8 @@
-"""Tasks for maintaining the project"""
+"""
+Tasks for maintaining the project,
+
+Execute 'invoke --list' for guidance on using Invoke
+"""
 
 from invoke import task
 try:
