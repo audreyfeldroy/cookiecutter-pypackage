@@ -6,8 +6,8 @@ Cookiecutter PyPackage
      :target: https://pyup.io/repos/github/briggySmalls/cookiecutter-pypackage/
      :alt: Updates
 
-.. image:: https://travis-ci.org/audreyr/cookiecutter-pypackage.svg?branch=master
-    :target: https://travis-ci.org/audreyr/cookiecutter-pypackage
+.. image:: https://travis-ci.org/briggySmalls/cookiecutter-pypackage.svg?branch=master
+    :target: https://travis-ci.org/briggySmalls/cookiecutter-pypackage
 
 Cookiecutter_ template for a Python package, forked from `audreyr/cookiecutter-pypackage`_.
 
