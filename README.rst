@@ -39,7 +39,7 @@ Then:
     * Create localy a repository (``git init``) 
     * Add and commit the current content (``git add .`` and ``git commit``)
     * Create an empty repository with the same name on `Github`_ 
-    * Set the remote repository to Github (``git remote add origin git@github.com:username/new_repo``)
+    * Set the remote repository to Github (``git remote add origin git@github.com:MeteoSwiss-APN/new_repo``)
     * Push the content of the local repository to Github (``git push -u origin master``)
 * Create a virtual Python environment for your project (see `virtual environments at CSCS`_)
 * Install the dev requirements into a virtualenv. (``pipenv install --dev``)
