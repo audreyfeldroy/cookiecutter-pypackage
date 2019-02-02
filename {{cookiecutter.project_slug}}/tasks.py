@@ -3,6 +3,7 @@ Tasks for maintaining the project,
 
 Execute 'invoke --list' for guidance on using Invoke
 """
+import shutil
 
 from invoke import task
 try:
@@ -14,9 +15,11 @@ import webbrowser
 
 
 ROOT_DIR = Path(__file__).parent
-SETUP_FILE = Path(__file__).joinpath("setup.py")
+SETUP_FILE = ROOT_DIR.joinpath("setup.py")
 TEST_DIR = ROOT_DIR.joinpath("tests")
-SOURCE_DIR = ROOT_DIR.joinpath("pyflipdot")
+SOURCE_DIR = ROOT_DIR.joinpath("{{ cookiecutter.project_slug }}")
+TOX_DIR = ROOT_DIR.joinpath(".tox")
+COVERAGE_FILE = ROOT_DIR.joinpath(".coverage")
 COVERAGE_DIR = ROOT_DIR.joinpath("htmlcov")
 COVERAGE_REPORT = COVERAGE_DIR.joinpath("index.html")
 DOCS_DIR = ROOT_DIR.joinpath("docs")
@@ -25,7 +28,7 @@ DOCS_INDEX = DOCS_BUILD_DIR.joinpath("index.html")
 PYTHON_DIRS = [str(d) for d in [SOURCE_DIR, TEST_DIR]]
 
 
-@task
+@task(help={'check': "Checks if source is formatted without applying changes"})
 def format(c, check=False):
     """
     Format code
@@ -57,7 +60,7 @@ def test(c):
     c.run("python {} test".format(SETUP_FILE), pty=True)
 
 
-@task
+@task(help={'publish': "Publish the result via coveralls"})
 def coverage(c, publish=False):
     """
     Create coverage report
@@ -118,9 +121,9 @@ def clean_tests(c):
     """
     Clean up files from testing
     """
-    c.run("rm -fr .tox/")
-    c.run("rm -f .coverage")
-    c.run("rm -fr {}".format(COVERAGE_DIR))
+    COVERAGE_FILE.unlink()
+    shutil.rmtree(TOX_DIR)
+    shutil.rmtree(COVERAGE_DIR)
 
 
 @task(pre=[clean_build, clean_python, clean_tests, clean_docs])
