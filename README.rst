@@ -2,17 +2,13 @@
 Cookiecutter PyPackage
 ======================
 
-.. image:: https://pyup.io/repos/github/briggySmalls/cookiecutter-pypackage/shield.svg
-     :target: https://pyup.io/repos/github/briggySmalls/cookiecutter-pypackage/
-     :alt: Updates
-
 .. image:: https://travis-ci.org/briggySmalls/cookiecutter-pypackage.svg?branch=master
     :target: https://travis-ci.org/briggySmalls/cookiecutter-pypackage
 
 Cookiecutter_ template for a Python package, forked from `audreyr/cookiecutter-pypackage`_.
 
 * GitHub repo: https://github.com/briggySmalls/cookiecutter-pypackage/
-* Documentation: https://cookiecutter-pypackage.readthedocs.io/
+* Documentation: https://briggysmalls.github.io/cookiecutter-pypackage/
 * Free software: BSD license
 
 .. _audreyr/cookiecutter-pypackage: https://github.com/audreyr/cookiecutter-pypackage
@@ -54,7 +50,7 @@ Cookiecutter 1.4.0 or higher)::
 
 Generate a Python package project::
 
-    cookiecutter https://github.com/audreyr/cookiecutter-pypackage.git
+    cookiecutter https://github.com/briggySmalls/cookiecutter-pypackage.git
 
 Then:
 
@@ -74,7 +70,7 @@ Then:
 
 For more details, see the `cookiecutter-pypackage tutorial`_.
 
-.. _`cookiecutter-pypackage tutorial`: https://cookiecutter-pypackage.readthedocs.io/en/latest/tutorial.html
+.. _`cookiecutter-pypackage tutorial`: https://briggysmalls.github.io/cookiecutter-pypackage/tutorial.html
 
 .. _invoke: http://www.pyinvoke.org/
 .. _isort: https://pypi.org/project/isort/
