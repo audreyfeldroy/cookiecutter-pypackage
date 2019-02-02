@@ -4,6 +4,7 @@ Tasks for maintaining the project,
 Execute 'invoke --list' for guidance on using Invoke
 """
 import shutil
+import sys
 
 from invoke import task
 try:
@@ -57,7 +58,8 @@ def test(c):
     """
     Run tests
     """
-    c.run("python {} test".format(SETUP_FILE), pty=True)
+    pty = sys.platform != 'win32'
+    c.run("python {} test".format(SETUP_FILE), pty=pty)
 
 
 @task(help={'publish': "Publish the result via coveralls"})
