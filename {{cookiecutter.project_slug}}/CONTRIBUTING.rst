@@ -161,7 +161,7 @@ Project Structure
    * - requirements.txt
      - Containts all pip packages needed by the library/application. The packages listed in this file must be the same as in the section ``packages`` of the file ``Pipefile`` and in the variable ``requirements`` in the file ``setup.py``
    * - requirements_dev.txt
-     - Contains all pip packages used in the virtual environment for development. The packages listed must be the same as ones in the section ``dev-packages`` in the file ``Pipefile``.
+     - Contains all pip packages used in the virtual environment for development. The packages listed must be the same as the ones in the section ``dev-packages`` in the file ``Pipefile``.
    * - setup.cfg
      - Configuration file for different build tools such as bumpversion bdist, flake8, pytest, and yapf
    * - setup.py
