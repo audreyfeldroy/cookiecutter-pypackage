@@ -22,4 +22,4 @@ yapf = "==0.25.0"
 click = "==6.7"{% endif %}
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
