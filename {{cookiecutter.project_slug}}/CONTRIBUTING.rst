@@ -157,13 +157,13 @@ Project Structure
    * - Pipefile
      - Contains all pip packages used in the virtual environment for development (section ``dev-packages``) or needed by the library/application (section ``packages``). The packages listed in the section ``packages`` must be the same as in the file ``requirements.txt`` and the variable ``requirements`` in the file ``setup.py``. The file is used and managed by ``pipenv``. 
    * - README.rst
-     - Short documentation about this package. It lists features and contains a quick start.
+     - Short documentation about the package. It lists features and contains a quick start.
    * - requirements.txt
      - Containts all pip packages needed by the library/application. The packages listed in this file must be the same as in the section ``packages`` of the file ``Pipefile`` and in the variable ``requirements`` in the file ``setup.py``
    * - requirements_dev.txt
      - Contains all pip packages used in the virtual environment for development. The packages listed must be the same as the ones in the section ``dev-packages`` in the file ``Pipefile``.
    * - setup.cfg
-     - Configuration file for different build tools such as bumpversion bdist, flake8, pytest, and yapf
+     - Configuration file for different build tools such as bumpversion, bdist, flake8, pytest, and yapf
    * - setup.py
      - Script used to build the package. It specifies the dependencies of the library/application and the Python verions which are compatible with this library/application. These two things are usually the only things to adapt in this file. The Python version listed here should be the same as in the file ``tox.ini``.
    * - tox.ini
