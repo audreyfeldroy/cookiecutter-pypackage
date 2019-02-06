@@ -8,13 +8,13 @@ Configuration
 Add the following lines to your `.bashrc`::
 
   # Location where pipenv stores its virtual environments
-  PIPENV_CACHE_DIR=/scratch/<username>/.pipenvs
+  export PIPENV_CACHE_DIR=/scratch/<username>/.pipenvs
   
   # Use the following mirror to install pip packages when using pipenv
-  PIPENV_PYPI_MIRROR=???
+  export PIPENV_PYPI_MIRROR=???
   
   # Location where virtualenvwrapper stores its virtual environments
-  WORKON_HOME=/scratch/<username>/.virtualenvs
+  export WORKON_HOME=/scratch/<username>/.virtualenvs
   
 Add the file ``.pypirc`` to your home directory with the following content::
 
