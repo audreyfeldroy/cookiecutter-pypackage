@@ -83,7 +83,7 @@ Ready to contribute? Here's how to set up `{{ cookiecutter.project_slug }}` for 
     $ yapf -ir {{ cookiecutter.project_slug }}
     $ flake8 {{ cookiecutter.project_slug }} tests
     $ py.test
-    $ tox
+    $ tox  # optional, currently only flake8 and Python 3.7 configured and thus not necessary
 
    To get yapf, flake8 and tox, just pip install them into your virtualenv (``pipenv install --dev``).
 
