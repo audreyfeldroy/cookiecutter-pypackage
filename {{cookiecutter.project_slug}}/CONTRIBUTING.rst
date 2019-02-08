@@ -171,3 +171,43 @@ Project Structure
      - Script used to build the package. It specifies the dependencies of the library/application and the Python verions which are compatible with this library/application. These two things are usually the only things to adapt in this file. The Python version listed here should be the same as in the file ``tox.ini``.
    * - tox.ini
      - A configuration file for tox carring out the test for different Python verions. The listed versions should be the same as in the file ``setup.py``.
+
+Managing dependencies
+---------------------
+
+Often projects make use of other libraries. Which libraries and their versions have to be listed in different places in the project:
+- variable requirements in setup.py (for example ``requirements = ['Click>=6.0', 'sh>=1.12.14']``)
+- requirements.txt (see `pip requirements file`_)
+- Pipefile (see section packages `example Pipefile`_)
+
+Assure that the needed libraries and their versions listend in the 3 files are the same. Best practice 
+is to list the minimal need version of a package. For projects which provides script or and application, 
+versions can also been fixed (``==`` instead of ``>=``). Note that when you install or update packages 
+with pipenv, it may adapt the Pipfile automatically. Check if you need to edit also the other 2 files.
+
+.. _`pip requirements file`: https://pip.readthedocs.io/en/1.1/requirements.html
+.. _`example Pipefile`: https://pipenv.readthedocs.io/en/latest/basics/#example-pipfile-pipfile-lock
+
+{%- if cookiecutter.command_line_interface|lower == 'click' %}
+How to provide executable scripts
+--------------------------------
+
+By default, a single executable script called {{ cookiecutter.project_slug }} is provided. It is created 
+when the package is installed. When you call it the main function in 
+``{{ cookiecutter.project_slug }}/cli.py`` is called. 
+
+How many scripts that are created, their names and which functions are called can be configured in the 
+``setup.py`` file. The function ``setup`` has a named argument called ``entry_point`` which is a 
+dictionary with an element ``console_scripts``. The element is an array of string. For Example::
+
+    entry_points={
+        'console_scripts': [
+            '{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:main',
+    ],
+    
+When the package is installed, a executable script is created in the Python's bin folder with the name
+``{{ cookiecutter.project_slug }}``. If a user calls this script, the function ``main`` in the file 
+``{{ cookiecutter.project_slug }}/cli.py`` is called. If more scripts should be created, add further
+entries to array ``console_scripts``.
+
+{%- endif %}
