@@ -3,4 +3,4 @@ tox==2.9.1
 cookiecutter>=1.4.0
 pytest-cookies==0.3.0
 watchdog==0.8.3
-alabaster==0.7.10
+alabaster==0.7.12
