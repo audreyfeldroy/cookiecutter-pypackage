@@ -10,6 +10,7 @@ main() {
 
 
 _run () {
+  source .env
   docker run \
       --rm \
       --volume "$(pwd)":/srv \

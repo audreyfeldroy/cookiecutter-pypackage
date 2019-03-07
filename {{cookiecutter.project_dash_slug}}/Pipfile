@@ -11,12 +11,12 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
-[dev-packages]
-unittest-xml-reporting = "*"
-bump2version = "*"
-
 [packages]
 "{{ cookiecutter.project_dash_slug }}" = {editable = true, path = "."}
 
+[dev-packages]
+unittest-xml-reporting = "*"
+flake8 = "*"
+
 [requires]
-python_version = "{%- if cookiecutter.python_2_7|lower == 'yes' %}2.7{%- else %}3.6{%- endif %}"
+python_version = "{%- if cookiecutter.python_2_7|lower == 'yes' %}2.7{%- else %}3.7{%- endif %}"
