@@ -14,7 +14,7 @@ Building the docs
 
 First install dependencies for the documentation:
 
-.. code-block:: sh
+.. code-block:: console
 
   $ make bootstrap_dev
   $ make docs
@@ -28,26 +28,26 @@ Run tests using `pytest`_.
 
 First activate the ``{{ cookiecutter.project_slug }}`` Conda environment and install ``pytest``.
 
-.. code-block:: sh
+.. code-block:: console
 
    $ source activate {{ cookiecutter.project_slug }}
    $ conda install pytest flake8  # if not already installed
 
 Run quick tests (skip slow and online):
 
-.. code-block:: sh
+.. code-block:: console
 
     $ pytest -m 'not slow and not online'"
 
 Run all tests:
 
-.. code-block:: sh
+.. code-block:: console
 
     $ pytest
 
 Check pep8:
 
-.. code-block:: sh
+.. code-block:: console
 
     $ flake8
 
@@ -56,11 +56,27 @@ Run tests the lazy way
 
 Do the same as above using the ``Makefile``.
 
-.. code-block:: sh
+.. code-block:: console
 
     $ make test
     $ make testall
     $ make pep8
+
+Prepare a release
+-----------------
+
+Update the Conda specification file to build identical environments_ on a specific OS.
+
+.. note:: You should run this on your target OS, in our case Linux.
+
+.. code-block:: console
+
+  $ make clean
+  $ make install
+  $ make spec
+
+.. _`environments`: https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#building-identical-conda-environments
+
 
 Bump a new version
 ------------------
