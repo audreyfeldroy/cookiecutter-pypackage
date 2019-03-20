@@ -27,6 +27,14 @@ Usage instructions for creating new projects
 
     pip install cookiecutter
     cookiecutter git@github.com:scrolltech/cookiecutter-appbase.git
+    cd <app dir>
+    pip install -r requirements.txt
+    uvicorn service:app --host 127.0.0.1 --port 8888
+
+    # verify
+    firefox http://127.0.0.1:8888/docs
+    firefox http://127.0.0.1:8888/redoc
+    firefox http://127.0.0.1:8888/echo/snake
 
 Guide for creating new project boilerplate like this one
 ========================================================
