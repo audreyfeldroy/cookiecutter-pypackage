@@ -1,0 +1,4 @@
+fastapi
+peewee
+celery
+uvicorn
