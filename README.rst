@@ -25,7 +25,7 @@ Usage instructions for creating new projects
 
 ::
 
-    cookiecutter cookiecutter-appbase
+    cookiecutter git@github.com:scrolltech/cookiecutter-appbase.git
 
 Guide for creating new project boilerplate like this one
 ========================================================
