@@ -1,10 +1,9 @@
 name: {{ cookiecutter.project_slug }}
 channels:
-- birdhouse
 - conda-forge
 - defaults
 dependencies:
-- pywps=4.1
+- pywps=4.2
 - jinja2
 - click
 - psutil
