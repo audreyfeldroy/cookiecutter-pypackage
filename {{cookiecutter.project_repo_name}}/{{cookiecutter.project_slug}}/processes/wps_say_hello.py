@@ -27,8 +27,10 @@ class SayHello(Process):
                      'Returns a literal string output with Hello plus the inputed name.',
             keywords=['hello', 'demo'],
             metadata=[
+                Metadata('PyWPS', 'https://pywps.org/'),
                 Metadata('Birdhouse', 'http://bird-house.github.io/'),
                 Metadata('PyWPS Demo', 'https://pywps-demo.readthedocs.io/en/latest/'),
+                Metadata('Emu: PyWPS examples', 'https://emu.readthedocs.io/en/latest/'),
             ],
             version='1.5',
             inputs=inputs,
