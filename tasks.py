@@ -1,6 +1,7 @@
 """Development tasks for the cookiecutter template project"""
 
 import webbrowser
+import platform
 try:
     from pathlib import Path
     Path().expanduser()
@@ -21,7 +22,8 @@ def test(c):
     """
     Run tests
     """
-    c.run("pytest".format(TEST_DIR), pty=True)
+    pty = platform.system() == 'Linux'
+    c.run("pytest".format(TEST_DIR), pty=pty)
 
 
 @task
