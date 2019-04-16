@@ -4,7 +4,7 @@ Tasks for maintaining the project,
 Execute 'invoke --list' for guidance on using Invoke
 """
 import shutil
-import sys
+import platform
 
 from invoke import task
 try:
@@ -58,7 +58,7 @@ def test(c):
     """
     Run tests
     """
-    pty = sys.platform != 'win32'
+    pty = platform.system() == 'Linux'
     c.run("python {} test".format(SETUP_FILE), pty=pty)
 
 
