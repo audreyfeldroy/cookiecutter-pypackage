@@ -1,6 +1,19 @@
 CHANGES
 ********
 
+0.4.0 (2019-04-17)
+==================
+
+This is the San Francisco release.
+
+Changes:
+
+* Skipped python 2.7 support (#67).
+* Updated to pywps 4.2 (#66).
+* Added `make spec` (#65).
+* Fixed Emu references (#63).
+
+
 0.3.1 (2018-12-05)
 ==================
 
