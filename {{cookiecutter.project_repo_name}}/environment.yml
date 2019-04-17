@@ -3,6 +3,7 @@ channels:
 #- conda-forge
 - defaults
 dependencies:
+- pip
 #- pywps=4.2
 - jinja2
 - click
