@@ -238,8 +238,45 @@ def test_bake_with_console_script_files(cookies):
         assert 'entry_points' in setup_file.read()
 
 
+def test_bake_with_argparse_console_script_files(cookies):
+    context = {'command_line_interface': 'argparse'}
+    result = cookies.bake(extra_context=context)
+    project_path, project_slug, project_dir = project_info(result)
+    found_project_files = os.listdir(project_dir)
+    assert "cli.py" in found_project_files
+
+    setup_path = os.path.join(project_path, 'setup.py')
+    with open(setup_path, 'r') as setup_file:
+        assert 'entry_points' in setup_file.read()
+
+
 def test_bake_with_console_script_cli(cookies):
     context = {'command_line_interface': 'click'}
+    result = cookies.bake(extra_context=context)
+    project_path, project_slug, project_dir = project_info(result)
+    module_path = os.path.join(project_dir, 'cli.py')
+    module_name = '.'.join([project_slug, 'cli'])
+    if sys.version_info >= (3, 5):
+        spec = importlib.util.spec_from_file_location(module_name, module_path)
+        cli = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cli)
+    elif sys.version_info >= (3, 3):
+        file_loader = importlib.machinery.SourceFileLoader
+        cli = file_loader(module_name, module_path).load_module()
+    else:
+        cli = imp.load_source(module_name, module_path)
+    runner = CliRunner()
+    noarg_result = runner.invoke(cli.main)
+    assert noarg_result.exit_code == 0
+    noarg_output = ' '.join(['Replace this message by putting your code into', project_slug])
+    assert noarg_output in noarg_result.output
+    help_result = runner.invoke(cli.main, ['--help'])
+    assert help_result.exit_code == 0
+    assert 'Show this message' in help_result.output
+
+
+def test_bake_with_argparse_console_script_cli(cookies):
+    context = {'command_line_interface': 'argparse'}
     result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     module_path = os.path.join(project_dir, 'cli.py')
