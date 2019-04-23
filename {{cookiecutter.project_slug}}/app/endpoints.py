@@ -1,7 +1,7 @@
 import app.libs.debug as debughelpers
 
 
-def setup_routes(app):
+def setup_routes(factory):
 
-    app.get('/echo/{something}')(debughelpers.echo)
-    app.post('/echo/')(debughelpers.echo)
+    factory.get('/echo/{word}')(debughelpers.echo)
+    factory.post('/echo/')(debughelpers.echo)
