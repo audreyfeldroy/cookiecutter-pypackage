@@ -1,4 +1,4 @@
-from apphelpers.peewee.db import create_pgdb_pool, create_base_model, created
+from apphelpers.db.peewee import create_pgdb_pool, create_base_model, created
 
 import settings
 
