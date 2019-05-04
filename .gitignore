@@ -27,6 +27,9 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# Local Editor Config Files
+.vscode/
+
 # C extensions
 *.so
 
