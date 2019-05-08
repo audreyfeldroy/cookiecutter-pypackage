@@ -88,13 +88,13 @@ You'll need a ssh key to push the repo. You can `Generate`_ a key or `Add`_ an e
 Step 4: Install Dev Requirements
 --------------------------------
 
-You should still be in the folder containing the ``requirements_dev.txt`` file.
+You should still be in the folder containing the ``dev-requirements.txt`` file.
 
 Your virtualenv should still be activated. If it isn't, activate it now. Install the new project's local development requirements:
 
 .. code-block:: bash
 
-    pip install -r requirements_dev.txt
+    pip install -r dev-requirements.txt
 
 
 Step 5: Set Up Travis CI

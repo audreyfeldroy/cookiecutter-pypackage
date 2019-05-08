@@ -32,7 +32,6 @@ original template for a couple of reasons:
         ├── Makefile
         ├── MANIFEST.in
         ├── README.md
-        ├── requirements_dev.txt
         ├── setup.cfg
         ├── setup.py
         ├── src
