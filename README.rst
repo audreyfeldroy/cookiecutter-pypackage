@@ -2,8 +2,8 @@
 Cookiecutter PyPackage
 ======================
 
-.. image:: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/shield.svg
-     :target: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/
+.. image:: https://pyup.io/repos/github/ashwinvis/cookiecutter-pypackage/shield.svg
+     :target: https://pyup.io/repos/github/ashwinvis/cookiecutter-pypackage/
      :alt: Updates
 
 .. image:: https://travis-ci.org/ashwinvis/cookiecutter-pypackage.svg?branch=master
@@ -70,14 +70,14 @@ Build Status
 
 Linux:
 
-.. image:: https://img.shields.io/travis/audreyr/cookiecutter-pypackage.svg
-    :target: https://travis-ci.org/audreyr/cookiecutter-pypackage
+.. image:: https://img.shields.io/travis/ashwinvis/cookiecutter-pypackage.svg
+    :target: https://travis-ci.org/ashwinvis/cookiecutter-pypackage
     :alt: Linux build status on Travis CI
 
 Windows:
 
-.. image:: https://ci.appveyor.com/api/projects/status/github/audreyr/cookiecutter-pypackage?branch=master&svg=true
-    :target: https://ci.appveyor.com/project/audreyr/cookiecutter-pypackage/branch/master
+.. image:: https://ci.appveyor.com/api/projects/status/github/ashwinvis/cookiecutter-pypackage?branch=master&svg=true
+    :target: https://ci.appveyor.com/project/ashwinvis/cookiecutter-pypackage/branch/master
     :alt: Windows build status on Appveyor
 
 Quickstart
