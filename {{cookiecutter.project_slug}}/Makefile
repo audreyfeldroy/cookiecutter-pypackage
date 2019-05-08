@@ -31,6 +31,8 @@ help:
 
 clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
 
+clean-all: clean clean-so ## removes everything, including extensions
+
 clean-build: ## remove build artifacts
 	rm -fr build/
 	rm -fr dist/
@@ -44,6 +46,9 @@ clean-pyc: ## remove Python file artifacts
 	find . -name '*~' -exec rm -f {} +
 	find . -name '__pycache__' -exec rm -fr {} +
 
+clean-so:  ## remove Python extensions
+	find . -name '*.so' -exec rm -f {} +
+
 clean-test: ## remove test and coverage artifacts
 	rm -fr .tox/
 	rm -f .coverage
@@ -52,6 +57,13 @@ clean-test: ## remove test and coverage artifacts
 
 lint: ## check style with flake8
 	flake8 {{ cookiecutter.project_slug }} tests
+
+{%- if cookiecutter.use_black == 'y' %}
+
+black: ## run black to format your code
+	black --line-length 79 src
+
+{%- endif %}
 
 test: ## run tests quickly with the default Python
 {%- if cookiecutter.use_pytest == 'y' %}
@@ -93,4 +105,7 @@ dist: clean ## builds source and wheel package
 	ls -l dist
 
 install: clean ## install the package to the active Python's site-packages
-	python setup.py install
+	pip install .
+
+develop: clean ## install the package in editable mode for development
+	pip install -e .
