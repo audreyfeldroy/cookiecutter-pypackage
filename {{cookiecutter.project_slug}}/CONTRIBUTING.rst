@@ -111,11 +111,9 @@ Tips
 
 To run a subset of tests::
 
-{% if cookiecutter.use_pytest == 'y' -%}
-    $ py.test tests.test_{{ cookiecutter.project_slug }}
-{% else %}
-    $ python -m unittest tests.test_{{ cookiecutter.project_slug }}
-{%- endif %}
+    $ nox -s test_b test_c
+    $ nox -k "not test_a"
+
 
 Deploying
 ---------

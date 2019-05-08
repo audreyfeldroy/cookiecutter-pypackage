@@ -58,6 +58,9 @@ Test with Nox:
     # run everything but tests and linting
     nox -k "not tests and not lint"
 
+    # run tests on py3.6 only
+    nox -s "tests(python='3.6')"
+
 Not Exactly What You Want?
 --------------------------
 

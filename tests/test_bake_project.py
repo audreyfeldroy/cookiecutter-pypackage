@@ -37,6 +37,11 @@ def bake_in_temp_dir(cookies, *args, **kwargs):
         cookie to be baked and its temporal files will be removed
     """
     result = cookies.bake(*args, **kwargs)
+
+    if result.exception:
+      # raise a new exception because the existing one comes with *a lot* of baggage
+      raise(result.exception.__class__(**result.exception.__dict__))
+
     try:
         yield result
     finally:
@@ -138,10 +143,9 @@ def test_using_pytest(cookies):
         test_file_path = result.project.join('tests/test_python_boilerplate.py')
         lines = test_file_path.readlines()
         assert "import pytest" in ''.join(lines)
-        # Test the new pytest target
-        run_inside_dir('python setup.py pytest', str(result.project)) == 0
+        run_inside_dir('pytest', str(result.project)) == 0
         # Test the test alias (which invokes pytest)
-        run_inside_dir('python setup.py test', str(result.project)) == 0
+        # run_inside_dir('python setup.py test', str(result.project)) == 0
 
 
 

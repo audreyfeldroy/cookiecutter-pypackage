@@ -14,8 +14,12 @@ with open('HISTORY.rst') as history_file:
 with open('requirements.txt') as reqs_file:
     requirements = reqs_file.readlines()
 
-with open('requirements_dev.txt') as reqs_file:
-    setup_requirements = test_requirements = reqs_file.readlines()
+with open('requirements_dev.txt') as devreqs_file:
+    devreqs = devreqs_file.readlines()
+    if '-r requirements.txt' in devreqs:
+        devreqs.remove('-r requirements.txt')
+        devreqs.append(*requirements)
+    test_requirements = setup_requirements = devreqs
 
 
 {%- set license_classifiers = {
@@ -63,7 +67,7 @@ setup(
     name='{{ cookiecutter.project_slug }}',
     packages=find_packages(include=['{{ cookiecutter.project_slug }}']),
     setup_requires=setup_requirements,
-    test_suite='tests',
+    test_suite='test',
     tests_require=test_requirements,
     url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}',
     version='{{ cookiecutter.version }}',

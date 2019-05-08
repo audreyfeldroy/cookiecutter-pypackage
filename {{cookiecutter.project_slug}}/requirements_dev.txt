@@ -6,6 +6,7 @@ pylint
 pytest
 pytest-runner
 Sphinx
+tox
 twine
 watchdog
 wheel

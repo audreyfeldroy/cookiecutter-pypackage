@@ -19,7 +19,7 @@ def _browser(path):
 def prep(session):
   with open('requirements_dev.txt', 'r') as reqs_file:
     reqs = reqs_file.readlines()
-  session.install(**reqs)
+  session.install(*reqs)
 
 @nox.session(python=['2.7', '3.4', '3.5', '3.6', '3.7'], reuse_venv=True)
 def tests(session):
@@ -42,7 +42,6 @@ def docs(session):
 
 @nox.session(python='3.7', reuse_venv=True)
 def coverage(session):
-  commands = 
   for cmd in [
         ['coverage', 'run', '--source', '{{ cookiecutter.project_slug }}', '-m', 'pytest'],
         ['coverage', 'report', '-m'],
