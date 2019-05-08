@@ -32,7 +32,6 @@ original template for a couple of reasons:
         ├── Makefile
         ├── MANIFEST.in
         ├── README.md
-        ├── requirements_dev.txt
         ├── setup.cfg
         ├── setup.py
         ├── src
@@ -96,7 +95,7 @@ Then:
 
 * Create a repo and put it there.
 * Add the repo to your Travis-CI_ account.
-* Install the dev requirements into a virtualenv. (``pip install -r requirements_dev.txt``)
+* Install the package into a virtualenv. (``pip install -e '.[dev]'`` or ``make develop``)
 * Register_ your project with PyPI.
 * Run the Travis CLI command `travis encrypt --add deploy.password` to encrypt your PyPI password in Travis config
   and activate automated deployment on PyPI when you push a new tag to master branch.
