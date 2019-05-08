@@ -1,4 +1,8 @@
-{% if cookiecutter.open_source_license == 'MIT license' -%}
+{% if cookiecutter.open_source_license == 'Proprietary' -%}
+Copyright (c) {% now 'local', '%Y' %}, {{ cookiecutter.full_name }}
+
+All rights reserved.
+{% elif cookiecutter.open_source_license == 'MIT license' -%}
 MIT License
 
 Copyright (c) {% now 'local', '%Y' %}, {{ cookiecutter.full_name }}
