@@ -24,9 +24,9 @@ Quickstart
 ----------
 
 At CSCS, you can load the Python module with following command. It will load the Python environment 
-and the needed script to start a new project::
+and the needed script to start a new project, e.g.::
 
-    module load python/3.7
+    module load python/3.7.2-gmvolf-17.02
 
 Generate a Python package project::
 
