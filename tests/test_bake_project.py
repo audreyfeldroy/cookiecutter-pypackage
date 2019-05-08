@@ -70,7 +70,8 @@ def project_info(result):
     """Get toplevel dir, project_slug, and project dir from baked cookies"""
     project_path = str(result.project)
     project_slug = os.path.split(project_path)[-1]
-    project_dir = os.path.join(project_path, project_slug)
+    project_dir = os.path.join(project_path, 'src', project_slug)
+    assert project_dir is not None, "project_dir missing from" + project_path
     return project_path, project_slug, project_dir
 
 
@@ -82,7 +83,7 @@ def test_bake_with_defaults(cookies):
 
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert 'setup.py' in found_toplevel_files
-        assert 'python_boilerplate' in found_toplevel_files
+        assert 'src' in found_toplevel_files
         assert 'tox.ini' in found_toplevel_files
         assert 'tests' in found_toplevel_files
 
@@ -134,7 +135,7 @@ def test_bake_without_travis_pypi_setup(cookies):
 def test_bake_without_author_file(cookies):
     with bake_in_temp_dir(cookies, extra_context={'create_author_file': 'n'}) as result:
         found_toplevel_files = [f.basename for f in result.project.listdir()]
-        assert 'AUTHORS.rst' not in found_toplevel_files
+        assert 'AUTHORS.md' not in found_toplevel_files
         doc_files = [f.basename for f in result.project.join('docs').listdir()]
         assert 'authors.rst' not in doc_files
 
@@ -146,7 +147,7 @@ def test_bake_without_author_file(cookies):
         # Check that
         manifest_path = result.project.join('MANIFEST.in')
         with open(str(manifest_path)) as manifest_file:
-            assert 'AUTHORS.rst' not in manifest_file.read()
+            assert 'AUTHORS.md' not in manifest_file.read()
 
 
 def test_make_help(cookies):
@@ -166,15 +167,16 @@ def test_bake_selecting_license(cookies):
     for license, target_string in license_strings.items():
         with bake_in_temp_dir(cookies, extra_context={'open_source_license': license}) as result:
             assert target_string in result.project.join('LICENSE').read()
-            assert license in result.project.join('setup.py').read()
+            assert license in result.project.join('setup.cfg').read()
 
 
 def test_bake_not_open_source(cookies):
     with bake_in_temp_dir(cookies, extra_context={'open_source_license': 'Not open source'}) as result:
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert 'setup.py' in found_toplevel_files
+        assert 'setup.cfg' in found_toplevel_files
         assert 'LICENSE' not in found_toplevel_files
-        assert 'License' not in result.project.join('README.rst').read()
+        assert 'License' not in result.project.join('README.md').read()
 
 
 def test_using_pytest(cookies):

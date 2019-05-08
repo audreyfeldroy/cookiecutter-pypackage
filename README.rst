@@ -6,10 +6,47 @@ Cookiecutter PyPackage
      :target: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/
      :alt: Updates
 
-.. image:: https://travis-ci.org/audreyr/cookiecutter-pypackage.svg?branch=master
-    :target: https://travis-ci.org/audreyr/cookiecutter-pypackage     
+.. image:: https://travis-ci.org/ashwinvis/cookiecutter-pypackage.svg?branch=master
+    :target: https://travis-ci.org/ashwinvis/cookiecutter-pypackage
 
-Cookiecutter_ template for a Python package.
+Cookiecutter_ template for a Python package. This fork is different from the
+original template for a couple of reasons:
+
+* Primarily uses `setup.cfg`_ for storing packaging metadata instead of relying
+  on `setup.py` too much.
+* Relies on `src`_ layout for the package.
+* Support `setuptools_scm` versioning for development
+* Uses markdown for the `README.md` etc. instead of reStructured Text.
+
+**TLDR:** you get this:
+
+.. code:: shell
+
+        my_project/
+        ├── AUTHORS.md
+        ├── CONTRIBUTING.md
+        ├── docs
+        │   └── ...
+        ├── HISTORY.md
+        ├── LICENSE
+        ├── Makefile
+        ├── MANIFEST.in
+        ├── README.md
+        ├── requirements_dev.txt
+        ├── setup.cfg
+        ├── setup.py
+        ├── src
+        │   └── my_project
+        │       ├── cli.py
+        │       ├── my_project.py
+        │       └── __init__.py
+        ├── tests
+        │   └── ...
+        └── tox.ini
+
+
+See Also
+----------
 
 * GitHub repo: https://github.com/audreyr/cookiecutter-pypackage/
 * Documentation: https://cookiecutter-pypackage.readthedocs.io/
@@ -53,7 +90,7 @@ Cookiecutter 1.4.0 or higher)::
 
 Generate a Python package project::
 
-    cookiecutter https://github.com/audreyr/cookiecutter-pypackage.git
+    cookiecutter https://github.com/ashwinvis/cookiecutter-pypackage.git
 
 Then:
 
@@ -137,6 +174,8 @@ Or Submit a Pull Request
 I also accept pull requests on this, if they're small, atomic, and if they
 make my own packaging experience better.
 
+.. _setup.cfg: https://setuptools.readthedocs.io/en/latest/setuptools.html?highlight=setup.cfg#configuring-setup-using-setup-cfg-files
+.. _src: https://hynek.me/articles/testing-packaging/
 
 .. _Travis-CI: http://travis-ci.org/
 .. _Tox: http://testrun.org/tox/
@@ -154,3 +193,5 @@ make my own packaging experience better.
 .. _github comparison view: https://github.com/tony/cookiecutter-pypackage-pythonic/compare/audreyr:master...master
 .. _`network`: https://github.com/audreyr/cookiecutter-pypackage/network
 .. _`family tree`: https://github.com/audreyr/cookiecutter-pypackage/network/members
+
+4 directories, 26 files

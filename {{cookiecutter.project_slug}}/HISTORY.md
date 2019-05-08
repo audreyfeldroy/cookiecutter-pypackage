@@ -1,6 +1,4 @@
-=======
-History
-=======
+# History
 
 {{ cookiecutter.version }} ({% now 'local' %})
 ------------------
