@@ -7,13 +7,6 @@ from setuptools import setup
 
 
 setup_kwargs = dict(
-    {%- if 'no' not in cookiecutter.command_line_interface|lower %}
-    entry_points={
-        'console_scripts': [
-            '{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:main',
-        ],
-    },
-    {%- endif %}
     test_suite='tests',
 )
 
