@@ -1,7 +1,18 @@
-"""Script that is called by python -m {{cookiecutter.project_slug}}"""
+# -*- coding: utf-8 -*-
+
+"""Console script for {{cookiecutter.project_slug}}."""
 import sys
-from .cli import main
+import click
 
-if __name__ == '__main__':
-    sys.exit(main())
 
+@click.command()
+def main(args=None):
+    """Console script for {{cookiecutter.project_slug}}."""
+    click.echo("Replace this message by putting your code into "
+               "{{cookiecutter.project_slug}}.__main__.main")
+    click.echo("See click documentation at http://click.pocoo.org/")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())  # pragma: no cover

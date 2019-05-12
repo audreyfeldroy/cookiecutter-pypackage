@@ -221,7 +221,6 @@ def test_bake_with_no_console_script(cookies):
     result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     found_project_files = os.listdir(project_dir)
-    assert "cli.py" not in found_project_files
     assert "__main__.py" not in found_project_files
 
     setup_path = os.path.join(project_path, 'setup.py')
@@ -234,7 +233,7 @@ def test_bake_with_console_script_files(cookies):
     result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     found_project_files = os.listdir(project_dir)
-    assert "cli.py" in found_project_files
+    assert "__main__.py" in found_project_files
 
     setup_path = os.path.join(project_path, 'setup.py')
     with open(setup_path, 'r') as setup_file:
@@ -245,22 +244,22 @@ def test_bake_with_console_script_cli(cookies):
     context = {'command_line_interface': 'click'}
     result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
-    module_path = os.path.join(project_dir, 'cli.py')
-    module_name = '.'.join([project_slug, 'cli'])
+    module_path = os.path.join(project_dir, '__main__.py')
+    module_name = '.'.join([project_slug, '__main__'])
     if sys.version_info >= (3, 5):
         spec = importlib.util.spec_from_file_location(module_name, module_path)
-        cli = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(cli)
+        __main__ = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(__main__)
     elif sys.version_info >= (3, 3):
         file_loader = importlib.machinery.SourceFileLoader
-        cli = file_loader(module_name, module_path).load_module()
+        __main__ = file_loader(module_name, module_path).load_module()
     else:
-        cli = imp.load_source(module_name, module_path)
+        __main__ = imp.load_source(module_name, module_path)
     runner = CliRunner()
-    noarg_result = runner.invoke(cli.main)
+    noarg_result = runner.invoke(__main__.main)
     assert noarg_result.exit_code == 0
     noarg_output = ' '.join(['Replace this message by putting your code into', project_slug])
     assert noarg_output in noarg_result.output
-    help_result = runner.invoke(cli.main, ['--help'])
+    help_result = runner.invoke(__main__.main, ['--help'])
     assert help_result.exit_code == 0
     assert 'Show this message' in help_result.output
