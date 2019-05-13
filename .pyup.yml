@@ -1,0 +1,9 @@
+search: False
+
+requirements:
+  - dev-requirements.in:
+      update: all
+      pin: True
+  - dev-requirements.txt:
+      update: insecure
+      pin: False
