@@ -223,7 +223,7 @@ def test_bake_with_no_console_script(cookies):
     found_project_files = os.listdir(project_dir)
     assert "cli.py" not in found_project_files
 
-    setup_path = os.path.join(project_path, 'setup.py')
+    setup_path = os.path.join(project_path, 'setup.cfg')
     with open(setup_path, 'r') as setup_file:
         assert 'entry_points' not in setup_file.read()
 
@@ -235,7 +235,7 @@ def test_bake_with_console_script_files(cookies):
     found_project_files = os.listdir(project_dir)
     assert "cli.py" in found_project_files
 
-    setup_path = os.path.join(project_path, 'setup.py')
+    setup_path = os.path.join(project_path, 'setup.cfg')
     with open(setup_path, 'r') as setup_file:
         assert 'entry_points' in setup_file.read()
 
