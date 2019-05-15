@@ -28,7 +28,7 @@ python-dateutil==2.8.0    # via arrow
 pyyaml==5.1               # via watchdog
 requests==2.21.0          # via cookiecutter
 six==1.12.0               # via pytest, python-dateutil, tox
-tox==2.9.1
+tox==3.11.0
 urllib3==1.24.3           # via requests
 virtualenv==16.5.0        # via tox
 watchdog==0.8.3
