@@ -3,6 +3,7 @@
   "email": "ashwinvis@example.com",
   "github_username": "ashwinvis",
   "project_name": "Python Boilerplate",
+  "repo_name": "{{ cookiecutter.project_name.lower().replace(' ', '-') }}",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
   "project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
   "pypi_username": "{{ cookiecutter.github_username }}",
