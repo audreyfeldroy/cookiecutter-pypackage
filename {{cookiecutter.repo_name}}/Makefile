@@ -36,6 +36,7 @@ clean-all: clean clean-so ## removes everything, including extensions
 clean-build: ## remove build artifacts
 	rm -fr build/
 	rm -fr dist/
+	rm -fr docs/_build
 	rm -fr .eggs/
 	find . -name '*.egg-info' -exec rm -fr {} +
 	find . -name '*.egg' -exec rm -f {} +
@@ -98,6 +99,9 @@ servedocs: docs ## compile the docs watching for changes
 
 release: dist ## package and upload a release
 	twine upload dist/*
+
+dist-check: dist ## package and verify it
+	twine check dist/*
 
 dist: clean ## builds source and wheel package
 	python setup.py sdist

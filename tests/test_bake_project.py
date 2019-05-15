@@ -71,7 +71,7 @@ def project_info(result):
     project_path = str(result.project)
     project_slug = os.path.split(project_path)[-1]
     project_dir = os.path.join(project_path, 'src', project_slug)
-    assert project_dir is not None, "project_dir missing from" + project_path
+    assert os.path.exists(project_dir), "project_dir missing from" + project_path
     return project_path, project_slug, project_dir
 
 
