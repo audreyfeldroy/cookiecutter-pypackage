@@ -64,6 +64,8 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+docs/{{ cookiecutter.project_slug }}.rst
+docs/modules.rst
 
 # PyBuilder
 target/
