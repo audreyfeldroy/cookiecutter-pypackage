@@ -69,7 +69,8 @@ def test_year_compute_in_license_file(cookies):
 def project_info(result):
     """Get toplevel dir, project_slug, and project dir from baked cookies"""
     project_path = str(result.project)
-    project_slug = os.path.split(project_path)[-1]
+    # repo_name is by default different from project_slug
+    project_slug = os.path.split(project_path)[-1].replace('-', '_')
     project_dir = os.path.join(project_path, 'src', project_slug)
     assert os.path.exists(project_dir), "project_dir missing from" + project_path
     return project_path, project_slug, project_dir
