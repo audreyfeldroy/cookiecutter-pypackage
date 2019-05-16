@@ -16,9 +16,9 @@ original template for a couple of reasons:
   on `setup.py` too much.
 * Relies on `src`_ layout for the package.
 * Support `setuptools_scm` versioning for development
-* Uses markdown for the `README.md` etc. instead of reStructured Text.
+* Uses markdown for the ``README.md`` etc. instead of reStructured Text.
 * Allows project name, repo name and package name to be different (for e.g.
-  having something like `Scikit Learn`, `scikit-learn` and `sklearn`
+  having something like ``Scikit Learn``, ``scikit-learn`` and ``sklearn``
   respectively).
 
 
