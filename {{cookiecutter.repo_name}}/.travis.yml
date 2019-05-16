@@ -3,8 +3,7 @@
 language: python
 python:
   - 3.6
-  - 3.5
-  - 3.4
+  - 3.7
 
 # Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: pip install -U tox-travis
@@ -13,6 +12,8 @@ install: pip install -U tox-travis
 script: tox
 
 {% if cookiecutter.use_pypi_deployment_with_travis == 'y' -%}
+before_deploy: make clean
+
 # Assuming you have installed the travis-ci CLI tool, after you
 # create the Github repo and add it to Travis, run the
 # following command to finish PyPI deployment setup:
