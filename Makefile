@@ -14,3 +14,6 @@ watch: bake
 replay: BAKE_OPTIONS=--replay
 replay: watch
 	;
+
+%requirements.txt: %requirements.in
+	pip-compile --output-file=$@ $<
