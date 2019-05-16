@@ -17,12 +17,16 @@ original template for a couple of reasons:
 * Relies on `src`_ layout for the package.
 * Support `setuptools_scm` versioning for development
 * Uses markdown for the `README.md` etc. instead of reStructured Text.
+* Allows project name, repo name and package name to be different (for e.g.
+  having something like `Scikit Learn`, `scikit-learn` and `sklearn`
+  respectively).
+
 
 **TLDR:** you get this:
 
 .. code:: shell
 
-        my_project/
+        my-project/
         ├── AUTHORS.md
         ├── CONTRIBUTING.md
         ├── docs
@@ -135,25 +139,6 @@ Similar Cookiecutter Templates
 * Also see the `network`_ and `family tree`_ for this repo. (If you find
   anything that should be listed here, please add it and send a pull request!)
   
-Support this Project
-~~~~~~~~~~~~~~~~~~~~~
-
-You can take our detailed course that covers all the features of this template, which has the added bonus of funding this project:
-
-.. image:: https://www.pydanny.com/static/packaging-course.jpg
-   :name: Creating and Distributing Python Packages image
-   :align: center
-   :alt: Creating and Distributing Python Packages
-   :target: https://twoscoopspress.thinkific.com/courses/creating-and-distributing-python-packages-es
-
-También disponible en español:
-
-.. image:: https://www.pydanny.com/static/packaging-course-es.jpg
-   :name: Creating and Distributing Python Packages ES image
-   :align: center
-   :alt: Creating and Distributing Python Packages ES
-   :target: https://twoscoopspress.thinkific.com/courses/creating-and-distributing-python-packages-es
-
 Fork This / Create Your Own
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -192,5 +177,3 @@ make my own packaging experience better.
 .. _github comparison view: https://github.com/tony/cookiecutter-pypackage-pythonic/compare/audreyr:master...master
 .. _`network`: https://github.com/audreyr/cookiecutter-pypackage/network
 .. _`family tree`: https://github.com/audreyr/cookiecutter-pypackage/network/members
-
-4 directories, 26 files
