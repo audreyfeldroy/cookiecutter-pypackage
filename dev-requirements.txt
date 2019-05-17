@@ -36,7 +36,7 @@ pyyaml==5.1               # via watchdog
 requests==2.21.0          # via cookiecutter
 six==1.12.0               # via pytest, pytest-xdist, python-dateutil, tox
 toml==0.10.0              # via tox
-tox==3.11.0
+tox==3.11.1
 urllib3==1.24.3           # via requests
 virtualenv==16.5.0        # via tox
 watchdog==0.8.3
