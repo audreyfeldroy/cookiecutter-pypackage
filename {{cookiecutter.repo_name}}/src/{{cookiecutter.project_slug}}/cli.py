@@ -14,6 +14,9 @@ def main(args=None):
     click.echo("See click documentation at http://click.pocoo.org/")
     return 0
 
+
+if __name__ == "__main__":
+    sys.exit(main())  # pragma: no cover
 {% elif 'argparse' == cookiecutter.command_line_interface -%}
 import argparse
 from {{cookiecutter.project_slug}} import __version__
@@ -51,10 +54,7 @@ def main(args=None):
         "See argparse tutorial at https://docs.python.org/3/howto/argparse.html"
     )
 
-    return 0
-
-
-{%- endif %}
 
 if __name__ == "__main__":
-    sys.exit(main())  # pragma: no cover
+    main()  # pragma: no cover
+{%- endif %}
