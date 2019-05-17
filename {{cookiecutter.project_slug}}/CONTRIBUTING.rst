@@ -80,12 +80,12 @@ Ready to contribute? Here's how to set up `{{ cookiecutter.project_slug }}` for 
    Now you can make your changes locally.
 
 5. When you're done making changes, format them with yapf, check that your
-   changes pass the static code analyses with flake8 and the tests with py.test, including testing other Python versions
+   changes pass the static code analyses with flake8 and the tests with pytest, including testing other Python versions
    with tox::
 
     $ yapf -ir {{ cookiecutter.project_slug }}
     $ flake8 {{ cookiecutter.project_slug }} tests
-    $ py.test
+    $ pytest
     $ tox  # optional, currently only flake8 and Python 3.7 configured and thus not necessary
 
    To get yapf, flake8 and tox, just pip install them into your virtualenv (``pipenv install --dev``).
@@ -115,7 +115,7 @@ Tips
 
 To run a subset of tests::
 
-    $ py.test tests.test_{{ cookiecutter.project_slug }}
+    $ pytest tests.test_{{ cookiecutter.project_slug }}
 
 Deploying
 ---------

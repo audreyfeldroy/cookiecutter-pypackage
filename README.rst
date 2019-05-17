@@ -10,7 +10,7 @@ Cookiecutter_ template for a Python package.
 Features
 --------
 
-* Testing setup with ``python setup.py test`` and ``py.test``
+* Testing setup with ``python setup.py test`` and ``pytest``
 * Tox_ testing: Setup to easily test for Python 2.7, 3.4, 3.5, 3.6
 * Sphinx_ docs: Documentation ready for generation with, for example, ReadTheDocs_
 * Bumpversion_: Pre-configured version bumping with a single command
