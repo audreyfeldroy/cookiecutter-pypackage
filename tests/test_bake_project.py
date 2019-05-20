@@ -102,6 +102,19 @@ def test_bake_and_run_tests(cookies):
         print("test_bake_and_run_tests path", str(result.project))
 
 
+def test_bake_with_install_dist_check(cookies):
+    with bake_in_temp_dir(cookies) as result:
+        assert result.project.isdir()
+
+        def run_and_assert_success(cmd):
+            assert run_inside_dir(cmd, str(result.project)) == 0, cmd + " failed"
+
+        run_and_assert_success("make install")
+        run_and_assert_success("make dist")
+        run_and_assert_success('make dist-check')
+        print("test_bake_with_install_dist_check path", str(result.project))
+
+
 def test_bake_withspecialchars_and_run_tests(cookies):
     """Ensure that a `full_name` with double quotes does not break setup.py"""
     with bake_in_temp_dir(cookies, extra_context={'full_name': 'name "quote" name'}) as result:
