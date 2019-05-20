@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 """Console script for {{cookiecutter.repo_name}}."""
-import sys
 {% if 'Click' == cookiecutter.command_line_interface -%}
+import sys
 import click
 
 
