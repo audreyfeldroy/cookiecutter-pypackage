@@ -23,6 +23,8 @@ original template for a couple of reasons:
 * Adds optional support for either an ``argparse`` based command-line tool, or
   a ``Click`` based one (only the latter was available in the original
   template).
+* By default ``python_requires>=3.6`` is preferred, since new packages should be
+  able to use `f-strings`_.
 
 
 **TLDR:** you get this:
@@ -163,6 +165,7 @@ make my own packaging experience better.
 
 .. _setup.cfg: https://setuptools.readthedocs.io/en/latest/setuptools.html?highlight=setup.cfg#configuring-setup-using-setup-cfg-files
 .. _src: https://hynek.me/articles/testing-packaging/
+.. _f-strings: https://docs.python.org/3/tutorial/inputoutput.html#formatted-string-literals
 
 .. _Travis-CI: http://travis-ci.org/
 .. _Tox: http://testrun.org/tox/
