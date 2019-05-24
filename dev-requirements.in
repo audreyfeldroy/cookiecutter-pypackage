@@ -1,5 +1,5 @@
 pytest==4.4.0
-tox==3.11.1
+tox==3.12.1
 cookiecutter>=1.4.0
 pytest-cookies==0.3.0
 pytest-xdist==1.28.0
