@@ -7,6 +7,7 @@ tox==3.5.2
 coverage==4.5.1
 Sphinx==1.8.1
 sphinx_rtd_theme
+sphinxcontrib-napoleon
 twine==1.12.1
 {% if cookiecutter.command_line_interface == 'y' -%}
 click==6.7{% endif %}
