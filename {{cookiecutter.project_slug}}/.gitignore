@@ -46,6 +46,7 @@ coverage.xml
 *.cover
 .hypothesis/
 .pytest_cache/
+test-reports/
 
 # Translations
 *.mo
@@ -88,9 +89,14 @@ celerybeat-schedule
 venv/
 ENV/
 
-# Spyder project settings
-.spyderproject
-.spyproject
+# Pycharm
+.idea
+
+# VS Code
+.vscode/
+
+# Mac OS-specific storage files
+.DS_Store
 
 # Rope project settings
 .ropeproject
