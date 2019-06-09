@@ -1,11 +1,15 @@
 # Config file for automatic testing at travis-ci.org
 
 language: python
-python:
-  - 3.7
-  - 3.6
-  - 3.5
-  - 3.4
+
+# Enable 3.7 without globally enabling sudo and dist: xenial for other build jobs
+matrix:
+  include:
+      - python: 3.5
+      - python: 3.6
+      - python: 3.7
+        dist: xenial
+        sudo: true
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: pip install -U tox-travis
