@@ -24,7 +24,7 @@ for line in sys.stdin:
 endef
 export PRINT_HELP_PYSCRIPT
 
-PYTHON_INTERPRETER = python
+PYTHON_INTERPRETER = python3.6
 BROWSER := ${PYTHON_INTERPRETER} -c "$$BROWSER_PYSCRIPT"
 
 help:
