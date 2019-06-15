@@ -33,7 +33,7 @@ py==1.8.0                 # via pytest, tox
 pygments==2.4.0           # via readme-renderer
 pytest-cookies==0.3.0
 pytest-forked==1.0.2      # via pytest-xdist
-pytest-xdist==1.28.0
+pytest-xdist==1.29.0
 pytest==4.4.0
 python-dateutil==2.8.0    # via arrow
 pyyaml==5.1               # via watchdog

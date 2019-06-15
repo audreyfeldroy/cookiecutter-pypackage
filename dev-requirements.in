@@ -2,7 +2,7 @@ pytest==4.4.0
 tox==3.12.1
 cookiecutter>=1.4.0
 pytest-cookies==0.3.0
-pytest-xdist==1.28.0
+pytest-xdist==1.29.0
 watchdog==0.8.3
 alabaster==0.7.10
 twine==1.13.0
