@@ -12,7 +12,7 @@ Cookiecutter PyPackage
 Cookiecutter_ template for a Python package.
 
 * GitHub repo: https://github.com/sandervandorsten/cookiecutter-pypackage/
-* Documentation: https://cookiecutter-pypackage.readthedocs.io/
+* Documentation: https://cookiecutter-pypackage-svd.readthedocs.io/
 * Free software: BSD license
 
 Features
@@ -26,7 +26,16 @@ Features
 * Auto-release to PyPI_ when you push a new tag to master (optional)
 * Command line interface using Click (optional)
 
-.. _Cookiecutter: https://github.com/sandervandorsten/cookiecutter
+.. _Cookiecutter: https://github.com/sandervandorsten/cookiecutter-pypackage
+
+Differences from upstream repository
+------------------------------------
+* Allows for Google Docstring parsing with `sphinxcontrib.napoleon`
+* includes RST todos in docstring documentation by typing::
+
+    Todo:
+        * Something that needs to be done
+        * You have to also use ``sphinx.ext.todo`` extension
 
 Build Status
 -------------
