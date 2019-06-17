@@ -54,6 +54,9 @@ clean-test: ## remove test and coverage artifacts
 lint: ## check style with flake8
 	flake8 {{ cookiecutter.project_slug }} tests
 
+doctest: ## run doctests
+	source venv/bin/activate && python -m doctest {{ cookiecutter.project_slug }}/*.py
+
 test: ## run tests quickly with the default Python
 {%- if cookiecutter.use_pytest == 'y' %}
 	py.test
