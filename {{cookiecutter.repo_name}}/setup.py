@@ -6,19 +6,10 @@
 from setuptools import setup
 
 
-setup_kwargs = dict(
-    test_suite='tests',
-)
+setup_kwargs = dict(test_suite="tests")
 
 try:
-    setup(
-        use_scm_version=True,
-        **setup_kwargs
-    )
+    setup(use_scm_version=True, **setup_kwargs)
 except LookupError:
     # This means the source code was not from git / PyPI
-    setup(
-        version='{{ cookiecutter.version }}',
-        **setup_kwargs
-    )
-
+    setup(version="{{ cookiecutter.version }}", **setup_kwargs)
