@@ -111,7 +111,7 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
 #     # given:
 #     with bake_in_temp_dir(cookies) as result:
 #         project_path = str(result.project)
-# 
+#
 #         # when:
 #         travis_setup_cmd = ('python travis_pypi_setup.py'
 #                             ' --repo audreyr/cookiecutter-pypackage --password invalidpass')
@@ -201,12 +201,12 @@ def test_not_using_pytest(cookies):
 #     result = cookies.bake(extra_context={'project_name': 'something-with-a-dash'})
 #     assert result.project is not None
 #     project_path = str(result.project)
-# 
+#
 #     # when:
 #     travis_setup_cmd = ('python travis_pypi_setup.py'
 #                         ' --repo audreyr/cookiecutter-pypackage --password invalidpass')
 #     run_inside_dir(travis_setup_cmd, project_path)
-# 
+#
 #     # then:
 #     result_travis_config = yaml.load(open(os.path.join(project_path, ".travis.yml")))
 #     assert "secure" in result_travis_config["deploy"]["password"],\
@@ -260,3 +260,37 @@ def test_bake_with_console_script_cli(cookies):
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
     assert 'Show this message' in help_result.output
+
+
+def test_bake_selecting_license(cookies):
+    license_strings = {
+        'MIT license': 'MIT ',
+        'BSD license': 'Redistributions of source code must retain the above copyright notice, this',
+        'ISC license': 'ISC License',
+        'Apache Software License 2.0': 'Licensed under the Apache License, Version 2.0',
+        'GNU General Public License v3': 'GNU GENERAL PUBLIC LICENSE',
+    }
+    for license, target_string in license_strings.items():
+        with bake_in_temp_dir(cookies, extra_context={'open_source_license': license}) as result:
+            assert target_string in result.project.join('LICENSE').read()
+            assert license in result.project.join('setup.py').read()
+
+
+def test_bake_github_org(cookies):
+    for k, context in zip(
+        ['github_org', 'github_username'], [
+            {'github_org': 'steadysense', 'github_user': 'mofe23', 'add_pyup_badge': 'y'},
+            {'github_org': '', 'github_username': 'mofe23', 'add_pyup_badge': 'y'}]
+    ):
+        pyup = "https://pyup.io/repos/github/" + context[k]
+        travis = "https://travis-ci.org/" + context[k]
+        repo = 'https://github.com/' + context[k]
+        travis_yml = 'repo: ' + context[k]
+
+        with bake_in_temp_dir(cookies, extra_context=context) as result:
+            assert pyup in result.project.join('README.rst').read()
+            assert travis in result.project.join('README.rst').read()
+            assert repo in result.project.join('CONTRIBUTING.rst').read()
+            assert repo in result.project.join('setup.py').read()
+            assert repo in result.project.join('docs/installation.rst').read()
+            assert travis_yml in result.project.join('.travis.yml').read()

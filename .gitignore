@@ -95,3 +95,5 @@ target/
 # Cookiecutter
 output/
 python_boilerplate/
+
+.DS_Store
