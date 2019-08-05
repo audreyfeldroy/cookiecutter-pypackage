@@ -173,7 +173,7 @@ def test_bake_not_open_source(cookies):
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert 'setup.py' in found_toplevel_files
         assert 'LICENSE' not in found_toplevel_files
-        assert 'License' not in result.project.join('README.rst').read()
+        assert 'License' not in result.project.join('README.md').read()
 
 
 def test_using_pytest(cookies):
@@ -253,11 +253,14 @@ def test_bake_with_console_script_cli(cookies):
     else:
         cli = imp.load_source(module_name, module_path)
     runner = CliRunner()
-    noarg_result = runner.invoke(cli.main)
+    noarg_result = runner.invoke(cli.cli)
+
+    print(noarg_result.output)
+
     assert noarg_result.exit_code == 0
-    noarg_output = ' '.join(['Replace this message by putting your code into', project_slug])
-    assert noarg_output in noarg_result.output
-    help_result = runner.invoke(cli.main, ['--help'])
+    assert 'Show this message' in noarg_result.output
+    assert 'Console script for python_boilerplate' in noarg_result.output
+    help_result = runner.invoke(cli.cli, ['--help'])
     assert help_result.exit_code == 0
     assert 'Show this message' in help_result.output
 
@@ -288,9 +291,27 @@ def test_bake_github_org(cookies):
         travis_yml = 'repo: ' + context[k]
 
         with bake_in_temp_dir(cookies, extra_context=context) as result:
-            assert pyup in result.project.join('README.rst').read()
-            assert travis in result.project.join('README.rst').read()
+            assert pyup in result.project.join('README.md').read()
+            assert travis in result.project.join('README.md').read()
             assert repo in result.project.join('CONTRIBUTING.rst').read()
             assert repo in result.project.join('setup.py').read()
             assert repo in result.project.join('docs/installation.rst').read()
             assert travis_yml in result.project.join('.travis.yml').read()
+
+
+def test_bake_and_make_dist(cookies):
+    version = '0.1.0'
+    with bake_in_temp_dir(cookies, extra_context= {'version': version}) as result:
+        project_path, project_slug, project_dir = project_info(result)
+        assert result.project.isdir()
+        run_inside_dir('make dist', str(result.project)) == 0
+        print("test_bake_and_run_tests path", str(result.project))
+        found_dist_files = [str(d) for d in result.project.join('dist').listdir()]
+        print(found_dist_files)
+        '''
+        "python_boilerplate/dist/python_boilerplate-0.1.0-py2.py3-none-any.whl"
+                                "python_boilerplate-0.1.0-py2.py3-none-any.whl"
+        '''
+        assert f"{project_slug}-{version}-py2.py3-none-any.whl" in found_dist_files
+        assert f"{project_slug}-{version}.tar.gz" in found_dist_files
+

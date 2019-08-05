@@ -84,13 +84,21 @@ docs: ## generate Sphinx HTML documentation, including API docs
 servedocs: docs ## compile the docs watching for changes
 	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
 
-release: dist ## package and upload a release
+releasegh: dist ## package and upload a release
+	$(eval $VERSION := v$(shell grep "current_version = " setup.cfg | tail -c 6))
+	$(eval $DISTFILES := $(shell find dist -name "*.tar.gz"))
+	@echo Created dist $($VERSION)
+	@echo $($DISTFILES)
+	hub release create -t develop -m $($VERSION) -a $($DISTFILES) $($VERSION)
+	bumpversion patch
+
+releasepipy: dist ## package and upload a release
 	twine upload dist/*
 
 dist: clean ## builds source and wheel package
 	python setup.py sdist
 	python setup.py bdist_wheel
-	ls -l dist
+	ls -la
 
 install: clean ## install the package to the active Python's site-packages
 	python setup.py install

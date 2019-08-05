@@ -5,14 +5,20 @@ import sys
 import click
 
 
-@click.command()
-def main(args=None):
+@click.group()
+def cli(args=None):
     """Console script for {{cookiecutter.project_slug}}."""
     click.echo("Replace this message by putting your code into "
                "{{cookiecutter.project_slug}}.cli.main")
     click.echo("See click documentation at http://click.pocoo.org/")
-    return 0
+
+
+@cli.command()
+@click.option("-o", "--option", help="An option", default=10)
+def command(option):
+    click.echo(f"A Command with option {option}")
 
 
 if __name__ == "__main__":
-    sys.exit(main())  # pragma: no cover
+    sys.exit(cli())  # pragma: no cover
+    print("DERE")

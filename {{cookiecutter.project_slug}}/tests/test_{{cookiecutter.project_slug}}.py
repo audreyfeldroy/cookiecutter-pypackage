@@ -37,15 +37,28 @@ def test_content(response):
 {%- if cookiecutter.command_line_interface|lower == "click" %}
 
 
-def test_command_line_interface():
+def test_cli_root():
     """Test the CLI."""
     runner = CliRunner()
-    result = runner.invoke(cli.main)
+    result = runner.invoke(cli.cli)
     assert result.exit_code == 0
-    assert "{{ cookiecutter.project_slug }}.cli.main" in result.output
-    help_result = runner.invoke(cli.main, ["--help"])
+    assert "Console script for {{ cookiecutter.project_slug }}" in result.output
+    help_result = runner.invoke(cli.cli, ["--help"])
     assert help_result.exit_code == 0
     assert "--help  Show this message and exit." in help_result.output
+
+
+def test_cli_command():
+    """Test a CLI command."""
+    runner = CliRunner()
+    result = runner.invoke(cli.command)
+    assert result.exit_code == 0
+    print(result.output)
+    assert "A Command" in result.output
+    help_result = runner.invoke(cli.command, ["--help"])
+    assert help_result.exit_code == 0
+    assert "--option INTEGER  An option" in help_result.output
+
 {%- endif %}
 {%- else %}
 
@@ -63,14 +76,27 @@ class Test{{ cookiecutter.project_slug|title }}(unittest.TestCase):
         """Test something."""
 {%- if cookiecutter.command_line_interface|lower == "click" %}
 
-    def test_command_line_interface(self):
-        """Test the CLI."""
+    def test_cli_roott(self):
+        """Test the root CLI group."""
         runner = CliRunner()
-        result = runner.invoke(cli.main)
+        result = runner.invoke(cli.cli)
         assert result.exit_code == 0
-        assert "{{ cookiecutter.project_slug }}.cli.main" in result.output
-        help_result = runner.invoke(cli.main, ["--help"])
+        print(result.output)
+        assert "Console script for {{ cookiecutter.project_slug }}" in result.output
+        help_result = runner.invoke(cli.cli, ["--help"])
         assert help_result.exit_code == 0
         assert "--help  Show this message and exit." in help_result.output
+
+    def test_cli_command(self):
+        """Test a CLI command."""
+        runner = CliRunner()
+        result = runner.invoke(cli.command)
+        assert result.exit_code == 0
+        print(result.output)
+        assert "A Command" in result.output
+        help_result = runner.invoke(cli.command, ["--help"])
+        assert help_result.exit_code == 0
+        assert "--option INTEGER  An option" in help_result.output
+
 {%- endif %}
 {%- endif %}
