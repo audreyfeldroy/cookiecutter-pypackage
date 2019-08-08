@@ -102,3 +102,6 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# setuptools_scm
+src/{{cookiecutter.project_slug}}/_version.py

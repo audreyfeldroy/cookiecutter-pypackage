@@ -143,7 +143,7 @@ Similar Cookiecutter Templates
 
 * Also see the `network`_ and `family tree`_ for this repo. (If you find
   anything that should be listed here, please add it and send a pull request!)
-  
+
 Fork This / Create Your Own
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

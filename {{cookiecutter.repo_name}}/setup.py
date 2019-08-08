@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 """The setup script."""
-
 from setuptools import setup
 
 
-setup_kwargs = dict(test_suite="tests")
-
-try:
-    setup(use_scm_version=True, **setup_kwargs)
-except LookupError:
-    # This means the source code was not from git / PyPI
-    setup(version="{{ cookiecutter.version }}", **setup_kwargs)
+# When https://github.com/pypa/setuptools/issues/1055 is fixed
+# this can be moved to setup.cfg
+setup(
+    use_scm_version={
+        'write_to': 'src/{{cookiecutter.project_slug}}/_version.py',
+        'write_to_template': '__version__ = "{version}"',
+    }
+)
+# Note: The source code should be either cloned with version control
+# or installed from PyPI.
