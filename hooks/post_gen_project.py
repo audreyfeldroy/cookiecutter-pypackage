@@ -42,3 +42,6 @@ if __name__ == '__main__':
         make_symlink(file.name, docs)
 
     os.close(docs)
+
+    if '{{ cookiecutter.initialize_git_repo }}' == 'y':
+

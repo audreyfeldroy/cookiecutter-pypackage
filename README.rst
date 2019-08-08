@@ -1,16 +1,15 @@
-======================
-Cookiecutter PyPackage
-======================
+==================
+Cookiecutter PyMod
+==================
 
-.. image:: https://pyup.io/repos/github/ashwinvis/cookiecutter-pypackage/shield.svg
-     :target: https://pyup.io/repos/github/ashwinvis/cookiecutter-pypackage/
+.. image:: https://pyup.io/repos/github/ashwinvis/cookiecutter-pymod/shield.svg
+     :target: https://pyup.io/repos/github/ashwinvis/cookiecutter-pymod/
      :alt: Updates
 
-.. image:: https://travis-ci.org/ashwinvis/cookiecutter-pypackage.svg?branch=master
-    :target: https://travis-ci.org/ashwinvis/cookiecutter-pypackage
+.. image:: https://travis-ci.org/ashwinvis/cookiecutter-pymod.svg?branch=master
+    :target: https://travis-ci.org/ashwinvis/cookiecutter-pymod
 
-Cookiecutter_ template for a Python package. This fork is different from the
-original template for a couple of reasons:
+Cookiecutter_ template for a **Py**\ thon package with some **Mod**\ ern twists:
 
 * Primarily uses `setup.cfg`_ for storing packaging metadata instead of relying
   on `setup.py` too much.
@@ -56,7 +55,7 @@ original template for a couple of reasons:
 See Also
 ----------
 
-* GitHub repo: https://github.com/audreyr/cookiecutter-pypackage/
+* GitHub repo: https://github.com/ashwinvis/cookiecutter-pymod/
 * Documentation: https://cookiecutter-pypackage.readthedocs.io/
 * Free software: BSD license
 
@@ -78,14 +77,14 @@ Build Status
 
 Linux:
 
-.. image:: https://img.shields.io/travis/ashwinvis/cookiecutter-pypackage.svg
-    :target: https://travis-ci.org/ashwinvis/cookiecutter-pypackage
+.. image:: https://img.shields.io/travis/ashwinvis/cookiecutter-pymod.svg
+    :target: https://travis-ci.org/ashwinvis/cookiecutter-pymod
     :alt: Linux build status on Travis CI
 
 Windows:
 
-.. image:: https://ci.appveyor.com/api/projects/status/github/ashwinvis/cookiecutter-pypackage?branch=master&svg=true
-    :target: https://ci.appveyor.com/project/ashwinvis/cookiecutter-pypackage/branch/master
+.. image:: https://ci.appveyor.com/api/projects/status/github/ashwinvis/cookiecutter-pymod?branch=master&svg=true
+    :target: https://ci.appveyor.com/project/ashwinvis/cookiecutter-pymod/branch/master
     :alt: Windows build status on Appveyor
 
 Quickstart
@@ -98,7 +97,7 @@ Cookiecutter 1.4.0 or higher)::
 
 Generate a Python package project::
 
-    cookiecutter https://github.com/ashwinvis/cookiecutter-pypackage.git
+    cookiecutter https://github.com/ashwinvis/cookiecutter-pymod.git
 
 Then:
 
@@ -181,5 +180,5 @@ make my own packaging experience better.
 .. _`ardydedase/cookiecutter-pypackage`: https://github.com/ardydedase/cookiecutter-pypackage
 .. _`lgiordani/cookiecutter-pypackage`: https://github.com/lgiordani/cookiecutter-pypackage
 .. _github comparison view: https://github.com/tony/cookiecutter-pypackage-pythonic/compare/audreyr:master...master
-.. _`network`: https://github.com/audreyr/cookiecutter-pypackage/network
-.. _`family tree`: https://github.com/audreyr/cookiecutter-pypackage/network/members
+.. _`network`: https://github.com/ashwinvis/cookiecutter-pymod/network
+.. _`family tree`: https://github.com/ashwinvis/cookiecutter-pymod/network/members

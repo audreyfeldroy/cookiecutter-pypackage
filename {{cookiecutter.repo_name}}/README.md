@@ -29,5 +29,5 @@
 
 This package was created with
 [Cookiecutter](https://github.com/audreyr/cookiecutter) and the
-[ashwinvis/cookiecutter-pypackage](https://github.com/ashwinvis/cookiecutter-pypackage)
+[ashwinvis/cookiecutter-pymod](https://github.com/ashwinvis/cookiecutter-pymod)
 project template.

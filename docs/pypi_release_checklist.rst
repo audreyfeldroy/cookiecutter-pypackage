@@ -75,4 +75,4 @@ This checklist is adapted from:
 * https://gist.github.com/audreyr/5990987
 * https://gist.github.com/audreyr/9f1564ea049c14f682f4
 
-It assumes that you are using all features of Cookiecutter PyPackage.
+It assumes that you are using all features of Cookiecutter PyMod.
