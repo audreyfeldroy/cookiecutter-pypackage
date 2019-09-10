@@ -1,6 +1,6 @@
--r requirements.txt
 pytest
 flake8
 pytest-flake8
 sphinx>=1.7
-bumpversion
+bump2version
+twine

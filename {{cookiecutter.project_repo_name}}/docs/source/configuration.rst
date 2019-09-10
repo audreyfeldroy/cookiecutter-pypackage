@@ -26,7 +26,7 @@ Use one of the existing ``sample-*.cfg`` files as example and copy them to ``etc
 
 For example change the hostname (*demo.org*) and logging level:
 
-.. code-block:: sh
+.. code-block:: console
 
    $ cd {{ cookiecutter.project_slug }}
    $ vim etc/custom.cfg
@@ -40,7 +40,7 @@ For example change the hostname (*demo.org*) and logging level:
 
 Start the service with your custom configuration:
 
-.. code-block:: sh
+.. code-block:: console
 
    # start the service with this configuration
    $ {{ cookiecutter.project_slug }} start -c etc/custom.cfg

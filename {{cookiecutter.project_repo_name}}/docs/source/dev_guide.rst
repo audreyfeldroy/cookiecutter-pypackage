@@ -16,7 +16,12 @@ First install dependencies for the documentation:
 
 .. code-block:: console
 
-  $ make bootstrap_dev
+  $ make develop
+
+Run the Sphinx docs generator:
+
+.. code-block:: console
+
   $ make docs
 
 .. _testing:
@@ -24,14 +29,16 @@ First install dependencies for the documentation:
 Running tests
 -------------
 
-Run tests using `pytest`_.
+Run tests using pytest_.
 
 First activate the ``{{ cookiecutter.project_slug }}`` Conda environment and install ``pytest``.
 
 .. code-block:: console
 
    $ source activate {{ cookiecutter.project_slug }}
-   $ conda install pytest flake8  # if not already installed
+   $ pip install -r requirements_dev.txt  # if not already installed
+   OR
+   $ make develop
 
 Run quick tests (skip slow and online):
 
@@ -59,8 +66,8 @@ Do the same as above using the ``Makefile``.
 .. code-block:: console
 
     $ make test
-    $ make testall
-    $ make pep8
+    $ make test-all
+    $ make lint
 
 Prepare a release
 -----------------
@@ -71,11 +78,13 @@ Update the Conda specification file to build identical environments_ on a specif
 
 .. code-block:: console
 
+  $ conda env create -f environment.yml
+  $ source activate {{ cookiecutter.project_slug }}
   $ make clean
   $ make install
-  $ make spec
+  $ conda list -n {{ cookiecutter.project_slug }} --explicit > spec-file.txt
 
-.. _`environments`: https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#building-identical-conda-environments
+.. _environments: https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#building-identical-conda-environments
 
 
 Bump a new version

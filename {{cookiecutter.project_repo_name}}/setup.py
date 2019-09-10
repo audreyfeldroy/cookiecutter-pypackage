@@ -16,6 +16,7 @@ with open(os.path.join(here, '{{ cookiecutter.project_slug }}', '__version__.py'
     exec(f.read(), about)
 
 reqs = [line.strip() for line in open('requirements.txt')]
+dev_reqs = [line.strip() for line in open('requirements_dev.txt')]
 
 {%- set license_classifiers = {
     'Apache Software License 2.0': 'License :: OSI Approved :: Apache Software License',
@@ -58,6 +59,9 @@ setup(name='{{ cookiecutter.project_slug }}',
       packages=find_packages(),
       include_package_data=True,
       install_requires=reqs,
+      extras_require={
+          "dev": dev_reqs,              # pip install ".[dev]"
+      },
       entry_points={
           'console_scripts': [
               '{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:cli',
