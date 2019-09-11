@@ -171,8 +171,8 @@ Before you submit a pull request, check that it meets these guidelines:
    new functionality into a function with a docstring, and add the feature to
    the list in README.rst.
 
-3. The pull request should work for Python 2.7, 3.5 and 3.6, and for PyPy. Check
-   https://travis-ci.org/audreyr/cookiecutter-pypackage/pull_requests and 
+3. The pull request should work for Python 2.7, 3.5, 3.6 and 3.7, and for PyPy. Check
+   https://travis-ci.org/audreyr/cookiecutter-pypackage/pull_requests and
    make sure that the tests pass for all supported Python versions.
 
 Add a New Test
