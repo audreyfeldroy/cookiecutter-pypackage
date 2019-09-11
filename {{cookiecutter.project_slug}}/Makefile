@@ -55,7 +55,7 @@ lint: ## check style with flake8
 
 test: ## run tests quickly with the default Python
 {%- if cookiecutter.use_pytest == 'y' %}
-	py.test
+	pytest
 {%- else %}
 	python setup.py test
 {%- endif %}
