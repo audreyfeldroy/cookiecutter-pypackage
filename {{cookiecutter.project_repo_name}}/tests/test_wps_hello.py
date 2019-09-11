@@ -1,5 +1,3 @@
-import pytest
-
 from pywps import Service
 from pywps.tests import client_for, assert_response_success
 

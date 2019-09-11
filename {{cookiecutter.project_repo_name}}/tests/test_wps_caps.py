@@ -1,5 +1,4 @@
 from pywps import Service
-from pywps.tests import assert_response_success
 
 from .common import client_for
 from {{ cookiecutter.project_slug }}.processes import processes
