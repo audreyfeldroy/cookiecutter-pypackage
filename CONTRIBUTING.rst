@@ -111,13 +111,13 @@ development. Please note this documentation assumes you already have
 ::
 
 6. The next step would be to run the test cases. `cookiecutter-pypackage` uses
-   py.test, you can run PyTest. Before you run pytest you should ensure all
+   pytest, you can run PyTest. Before you run pytest you should ensure all
    dependancies are installed:
 
    .. code-block:: bash
 
         $ pip install -rrequirements_dev.txt
-        $ py.test ./tests
+        $ pytest ./tests
 
    If you get any errors while installing cryptography package (something like
    `#include <openssl/aes.h>`). Please update your pip version and try again:
@@ -171,8 +171,8 @@ Before you submit a pull request, check that it meets these guidelines:
    new functionality into a function with a docstring, and add the feature to
    the list in README.rst.
 
-3. The pull request should work for Python 2.7, 3.4, 3.5 and 3.6, and for PyPy.
-   Check https://travis-ci.org/audreyr/cookiecutter-pypackage/pull_requests and
+3. The pull request should work for Python 2.7, 3.5 and 3.6, and for PyPy. Check
+   https://travis-ci.org/audreyr/cookiecutter-pypackage/pull_requests and 
    make sure that the tests pass for all supported Python versions.
 
 Add a New Test
@@ -204,7 +204,7 @@ To write and run your new test, follow these steps:
 
    .. code-block:: bash
 
-        $ py.test ./tests
+        $ pytest ./tests
 
 ::
 
