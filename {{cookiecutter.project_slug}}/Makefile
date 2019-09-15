@@ -26,8 +26,18 @@ export PRINT_HELP_PYSCRIPT
 
 BROWSER := python -c "$$BROWSER_PYSCRIPT"
 
+ENVIRONMENT := {% if cookiecutter.use_pipenv == 'y' %}pipenv run {% endif %}
+
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
+
+{%- if cookiecutter.use_pipenv == 'y' %}
+init:	
+	pipenv --three
+	pipenv install --dev --skip-lock
+	pipenv install -r requirements_dev.txt
+	pipenv run python setup.py develop
+{%- endif %}
 
 clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
 
@@ -51,13 +61,13 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 
 lint: ## check style with flake8
-	flake8 {{ cookiecutter.project_slug }} tests
+	$(ENVIRONMENT) flake8 {{ cookiecutter.project_slug }} tests
 
 test: ## run tests quickly with the default Python
 {%- if cookiecutter.use_pytest == 'y' %}
-	pytest
+	$(ENVIRONMENT) pytest
 {%- else %}
-	python setup.py test
+	$(ENVIRONMENT) python setup.py test
 {%- endif %}
 
 test-all: ## run tests on every Python version with tox
@@ -65,32 +75,32 @@ test-all: ## run tests on every Python version with tox
 
 coverage: ## check code coverage quickly with the default Python
 {%- if cookiecutter.use_pytest == 'y' %}
-	coverage run --source {{ cookiecutter.project_slug }} -m pytest
+	$(ENVIRONMENT) coverage run --source {{ cookiecutter.project_slug }} -m pytest
 {%- else %}
-	coverage run --source {{ cookiecutter.project_slug }} setup.py test
+	$(ENVIRONMENT) coverage run --source {{ cookiecutter.project_slug }} setup.py test
 {%- endif %}
-	coverage report -m
-	coverage html
+	$(ENVIRONMENT) coverage report -m
+	$(ENVIRONMENT) coverage html
 	$(BROWSER) htmlcov/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/{{ cookiecutter.project_slug }}.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ {{ cookiecutter.project_slug }}
+	$(ENVIRONMENT) sphinx-apidoc -o docs/ {{ cookiecutter.project_slug }}
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html
 
 servedocs: docs ## compile the docs watching for changes
-	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
+	$(ENVIRONMENT) watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
 
 release: dist ## package and upload a release
-	twine upload dist/*
+	$(ENVIRONMENT) twine upload dist/*
 
 dist: clean ## builds source and wheel package
-	python setup.py sdist
-	python setup.py bdist_wheel
+	$(ENVIRONMENT) python setup.py sdist
+	$(ENVIRONMENT) python setup.py bdist_wheel
 	ls -l dist
 
 install: clean ## install the package to the active Python's site-packages
-	python setup.py install
+	$(ENVIRONMENT) python setup.py install
