@@ -70,7 +70,7 @@ Then:
 * Activate your project on `pyup.io`_.
 
 .. _`pip docs for requirements files`: https://pip.pypa.io/en/stable/user_guide/#requirements-files
-.. _Register: https://packaging.python.org/distributing/#register-your-project
+.. _Register: https://packaging.python.org/tutorials/packaging-projects/#uploading-the-distribution-archives
 
 For more details, see the `cookiecutter-pypackage tutorial`_.
 
