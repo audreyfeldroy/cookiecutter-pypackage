@@ -3,7 +3,7 @@
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
-SPHINXBUILD   = python -msphinx
+SPHINXBUILD   = {% if cookiecutter.use_pipenv == 'y' %}pipenv run {% endif %}python -m sphinx
 SPHINXPROJ    = {{ cookiecutter.project_slug }}
 SOURCEDIR     = .
 BUILDDIR      = _build
