@@ -81,7 +81,7 @@ Ready to contribute? Here's how to set up `{{ cookiecutter.project_slug }}` for 
 
     $ make lint
     $ make test
-  Or
+    Or
     $ make test-all
 
    To get flake8 and tox, just pip install them into your virtualenv.
