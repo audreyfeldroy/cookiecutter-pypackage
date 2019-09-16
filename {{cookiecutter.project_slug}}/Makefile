@@ -71,7 +71,7 @@ test: ## run tests quickly with the default Python
 {%- endif %}
 
 test-all: ## run tests on every Python version with tox
-	tox
+	$(ENVIRONMENT) tox
 
 coverage: ## check code coverage quickly with the default Python
 {%- if cookiecutter.use_pytest == 'y' %}
