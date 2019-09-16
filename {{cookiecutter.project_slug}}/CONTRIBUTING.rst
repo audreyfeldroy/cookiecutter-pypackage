@@ -106,6 +106,35 @@ Before you submit a pull request, check that it meets these guidelines:
    https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/pull_requests
    and make sure that the tests pass for all supported Python versions.
 
+Add a New Test
+--------------
+
+When fixing a bug or adding features, it's good practice to add a test to demonstrate your fix or new feature behaves as expected. These tests should focus on one tiny bit of functionality and prove changes are correct. 
+
+To write and run your new test, follow these steps:
+
+1. Add the new test to `tests/`. Focus your test on the specific bug or a small part of the new feature.
+
+2. If you have already made changes to the code, stash your changes and confirm all your changes were stashed::
+
+    $ git stash
+    $ git stash list
+
+3. Run your test and confirm that your test fails. If your test does not fail,rewrite the test until it fails on the original code::
+
+    $ make test
+
+4. (Optional) Run the tests with tox to ensure that the code changes work with different Python versions::
+
+    $ make test-all
+
+5. Proceed work on your bug fix or new feature or restore your changes. To restore your stashed changes and confirm their restoration::
+
+    $ git stash pop
+    $ git stash list
+
+6. Rerun your test and confirm that your test passes. If it passes, congratulations!
+
 Tips
 ----
 
