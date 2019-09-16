@@ -1,14 +1,14 @@
-pip==19.2.3
 bump2version==0.5.11
-wheel==0.33.6
-watchdog==0.9.0
-flake8==3.7.8
-tox==3.14.0
 coverage==4.5.4
-Sphinx==1.8.5
-twine==1.14.0
-{% if cookiecutter.command_line_interface|lower == 'click' -%}
-Click==7.0{% endif %}
+flake8==3.7.8
+pip==19.2.3
 {% if cookiecutter.use_pytest == 'y' -%}
 pytest==4.6.5
 pytest-runner==5.1{% endif %}
+tox==3.14.0
+twine==1.14.0
+watchdog==0.9.0
+wheel==0.33.6
+{% if cookiecutter.command_line_interface|lower == 'click' -%}
+Click==7.0{% endif %}
+Sphinx==1.8.5
