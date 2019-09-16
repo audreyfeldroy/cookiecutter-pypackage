@@ -33,12 +33,28 @@ Table of Contents
 
 - `Table of Contents`_
 - `Features`_
+- `Development`_
 - `Credits`_
 
 Features
 --------
 
 * TODO
+
+Development
+-----------
+
+Contributions welcome! Read the `contribution guidelines`_ first.
+
+History
+~~~~~~~
+
+See the `history`_.
+
+Community
+~~~~~~~~~
+
+See the `code of conduct`_.
 
 Credits
 -------
@@ -54,5 +70,8 @@ This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypack
 .. _`travis-shield`: https://img.shields.io/travis/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}.svg
 .. _`travis-target`: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
 
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+.. _`code of conduct`: CODE_OF_CONDUCT.rst
+.. _`contribution guidelines`: CONTRIBUTING.rst
+.. _`Cookiecutter`: https://github.com/audreyr/cookiecutter
+.. _`history`: HISTORY.rst
