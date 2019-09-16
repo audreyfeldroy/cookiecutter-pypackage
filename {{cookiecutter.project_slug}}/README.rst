@@ -28,6 +28,13 @@
 * Documentation: `readthedocs-target`_.
 {%- endif %}
 
+Table of Contents
+-----------------
+
+- `Table of Contents`_
+- `Features`_
+- `Credits`_
+
 Features
 --------
 
