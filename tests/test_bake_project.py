@@ -90,7 +90,7 @@ def test_bake_with_defaults(cookies):
 def test_bake_and_run_tests(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        run_inside_dir('python setup.py test', str(result.project)) == 0
+        assert run_inside_dir('python setup.py test', str(result.project)) == 0
         print("test_bake_and_run_tests path", str(result.project))
 
 
@@ -98,14 +98,14 @@ def test_bake_withspecialchars_and_run_tests(cookies):
     """Ensure that a `full_name` with double quotes does not break setup.py"""
     with bake_in_temp_dir(cookies, extra_context={'full_name': 'name "quote" name'}) as result:
         assert result.project.isdir()
-        run_inside_dir('python setup.py test', str(result.project)) == 0
+        assert run_inside_dir('python setup.py test', str(result.project)) == 0
 
 
 def test_bake_with_apostrophe_and_run_tests(cookies):
     """Ensure that a `full_name` with apostrophes does not break setup.py"""
     with bake_in_temp_dir(cookies, extra_context={'full_name': "O'connor"}) as result:
         assert result.project.isdir()
-        run_inside_dir('python setup.py test', str(result.project)) == 0
+        assert run_inside_dir('python setup.py test', str(result.project)) == 0
 
 
 # def test_bake_and_run_travis_pypi_setup(cookies):
@@ -116,7 +116,7 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
 #         # when:
 #         travis_setup_cmd = ('python travis_pypi_setup.py'
 #                             ' --repo audreyr/cookiecutter-pypackage --password invalidpass')
-#         run_inside_dir(travis_setup_cmd, project_path)
+#         assert run_inside_dir(travis_setup_cmd, project_path)
 #         # then:
 #         result_travis_config = yaml.load(result.project.join(".travis.yml").open())
 #         min_size_of_encrypted_password = 50
@@ -184,9 +184,9 @@ def test_using_pytest(cookies):
         lines = test_file_path.readlines()
         assert "import pytest" in ''.join(lines)
         # Test the new pytest target
-        run_inside_dir('python setup.py pytest', str(result.project)) == 0
+        assert run_inside_dir('python setup.py pytest', str(result.project)) == 0
         # Test the test alias (which invokes pytest)
-        run_inside_dir('python setup.py test', str(result.project)) == 0
+        assert run_inside_dir('python setup.py test', str(result.project)) == 0
 
 
 def test_not_using_pytest(cookies):
@@ -206,7 +206,7 @@ def test_not_using_pytest(cookies):
 #     # when:
 #     travis_setup_cmd = ('python travis_pypi_setup.py'
 #                         ' --repo audreyr/cookiecutter-pypackage --password invalidpass')
-#     run_inside_dir(travis_setup_cmd, project_path)
+#     assert run_inside_dir(travis_setup_cmd, project_path)
 #
 #     # then:
 #     result_travis_config = yaml.load(open(os.path.join(project_path, ".travis.yml")))
