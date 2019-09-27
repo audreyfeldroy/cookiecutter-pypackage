@@ -1,6 +1,15 @@
 CHANGES
 ********
 
+0.4.1 (2019-09-27)
+==================
+
+This is the Bucharest release.
+
+Changes:
+
+* Skipped conda environment handling in makefile (#70).
+
 0.4.0 (2019-04-17)
 ==================
 
