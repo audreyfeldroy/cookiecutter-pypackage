@@ -28,3 +28,18 @@ Or:
     > c:\Python35\python c:\Python35\Tools\Scripts\pyvenv.py myenv
 
 * Some people have reported that they have to re-activate their virtualenv whenever they change directory, so you should remember the path to the virtualenv in case you need it.
+
+
+MacOS Issues
+------------
+
+* Some people have reported issues with MacOS El Capitan and cryptography dependency (when running ``pip install cryptography``). To fix it, install ``openssl`` and link it like below:
+
+.. code-block:: bash
+
+    brew install openssl
+    cd /usr/local/include
+    ln -s ../opt/openssl/include/openssl .
+
+For further information visit https://solitum.net/openssl-os-x-el-capitan-and-brew/.
+
