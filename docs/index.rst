@@ -23,6 +23,7 @@ Basics
    :maxdepth: 2
 
    prompts
+   invoke
 
 Advanced Features
 -----------------

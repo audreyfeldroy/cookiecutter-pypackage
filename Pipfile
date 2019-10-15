@@ -11,6 +11,7 @@ cookiecutter = "*"
 pytest-cookies = "*"
 sphinx = "*"
 pyyaml = "*"
+invocations = "*"
 
 [packages]
 
