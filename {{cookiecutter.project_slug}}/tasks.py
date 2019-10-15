@@ -29,6 +29,17 @@ DOCS_INDEX = DOCS_BUILD_DIR.joinpath("index.html")
 PYTHON_DIRS = [str(d) for d in [SOURCE_DIR, TEST_DIR]]
 
 
+def _delete_file(file):
+    try:
+        file.unlink(missing_ok=True)
+    except TypeError:
+        # missing_ok argument added in 3.8
+        try:
+            file.unlink()
+        except FileNotFoundError:
+            pass
+
+
 @task(help={'check': "Checks if source is formatted without applying changes"})
 def format(c, check=False):
     """
@@ -123,9 +134,9 @@ def clean_tests(c):
     """
     Clean up files from testing
     """
-    COVERAGE_FILE.unlink()
-    shutil.rmtree(TOX_DIR)
-    shutil.rmtree(COVERAGE_DIR)
+    _delete_file(COVERAGE_FILE)
+    shutil.rmtree(TOX_DIR, ignore_errors=True)
+    shutil.rmtree(COVERAGE_DIR, ignore_errors=True)
 
 
 @task(pre=[clean_build, clean_python, clean_tests, clean_docs])
