@@ -12,6 +12,7 @@ pytest-cookies = "*"
 sphinx = "*"
 pyyaml = "*"
 invocations = "*"
+sphinx-rtd-theme = "*"
 
 [packages]
 
