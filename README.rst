@@ -98,6 +98,8 @@ Similar Cookiecutter Templates
 
 * `briggySmalls/cookiecutter-pypackage`_: A fork using Pipenv_ for package management, with linting, formatting and more.
 
+* `veit/cookiecutter-namespace-template`_: A cookiecutter template for python modules with a namespace
+
 * Also see the `network`_ and `family tree`_ for this repo. (If you find
   anything that should be listed here, please add it and send a pull request!)
 
@@ -155,6 +157,7 @@ make my own packaging experience better.
 .. _`ardydedase/cookiecutter-pypackage`: https://github.com/ardydedase/cookiecutter-pypackage
 .. _`lgiordani/cookiecutter-pypackage`: https://github.com/lgiordani/cookiecutter-pypackage
 .. _`briggySmalls/cookiecutter-pypackage`: https://github.com/briggySmalls/cookiecutter-pypackage
+.. _`veit/cookiecutter-namespace-template`: https://github.com/veit/cookiecutter-namespace-template
 .. _github comparison view: https://github.com/tony/cookiecutter-pypackage-pythonic/compare/audreyr:master...master
 .. _`network`: https://github.com/audreyr/cookiecutter-pypackage/network
 .. _`family tree`: https://github.com/audreyr/cookiecutter-pypackage/network/members
