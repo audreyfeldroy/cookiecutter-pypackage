@@ -1,15 +1,16 @@
 # !/usr/bin/env python
 
 from distutils.core import setup
+
 setup(
-    name='cookiecutter-pypackage',
+    name='cookiecutter-pypackage-zh',
     packages=[],
     version='0.1.0',
     description='Cookiecutter template for a Python package',
-    author='Audrey Roy Greenfeld',
+    author='bopo',
     license='BSD',
     author_email='aroy@alum.mit.edu',
-    url='https://github.com/audreyr/cookiecutter-pypackage',
+    url='https://github.com/bopo/cookiecutter-pypackage-zh',
     keywords=['cookiecutter', 'template', 'package', ],
     python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*',
     classifiers=[

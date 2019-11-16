@@ -1,13 +1,13 @@
-from contextlib import contextmanager
-import shlex
-import os
-import sys
-import subprocess
-import yaml
 import datetime
-from cookiecutter.utils import rmtree
+import os
+import shlex
+import subprocess
+import sys
+from contextlib import contextmanager
 
+import yaml
 from click.testing import CliRunner
+from cookiecutter.utils import rmtree
 
 if sys.version_info > (3, 0):
     import importlib

@@ -1,6 +1,6 @@
-======================
-Cookiecutter PyPackage
-======================
+============================
+Cookiecutter PyPackage 中文版
+============================
 
 .. image:: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/shield.svg
      :target: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/
@@ -29,7 +29,7 @@ Features
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 
 Build Status
--------------
+------------
 
 Linux:
 
