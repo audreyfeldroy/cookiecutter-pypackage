@@ -57,7 +57,7 @@ test: ## run tests quickly with the default Python
 {%- if cookiecutter.use_pytest == 'y' %}
 	pytest
 {%- else %}
-	python setup.py test
+	python -m unittest discover
 {%- endif %}
 
 test-all: ## run tests on every Python version with tox
@@ -67,7 +67,7 @@ coverage: ## check code coverage quickly with the default Python
 {%- if cookiecutter.use_pytest == 'y' %}
 	coverage run --source {{ cookiecutter.project_slug }} -m pytest
 {%- else %}
-	coverage run --source {{ cookiecutter.project_slug }} setup.py test
+	coverage run --source {{ cookiecutter.project_slug }} -m unittest discover
 {%- endif %}
 	coverage report -m
 	coverage html

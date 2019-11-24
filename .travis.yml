@@ -11,7 +11,7 @@ python:
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: pip install -U tox-travis
 
-# command to run tests, e.g. python setup.py test
+# command to run tests, e.g. python -m unittest discover
 script: tox
 
 # deploy new versions to PyPI
