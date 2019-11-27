@@ -9,10 +9,7 @@ from cookiecutter.utils import rmtree
 
 from click.testing import CliRunner
 
-if sys.version_info > (3, 0):
-    import importlib
-else:
-    import imp
+import importlib
 
 
 @contextmanager
@@ -302,15 +299,9 @@ def test_bake_with_console_script_cli(cookies):
     project_path, project_slug, project_dir = project_info(result)
     module_path = os.path.join(project_dir, 'cli.py')
     module_name = '.'.join([project_slug, 'cli'])
-    if sys.version_info >= (3, 5):
-        spec = importlib.util.spec_from_file_location(module_name, module_path)
-        cli = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(cli)
-    elif sys.version_info >= (3, 3):
-        file_loader = importlib.machinery.SourceFileLoader
-        cli = file_loader(module_name, module_path).load_module()
-    else:
-        cli = imp.load_source(module_name, module_path)
+    spec = importlib.util.spec_from_file_location(module_name, module_path)
+    cli = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(cli)
     runner = CliRunner()
     noarg_result = runner.invoke(cli.main)
     assert noarg_result.exit_code == 0
@@ -329,15 +320,9 @@ def test_bake_with_argparse_console_script_cli(cookies):
     project_path, project_slug, project_dir = project_info(result)
     module_path = os.path.join(project_dir, 'cli.py')
     module_name = '.'.join([project_slug, 'cli'])
-    if sys.version_info >= (3, 5):
-        spec = importlib.util.spec_from_file_location(module_name, module_path)
-        cli = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(cli)
-    elif sys.version_info >= (3, 3):
-        file_loader = importlib.machinery.SourceFileLoader
-        cli = file_loader(module_name, module_path).load_module()
-    else:
-        cli = imp.load_source(module_name, module_path)
+    spec = importlib.util.spec_from_file_location(module_name, module_path)
+    cli = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(cli)
     runner = CliRunner()
     noarg_result = runner.invoke(cli.main)
     assert noarg_result.exit_code == 0

@@ -20,7 +20,7 @@ environment:
 
     - PYTHON: "C:\\Python37-x64"
       TOX_ENV: "py37"
-      
+
     - PYTHON: "C:\\Python38"
       TOX_ENV: "py38"
 
