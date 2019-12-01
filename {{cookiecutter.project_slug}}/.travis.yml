@@ -8,10 +8,10 @@ python:
   - 3.5
 
 # Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -U tox-travis
+install: {% if cookiecutter.use_pipenv == 'y' %}pipenv{% else %}pip{% endif %} install -U tox-travis
 
 # Command to run tests, e.g. python setup.py test
-script: tox
+script: {% if cookiecutter.use_pipenv == 'y' %}pipenv run {% endif %}tox
 
 {% if cookiecutter.use_pypi_deployment_with_travis == 'y' -%}
 # Assuming you have installed the travis-ci CLI tool, after you
