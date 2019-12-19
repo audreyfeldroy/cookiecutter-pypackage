@@ -98,6 +98,8 @@ Similar Cookiecutter Templates
 
 * `briggySmalls/cookiecutter-pypackage`_: A fork using Pipenv_ for package management, with linting, formatting and more.
 
+* `croesnick/cookiecutter-pypackage`_: A fork `with separate src directory`_, using Poetry_ for package management, with linting using flake8_, and static code analysis using mypy_.
+
 * Also see the `network`_ and `family tree`_ for this repo. (If you find
   anything that should be listed here, please add it and send a pull request!)
 
@@ -148,13 +150,19 @@ make my own packaging experience better.
 .. _bump2version: https://github.com/c4urself/bump2version
 .. _Punch: https://github.com/lgiordani/punch
 .. _Pipenv: https://pipenv.readthedocs.io/en/latest/
+.. _Poetry: https://python-poetry.org
 .. _PyPi: https://pypi.python.org/pypi
+.. _mypy: http://mypy-lang.org
+.. _flake8: http://flake8.pycqa.org
+
+.. _with separate src directory: https://hynek.me/articles/testing-packaging/
 
 .. _`Nekroze/cookiecutter-pypackage`: https://github.com/Nekroze/cookiecutter-pypackage
 .. _`tony/cookiecutter-pypackage-pythonic`: https://github.com/tony/cookiecutter-pypackage-pythonic
 .. _`ardydedase/cookiecutter-pypackage`: https://github.com/ardydedase/cookiecutter-pypackage
 .. _`lgiordani/cookiecutter-pypackage`: https://github.com/lgiordani/cookiecutter-pypackage
 .. _`briggySmalls/cookiecutter-pypackage`: https://github.com/briggySmalls/cookiecutter-pypackage
+.. _`croesnick/cookiecutter-pypackage`: https://github.com/croesnick/cookiecutter-pypackage
 .. _github comparison view: https://github.com/tony/cookiecutter-pypackage-pythonic/compare/audreyr:master...master
 .. _`network`: https://github.com/audreyr/cookiecutter-pypackage/network
 .. _`family tree`: https://github.com/audreyr/cookiecutter-pypackage/network/members
