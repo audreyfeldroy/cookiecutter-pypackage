@@ -4,11 +4,11 @@ channels:
 - defaults
 dependencies:
 - pip
-#- pywps=4.2
+- pywps=4.2
 - jinja2
 - click
 - psutil
 # tests
 - pytest
-- pip:
-  - -e git+https://github.com/geopython/pywps@master#egg=pywps
+#- pip:
+#  - -e git+https://github.com/geopython/pywps@master#egg=pywps
