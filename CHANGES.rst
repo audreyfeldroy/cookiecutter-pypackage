@@ -1,6 +1,15 @@
 CHANGES
 ********
 
+0.4.2 (2020-01-07)
+==================
+
+Changes:
+
+* Pinned PyWPS 4.2 (#74).
+* Updated links to developer guide (#73).
+* Added setuptools to conda environment (#72).
+
 0.4.1 (2019-09-27)
 ==================
 
