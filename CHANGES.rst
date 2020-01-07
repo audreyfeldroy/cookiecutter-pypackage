@@ -6,6 +6,7 @@ CHANGES
 
 Changes:
 
+* Fix conda environment for latest cookiecutter (#75).
 * Pinned PyWPS 4.2 (#74).
 * Updated links to developer guide (#73).
 * Added setuptools to conda environment (#72).
