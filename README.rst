@@ -15,6 +15,7 @@ Features
 
 * Makefile for orchestrating
 * Testing setup with ``pytest``
+* Linting setup with ``flake8``, ``isort`` and ``black``
 * GitHub Actions: Ready for Continuous Integration testing with GitHub Actions
 * Tox testing: Setup to easily test for Python 3.6, 3.7, 3.8
 * Sphinx docs: Documentation ready for generation
