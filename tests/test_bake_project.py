@@ -106,11 +106,11 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
 
 def test_bake_with_gh_actions(cookies):
     with bake_in_temp_dir(cookies) as result:
-        result_travis_config = yaml.load(
+        result_github_actions_config = yaml.load(
             result.project.join(".github/workflows/pythonpackage.yml").open(),
             Loader=yaml.FullLoader,
         )
-        assert "Python package" == result_travis_config["name"]
+        assert "Python package" == result_github_actions_config["name"]
 
 
 def test_bake_without_author_file(cookies):
