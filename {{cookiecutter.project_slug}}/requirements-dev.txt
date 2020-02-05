@@ -7,6 +7,7 @@ flake8==3.7.8
 pip==19.2.3
 pytest-runner==5.1
 pytest==4.6.5
+tox-gh-actions==0.3.0
 tox==3.14.0
 twine==1.14.0
 watchdog==0.9.0
