@@ -1,0 +1,10 @@
+alabaster==0.7.12
+black==19.10b0
+cookiecutter>=1.4.0
+flake8-isort==2.8.0
+flake8==3.7.8
+pytest-cookies==0.4.0
+pytest==5.3.1
+tox-gh-actions==0.3.0
+tox==3.14.1
+watchdog==0.9.0

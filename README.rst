@@ -59,7 +59,7 @@ Then:
 
 * Create a repo and put it there.
 * Add the repo to your Travis-CI_ account.
-* Install the dev requirements into a virtualenv. (``pip install -r requirements_dev.txt``)
+* Install the dev requirements into a virtualenv. (``pip install -r requirements-dev.txt``)
 * Register_ your project with PyPI.
 * Run the Travis CLI command `travis encrypt --add deploy.password` to encrypt your PyPI password in Travis config
   and activate automated deployment on PyPI when you push a new tag to master branch.

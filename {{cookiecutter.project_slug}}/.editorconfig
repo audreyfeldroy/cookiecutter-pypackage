@@ -10,6 +10,9 @@ insert_final_newline = true
 charset = utf-8
 end_of_line = lf
 
+[*.yml]
+indent_size = 2
+
 [*.bat]
 indent_style = tab
 end_of_line = crlf

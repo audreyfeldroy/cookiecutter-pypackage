@@ -47,25 +47,22 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
-lint: ## check style with flake8
-	flake8 {{ cookiecutter.project_slug }} tests
+lint: ## check style with flake8 and black
+	flake8 {{ cookiecutter.project_slug }} tests setup.py
+	black --check --diff {{ cookiecutter.project_slug }} tests setup.py
+
+fix: ## fix black and isort style violations
+	black {{ cookiecutter.project_slug }} tests setup.py
+	isort -rc {{ cookiecutter.project_slug }} tests setup.py
 
 test: ## run tests quickly with the default Python
-{%- if cookiecutter.use_pytest == 'y' %}
 	pytest
-{%- else %}
-	python setup.py test
-{%- endif %}
 
 test-all: ## run tests on every Python version with tox
 	tox
 
 coverage: ## check code coverage quickly with the default Python
-{%- if cookiecutter.use_pytest == 'y' %}
 	coverage run --source {{ cookiecutter.project_slug }} -m pytest
-{%- else %}
-	coverage run --source {{ cookiecutter.project_slug }} setup.py test
-{%- endif %}
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html
