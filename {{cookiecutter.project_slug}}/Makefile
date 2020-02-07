@@ -47,10 +47,10 @@ BROWSER := python -c "$$BROWSER_PYSCRIPT"
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-clean ## remove all artifacts
+clean: ## remove all artifacts
 	rm -fr build/
 	rm -fr dist/
-    rm -fr .eggs/
+	rm -fr .eggs/
 	@python -c "$$CLEAN_ALL_TRASH"
 
 lint: ## check style with flake8
