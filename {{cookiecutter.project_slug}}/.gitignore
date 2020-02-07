@@ -1,6 +1,3 @@
-# Pyenv
-.python-version
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -106,3 +103,4 @@ ENV/
 
 # IDE settings
 .vscode/
+.idea/

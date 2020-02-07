@@ -47,6 +47,7 @@ lib64/
 parts/
 sdist/
 var/
+wheels/
 *.egg-info/
 .installed.cfg
 *.egg
@@ -69,7 +70,7 @@ htmlcov/
 .cache
 nosetests.xml
 coverage.xml
-*,cover
+*.cover
 .hypothesis/
 .pytest_cache/
 
@@ -102,3 +103,4 @@ cookiecutter-pypackage-env/
 
 # IDE settings
 .vscode/
+.idea/
