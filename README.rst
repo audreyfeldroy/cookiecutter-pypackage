@@ -21,7 +21,7 @@ Features
 * Testing setup with ``unittest`` and ``python setup.py test`` or ``pytest``
 * Travis-CI_: Ready for Travis Continuous Integration testing
 * Tox_ testing: Setup to easily test for Python 3.5, 3.6, 3.7, 3.8
-* Sphinx_ docs: Documentation ready for generation with, for example, ReadTheDocs_
+* Sphinx_ docs: Documentation ready for generation with, for example, `Read the Docs`_
 * bump2version_: Pre-configured version bumping with a single command
 * Auto-release to PyPI_ when you push a new tag to master (optional)
 * Command line interface using Click (optional)
@@ -63,7 +63,7 @@ Then:
 * Register_ your project with PyPI.
 * Run the Travis CLI command `travis encrypt --add deploy.password` to encrypt your PyPI password in Travis config
   and activate automated deployment on PyPI when you push a new tag to master branch.
-* Add the repo to your ReadTheDocs_ account + turn on the ReadTheDocs service hook.
+* Add the repo to your `Read the Docs`_ account + turn on the Read the Docs service hook.
 * Release your package by pushing a new tag to master.
 * Add a `requirements.txt` file that specifies the packages you will need for
   your project and their versions. For more info see the `pip docs for requirements files`_.
@@ -143,7 +143,7 @@ make my own packaging experience better.
 .. _Travis-CI: http://travis-ci.org/
 .. _Tox: http://testrun.org/tox/
 .. _Sphinx: http://sphinx-doc.org/
-.. _ReadTheDocs: https://readthedocs.io/
+.. _Read the Docs: https://readthedocs.io/
 .. _`pyup.io`: https://pyup.io/
 .. _bump2version: https://github.com/c4urself/bump2version
 .. _Punch: https://github.com/lgiordani/punch

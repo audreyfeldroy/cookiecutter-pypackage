@@ -125,18 +125,18 @@ See :ref:`travis-pypi-setup` for more information.
 .. _`Travis CI com`: https://travis-ci.com/
 
 
-Step 6: Set Up ReadTheDocs
+Step 6: Set Up Read the Docs
 --------------------------
 
-`ReadTheDocs`_ hosts documentation for the open source community. Think of it as Continuous Documentation.
+`Read the Docs`_ hosts documentation for the open source community. Think of it as Continuous Documentation.
 
-Log into your account at `ReadTheDocs`_ . If you don't have one, create one and log into it.
+Log into your account at `Read the Docs`_ . If you don't have one, create one and log into it.
 
 If you are not at your dashboard, choose the pull-down next to your username in the upper right, and select "My Projects". Choose the button to Import the repository and follow the directions.
 
 Now your documentation will get rebuilt when you make documentation changes to your package.
 
-.. _`ReadTheDocs`: https://readthedocs.org/
+.. _`Read the Docs`: https://readthedocs.org/
 
 Step 7: Set Up pyup.io
 ----------------------
