@@ -347,3 +347,33 @@ def test_bake_with_argparse_console_script_cli(cookies):
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
     assert 'Show this message' in help_result.output
+
+
+def test_bake_and_run_invoke_tests(cookies):
+    with bake_in_temp_dir(cookies) as result:
+        assert result.project.isdir()
+        run_inside_dir([
+            'pip install pipenv',
+            'pipenv install --dev',
+            'pipenv run invoke test'
+        ], str(result.project)) == 0
+
+
+def test_bake_and_run_invoke_format(cookies):
+    with bake_in_temp_dir(cookies) as result:
+        assert result.project.isdir()
+        run_inside_dir([
+            'pip install pipenv',
+            'pipenv install --dev',
+            'pipenv run invoke format'
+        ], str(result.project)) == 0
+
+
+def test_bake_and_run_invoke_lint(cookies):
+    with bake_in_temp_dir(cookies) as result:
+        assert result.project.isdir()
+        run_inside_dir([
+            'pip install pipenv',
+            'pipenv install --dev',
+            'pipenv run invoke lint'
+        ], str(result.project)) == 0
