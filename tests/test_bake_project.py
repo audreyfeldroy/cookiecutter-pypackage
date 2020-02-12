@@ -199,10 +199,7 @@ def test_bake_not_open_source(cookies):
 
 
 def test_using_pytest(cookies):
-    with bake_in_temp_dir(
-        cookies,
-        extra_context={'use_pytest': 'y'}
-    ) as result:
+    with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
         # Test Pipfile installs pytest
         pipfile_file_path = result.project.join('Pipfile')
@@ -219,7 +216,7 @@ def test_using_pytest(cookies):
 
 
 def test_not_using_pytest(cookies):
-    with bake_in_temp_dir(cookies) as result:
+    with bake_in_temp_dir(cookies, extra_context={'use_pytest': 'n'}) as result:
         assert result.project.isdir()
         # Test Pipfile doesn install pytest
         pipfile_file_path = result.project.join('Pipfile')
