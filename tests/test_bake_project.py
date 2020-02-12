@@ -167,18 +167,6 @@ def test_bake_without_author_file(cookies):
             assert 'AUTHORS.rst' not in manifest_file.read()
 
 
-def test_make_help(cookies):
-    with bake_in_temp_dir(cookies) as result:
-        # The supplied Makefile does not support win32
-        if sys.platform != "win32":
-            output = check_output_inside_dir(
-                'make help',
-                str(result.project)
-            )
-            assert b"check code coverage quickly with the default Python" in \
-                output
-
-
 def test_bake_selecting_license(cookies):
     license_strings = {
         'MIT license': 'MIT ',
