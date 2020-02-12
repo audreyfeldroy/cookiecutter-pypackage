@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 """Tests for `{{ cookiecutter.project_slug }}` package."""
+# pylint: disable=redefined-outer-name
 
 {% if cookiecutter.use_pytest == 'y' -%}
 import pytest
@@ -11,7 +12,6 @@ import unittest
 from click.testing import CliRunner
 {%- endif %}
 
-from {{ cookiecutter.project_slug }} import {{ cookiecutter.project_slug }}
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
 from {{ cookiecutter.project_slug }} import cli
 {%- endif %}
@@ -33,6 +33,7 @@ def test_content(response):
     """Sample pytest test function with the pytest fixture as an argument."""
     # from bs4 import BeautifulSoup
     # assert 'GitHub' in BeautifulSoup(response.content).title.string
+    del response
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
 
 

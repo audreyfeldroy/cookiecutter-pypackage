@@ -56,12 +56,26 @@ def format(c, check=False):
 
 
 @task
+def lint_flake8(c):
+    """
+    Lint code with flake8
+    """
+    c.run("flake8 {}".format(" ".join(PYTHON_DIRS)))
+
+
+@task
+def lint_pylint(c):
+    """
+    Lint code with pylint
+    """
+    c.run("pylint {}".format(" ".join(PYTHON_DIRS)))
+
+
+@task(lint_flake8, lint_pylint)
 def lint(c):
     """
-    Lint code
+    Run all linting
     """
-    c.run("flake8 {}".format(SOURCE_DIR))
-    c.run("pylint {}".format(SOURCE_DIR))
 
 
 @task
