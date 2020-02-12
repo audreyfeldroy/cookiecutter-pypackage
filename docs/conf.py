@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 #
 # cookiecutter-pypackage documentation build configuration file, created by
 # sphinx-quickstart on Sun Dec 13 09:13:01 2015.

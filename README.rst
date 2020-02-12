@@ -60,13 +60,13 @@ Then:
 * Register_ your project with PyPI.
 * Run the Travis CLI command `travis encrypt --add deploy.password` to encrypt your PyPI password in Travis config
   and activate automated deployment on PyPI when you push a new tag to master branch.
-* Add the repo to your ReadTheDocs_ account + turn on the ReadTheDocs service hook.
+* Add the repo to your `Read the Docs`_ account + turn on the Read the Docs service hook.
 * Release your package by pushing a new tag to master.
 * Get your code on! 😎 Add your package dependencies to your setup.py as you go, and lock them into your virtual environment with ``pipenv install``.
 * Activate your project on `pyup.io`_.
 
 .. _`pip docs for requirements files`: https://pip.pypa.io/en/stable/user_guide/#requirements-files
-.. _Register: https://packaging.python.org/distributing/#register-your-project
+.. _Register: https://packaging.python.org/tutorials/packaging-projects/#uploading-the-distribution-archives
 
 For more details, see the `cookiecutter-pypackage tutorial`_.
 
@@ -82,8 +82,9 @@ For more details, see the `cookiecutter-pypackage tutorial`_.
 .. _Travis-CI: http://travis-ci.org/
 .. _Tox: http://testrun.org/tox/
 .. _Sphinx: http://sphinx-doc.org/
-.. _ReadTheDocs: https://readthedocs.io/
+.. _Read the Docs: https://readthedocs.io/
 .. _`pyup.io`: https://pyup.io/
-.. _Bumpversion: https://github.com/peritus/bumpversion
+.. _bump2version: https://github.com/c4urself/bump2version
 .. _Punch: https://github.com/lgiordani/punch
+.. _Pipenv: https://pipenv.readthedocs.io/en/latest/
 .. _PyPi: https://pypi.python.org/pypi

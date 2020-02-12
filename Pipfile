@@ -13,8 +13,9 @@ sphinx = "*"
 pyyaml = "*"
 invocations = "*"
 sphinx-rtd-theme = "*"
+bumpversion = "*"
 
 [packages]
 
 [requires]
-python_version = "3.7"
+python_version = "3"
