@@ -5,7 +5,6 @@ import platform
 from pathlib import Path
 from invoke import task
 
-Path().expanduser()
 ROOT_DIR = Path(__file__).parent
 DOCS_DIR = ROOT_DIR.joinpath('docs')
 DOCS_BUILD_DIR = DOCS_DIR.joinpath('_build')
