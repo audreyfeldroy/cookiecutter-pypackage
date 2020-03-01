@@ -1,0 +1,19 @@
+name: null
+channels:
+  - conda-forge
+  - defaults
+  - pyviz
+dependencies:
+  - python=3.7.6
+  - pip
+  - bump2version
+  - flake8
+  - tox
+  - coverage
+  - Sphinx
+  - Click
+  - pytest
+  - pytest-runner
+  - wheel
+  - twine
+  - watchdog
