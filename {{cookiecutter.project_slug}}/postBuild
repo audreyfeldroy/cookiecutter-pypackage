@@ -1,0 +1,3 @@
+jupyter labextension install --no-build @pyviz/jupyterlab_pyviz
+jupyter serverextension enable jupyterlab_sql --py --sys-prefix
+jupyter lab build
