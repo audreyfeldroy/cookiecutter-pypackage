@@ -26,7 +26,10 @@ BROWSER := python -c "$$BROWSER_PYSCRIPT"
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
+clean: clean-build clean-pyc clean-test clean-env ## remove all build, test, coverage, env, and Python artifacts
+
+clean-env: ## remove build artifacts
+	rm -fr env/
 
 clean-build: ## remove build artifacts
 	rm -fr build/
@@ -89,5 +92,9 @@ dist: clean ## builds source and wheel package
 	python setup.py bdist_wheel
 	ls -l dist
 
-install: clean ## install the package to the active Python's site-packages
+install: clean init ## install the package to the active Python's site-packages
 	python setup.py install
+
+init: clean ## create and initialize conda environment
+	@conda env create --prefix ./env --file environment.yml
+
