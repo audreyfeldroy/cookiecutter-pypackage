@@ -6,6 +6,7 @@ help:
 	@echo "replay	replay last cookiecutter run and watch for changes"
 	@echo "lint	check style with flake8 and black"
 	@echo "fix	fix black and isort style violations"
+	@echo "test	run tests quickly with the default Python"
 
 bake:
 	cookiecutter $(BAKE_OPTIONS) . --overwrite-if-exists
@@ -24,3 +25,6 @@ lint:
 fix:
 	black hooks tests setup.py
 	isort -rc hooks tests setup.py
+
+test:
+	pytest

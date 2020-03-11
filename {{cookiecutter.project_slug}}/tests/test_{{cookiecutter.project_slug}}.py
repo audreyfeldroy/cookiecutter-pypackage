@@ -2,6 +2,9 @@
 
 import pytest
 
+from assertpy import assert_that
+
+from {{ cookiecutter.project_slug }}.{{ cookiecutter.project_slug }} import main
 
 @pytest.fixture
 def response():
@@ -13,3 +16,4 @@ def response():
 
 def test_content(response):
     """Sample pytest test function with the pytest fixture as an argument."""
+    assert_that(main()).is_equal_to("Hello, World!")
