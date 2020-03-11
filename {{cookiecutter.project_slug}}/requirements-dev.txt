@@ -1,10 +1,12 @@
 Sphinx==1.8.5
+assertpy==1.0
 black==19.10b0
 bump2version==0.5.11
 coverage==4.5.4
 flake8-isort==2.8.0
 flake8==3.7.8
 pip==19.2.3
+pytest-cov==2.8.1
 pytest-runner==5.1
 pytest==4.6.5
 tox-gh-actions==0.3.0
