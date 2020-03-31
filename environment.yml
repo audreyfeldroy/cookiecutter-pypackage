@@ -9,5 +9,10 @@ dependencies:
 - cookiecutter
 - pytest
 - pytest-cookies
-- bumpversion
+- pytest-notebook
+- bump2version
 - watchdog
+- ipython
+- nbsphinx
+- nbval
+- nbconvert
