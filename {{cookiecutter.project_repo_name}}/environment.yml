@@ -4,7 +4,7 @@ channels:
 - defaults
 dependencies:
 - pip
-- pywps=4.2
+- pywps>=4.2
 - jinja2
 - click
 - psutil
