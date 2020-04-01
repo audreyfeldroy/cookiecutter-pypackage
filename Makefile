@@ -24,13 +24,15 @@ clean:
 
 .PHONY: bake
 bake:
-	cookiecutter $(BAKE_OPTIONS) . --overwrite-if-exists
+	@echo "Creating a new project with default settings"
+	@bash -c 'cookiecutter $(BAKE_OPTIONS) . --overwrite-if-exists'
 
 .PHONY: docs
 docs:
 	@echo "Generating docs with Sphinx ..."
-	$(MAKE) -C $@ html
-	@echo "open your browser: open docs/build/html/index.html"
+	@-bash -c '$(MAKE) -C $@ clean html'
+	@echo "Opening browser to: file:/$(CURDIR)/docs/build/html/index.html"
+	@-bash -c 'xdg-open $(CURDIR)/docs/build/html/index.html'
 
 # generate project using defaults and watch for changes
 # watch: bake
