@@ -1,6 +1,11 @@
 pytest
 flake8
 pytest-flake8
+ipython
+pytest-notebook
+nbsphinx
+nbval
+nbconvert
 sphinx>=1.7
 bump2version
 twine

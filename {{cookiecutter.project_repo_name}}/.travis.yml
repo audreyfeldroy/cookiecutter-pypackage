@@ -9,7 +9,6 @@ branches:
 os:
   - linux
 #  - osx
-sudo: false
 install:
   # Python 3.x is default
   - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh

@@ -9,5 +9,6 @@ dependencies:
 - cookiecutter
 - pytest
 - pytest-cookies
-- bumpversion
+- bump2version
 - watchdog
+

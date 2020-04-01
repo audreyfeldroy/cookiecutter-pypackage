@@ -4,11 +4,17 @@ channels:
 - defaults
 dependencies:
 - pip
-- pywps=4.2
+- pywps>=4.2
 - jinja2
 - click
 - psutil
 # tests
 - pytest
+- pytest-notebook
+- bump2version
+- ipython
+- nbsphinx
+- nbval
+- nbconvert
 #- pip:
 #  - -e git+https://github.com/geopython/pywps@master#egg=pywps
