@@ -1,14 +1,25 @@
 dist: xenial   # required for Python >= 3.7
 language: python
+os:
+  - linux
 python:
   - "3.6"
   - "3.7"
 branches:
   only:
     - master
-os:
-  - linux
-#  - osx
+jobs:
+  include:
+    - os: osx
+      language: shell
+    - env: ALLOW_FAIL=true
+      python: "3.8"
+  allow_failures:
+    - env: ALLOW_FAIL=true
+
+before_install:
+  # Useful for debugging Travis CI environment
+  - printenv
 install:
   # Python 3.x is default
   - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
@@ -21,7 +32,7 @@ install:
   # Useful for debugging any issues with conda
   - conda info -a
   # Prepare env with Python version
-  - conda create -n {{ cookiecutter.project_slug }} python=$TRAVIS_PYTHON_VERSION
+  - conda create -n {{ cookiecutter.project_slug }} -c conda-forge python=$TRAVIS_PYTHON_VERSION
   # Update now the env with our environment
   - conda env update -f environment.yml
   - source activate {{ cookiecutter.project_slug }}
