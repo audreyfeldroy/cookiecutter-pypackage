@@ -5,7 +5,6 @@ os:
 python:
   - "3.6"
   - "3.7"
-  - "3.8"
 branches:
   only:
     - master
@@ -13,6 +12,11 @@ jobs:
   include:
     - os: osx
       language: shell
+    - env: ALLOW_FAIL=true
+      python: "3.8"
+  allow_failures:
+    - env: ALLOW_FAIL=true
+
 before_install:
   # Useful for debugging Travis CI environment
   - printenv
