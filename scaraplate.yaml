@@ -1,0 +1,48 @@
+git_remote_type: scaraplate.gitremotes.GitHub
+
+cookiecutter_context_type: scaraplate.cookiecutter.ScaraplateConf
+
+default_strategy: scaraplate.strategies.Overwrite
+strategies_mapping:
+  .gitignore: scaraplate.strategies.SortedUniqueLines
+
+  MANIFEST.in: scaraplate.strategies.SortedUniqueLines
+
+  Makefile.inc: scaraplate.strategies.IfMissing
+
+  README.md: scaraplate.strategies.IfMissing
+
+  mypy.ini:
+    strategy: scaraplate.strategies.ConfigParserMerge
+    config:
+      preserve_keys: []
+      preserve_sections:
+      - sections: ^mypy-
+
+  setup.cfg:
+    strategy: scaraplate.strategies.SetupCfgMerge
+    config:
+      merge_requirements:
+      - sections: ^options$
+        keys: ^install_requires$
+      - sections: ^options\.extras_require$
+        keys: ^develop$
+      preserve_keys:
+      - sections: ^coverage:report$
+        keys: ^omit$
+      - sections: ^options$
+        keys: ^scripts$
+      preserve_sections:
+      - sections: ^options\.data_files$
+      - sections: ^options\.entry_points$
+      - sections: ^options\.extras_require$
+
+  setup.py:
+    strategy: scaraplate.strategies.TemplateHash
+    config:
+      line_comment_start: '#'
+      max_line_length: 87
+      max_line_linter_ignore_mark: '  # noqa'
+
+  src/*/__init__.py: scaraplate.strategies.IfMissing
+  tests/__init__.py: scaraplate.strategies.IfMissing
