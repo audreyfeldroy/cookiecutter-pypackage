@@ -14,3 +14,5 @@ dependencies:
 - pip:
   # https://timothycrosley.github.io/cruft/
   - cruft
+  # https://scaraplate.readthedocs.io
+  - git+https://github.com/tlvu/scaraplate@4602a26c31a614052906ec3d78fda45b2765b156
