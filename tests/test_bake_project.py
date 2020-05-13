@@ -124,6 +124,52 @@ def test_bake_without_author_file(cookies):
             assert "AUTHORS.md" not in manifest_file.read()
 
 
+def test_bake_slug_in_readme_output(cookies):
+    with bake_in_temp_dir(cookies) as result:
+        _, slug, _ = project_info(result)
+
+        readme_path = result.project.join("README.md")
+        with open(str(readme_path)) as readme_file:
+            assert slug in readme_file.read()
+
+
+def test_bake_badge_in_readme_output_if_open_source(cookies):
+    with bake_in_temp_dir(
+        cookies,
+        extra_context={"github_username": "UKHO", "open_source_license": "MIT license"},
+    ) as result:
+        _, slug, _ = project_info(result)
+
+        badge = (
+            f"![Python Package](https://github.com/UKHO/{slug}/"
+            "workflows/Python%20package/badge.svg)"
+        )
+
+        readme_path = result.project.join("README.md")
+        with open(str(readme_path)) as readme_file:
+            assert badge in readme_file.read()
+
+
+def test_bake_badge_not_in_readme_output_if_open_source(cookies):
+    with bake_in_temp_dir(
+        cookies,
+        extra_context={
+            "github_username": "UKHO",
+            "open_source_license": "Not open source",
+        },
+    ) as result:
+        _, slug, _ = project_info(result)
+
+        badge = (
+            f"![Python Package](https://github.com/UKHO/{slug}/"
+            "workflows/Python%20package/badge.svg)"
+        )
+
+        readme_path = result.project.join("README.md")
+        with open(str(readme_path)) as readme_file:
+            assert badge not in readme_file.read()
+
+
 def test_make_help(cookies):
     with bake_in_temp_dir(cookies) as result:
         # The supplied Makefile does not support win32
