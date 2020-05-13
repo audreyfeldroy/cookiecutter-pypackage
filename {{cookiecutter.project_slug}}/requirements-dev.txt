@@ -1,4 +1,3 @@
-Sphinx==1.8.5
 assertpy==1.0
 black==19.10b0
 bump2version==0.5.11

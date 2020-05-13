@@ -81,9 +81,6 @@ coverage.xml
 # Django stuff:
 *.log
 
-# Sphinx documentation
-docs/_build/
-
 # IntelliJ Idea family of suites
 .idea
 *.iml

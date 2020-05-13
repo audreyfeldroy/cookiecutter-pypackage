@@ -14,15 +14,13 @@
 * Free software: {{ cookiecutter.open_source_license }}
 {% endif %}
 
-Features
---------
+# Features
 
 * TODO
 
-Credits
--------
+# Credits
 
-This package was created with Cookiecutter_ and the `UKHO/cookiecutter-pypackage`_ project template.
+This package was created with Cookiecutter and the `UKHO/cookiecutter-pypackage` project template.
 
-.. _Cookiecutter: https://github.com/cookiecutter/cookiecutter
-.. _`UKHO/cookiecutter-pypackage`: https://github.com/UKHO/cookiecutter-pypackage
+* Cookiecutter: https://github.com/cookiecutter/cookiecutter
+* UKHO/cookiecutter-pypackage: https://github.com/UKHO/cookiecutter-pypackage
