@@ -1,8 +1,13 @@
 [tool]
 [tool.poetry]
-name = "{{cookiecutter.project_slug}}.tests"
-version = "0.0.0"
-description = "Unit test package for {{ cookiecutter.project_slug }}."
+name = "cookiecutter-pypackage"
+version = "0.2.0"
+description = "Cookiecutter template for a Python package"
+authors = "Sam Briggs <briggySmalls90@gmail.com>"
+readme = "README.rst"
+repository = "https://github.com/briggySmalls/cookiecutter-pypackage"
+documentation = "https://briggysmalls.github.io/cookiecutter-pypackage"
+keywords = ['cookiecutter', 'template', 'package']
 
 [tool.poetry.dependencies]
 python = "==3"
