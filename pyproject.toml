@@ -3,6 +3,7 @@
 name = "cookiecutter-pypackage"
 version = "0.2.0"
 description = "Cookiecutter template for a Python package"
+license = "BSD"
 authors = ["Sam Briggs <briggySmalls90@gmail.com>"]
 readme = "README.rst"
 repository = "https://github.com/briggySmalls/cookiecutter-pypackage"
