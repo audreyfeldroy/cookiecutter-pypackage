@@ -35,7 +35,6 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
-    'invocations.autodoc',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
