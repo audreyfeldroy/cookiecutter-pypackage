@@ -1,0 +1,24 @@
+[tool]
+[tool.poetry]
+name = "{{cookiecutter.project_slug}}"
+version = "{{ cookiecutter.version }}"
+description = "Top-level package for {{ cookiecutter.project_name }}."
+authors = ["{{ cookiecutter.full_name }} <{{ cookiecutter.email }}>"]
+
+[tool.poetry.dependencies]
+python = "*"
+
+[tool.poetry.dev-dependencies]
+bumpversion = "*"
+coverage = "*"
+flake8 = "*"
+invoke = "*"
+isort = "*"
+pylint = "*"
+{% if cookiecutter.use_pytest == 'y' -%}
+pytest = "*"{% endif %}
+sphinx = "*"
+tox = "*"
+twine = "*"
+wheel = "*"
+yapf = "*"
