@@ -1,0 +1,20 @@
+[tool]
+[tool.poetry]
+name = "{{cookiecutter.project_slug}}.tests"
+version = "0.0.0"
+description = "Unit test package for {{ cookiecutter.project_slug }}."
+
+[tool.poetry.dependencies]
+python = "==3"
+
+[tool.poetry.dev-dependencies]
+bumpversion = "*"
+cookiecutter = "*"
+invocations = "*"
+invoke = "*"
+pytest = "*"
+pytest-cookies = "*"
+pyyaml = "*"
+sphinx = "*"
+sphinx-rtd-theme = "*"
+tox = "*"
