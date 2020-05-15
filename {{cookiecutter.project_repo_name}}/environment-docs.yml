@@ -1,0 +1,9 @@
+name: {{ cookiecutter.project_slug }}
+channels:
+#- conda-forge
+- defaults
+dependencies:
+- pywps>=4.2
+- sphinx
+- nbsphinx
+- ipython
