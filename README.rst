@@ -75,5 +75,4 @@ For more details, see the `cookiecutter-pypackage tutorial`_.
 .. _`pyup.io`: https://pyup.io/
 .. _bump2version: https://github.com/c4urself/bump2version
 .. _Punch: https://github.com/lgiordani/punch
-.. _Pipenv: https://pipenv.readthedocs.io/en/latest/
 .. _PyPi: https://pypi.python.org/pypi
