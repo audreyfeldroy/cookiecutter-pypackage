@@ -358,24 +358,21 @@ def test_bake_and_run_invoke_tests(cookies):
     """Run the unit tests of a newly-generated project"""
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        commands = _INSTALL_DEPS_COMMANDS
-        commands.extend(["poetry run invoke test"])
-        run_inside_dir(commands, str(result.project)) == 0
+        commands = build_commands(["poetry run invoke test"])
+        assert run_inside_dir(commands, str(result.project)) == 0
 
 
 def test_bake_and_run_invoke_format(cookies):
     """Run the formatter on a newly-generated project"""
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        commands = _INSTALL_DEPS_COMMANDS
-        commands.extend(["poetry run invoke format"])
-        run_inside_dir(commands, str(result.project)) == 0
+        commands = build_commands(["poetry run invoke test"])
+        assert run_inside_dir(commands, str(result.project)) == 0
 
 
 def test_bake_and_run_invoke_lint(cookies):
     """Run the linter on a newly-generated project"""
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        commands = _INSTALL_DEPS_COMMANDS
-        commands.extend(["poetry run invoke lint"])
-        run_inside_dir(commands, str(result.project)) == 0
+        commands = build_commands(["poetry run invoke test"])
+        assert run_inside_dir(commands, str(result.project)) == 0
