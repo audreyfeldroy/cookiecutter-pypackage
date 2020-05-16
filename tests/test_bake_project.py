@@ -20,6 +20,12 @@ _INSTALL_DEPS_COMMANDS = [
 ]
 
 
+def build_commands(commands):
+    cmds = _INSTALL_DEPS_COMMANDS
+    cmds.extend(commands)
+    return cmds
+
+
 @contextmanager
 def inside_dir(dirpath):
     """
