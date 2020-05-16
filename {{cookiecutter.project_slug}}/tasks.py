@@ -170,4 +170,4 @@ def release(c):
     """
     Make a release of the python package to pypi
     """
-    c.run("twine upload dist/*")
+    c.run("poetry publish")

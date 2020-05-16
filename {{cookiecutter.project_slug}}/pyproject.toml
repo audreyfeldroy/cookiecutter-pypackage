@@ -51,8 +51,6 @@ pylint = "*"
 pytest = "*"{% endif %}
 sphinx = "*"
 tox = "*"
-twine = "*"
-wheel = "*"
 yapf = "*"
 
 {% if cookiecutter.command_line_interface|lower == 'click' -%}
