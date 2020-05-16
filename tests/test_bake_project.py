@@ -110,9 +110,17 @@ def test_bake_and_run_tests(cookies, extra_context):
             extra_context=extra_context,
     ) as result:
         assert result.project.isdir()
+        # Test pyproject installs pytest
+        dep_file_path = result.project.join(_DEPENDENCY_FILE)
+        lines = dep_file_path.readlines()
+        assert "pytest = \"*\"\n" in lines
+        # Test contents of test file
+        test_file_path = result.project.join('tests/test_python_boilerplate.py')
+        lines = test_file_path.readlines()
+        assert "import pytest" in ''.join(lines)
+        # Run the tests
         commands = build_commands(["poetry run invoke test"])
         assert run_inside_dir(commands, str(result.project)) == 0
-        print("test_bake_and_run_tests path", str(result.project))
 
 
 # def test_bake_and_run_travis_pypi_setup(cookies):
@@ -193,23 +201,6 @@ def test_bake_not_open_source(cookies):
         assert 'LICENSE' not in found_toplevel_files
         assert 'License' not in result.project.join('README.rst').read()
         assert 'license' not in result.project.join(_DEPENDENCY_FILE).read()
-
-
-def test_using_pytest(cookies):
-    with bake_in_temp_dir(cookies) as result:
-        assert result.project.isdir()
-        # Test pyproject installs pytest
-        dep_file_path = result.project.join(_DEPENDENCY_FILE)
-        lines = dep_file_path.readlines()
-        assert "pytest = \"*\"\n" in lines
-        # Test contents of test file
-        test_file_path = result.project.join('tests/test_python_boilerplate.py')
-        lines = test_file_path.readlines()
-        assert "import pytest" in ''.join(lines)
-        # Test the new pytest target
-        run_inside_dir(['python setup.py pytest'], str(result.project)) == 0
-        # Test the test alias (which invokes pytest)
-        run_inside_dir(['python setup.py test'], str(result.project)) == 0
 
 
 def test_not_using_pytest(cookies):
