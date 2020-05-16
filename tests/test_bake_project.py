@@ -223,7 +223,7 @@ def test_using_google_docstrings(cookies):
         # Test docs include sphinx extension
         docs_conf_file_path = result.project.join('docs/conf.py')
         lines = docs_conf_file_path.readlines()
-        assert "sphinxcontrib.napoleon" in ''.join(lines)
+        assert "sphinx.ext.napoleon" in ''.join(lines)
 
 
 def test_not_using_google_docstrings(cookies):
@@ -232,7 +232,7 @@ def test_not_using_google_docstrings(cookies):
         # Test docs do not include sphinx extension
         docs_conf_file_path = result.project.join('docs/conf.py')
         lines = docs_conf_file_path.readlines()
-        assert "sphinxcontrib.napoleon" not in ''.join(lines)
+        assert "sphinx.ext.napoleon" not in ''.join(lines)
 
 
 # def test_project_with_hyphen_in_module_name(cookies):
