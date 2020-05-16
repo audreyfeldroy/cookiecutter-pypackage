@@ -39,3 +39,6 @@ tox = "*"
 twine = "*"
 wheel = "*"
 yapf = "*"
+
+[tool.poetry.scripts]
+{{ cookiecutter.project_slug }} = '{{ cookiecutter.project_slug }}.cli:main'
