@@ -36,8 +36,9 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "*"
-{% if cookiecutter.command_line_interface|lower == 'click' -%}
-click = "*"{%- endif %}
+{%- if cookiecutter.command_line_interface|lower == 'click' %}
+click = "*"
+{%- endif %}
 
 [tool.poetry.dev-dependencies]
 bumpversion = "*"
@@ -54,5 +55,7 @@ twine = "*"
 wheel = "*"
 yapf = "*"
 
+{% if cookiecutter.command_line_interface|lower == 'click' -%}
 [tool.poetry.scripts]
 {{ cookiecutter.project_slug }} = '{{ cookiecutter.project_slug }}.cli:main'
+{%- endif %}
