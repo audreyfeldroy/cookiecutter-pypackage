@@ -14,14 +14,10 @@ import importlib
 
 
 _DEPENDENCY_FILE = "pyproject.toml"
-
-
-@pytest.fixture
-def install_deps_commands():
-    return [
-        "pip install poetry",
-        "poetry install",
-    ]
+_INSTALL_DEPS_COMMANDS = [
+    "pip install poetry",
+    "poetry install",
+]
 
 
 @contextmanager
@@ -357,22 +353,25 @@ def test_bake_with_argparse_console_script_cli(cookies):
     assert 'Show this message' in help_result.output
 
 
-def test_bake_and_run_invoke_tests(cookies, install_deps_commands):
+def test_bake_and_run_invoke_tests(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        commands = install_deps_commands.extend(["poetry run invoke test"])
+        commands = _INSTALL_DEPS_COMMANDS
+        commands.extend(["poetry run invoke test"])
         run_inside_dir(commands, str(result.project)) == 0
 
 
-def test_bake_and_run_invoke_format(cookies, install_deps_commands):
+def test_bake_and_run_invoke_format(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        commands = install_deps_commands.extend(["poetry run invoke format"])
+        commands = _INSTALL_DEPS_COMMANDS
+        commands.extend(["poetry run invoke format"])
         run_inside_dir(commands, str(result.project)) == 0
 
 
-def test_bake_and_run_invoke_lint(cookies, install_deps_commands):
+def test_bake_and_run_invoke_lint(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        commands = install_deps_commands.extend(["poetry run invoke lint"])
+        commands = _INSTALL_DEPS_COMMANDS
+        commands.extend(["poetry run invoke lint"])
         run_inside_dir(commands, str(result.project)) == 0
