@@ -80,7 +80,7 @@ def test(c):
     Run tests
     """
     pty = platform.system() == 'Linux'
-    c.run("python {} test".format(SETUP_FILE), pty=pty)
+    c.run("pytest", pty=pty)
 
 
 @task(help={'publish': "Publish the result via coveralls"})
