@@ -8,6 +8,19 @@ readme = "README.rst"
 {% if cookiecutter.open_source_license != 'Not open source' -%}
 license =  "{{ cookiecutter.open_source_license }}
 {%- endif -%}"
+classifiers=[
+    'Development Status :: 2 - Pre-Alpha',
+    'Intended Audience :: Developers',
+{%- if cookiecutter.open_source_license in license_classifiers %}
+    '{{ license_classifiers[cookiecutter.open_source_license] }}',
+{%- endif %}
+    'Natural Language :: English',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.5',
+    'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+]
 
 [tool.poetry.dependencies]
 python = "*"
