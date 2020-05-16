@@ -11,7 +11,7 @@ DOCS_INDEX = DOCS_BUILD_DIR.joinpath('index.html')
 
 
 def _run(c, command):
-    _run(c, command)
+    c.run(command, pty=True)
 
 
 @task
