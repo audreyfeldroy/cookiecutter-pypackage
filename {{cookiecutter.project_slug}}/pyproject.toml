@@ -9,6 +9,7 @@
 [tool.poetry]
 name = "{{ cookiecutter.project_slug }}"
 version = "{{ cookiecutter.version }}"
+homepage='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}'
 description = "Top-level package for {{ cookiecutter.project_name }}."
 authors = ["{{ cookiecutter.full_name }} <{{ cookiecutter.email }}>"]
 readme = "README.rst"
