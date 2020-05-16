@@ -165,23 +165,22 @@ def test_bake_without_author_file(cookies):
             assert 'contributing\n   history' in index_file.read()
 
 
-def test_bake_selecting_license(cookies):
-    license_strings = {
-        'MIT': 'MIT ',
-        'BSD-3-Clause': 'Redistributions of source code must retain the ' +
-                       'above copyright notice, this',
-        'ISC': 'ISC License',
-        'Apache-2.0':
-            'Licensed under the Apache License, Version 2.0',
-        'GPL-3.0-only': 'GNU GENERAL PUBLIC LICENSE',
-    }
-    for license, target_string in license_strings.items():
-        with bake_in_temp_dir(
-            cookies,
-            extra_context={'open_source_license': license}
-        ) as result:
-            assert target_string in result.project.join('LICENSE').read()
-            assert license in result.project.join(_DEPENDENCY_FILE).read()
+@pytest.mark.parametrize("license_info", [
+    ('MIT', 'MIT '),
+    ('BSD-3-Clause', 'Redistributions of source code must retain the ' +
+     'above copyright notice, this'),
+    ('ISC', 'ISC License'),
+    ('Apache-2.0', 'Licensed under the Apache License, Version 2.0'),
+    ('GPL-3.0-only', 'GNU GENERAL PUBLIC LICENSE'),
+])
+def test_bake_selecting_license(cookies, license_info):
+    license, target_string = license_info
+    with bake_in_temp_dir(
+        cookies,
+        extra_context={'open_source_license': license}
+    ) as result:
+        assert target_string in result.project.join('LICENSE').read()
+        assert license in result.project.join(_DEPENDENCY_FILE).read()
 
 
 def test_bake_not_open_source(cookies):
