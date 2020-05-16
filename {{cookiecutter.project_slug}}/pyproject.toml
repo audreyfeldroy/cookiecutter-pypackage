@@ -5,7 +5,7 @@ version = "{{ cookiecutter.version }}"
 description = "Top-level package for {{ cookiecutter.project_name }}."
 authors = ["{{ cookiecutter.full_name }} <{{ cookiecutter.email }}>"]
 readme = "README.rst"
-{$ if cookiecutter.open_source_license != 'Not open source' -%}
+{% if cookiecutter.open_source_license != 'Not open source' -%}
 license =  "{{ cookiecutter.open_source_license }}
 {%- endif -%}"
 
