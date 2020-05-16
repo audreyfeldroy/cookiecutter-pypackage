@@ -5,6 +5,18 @@ version = "{{ cookiecutter.version }}"
 description = "Top-level package for {{ cookiecutter.project_name }}."
 authors = ["{{ cookiecutter.full_name }} <{{ cookiecutter.email }}>"]
 readme = "README.rst"
+license =  "
+{%- if cookiecutter.open_source_license == 'MIT license' -%}
+MIT
+{%- elif cookiecutter.open_source_license == 'BSD license' -%}
+BSD-3-Clause
+{%- elif cookiecutter.open_source_license == 'ISC license' -%}
+ISC
+{%- elif cookiecutter.open_source_license == 'Apache Software License 2.0' -%}
+Apache-2.0
+{%- elif cookiecutter.open_source_license == 'GNU General Public License v3' -%}
+GPL-3.0-only
+{%- endif -%}"
 
 [tool.poetry.dependencies]
 python = "*"
