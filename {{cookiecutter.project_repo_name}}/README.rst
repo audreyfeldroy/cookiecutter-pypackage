@@ -29,6 +29,9 @@ Documentation
 Learn more about {{ cookiecutter.project_name }} in its official documentation at
 https://{{ cookiecutter.project_repo_name | replace("_", "-") }}.readthedocs.io.
 
+Submit bug reports, questions and feature requests at
+https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_repo_name }}/issues
+
 Contributing
 ------------
 
