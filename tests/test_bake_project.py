@@ -13,6 +13,9 @@ from click.testing import CliRunner
 import importlib
 
 
+_DEPENDENCY_FILE = "pyproject.toml"
+
+
 @pytest.fixture
 def install_deps_commands():
     return [
@@ -209,9 +212,9 @@ def test_bake_not_open_source(cookies):
 def test_using_pytest(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        # Test Pipfile installs pytest
-        pipfile_file_path = result.project.join('Pipfile')
-        lines = pipfile_file_path.readlines()
+        # Test pyproject installs pytest
+        dep_file_path = result.project.join(_DEPENDENCY_FILE)
+        lines = dep_file_path.readlines()
         assert "pytest = \"*\"\n" in lines
         # Test contents of test file
         test_file_path = result.project.join('tests/test_python_boilerplate.py')
@@ -226,9 +229,9 @@ def test_using_pytest(cookies):
 def test_not_using_pytest(cookies):
     with bake_in_temp_dir(cookies, extra_context={'use_pytest': 'n'}) as result:
         assert result.project.isdir()
-        # Test Pipfile doesn install pytest
-        pipfile_file_path = result.project.join('Pipfile')
-        lines = pipfile_file_path.readlines()
+        # Test pyproject doesn't install pytest
+        dep_file_path = result.project.join(_DEPENDENCY_FILE)
+        lines = dep_file_path.readlines()
         assert "pytest = \"*\"\n" not in lines
         # Test contents of test file
         test_file_path = result.project.join('tests/test_python_boilerplate.py')
