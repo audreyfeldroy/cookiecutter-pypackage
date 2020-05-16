@@ -162,8 +162,7 @@ def dist(c):
     """
     Build source and wheel packages
     """
-    c.run("python setup.py sdist")
-    c.run("python setup.py bdist_wheel")
+    c.run("poetry build")
 
 
 @task(pre=[clean, dist])
