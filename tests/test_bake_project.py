@@ -15,7 +15,6 @@ import importlib
 
 _DEPENDENCY_FILE = "pyproject.toml"
 _INSTALL_DEPS_COMMANDS = [
-    "pip install poetry",
     "poetry install",
 ]
 
