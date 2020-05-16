@@ -315,25 +315,15 @@ def test_bake_with_argparse_console_script_cli(cookies):
     assert 'Show this message' in help_result.output
 
 
-def test_bake_and_run_invoke_tests(cookies):
+@pytest.mark.parametrize("command", [
+    "poetry run invoke test",
+    "poetry run invoke format --check",
+    "poetry run invoke lint",
+    "poetry run invoke docs",
+])
+def test_bake_and_run_and_invoke(cookies, command):
     """Run the unit tests of a newly-generated project"""
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        commands = build_commands(["poetry run invoke test"])
-        run_inside_dir(commands, str(result.project))
-
-
-def test_bake_and_run_invoke_format(cookies):
-    """Run the formatter on a newly-generated project"""
-    with bake_in_temp_dir(cookies) as result:
-        assert result.project.isdir()
-        commands = build_commands(["poetry run invoke test"])
-        run_inside_dir(commands, str(result.project))
-
-
-def test_bake_and_run_invoke_lint(cookies):
-    """Run the linter on a newly-generated project"""
-    with bake_in_temp_dir(cookies) as result:
-        assert result.project.isdir()
-        commands = build_commands(["poetry run invoke test"])
+        commands = build_commands([command])
         run_inside_dir(commands, str(result.project))
