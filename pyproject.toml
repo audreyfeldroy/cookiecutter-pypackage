@@ -11,7 +11,8 @@ documentation = "https://briggysmalls.github.io/cookiecutter-pypackage"
 keywords = ['cookiecutter', 'template', 'package']
 
 [tool.poetry.dependencies]
-python = "==3"
+python = ">=3.5.*"
+PyYAML = "^5.3.1"
 
 [tool.poetry.dev-dependencies]
 bump2version = "*"
