@@ -1,17 +1,6 @@
 PyPI Release Checklist
 ======================
 
-Before Your First Release
--------------------------
-
-#. Register the package on PyPI:
-
-    .. code-block:: bash
-
-        python setup.py register
-
-#. Visit PyPI to make sure it registered.
-
 For Every Release
 -------------------
 
@@ -29,12 +18,6 @@ For Every Release
     .. code-block:: bash
 
         bump2version minor
-
-#. Install the package again for local development, but with the new version number:
-
-    .. code-block:: bash
-
-        python setup.py develop
 
 #. Run the tests:
 

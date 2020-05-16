@@ -22,12 +22,7 @@ Install cookiecutter:
 
     pip install cookiecutter
 
-We'll also need pipenv so install that too:
-
-.. code-block:: bash
-
-    pip install pipenv
-
+We'll also need poetry so [install that too](https://python-poetry.org/docs/#installation):
 
 Step 2: Generate Your Package
 -----------------------------
@@ -67,17 +62,16 @@ You'll need a ssh key to push the repo. You can `Generate`_ a key or `Add`_ an e
 .. _`Generate`: https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
 .. _`Add`: https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
 
-
 Step 4: Install Dev Requirements
 --------------------------------
 
-You should still be in the folder containing the ``Pipfile`` file.
+You should still be in the folder containing the ``pyproject.toml`` file.
 
 Install the new project's local development requirements inside a virtual environment using pipenv:
 
 .. code-block:: bash
 
-    pipenv install --dev
+    poetry install
 
 
 Step 5: Set Up Travis CI
