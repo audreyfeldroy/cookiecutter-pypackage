@@ -60,7 +60,7 @@ def run_inside_dir(commands, dirpath):
 
 
 def check_output_inside_dir(command, dirpath):
-    "Run a command from inside a given directory, returning the command output"
+    """Run a command from inside a given directory, returning the command output"""
     with inside_dir(dirpath):
         return subprocess.check_output(shlex.split(command))
 
@@ -354,6 +354,7 @@ def test_bake_with_argparse_console_script_cli(cookies):
 
 
 def test_bake_and_run_invoke_tests(cookies):
+    """Run the unit tests of a newly-generated project"""
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
         commands = _INSTALL_DEPS_COMMANDS
@@ -362,6 +363,7 @@ def test_bake_and_run_invoke_tests(cookies):
 
 
 def test_bake_and_run_invoke_format(cookies):
+    """Run the formatter on a newly-generated project"""
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
         commands = _INSTALL_DEPS_COMMANDS
@@ -370,6 +372,7 @@ def test_bake_and_run_invoke_format(cookies):
 
 
 def test_bake_and_run_invoke_lint(cookies):
+    """Run the linter on a newly-generated project"""
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
         commands = _INSTALL_DEPS_COMMANDS
