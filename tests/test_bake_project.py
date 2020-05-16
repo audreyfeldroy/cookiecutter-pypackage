@@ -256,40 +256,21 @@ def test_not_using_google_docstrings(cookies):
 #         "missing password config in .travis.yml"
 
 
-def test_bake_with_no_console_script(cookies):
-    context = {'command_line_interface': "No command-line interface"}
+@pytest.mark.parametrize("args", [
+    ({'command_line_interface': "No command-line interface"}, False),
+    ({'command_line_interface': 'click'}, True),
+    ({'command_line_interface': 'argparse'}, True),
+])
+def test_bake_with_no_console_script(cookies, args):
+    context, is_present = args
     result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     found_project_files = os.listdir(project_dir)
-    assert "cli.py" not in found_project_files
+    assert "cli.py" in found_project_files == is_present
 
     pyproject_path = os.path.join(project_path, _DEPENDENCY_FILE)
     with open(pyproject_path, 'r') as pyproject_file:
-        assert 'entry_points' not in pyproject_file.read()
-
-
-def test_bake_with_console_script_files(cookies):
-    context = {'command_line_interface': 'click'}
-    result = cookies.bake(extra_context=context)
-    project_path, project_slug, project_dir = project_info(result)
-    found_project_files = os.listdir(project_dir)
-    assert "cli.py" in found_project_files
-
-    pyproject_path = os.path.join(project_path, _DEPENDENCY_FILE)
-    with open(pyproject_path, 'r') as pyproject_file:
-        assert 'entry_points' in pyproject_file.read()
-
-
-def test_bake_with_argparse_console_script_files(cookies):
-    context = {'command_line_interface': 'argparse'}
-    result = cookies.bake(extra_context=context)
-    project_path, project_slug, project_dir = project_info(result)
-    found_project_files = os.listdir(project_dir)
-    assert "cli.py" in found_project_files
-
-    pyproject_path = os.path.join(project_path, _DEPENDENCY_FILE)
-    with open(pyproject_path, 'r') as pyproject_file:
-        assert 'entry_points' in pyproject_file.read()
+        assert '[tool.poetry.scripts]' in pyproject_file.read() == is_present
 
 
 def test_bake_with_console_script_cli(cookies):
