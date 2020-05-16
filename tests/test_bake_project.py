@@ -120,7 +120,7 @@ def test_bake_and_run_tests(cookies, extra_context):
         assert "import pytest" in ''.join(lines)
         # Run the tests
         commands = build_commands(["poetry run invoke test"])
-        assert run_inside_dir(commands, str(result.project)) == 0
+        run_inside_dir(commands, str(result.project))
 
 
 # def test_bake_and_run_travis_pypi_setup(cookies):
@@ -339,7 +339,7 @@ def test_bake_and_run_invoke_tests(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
         commands = build_commands(["poetry run invoke test"])
-        assert run_inside_dir(commands, str(result.project)) == 0
+        run_inside_dir(commands, str(result.project))
 
 
 def test_bake_and_run_invoke_format(cookies):
@@ -347,7 +347,7 @@ def test_bake_and_run_invoke_format(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
         commands = build_commands(["poetry run invoke test"])
-        assert run_inside_dir(commands, str(result.project)) == 0
+        run_inside_dir(commands, str(result.project))
 
 
 def test_bake_and_run_invoke_lint(cookies):
@@ -355,4 +355,4 @@ def test_bake_and_run_invoke_lint(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
         commands = build_commands(["poetry run invoke test"])
-        assert run_inside_dir(commands, str(result.project)) == 0
+        run_inside_dir(commands, str(result.project))
