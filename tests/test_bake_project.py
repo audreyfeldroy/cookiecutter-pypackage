@@ -288,7 +288,7 @@ def test_bake_with_argparse_console_script_files(cookies):
     assert "cli.py" in found_project_files
 
     pyproject_path = os.path.join(project_path, _DEPENDENCY_FILE)
-    with open(setup_path, 'r') as pyproject_file:
+    with open(pyproject_path, 'r') as pyproject_file:
         assert 'entry_points' in pyproject_file.read()
 
 
