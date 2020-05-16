@@ -29,6 +29,10 @@ classifiers=[
     'Programming Language :: Python :: 3.7',
     'Programming Language :: Python :: 3.8',
 ]
+packages = [
+    { include = "{{ cookiecutter.project_slug }}" }
+    { include = "tests", format = "sdist" }
+]
 
 [tool.poetry.dependencies]
 python = "*"
