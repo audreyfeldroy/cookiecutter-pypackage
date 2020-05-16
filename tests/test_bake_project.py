@@ -316,7 +316,6 @@ def test_bake_with_argparse_console_script_cli(cookies):
 
 
 @pytest.mark.parametrize("command", [
-    "poetry run invoke test",
     "poetry run invoke format --check",
     "poetry run invoke lint",
     "poetry run invoke docs",
