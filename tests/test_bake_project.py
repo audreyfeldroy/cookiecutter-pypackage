@@ -93,7 +93,7 @@ def test_bake_with_defaults(cookies):
         assert result.exception is None
 
         found_toplevel_files = [f.basename for f in result.project.listdir()]
-        assert 'setup.py' in found_toplevel_files
+        assert _DEPENDENCY_FILE in found_toplevel_files
         assert 'python_boilerplate' in found_toplevel_files
         assert 'tox.ini' in found_toplevel_files
         assert 'tests' in found_toplevel_files
@@ -206,7 +206,7 @@ def test_bake_not_open_source(cookies):
         extra_context={'open_source_license': 'Not open source'}
     ) as result:
         found_toplevel_files = [f.basename for f in result.project.listdir()]
-        assert 'setup.py' in found_toplevel_files
+        assert _DEPENDENCY_FILE in found_toplevel_files
         assert 'LICENSE' not in found_toplevel_files
         assert 'License' not in result.project.join('README.rst').read()
         assert 'license' not in result.project.join(_DEPENDENCY_FILE).read()
@@ -289,9 +289,9 @@ def test_bake_with_no_console_script(cookies):
     found_project_files = os.listdir(project_dir)
     assert "cli.py" not in found_project_files
 
-    setup_path = os.path.join(project_path, 'setup.py')
-    with open(setup_path, 'r') as setup_file:
-        assert 'entry_points' not in setup_file.read()
+    pyproject_path = os.path.join(project_path, _DEPENDENCY_FILE)
+    with open(pyproject_path, 'r') as pyproject_file:
+        assert 'entry_points' not in pyproject_file.read()
 
 
 def test_bake_with_console_script_files(cookies):
@@ -301,9 +301,9 @@ def test_bake_with_console_script_files(cookies):
     found_project_files = os.listdir(project_dir)
     assert "cli.py" in found_project_files
 
-    setup_path = os.path.join(project_path, 'setup.py')
-    with open(setup_path, 'r') as setup_file:
-        assert 'entry_points' in setup_file.read()
+    pyproject_path = os.path.join(project_path, _DEPENDENCY_FILE)
+    with open(pyproject_path, 'r') as pyproject_file:
+        assert 'entry_points' in pyproject_file.read()
 
 
 def test_bake_with_argparse_console_script_files(cookies):
@@ -313,9 +313,9 @@ def test_bake_with_argparse_console_script_files(cookies):
     found_project_files = os.listdir(project_dir)
     assert "cli.py" in found_project_files
 
-    setup_path = os.path.join(project_path, 'setup.py')
-    with open(setup_path, 'r') as setup_file:
-        assert 'entry_points' in setup_file.read()
+    pyproject_path = os.path.join(project_path, _DEPENDENCY_FILE)
+    with open(setup_path, 'r') as pyproject_file:
+        assert 'entry_points' in pyproject_file.read()
 
 
 def test_bake_with_console_script_cli(cookies):
