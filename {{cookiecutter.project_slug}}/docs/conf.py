@@ -34,8 +34,8 @@ import {{ cookiecutter.project_slug }}
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
-    'sphinxcontrib.napoleon',
 {%- if cookiecutter.use_google_docstrings == 'y' %}
+    'sphinx.ext.napoleon',
 {%- endif %}
 ]
 
