@@ -1,6 +1,6 @@
 [tool]
 [tool.poetry]
-name = "{{cookiecutter.project_slug}}"
+name = "{{ cookiecutter.project_slug }}"
 version = "{{ cookiecutter.version }}"
 description = "Top-level package for {{ cookiecutter.project_name }}."
 authors = ["{{ cookiecutter.full_name }} <{{ cookiecutter.email }}>"]
