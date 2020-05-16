@@ -31,6 +31,8 @@ classifiers=[
 
 [tool.poetry.dependencies]
 python = "*"
+{% if cookiecutter.command_line_interface|lower == 'click' -%}
+click = "*"{%- endif %}
 
 [tool.poetry.dev-dependencies]
 bumpversion = "*"
