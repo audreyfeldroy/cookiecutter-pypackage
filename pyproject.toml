@@ -14,7 +14,7 @@ keywords = ['cookiecutter', 'template', 'package']
 python = "==3"
 
 [tool.poetry.dev-dependencies]
-bumpversion = "*"
+bump2version = "*"
 cookiecutter = "*"
 invocations = "*"
 invoke = "*"
