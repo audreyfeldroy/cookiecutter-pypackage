@@ -1,17 +1,3 @@
-[tool]
-[tool.poetry]
-name = "{{ cookiecutter.project_slug }}"
-version = "{{ cookiecutter.version }}"
-description = "Top-level package for {{ cookiecutter.project_name }}."
-authors = ["{{ cookiecutter.full_name }} <{{ cookiecutter.email }}>"]
-readme = "README.rst"
-{% if cookiecutter.open_source_license != 'Not open source' -%}
-license =  "{{ cookiecutter.open_source_license }}
-{%- endif -%}"
-classifiers=[
-    'Development Status :: 2 - Pre-Alpha',
-    'Intended Audience :: Developers',
-{%- if cookiecutter.open_source_license in license_classifiers %}
 {%- set license_classifiers = {
     'MIT license': 'License :: OSI Approved :: MIT License',
     'BSD license': 'License :: OSI Approved :: BSD License',
@@ -19,6 +5,20 @@ classifiers=[
     'Apache Software License 2.0': 'License :: OSI Approved :: Apache Software License',
     'GNU General Public License v3': 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)'
 } %}
+[tool]
+[tool.poetry]
+name = "{{ cookiecutter.project_slug }}"
+version = "{{ cookiecutter.version }}"
+description = "Top-level package for {{ cookiecutter.project_name }}."
+authors = ["{{ cookiecutter.full_name }} <{{ cookiecutter.email }}>"]
+readme = "README.rst"
+{%- if cookiecutter.open_source_license in license_classifiers %}
+license =  "{{ cookiecutter.open_source_license }}
+{%- endif -%}"
+classifiers=[
+    'Development Status :: 2 - Pre-Alpha',
+    'Intended Audience :: Developers',
+{%- if cookiecutter.open_source_license in license_classifiers %}
     '{{ license_classifiers[cookiecutter.open_source_license] }}',
 {%- endif %}
     'Natural Language :: English',
