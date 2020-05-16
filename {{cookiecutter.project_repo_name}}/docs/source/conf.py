@@ -183,7 +183,7 @@ texinfo_documents = [
         "{{ cookiecutter.project_name }} Documentation",
         author,
         "{{ cookiecutter.project_slug }}",
-        "One line description of project.",
+        "{{ cookiecutter.project_short_description }}",
         "Miscellaneous",
     ),
 ]
