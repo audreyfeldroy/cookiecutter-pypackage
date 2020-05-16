@@ -12,7 +12,6 @@ keywords = ['cookiecutter', 'template', 'package']
 
 [tool.poetry.dependencies]
 python = ">=3.5.*"
-PyYAML = "^5.3.1"
 
 [tool.poetry.dev-dependencies]
 bump2version = "*"
@@ -21,7 +20,7 @@ invocations = "*"
 invoke = "*"
 pytest = "*"
 pytest-cookies = "*"
-pyyaml = "*"
 sphinx = "*"
 sphinx-rtd-theme = "*"
 tox = "*"
+pyyaml = "^5.3.1"

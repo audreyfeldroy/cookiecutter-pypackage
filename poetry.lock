@@ -442,7 +442,7 @@ python-versions = "*"
 version = "2020.1"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "YAML parser and emitter for Python"
 name = "pyyaml"
 optional = false
@@ -738,7 +738,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["pathlib2", "unittest2", "jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "1e5c0844de99e7edc13fa0993f89e7875d648082ce4594eaac5258a60b4f3c3e"
+content-hash = "01c8854ccd072c82bbf7b313cdf33a60a8c74640cd712f3a27ee69683a30ec44"
 python-versions = ">=3.5.*"
 
 [metadata.files]
