@@ -19,7 +19,9 @@ script: tox
 # following command to finish PyPI deployment setup:
 # $ travis encrypt --add deploy.password
 deploy:
-  provider: pypi
+  provider: script
+  script: poetry publish
+  skip_cleanup: true
   distributions: sdist bdist_wheel
   user: {{ cookiecutter.pypi_username }}
   password:

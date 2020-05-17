@@ -1,0 +1,59 @@
+{%- set license_classifiers = {
+    'MIT': 'License :: OSI Approved :: MIT License',
+    'BSD-3-Clause': 'License :: OSI Approved :: BSD License',
+    'ISC': 'License :: OSI Approved :: ISC License (ISCL)',
+    'Apache-2.0': 'License :: OSI Approved :: Apache Software License',
+    'GPL-3.0-only': 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)'
+} -%}
+[tool]
+[tool.poetry]
+name = "{{ cookiecutter.project_slug }}"
+version = "{{ cookiecutter.version }}"
+homepage = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}"
+description = "Top-level package for {{ cookiecutter.project_name }}."
+authors = ["{{ cookiecutter.full_name.replace('\"', '\\\"') }} <{{ cookiecutter.email }}>"]
+readme = "README.rst"
+{%- if cookiecutter.open_source_license in license_classifiers %}
+license =  "{{ cookiecutter.open_source_license }}"
+{%- endif %}
+classifiers=[
+    'Development Status :: 2 - Pre-Alpha',
+    'Intended Audience :: Developers',
+{%- if cookiecutter.open_source_license in license_classifiers %}
+    '{{ license_classifiers[cookiecutter.open_source_license] }}',
+{%- endif %}
+    'Natural Language :: English',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.5',
+    'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+]
+packages = [
+    { include = "{{ cookiecutter.project_slug }}" },
+    { include = "tests", format = "sdist" },
+]
+
+[tool.poetry.dependencies]
+python = "*"
+{%- if cookiecutter.command_line_interface|lower == 'click' %}
+click = "*"
+{%- endif %}
+
+[tool.poetry.dev-dependencies]
+bumpversion = "*"
+coverage = "*"
+flake8 = "*"
+invoke = "*"
+isort = "*"
+pylint = "*"
+{% if cookiecutter.use_pytest == 'y' -%}
+pytest = "*"{% endif %}
+sphinx = "*"
+tox = "*"
+yapf = "*"
+
+{% if cookiecutter.command_line_interface|lower == 'click' -%}
+[tool.poetry.scripts]
+{{ cookiecutter.project_slug }} = '{{ cookiecutter.project_slug }}.cli:main'
+{%- endif %}

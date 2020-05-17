@@ -80,7 +80,7 @@ def test(c):
     Run tests
     """
     pty = platform.system() == 'Linux'
-    c.run("python {} test".format(SETUP_FILE), pty=pty)
+    c.run("pytest", pty=pty)
 
 
 @task(help={'publish': "Publish the result via coveralls"})
@@ -162,8 +162,7 @@ def dist(c):
     """
     Build source and wheel packages
     """
-    c.run("python setup.py sdist")
-    c.run("python setup.py bdist_wheel")
+    c.run("poetry build")
 
 
 @task(pre=[clean, dist])
@@ -171,4 +170,4 @@ def release(c):
     """
     Make a release of the python package to pypi
     """
-    c.run("twine upload dist/*")
+    c.run("poetry publish")

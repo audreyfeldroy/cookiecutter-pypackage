@@ -17,10 +17,10 @@ script: tox
 jobs:
   include:
     - stage: deploy
-      script: pipenv run invoke docs
+      script: poetry run invoke docs
       before_script:
-        - pip install pipenv
-        - pipenv install --dev --skip-lock
+        - pip install poetry
+        - poetry install
       python: 3.8
       deploy:
         provider: pages

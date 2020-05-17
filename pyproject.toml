@@ -1,0 +1,26 @@
+[tool]
+[tool.poetry]
+name = "cookiecutter-pypackage"
+version = "0.2.0"
+description = "Cookiecutter template for a Python package"
+license = "BSD-3-Clause"
+authors = ["Sam Briggs <briggySmalls90@gmail.com>"]
+readme = "README.rst"
+repository = "https://github.com/briggySmalls/cookiecutter-pypackage"
+documentation = "https://briggysmalls.github.io/cookiecutter-pypackage"
+keywords = ['cookiecutter', 'template', 'package']
+
+[tool.poetry.dependencies]
+python = ">=3.5.*"
+
+[tool.poetry.dev-dependencies]
+bump2version = "*"
+cookiecutter = "*"
+invocations = "*"
+invoke = "*"
+pytest = "*"
+pytest-cookies = "*"
+sphinx = "*"
+sphinx-rtd-theme = "*"
+tox = "*"
+pyyaml = "^5.3.1"
