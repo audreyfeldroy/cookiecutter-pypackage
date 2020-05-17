@@ -20,7 +20,7 @@ _INSTALL_DEPS_COMMANDS = [
 
 
 def build_commands(commands):
-    cmds = _INSTALL_DEPS_COMMANDS
+    cmds = _INSTALL_DEPS_COMMANDS.copy()
     cmds.extend(commands)
     return cmds
 
