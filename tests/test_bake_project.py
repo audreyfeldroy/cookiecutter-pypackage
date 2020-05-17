@@ -85,7 +85,7 @@ def test_bake_with_defaults(cookies):
         assert 'tests' in found_toplevel_files
 
 
-pytest.mark.parametrize("extra_context", [
+@pytest.mark.parametrize("extra_context", [
     {},
     {'full_name': 'name "quote" name'},
     {'full_name': "O'connor"}
