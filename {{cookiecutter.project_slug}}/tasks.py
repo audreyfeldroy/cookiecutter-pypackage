@@ -102,13 +102,14 @@ def coverage(c, publish=False):
         webbrowser.open(COVERAGE_REPORT.as_uri())
 
 
-@task
-def docs(c):
+@task(help={'launch': "Launch documentation in the web browser"})
+def docs(c, launch=True):
     """
     Generate documentation
     """
     _run(c, "sphinx-build -b html {} {}".format(DOCS_DIR, DOCS_BUILD_DIR))
-    webbrowser.open(DOCS_INDEX.as_uri())
+    if launch:
+        webbrowser.open(DOCS_INDEX.as_uri())
 
 
 @task

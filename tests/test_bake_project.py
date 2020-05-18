@@ -317,7 +317,7 @@ def test_bake_with_argparse_console_script_cli(cookies):
 @pytest.mark.parametrize("command", [
     "poetry run invoke format --check",
     "poetry run invoke lint",
-    "poetry run invoke docs",
+    "poetry run invoke docs --no-launch",
 ])
 def test_bake_and_run_and_invoke(cookies, command):
     """Run the unit tests of a newly-generated project"""
