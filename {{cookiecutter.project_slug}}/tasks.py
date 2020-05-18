@@ -36,6 +36,10 @@ def _delete_file(file):
             pass
 
 
+def _run(c, command):
+    return c.run(command, pty=platform.system() != 'Windows')
+
+
 @task(help={'check': "Checks if source is formatted without applying changes"})
 def format(c, check=False):
     """
@@ -44,11 +48,11 @@ def format(c, check=False):
     python_dirs_string = " ".join(PYTHON_DIRS)
     # Run yapf
     yapf_options = '--recursive {}'.format('--diff' if check else '--in-place')
-    c.run("yapf {} {}".format(yapf_options, python_dirs_string))
+    _run(c, "yapf {} {}".format(yapf_options, python_dirs_string))
     # Run isort
     isort_options = '--recursive {}'.format(
         '--check-only --diff' if check else '')
-    c.run("isort {} {}".format(isort_options, python_dirs_string))
+    _run(c, "isort {} {}".format(isort_options, python_dirs_string))
 
 
 @task
@@ -56,7 +60,7 @@ def lint_flake8(c):
     """
     Lint code with flake8
     """
-    c.run("flake8 {}".format(" ".join(PYTHON_DIRS)))
+    _run(c, "flake8 {}".format(" ".join(PYTHON_DIRS)))
 
 
 @task
@@ -64,7 +68,7 @@ def lint_pylint(c):
     """
     Lint code with pylint
     """
-    c.run("pylint {}".format(" ".join(PYTHON_DIRS)))
+    _run(c, "pylint {}".format(" ".join(PYTHON_DIRS)))
 
 
 @task(lint_flake8, lint_pylint)
@@ -80,7 +84,7 @@ def test(c):
     Run tests
     """
     pty = platform.system() == 'Linux'
-    c.run("pytest", pty=pty)
+    _run(c, "pytest", pty=pty)
 
 
 @task(help={'publish': "Publish the result via coveralls"})
@@ -88,14 +92,14 @@ def coverage(c, publish=False):
     """
     Create coverage report
     """
-    c.run("coverage run --source {} -m pytest".format(SOURCE_DIR))
-    c.run("coverage report")
+    _run(c, "coverage run --source {} -m pytest".format(SOURCE_DIR))
+    _run(c, "coverage report")
     if publish:
         # Publish the results via coveralls
-        c.run("coveralls")
+        _run(c, "coveralls")
     else:
         # Build a local report
-        c.run("coverage html")
+        _run(c, "coverage html")
         webbrowser.open(COVERAGE_REPORT.as_uri())
 
 
@@ -104,7 +108,7 @@ def docs(c):
     """
     Generate documentation
     """
-    c.run("sphinx-build -b html {} {}".format(DOCS_DIR, DOCS_BUILD_DIR))
+    _run(c, "sphinx-build -b html {} {}".format(DOCS_DIR, DOCS_BUILD_DIR))
     webbrowser.open(DOCS_INDEX.as_uri())
 
 
@@ -113,7 +117,7 @@ def clean_docs(c):
     """
     Clean up files from documentation builds
     """
-    c.run("rm -fr {}".format(DOCS_BUILD_DIR))
+    _run(c, "rm -fr {}".format(DOCS_BUILD_DIR))
 
 
 @task
@@ -121,11 +125,11 @@ def clean_build(c):
     """
     Clean up files from package building
     """
-    c.run("rm -fr build/")
-    c.run("rm -fr dist/")
-    c.run("rm -fr .eggs/")
-    c.run("find . -name '*.egg-info' -exec rm -fr {} +")
-    c.run("find . -name '*.egg' -exec rm -f {} +")
+    _run(c, "rm -fr build/")
+    _run(c, "rm -fr dist/")
+    _run(c, "rm -fr .eggs/")
+    _run(c, "find . -name '*.egg-info' -exec rm -fr {} +")
+    _run(c, "find . -name '*.egg' -exec rm -f {} +")
 
 
 @task
@@ -133,10 +137,10 @@ def clean_python(c):
     """
     Clean up python file artifacts
     """
-    c.run("find . -name '*.pyc' -exec rm -f {} +")
-    c.run("find . -name '*.pyo' -exec rm -f {} +")
-    c.run("find . -name '*~' -exec rm -f {} +")
-    c.run("find . -name '__pycache__' -exec rm -fr {} +")
+    _run(c, "find . -name '*.pyc' -exec rm -f {} +")
+    _run(c, "find . -name '*.pyo' -exec rm -f {} +")
+    _run(c, "find . -name '*~' -exec rm -f {} +")
+    _run(c, "find . -name '__pycache__' -exec rm -fr {} +")
 
 
 @task
@@ -162,7 +166,7 @@ def dist(c):
     """
     Build source and wheel packages
     """
-    c.run("poetry build")
+    _run(c, "poetry build")
 
 
 @task(pre=[clean, dist])
@@ -170,4 +174,4 @@ def release(c):
     """
     Make a release of the python package to pypi
     """
-    c.run("poetry publish")
+    _run(c, "poetry publish")
