@@ -1,18 +1,17 @@
 #!/usr/bin/env python
-
 """Tests for `{{ cookiecutter.project_slug }}` package."""
 # pylint: disable=redefined-outer-name
 
 {% if cookiecutter.use_pytest == 'y' -%}
 import pytest
-{% else %}
+{%- else -%}
 import unittest
 {%- endif %}
-{%- if cookiecutter.command_line_interface|lower == 'click' %}
+{% if cookiecutter.command_line_interface | lower == 'click' -%}
 from click.testing import CliRunner
 {%- endif %}
 
-{%- if cookiecutter.command_line_interface|lower == 'click' %}
+{% if cookiecutter.command_line_interface | lower == 'click' -%}
 from {{ cookiecutter.project_slug }} import cli
 {%- endif %}
 

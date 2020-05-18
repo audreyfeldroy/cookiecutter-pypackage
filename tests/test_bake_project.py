@@ -15,13 +15,12 @@ import importlib
 
 _DEPENDENCY_FILE = "pyproject.toml"
 _INSTALL_DEPS_COMMANDS = [
-    "pip install poetry",
     "poetry install",
 ]
 
 
 def build_commands(commands):
-    cmds = _INSTALL_DEPS_COMMANDS
+    cmds = _INSTALL_DEPS_COMMANDS.copy()
     cmds.extend(commands)
     return cmds
 
@@ -223,7 +222,7 @@ def test_using_google_docstrings(cookies):
         # Test docs include sphinx extension
         docs_conf_file_path = result.project.join('docs/conf.py')
         lines = docs_conf_file_path.readlines()
-        assert "sphinxcontrib.napoleon" in ''.join(lines)
+        assert "sphinx.ext.napoleon" in ''.join(lines)
 
 
 def test_not_using_google_docstrings(cookies):
@@ -232,7 +231,7 @@ def test_not_using_google_docstrings(cookies):
         # Test docs do not include sphinx extension
         docs_conf_file_path = result.project.join('docs/conf.py')
         lines = docs_conf_file_path.readlines()
-        assert "sphinxcontrib.napoleon" not in ''.join(lines)
+        assert "sphinx.ext.napoleon" not in ''.join(lines)
 
 
 # def test_project_with_hyphen_in_module_name(cookies):
@@ -315,25 +314,14 @@ def test_bake_with_argparse_console_script_cli(cookies):
     assert 'Show this message' in help_result.output
 
 
-def test_bake_and_run_invoke_tests(cookies):
+@pytest.mark.parametrize("command", [
+    "poetry run invoke format --check",
+    "poetry run invoke lint",
+    "poetry run invoke docs --no-launch",
+])
+def test_bake_and_run_and_invoke(cookies, command):
     """Run the unit tests of a newly-generated project"""
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        commands = build_commands(["poetry run invoke test"])
-        run_inside_dir(commands, str(result.project))
-
-
-def test_bake_and_run_invoke_format(cookies):
-    """Run the formatter on a newly-generated project"""
-    with bake_in_temp_dir(cookies) as result:
-        assert result.project.isdir()
-        commands = build_commands(["poetry run invoke test"])
-        run_inside_dir(commands, str(result.project))
-
-
-def test_bake_and_run_invoke_lint(cookies):
-    """Run the linter on a newly-generated project"""
-    with bake_in_temp_dir(cookies) as result:
-        assert result.project.isdir()
-        commands = build_commands(["poetry run invoke test"])
+        commands = build_commands([command])
         run_inside_dir(commands, str(result.project))

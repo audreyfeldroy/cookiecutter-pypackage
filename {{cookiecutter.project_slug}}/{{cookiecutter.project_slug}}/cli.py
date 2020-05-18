@@ -4,7 +4,8 @@
 import argparse
 {%- endif %}
 import sys
-{%- if cookiecutter.command_line_interface|lower == 'click' %}
+
+{% if cookiecutter.command_line_interface|lower == 'click' -%}
 import click
 {%- endif %}
 
