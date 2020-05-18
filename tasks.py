@@ -2,6 +2,7 @@
 
 import webbrowser
 from pathlib import Path
+import platform
 from invoke import task
 
 ROOT_DIR = Path(__file__).parent
@@ -11,7 +12,7 @@ DOCS_INDEX = DOCS_BUILD_DIR.joinpath('index.html')
 
 
 def _run(c, command):
-    c.run(command, pty=True)
+    return c.run(command, pty=platform.system() != 'Windows')
 
 
 @task
