@@ -83,8 +83,7 @@ def test(c):
     """
     Run tests
     """
-    pty = platform.system() == 'Linux'
-    _run(c, "pytest", pty=pty)
+    _run(c, "pytest")
 
 
 @task(help={'publish': "Publish the result via coveralls"})
