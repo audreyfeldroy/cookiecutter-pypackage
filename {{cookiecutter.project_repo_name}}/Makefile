@@ -99,6 +99,7 @@ clean-test:
 clean-dist: clean
 	@echo "Running 'git clean' ..."
 	@git diff --quiet HEAD || echo "There are uncommitted changes! Aborting 'git clean' ..."
+	## do not use git clean -e/--exclude here, add them to .gitignore instead
 	@-git clean -dfx
 
 ## Test targets
