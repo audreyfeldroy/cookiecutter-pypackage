@@ -2,7 +2,7 @@
 APP_ROOT := $(abspath $(lastword $(MAKEFILE_LIST))/..)
 APP_NAME := {{ cookiecutter.project_slug }}
 
-WPS_URL = https://localhost:{{ cookiecutter.http_port }}/
+WPS_URL = http://localhost:{{ cookiecutter.http_port }}/
 OUTPUT_URL = $(WPS_URL)/wpsoutputs
 
 SANITIZE_FILE := https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests/raw/master/notebooks/output-sanitize.cfg
@@ -99,6 +99,7 @@ clean-test:
 clean-dist: clean
 	@echo "Running 'git clean' ..."
 	@git diff --quiet HEAD || echo "There are uncommitted changes! Aborting 'git clean' ..."
+	## do not use git clean -e/--exclude here, add them to .gitignore instead
 	@-git clean -dfx
 
 ## Test targets

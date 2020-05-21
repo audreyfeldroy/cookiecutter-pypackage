@@ -66,6 +66,7 @@ docs/make.bat
 docs/doctrees/
 docs/html/
 docs/build/
+docs/source/output-sanitize.cfg
 
 # External Sources
 #src/external
@@ -84,3 +85,6 @@ testdata.json
 *.a
 *.mod
 *.out
+
+# Merge conflict
+*.orig

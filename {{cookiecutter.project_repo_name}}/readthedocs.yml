@@ -1,8 +1,0 @@
-build:
-    image: latest
-
-python:
-    version: 3.6
-
-conda:
-    file: environment.yml

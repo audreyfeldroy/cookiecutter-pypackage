@@ -2,7 +2,7 @@
 ===============================
 
 .. image:: https://img.shields.io/badge/docs-latest-brightgreen.svg
-   :target: http://{{ cookiecutter.project_repo_name }}.readthedocs.io/en/latest/?badge=latest
+   :target: http://{{ cookiecutter.project_readthedocs_name }}.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
 
 .. image:: https://travis-ci.org/{{ cookiecutter.github_username }}/{{ cookiecutter.project_repo_name }}.svg?branch=master
@@ -27,7 +27,10 @@ Documentation
 -------------
 
 Learn more about {{ cookiecutter.project_name }} in its official documentation at
-https://{{ cookiecutter.project_repo_name | replace("_", "-") }}.readthedocs.io.
+https://{{ cookiecutter.project_readthedocs_name }}.readthedocs.io.
+
+Submit bug reports, questions and feature requests at
+https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_repo_name }}/issues
 
 Contributing
 ------------
@@ -48,5 +51,5 @@ This package was created with Cookiecutter_ and the `bird-house/cookiecutter-bir
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _`bird-house/cookiecutter-birdhouse`: https://github.com/bird-house/cookiecutter-birdhouse
-.. _`Developer Guide`: https://{{ cookiecutter.project_repo_name | replace("_", "-") }}.readthedocs.io/en/latest/dev_guide.html
-.. _bumpversion: https://{{ cookiecutter.project_repo_name | replace("_", "-") }}.readthedocs.io/en/latest/dev_guide.html#bump-a-new-version
+.. _`Developer Guide`: https://{{ cookiecutter.project_readthedocs_name }}.readthedocs.io/en/latest/dev_guide.html
+.. _bumpversion: https://{{ cookiecutter.project_readthedocs_name }}.readthedocs.io/en/latest/dev_guide.html#bump-a-new-version

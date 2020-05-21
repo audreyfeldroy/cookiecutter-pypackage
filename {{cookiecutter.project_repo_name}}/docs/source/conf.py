@@ -21,6 +21,9 @@
 import os
 import sys
 
+# Add {{ cookiecutter.project_slug }} to sys.path to avoid having to full
+# install {{ cookiecutter.project_slug }} for autodoc.
+# Full install of {{ cookiecutter.project_slug }} will burst memory limit on ReadTheDocs.
 sys.path.insert(0, os.path.abspath("../../"))
 
 
@@ -180,7 +183,7 @@ texinfo_documents = [
         "{{ cookiecutter.project_name }} Documentation",
         author,
         "{{ cookiecutter.project_slug }}",
-        "One line description of project.",
+        "{{ cookiecutter.project_short_description }}",
         "Miscellaneous",
     ),
 ]
