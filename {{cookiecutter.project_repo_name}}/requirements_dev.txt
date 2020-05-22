@@ -10,3 +10,4 @@ sphinx>=1.7
 bump2version
 twine
 cruft
+# add extra not in cookiecutter below to prevent merge conflict when refreshing cookiecutter
