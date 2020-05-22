@@ -1,6 +1,6 @@
 name: {{ cookiecutter.project_slug }}
 channels:
-#- conda-forge
+- conda-forge
 - defaults
 dependencies:
 - pywps>=4.2
