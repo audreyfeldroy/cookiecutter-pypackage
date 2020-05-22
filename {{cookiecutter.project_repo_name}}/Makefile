@@ -140,8 +140,9 @@ refresh-notebooks:
 docs:
 	@echo "Generating docs with Sphinx ..."
 	@-bash -c '$(MAKE) -C $@ clean html'
-	@echo "Opening browser to: file:/$(APP_ROOT)/docs/build/html/index.html"
-	@-bash -c 'xdg-open $(APP_ROOT)/docs/build/html/index.html'
+	@echo "Open your browser to: file:/$(APP_ROOT)/docs/build/html/index.html"
+	## do not execute xdg-open automatically since it hangs travis and job does not complete
+	@echo "xdg-open $(APP_ROOT)/docs/build/html/index.html"
 
 ## Deployment targets
 
