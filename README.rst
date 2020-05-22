@@ -26,8 +26,7 @@ framework for installation, configuration, deployment, documentation and tests. 
 :file:`Dockerfile` for containerization! Create your project then get started writing new WPS
 processes in minutes.
 
-To keep projects up-to-date with the cookiecutter template, Cruft_ will be
-used.
+You may at any time update your project using the latest cookiecutter template using Cruft_.
 
 * GitHub repo: https://github.com/bird-house/cookiecutter-birdhouse/
 * Documentation: http://cookiecutter-birdhouse.readthedocs.io/en/latest/
@@ -52,7 +51,7 @@ Features
 Installation
 ------------
 
-Prior to installing cookiecutter-birdhouse, the cookiecutter and cruft package must be installed in your environment.
+Prior to installing cookiecutter-birdhouse, the cookiecutter and cruft packages must be installed in your environment.
 This is achieved via the following commands:
 
 .. code-block:: console
@@ -114,13 +113,13 @@ To keep the generated bird up-to-date with the cookiecutter template:
 
     $ cruft update  # uses configurations in the .cruft.json file
 
-Cruft can be configured to ignore template change to certain files, see
+Cruft can be configured to ignore template changes to certain files, see
 https://timothycrosley.github.io/cruft/#updating-a-project.  Potential files to
 ignore:
 
-* initial example files because we do not want to keep those
+* demonstration files, because they are meant to be erased
 * environment files and list of processes, list of tutorial notebooks since they
-  natually are different between each bird
+  naturally are different between each bird
 
 See cruft_skip_ example.
 
@@ -135,7 +134,7 @@ This will create the ``.cruft.json`` file so subsequently ``cruft update`` can
 be used.  You will need to answer the same questions as ``cruft create``
 above.
 
-Note after ``cruft link`` the ``commit`` field in the ``.cruft.json`` file will
+Note that after ``cruft link``, the ``commit`` field in the ``.cruft.json`` file will
 initially be wrong.  To ensure a proper subsequent ``cruft update``, you need
 to edit the ``.cruft.json`` file and put the proper last commit of the
 cookiecutter used in that ``commit`` field.
