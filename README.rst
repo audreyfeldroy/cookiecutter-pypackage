@@ -26,6 +26,9 @@ framework for installation, configuration, deployment, documentation and tests. 
 :file:`Dockerfile` for containerization! Create your project then get started writing new WPS
 processes in minutes.
 
+To keep projects up-to-date with the cookiecutter template, Cruft_ will be
+used.
+
 * GitHub repo: https://github.com/bird-house/cookiecutter-birdhouse/
 * Documentation: http://cookiecutter-birdhouse.readthedocs.io/en/latest/
 * Free software: BSD license
@@ -49,42 +52,44 @@ Features
 Installation
 ------------
 
-Prior to installing cookiecutter-birdhouse, the cookiecutter package must be installed in your environment.
-This is achieved via the following command:
+Prior to installing cookiecutter-birdhouse, the cookiecutter and cruft package must be installed in your environment.
+This is achieved via the following commands:
 
 .. code-block:: console
 
     $ conda install -c conda-forge cookiecutter
+    $ pip install cruft
 
-With cookiecutter installed, the cookiecutter-birdhouse template can be installed with:
+With cookiecutter and cruft installed, the cookiecutter-birdhouse template can be installed with:
 
 .. code-block:: console
 
-    $ cookiecutter https://github.com/bird-house/cookiecutter-birdhouse.git
+    $ cruft create https://github.com/bird-house/cookiecutter-birdhouse.git
 
 Once cookiecutter clones the template, you will be asked a series of questions related to your project:
 
 .. code-block:: console
 
-    $ full_name [Full Name]: Enter your full name.
+    full_name [Full Name]: 
+    email [your@email]: 
+    github_username [bird-house]: 
+    project_name [Babybird]: 
+    project_slug [babybird]: 
+    project_repo_name [babybird]: 
+    project_readthedocs_name [babybird]: 
+    project_short_description [A Web Processing Service for Climate Data Analysis.]: 
+    version [0.1.0]: 
+    Select open_source_license:
+    1 - Apache Software License 2.0
+    2 - MIT license
+    3 - BSD license
+    4 - ISC license
+    5 - GNU General Public License v3
+    Choose from 1, 2, 3, 4, 5 [1]: 
+    http_port [5000]: 
 
-    $ email [Email Address]: Enter your email address.
-
-    $ github_username [bird-house]: Accept the default or enter your github username.
-
-    $ project_name [Babybird]: The name of your new bird.
-
-    $ project_slug [babybird]: The name of your bird used as Python package.
-
-    $ project_short_description [Short description]: Enter a short description about your project.
-
-    $ version [0.1.0]: Enter the version number for your application.
-
-    $ http_port [5000]: The HTTP port on which your service will be accessible.
-
-    $ https_port [25000]: The HTTPS port on which your service will be accessible.
-
-    $ output_port [8090]: The HTTP port on which your service outputs will be accessible.
+The answer to all those questions are recorded in the ``.cruft.json`` file in
+your generated bird.
 
 Usage
 -----
@@ -102,6 +107,22 @@ Then:
 For more details, see the `cookiecutter-pypackage tutorial`_.
 
 See the `babybird <http://babybird.rtfd.io/>`_ example of a generated bird.
+
+To keep the generated bird up-to-date with the cookiecutter template:
+
+.. code-block:: console
+
+    $ cruft update  # uses configurations in the .cruft.json file
+
+Cruft can be configured to ignore template change to certain files, see
+https://timothycrosley.github.io/cruft/#updating-a-project.  Potential files to
+ignore:
+
+* initial example files because we do not want to keep those
+* environment files and list of processes, list of tutorial notebooks since they
+  natually are different between each bird
+
+See cruft_skip_ example.
 
 Development
 -----------
@@ -154,7 +175,9 @@ See the bumpversion_ documentation for details.
 
 
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
+.. _Cruft: https://timothycrosley.github.io/cruft/
 .. _`cookiecutter-pypackage tutorial`: https://cookiecutter-pypackage.readthedocs.io/en/latest/tutorial.html
+.. _cruft_skip: https://github.com/Ouranosinc/raven/blob/4d32f82cc993e5569eb7afc86aefd7ed88824b78/.cruft.json#L4-L14
 .. _Travis-CI: http://travis-ci.org/
 .. _Codacy: http://codacy.com
 .. _Sphinx: http://sphinx-doc.org/
