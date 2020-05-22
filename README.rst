@@ -124,6 +124,22 @@ ignore:
 
 See cruft_skip_ example.
 
+To link already generated project that was not initially generated using
+``cruft create``:
+
+.. code-block:: console
+
+    $ cruft link https://github.com/bird-house/cookiecutter-birdhouse
+
+This will create the ``.cruft.json`` file so subsequently ``cruft update`` can
+be used.  You will need to answer the same questions as ``cruft create``
+above.
+
+Note after ``cruft link`` the ``commit`` field in the ``.cruft.json`` file will
+initially be wrong.  To ensure a proper subsequent ``cruft update``, you need
+to edit the ``.cruft.json`` file and put the proper last commit of the
+cookiecutter used in that ``commit`` field.
+
 Development
 -----------
 
