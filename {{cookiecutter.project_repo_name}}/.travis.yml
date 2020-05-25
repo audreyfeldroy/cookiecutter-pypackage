@@ -46,4 +46,5 @@ before_script:
   - sleep 2
 script:
   - pytest
+  - make test-notebooks
   - flake8
