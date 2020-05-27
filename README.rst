@@ -134,10 +134,11 @@ This will create the ``.cruft.json`` file so subsequently ``cruft update`` can
 be used.  You will need to answer the same questions as ``cruft create``
 above.
 
-Note that after ``cruft link``, the ``commit`` field in the ``.cruft.json`` file will
-initially be wrong.  To ensure a proper subsequent ``cruft update``, you need
-to edit the ``.cruft.json`` file and put the proper last commit of the
-cookiecutter used in that ``commit`` field.
+Note that after ``cruft link``, the ``commit`` field in the ``.cruft.json``
+file will initially be wrong if you selected the default value.  To ensure a
+proper subsequent ``cruft update``, you need to edit the ``.cruft.json`` file
+and put the proper last commit of the cookiecutter used in that ``commit``
+field.  See cruft_link_ example.
 
 Development
 -----------
@@ -193,6 +194,7 @@ See the bumpversion_ documentation for details.
 .. _Cruft: https://timothycrosley.github.io/cruft/
 .. _`cookiecutter-pypackage tutorial`: https://cookiecutter-pypackage.readthedocs.io/en/latest/tutorial.html
 .. _cruft_skip: https://github.com/Ouranosinc/raven/blob/4d32f82cc993e5569eb7afc86aefd7ed88824b78/.cruft.json#L4-L14
+.. _cruft_link: https://github.com/bird-house/finch/pull/128/commits/0b0d7f37966cbb5bf345dfd4b4ac7953f38f4867
 .. _Travis-CI: http://travis-ci.org/
 .. _Codacy: http://codacy.com
 .. _Sphinx: http://sphinx-doc.org/

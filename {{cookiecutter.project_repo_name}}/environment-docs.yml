@@ -1,4 +1,5 @@
-name: {{ cookiecutter.project_slug }}
+# conda env create -f environment-docs.yml
+name: {{ cookiecutter.project_slug }}-docs
 channels:
 - conda-forge
 - defaults

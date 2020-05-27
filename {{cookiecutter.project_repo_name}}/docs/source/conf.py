@@ -47,6 +47,14 @@ extensions = [
     "IPython.sphinxext.ipython_console_highlighting",
 ]
 
+# To avoid having to install these and burst memory limit on ReadTheDocs.
+autodoc_mock_imports = ["numpy", "xarray", "fiona", "rasterio", "shapely",
+                        "osgeo", "geopandas", "pandas", "statsmodels",
+                        "affine", "rasterstats", "spotpy", "matplotlib",
+                        "scipy", "unidecode", "gdal", "sentry_sdk", "dask",
+                        "numba", "parse", "siphon", "sklearn", "cftime",
+                        "netCDF4"]
+
 # We are using mock imports in readthedocs, so probably safer to not run the notebooks
 nbsphinx_execute = 'never'
 
