@@ -23,10 +23,10 @@ you through the process.
 .. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
 
 
-From sources
-------------
+From source
+-----------
 
-The sources for {{ cookiecutter.project_name }} can be downloaded from the `Github repo`_.
+The source for {{ cookiecutter.project_name }} can be downloaded from the `Github repo`_.
 
 You can either clone the public repository:
 
@@ -44,8 +44,7 @@ Once you have a copy of the source, you can install it with:
 
 .. code-block:: console
 
-    $ python setup.py install
-
+    $ pip install .
 
 .. _Github repo: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
 .. _tarball: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/tarball/master

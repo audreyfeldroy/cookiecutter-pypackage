@@ -7,10 +7,10 @@ python:
   - 3.6
   - 3.5
 
-# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+# command to install dependencies
 install: pip install -U tox-travis
 
-# command to run tests, e.g. python setup.py test
+# command to run tests
 script: tox
 
 # Jobs (with stages)
