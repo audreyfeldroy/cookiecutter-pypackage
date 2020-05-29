@@ -41,8 +41,8 @@ install:
   # Install WPS
   - python setup.py install
 before_script:
-  # Start WPS service on port 5000 on 0.0.0.0
-  - {{ cookiecutter.project_slug }} start --daemon --bind-host 0.0.0.0 --port 5000
+  # Start WPS service on port {{ cookiecutter.http_port }} on 0.0.0.0
+  - {{ cookiecutter.project_slug }} start --daemon --bind-host 0.0.0.0 --port {{ cookiecutter.http_port }}
   - sleep 2
 script:
   - pytest
