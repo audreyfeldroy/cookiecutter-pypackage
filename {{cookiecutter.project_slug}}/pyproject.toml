@@ -57,3 +57,7 @@ yapf = "*"
 [tool.poetry.scripts]
 {{ cookiecutter.project_slug }} = '{{ cookiecutter.project_slug }}.cli:main'
 {%- endif %}
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
