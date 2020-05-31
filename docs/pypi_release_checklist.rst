@@ -46,7 +46,8 @@ For Every Release
         .. code-block:: bash
 
             pip install readme_renderer
-            python setup.py check -r -s
+            # Replace PROBLEM.rst with the name of the file you are having trouble with
+            python -m readme_renderer PROBLEM.rst >/dev/null
 
 #. Edit the release on GitHub (e.g. https://github.com/audreyr/cookiecutter/releases). Paste the release notes into the release's release page, and come up with a title for the release.
 
