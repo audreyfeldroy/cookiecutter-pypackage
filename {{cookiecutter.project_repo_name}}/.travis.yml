@@ -36,10 +36,8 @@ install:
   # Update now the env with our environment
   - conda env update -f environment.yml
   - source activate {{ cookiecutter.project_slug }}
-  # Packages for testing
-  - conda install pytest flake8
-  # Install WPS
-  - python setup.py install
+  # Packages for testing, generating docs and installing WPS
+  - make develop
 before_script:
   # Start WPS service on port {{ cookiecutter.http_port }} on 0.0.0.0
   - {{ cookiecutter.project_slug }} start --daemon --bind-host 0.0.0.0 --port {{ cookiecutter.http_port }}
