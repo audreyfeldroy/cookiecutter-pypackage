@@ -7,7 +7,7 @@ nbsphinx
 nbval
 nbconvert
 sphinx>=1.7
-bump2version
+bumpversion
 twine
 cruft
 # Changing dependencies above this comment will create merge conflicts when updating the cookiecutter template with cruft. Add extra requirements below this line. 

@@ -2,8 +2,12 @@
 APP_ROOT := $(abspath $(lastword $(MAKEFILE_LIST))/..)
 APP_NAME := {{ cookiecutter.project_slug }}
 
-WPS_URL = http://localhost:{{ cookiecutter.http_port }}/
-OUTPUT_URL = $(WPS_URL)/wpsoutputs
+WPS_URL = http://localhost:{{ cookiecutter.http_port }}
+
+# Used in target refresh-notebooks to make it looks like the notebooks have
+# been refreshed from the production server below instead of from the local dev
+# instance so the notebooks can also be used as tutorial notebooks.
+OUTPUT_URL = https://pavics.ouranos.ca/wpsoutputs
 
 SANITIZE_FILE := https://github.com/Ouranosinc/PAVICS-e2e-workflow-tests/raw/master/notebooks/output-sanitize.cfg
 
