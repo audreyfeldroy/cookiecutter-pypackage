@@ -1,10 +1,10 @@
 """Tests for `{{ cookiecutter.project_slug }}` package."""
 
 import pytest
-
 from assertpy import assert_that
 
 from {{ cookiecutter.project_slug }}.{{ cookiecutter.project_slug }} import main
+
 
 @pytest.fixture
 def response():

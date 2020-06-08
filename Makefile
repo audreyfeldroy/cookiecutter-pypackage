@@ -12,7 +12,7 @@ bake:
 	cookiecutter $(BAKE_OPTIONS) . --overwrite-if-exists
 
 watch: bake
-	watchmedo shell-command -p '*.*' -c 'make bake -e BAKE_OPTIONS=$(BAKE_OPTIONS)' -W -R -D \{{cookiecutter.project_slug}}/
+	watchmedo shell-command -p '*.*' -c 'make bake -e BAKE_OPTIONS=$(BAKE_OPTIONS)' -W -R -D \{{cookiecutter.project_repo}}/
 
 replay: BAKE_OPTIONS=--replay
 replay: watch

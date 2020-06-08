@@ -10,12 +10,6 @@ with open("README.md") as readme_file:
 with open("HISTORY.md") as history_file:
     history = history_file.read()
 
-requirements = []
-
-setup_requirements = ["pytest-runner"]
-
-test_requirements = ["pytest>=3"]
-
 {%- set license_classifiers = {
     "MIT license": "License :: OSI Approved :: MIT License",
     "BSD license": "License :: OSI Approved :: BSD License",
@@ -27,7 +21,7 @@ test_requirements = ["pytest>=3"]
 setup(
     author="{{ cookiecutter.full_name.replace('\"', '\\\"') }}",
     author_email="{{ cookiecutter.email }}",
-    python_requires=">=3.5",
+    python_requires=">=3.6",
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Developers",
@@ -40,20 +34,22 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
     ],
-    description="{{ cookiecutter.project_short_description }}",
-    install_requires=requirements,
+    description="""
+    {{ cookiecutter.project_short_description }}
+    """,
+    install_requires=[],
 {%- if cookiecutter.open_source_license in license_classifiers %}
     license="{{ cookiecutter.open_source_license }}",
 {%- endif %}
     long_description=readme + "\n\n" + history,
     include_package_data=True,
     keywords="{{ cookiecutter.project_slug }}",
-    name="{{ cookiecutter.project_slug }}",
+    name="{{ cookiecutter.project_repo }}",
     packages=find_packages(include=["{{ cookiecutter.project_slug }}", "{{ cookiecutter.project_slug }}.*"]),
-    setup_requires=setup_requirements,
+    setup_requires=["pytest-runner"],
     test_suite="tests",
-    tests_require=test_requirements,
-    url="https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}",
+    tests_require=["pytest>=3"],
+    url="https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_repo }}",
     version="{{ cookiecutter.version }}",
     zip_safe=False,
 )

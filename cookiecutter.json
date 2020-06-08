@@ -3,6 +3,7 @@
   "email": "datascienceandengineering@ukho.gov.uk",
   "github_username": "UKHO",
   "project_name": "Python Boilerplate",
+  "project_repo": "{{ cookiecutter.project_name.lower().replace(' ', '-').replace('_', '-') }}",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
   "project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
   "pypi_username": "UKHydrographicOffice",

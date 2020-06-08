@@ -63,9 +63,10 @@ def test_year_compute_in_license_file(cookies):
 def project_info(result):
     """Get toplevel dir, project_slug, and project dir from baked cookies"""
     project_path = str(result.project)
-    project_slug = os.path.split(project_path)[-1]
-    project_dir = os.path.join(project_path, project_slug)
-    return project_path, project_slug, project_dir
+    project_repo = os.path.split(project_path)[-1]
+    project_slug = project_repo.replace("-", "_")
+    project_dir = os.path.join(project_path, project_repo)
+    return project_path, project_repo, project_slug, project_dir
 
 
 def test_bake_with_defaults(cookies):
@@ -84,7 +85,7 @@ def test_bake_with_defaults(cookies):
 def test_bake_and_run_tests(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        run_inside_dir("make test", str(result.project)) == 0
+        assert run_inside_dir("make test", str(result.project)) == 0
         print("test_bake_and_run_tests path", str(result.project))
 
 
@@ -94,14 +95,14 @@ def test_bake_withspecialchars_and_run_tests(cookies):
         cookies, extra_context={"full_name": 'name "quote" name'}
     ) as result:
         assert result.project.isdir()
-        run_inside_dir("make test", str(result.project)) == 0
+        assert run_inside_dir("make test", str(result.project)) == 0
 
 
 def test_bake_with_apostrophe_and_run_tests(cookies):
     """Ensure that a `full_name` with apostrophes does not break setup.py"""
     with bake_in_temp_dir(cookies, extra_context={"full_name": "O'connor"}) as result:
         assert result.project.isdir()
-        run_inside_dir("python setup.py test", str(result.project)) == 0
+        assert run_inside_dir("python setup.py test", str(result.project)) == 0
 
 
 def test_bake_with_gh_actions(cookies):
@@ -126,11 +127,11 @@ def test_bake_without_author_file(cookies):
 
 def test_bake_slug_in_readme_output(cookies):
     with bake_in_temp_dir(cookies) as result:
-        _, slug, _ = project_info(result)
+        _, repo, _, _ = project_info(result)
 
         readme_path = result.project.join("README.md")
         with open(str(readme_path)) as readme_file:
-            assert slug in readme_file.read()
+            assert repo in readme_file.read()
 
 
 def test_bake_badge_in_readme_output_if_open_source(cookies):
@@ -138,10 +139,10 @@ def test_bake_badge_in_readme_output_if_open_source(cookies):
         cookies,
         extra_context={"github_username": "UKHO", "open_source_license": "MIT license"},
     ) as result:
-        _, slug, _ = project_info(result)
+        _, repo, _, _ = project_info(result)
 
         badge = (
-            f"![Python Package](https://github.com/UKHO/{slug}/"
+            f"![Python Package](https://github.com/UKHO/{repo}/"
             "workflows/Python%20package/badge.svg)"
         )
 
@@ -158,10 +159,10 @@ def test_bake_badge_not_in_readme_output_if_open_source(cookies):
             "open_source_license": "Not open source",
         },
     ) as result:
-        _, slug, _ = project_info(result)
+        _, repo, _, _ = project_info(result)
 
         badge = (
-            f"![Python Package](https://github.com/UKHO/{slug}/"
+            f"![Python Package](https://github.com/UKHO/{repo}/"
             "workflows/Python%20package/badge.svg)"
         )
 
@@ -212,6 +213,18 @@ def test_using_pytest(cookies):
         lines = test_file_path.readlines()
         assert "import pytest" in "".join(lines)
         # Test the new pytest target
-        run_inside_dir("python setup.py pytest", str(result.project)) == 0
+        assert run_inside_dir("python setup.py pytest", str(result.project)) == 0
         # Test the test alias (which invokes pytest)
-        run_inside_dir("python setup.py test", str(result.project)) == 0
+        assert run_inside_dir("python setup.py test", str(result.project)) == 0
+
+
+def test_bake_and_run_lints(cookies):
+    with bake_in_temp_dir(cookies) as result:
+        assert result.project.isdir()
+        assert run_inside_dir("make lint", str(result.project)) == 0
+
+
+def test_bake_and_run_static_analysis(cookies):
+    with bake_in_temp_dir(cookies) as result:
+        assert result.project.isdir()
+        assert run_inside_dir("make sast", str(result.project)) == 0

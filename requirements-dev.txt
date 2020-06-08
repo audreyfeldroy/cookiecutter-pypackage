@@ -1,4 +1,4 @@
--r {{cookiecutter.project_slug}}/requirements-dev.txt
+-r {{cookiecutter.project_repo}}/requirements-dev.txt
 alabaster==0.7.12
 cookiecutter>=1.4.0
 pytest-cookies==0.4.0

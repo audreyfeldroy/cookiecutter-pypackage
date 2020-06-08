@@ -47,16 +47,27 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
-lint: ## check style with flake8 and black
+lint: checktypes checkstyle sast checklicenses ## run all checks
+
+checktypes: ## check types with mypy
+	mypy --ignore-missing-imports {{ cookiecutter.project_slug }} tests setup.py
+
+checkstyle: ## check style with flake8 and black
 	flake8 {{ cookiecutter.project_slug }} tests setup.py
 	black --check --diff {{ cookiecutter.project_slug }} tests setup.py
 
-fix: ## fix black and isort style violations
+fixstyle: ## fix black and isort style violations
 	black {{ cookiecutter.project_slug }} tests setup.py
 	isort -rc {{ cookiecutter.project_slug }} tests setup.py
 
+sast: ## run static application security testing
+	bandit -r {{ cookiecutter.project_slug }}
+
+checklicenses: ## check dependencies meet license rules
+	liccheck -s liccheck.ini -r requirements.txt
+
 test: ## run tests quickly with the default Python
-	pytest
+	pytest --verbose --capture=no
 
 test-all: ## run tests on every Python version with tox
 	tox
