@@ -12,7 +12,7 @@ pip==20.1.1
 pytest-cov==2.8.1
 pytest-runner==5.1
 pytest==4.6.5
-tox-gh-actions==0.3.0
+tox-gh-actions==1.2.0
 tox==3.14.0
 twine==1.14.0
 watchdog==0.9.0
