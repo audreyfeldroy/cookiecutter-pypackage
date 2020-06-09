@@ -7,7 +7,7 @@ flake8-isort==2.8.0
 flake8==3.8.3
 mypy==0.770
 liccheck==0.4.4
-pip-tools==5.1.1
+pip-tools==5.2.1
 pip==20.1.1
 pytest-cov==2.8.1
 pytest-runner==5.2
