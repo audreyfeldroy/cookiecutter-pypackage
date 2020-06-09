@@ -4,7 +4,7 @@ black==19.10b0
 bump2version==0.5.11
 coverage==4.5.4
 flake8-isort==2.8.0
-flake8==3.7.8
+flake8==3.8.3
 mypy==0.770
 liccheck==0.4.3
 pip-tools==5.1.1
