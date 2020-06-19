@@ -5,7 +5,7 @@ bump2version==1.0.0
 coverage==5.1
 flake8-isort==3.0.0
 flake8==3.8.3
-mypy==0.780
+mypy==0.781
 liccheck==0.4.7
 pip-tools==5.2.1
 pip==20.1.1
