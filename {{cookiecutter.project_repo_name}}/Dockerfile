@@ -17,7 +17,7 @@ COPY . /opt/wps
 WORKDIR /opt/wps
 
 # Create conda environment with PyWPS
-RUN conda create -n wps -c conda-forge python=3.7 pywps=4.2
+RUN ["conda", "env", "create", "-n", "wps", "-f", "environment.yml"]
 
 # Install WPS
 RUN ["/bin/bash", "-c", "source activate wps && python setup.py install"]

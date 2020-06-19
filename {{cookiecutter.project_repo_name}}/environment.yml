@@ -11,11 +11,3 @@ dependencies:
 - psutil
 # tests
 - pytest
-- pytest-notebook
-- bump2version
-- ipython
-- nbsphinx
-- nbval
-- nbconvert
-#- pip:
-#  - -e git+https://github.com/geopython/pywps@master#egg=pywps
