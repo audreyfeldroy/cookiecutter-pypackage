@@ -1,4 +1,4 @@
-name: Python package
+name: Python Package
 
 on: [push]
 
@@ -21,7 +21,9 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements-dev.txt
+          curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+          echo "::add-path::$HOME/.poetry/bin"
       - name: Run tox
         run: |
-          tox
+          poetry install
+          make test-all

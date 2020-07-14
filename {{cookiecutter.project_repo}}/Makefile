@@ -24,7 +24,7 @@ export PRINT_HELP_PYSCRIPT
 BROWSER := python -c "$$BROWSER_PYSCRIPT"
 
 help:
-	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
+	@poetry run python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
 clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
 
@@ -50,41 +50,44 @@ clean-test: ## remove test and coverage artifacts
 lint: checktypes checkstyle sast checklicenses ## run all checks
 
 checktypes: ## check types with mypy
-	mypy --ignore-missing-imports {{ cookiecutter.project_slug }} tests setup.py
+	mypy --ignore-missing-imports {{ cookiecutter.project_slug }} tests
 
-checkstyle: ## check style with flake8 and black
-	flake8 {{ cookiecutter.project_slug }} tests setup.py
-	black --check --diff {{ cookiecutter.project_slug }} tests setup.py
+checkstyle: ## check style with flake8, isort and black
+	poetry run flake8 {{ cookiecutter.project_slug }} tests
+	poetry run isort --check-only --recursive {{ cookiecutter.project_slug }} tests
+	poetry run black --check --diff {{ cookiecutter.project_slug }} tests
 
 fixstyle: ## fix black and isort style violations
-	black {{ cookiecutter.project_slug }} tests setup.py
-	isort -rc {{ cookiecutter.project_slug }} tests setup.py
+	poetry run isort ---recursive {{ cookiecutter.project_slug }} tests
+	poetry run black {{ cookiecutter.project_slug }} tests
 
 sast: ## run static application security testing
-	bandit -r {{ cookiecutter.project_slug }}
+	poetry run bandit -r {{ cookiecutter.project_slug }}
 
 checklicenses: ## check dependencies meet license rules
-	liccheck -s liccheck.ini -r requirements.txt
+	poetry run liccheck -s liccheck.ini
 
-test: ## run tests quickly with the default Python
-	pytest --verbose --capture=no
+test: install ## run tests quickly with the default Python
+	poetry run pytest --verbose --capture=no
 
 test-all: ## run tests on every Python version with tox
-	tox
+	poetry run tox
 
 coverage: ## check code coverage quickly with the default Python
-	coverage run --source {{ cookiecutter.project_slug }} -m pytest
-	coverage report -m
-	coverage html
-	$(BROWSER) htmlcov/index.html
+	poetry run coverage run --source {{ cookiecutter.project_slug }} -m pytest
+	poetry run coverage report -m
+	poetry run coverage html
+	poetry run $(BROWSER) htmlcov/index.html
 
 release: dist ## package and upload a release
-	twine upload dist/*
+	poetry publish
 
 dist: clean ## builds source and wheel package
-	python setup.py sdist
-	python setup.py bdist_wheel
-	ls -l dist
+	poetry build
 
-install: clean ## install the package to the active Python's site-packages
-	python setup.py install
+install: requirements.txt ## install the package to the active Python's site-packages
+	poetry install
+
+requirements.txt: poetry.lock ## create/update the requirements.txt file using poetry
+	poetry export --format requirements.txt
+	touch requirements.txt # when there are no dependencies

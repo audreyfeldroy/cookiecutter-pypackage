@@ -48,40 +48,48 @@ If you are proposing a feature:
 
 Ready to contribute? Here's how to set up `{{ cookiecutter.project_slug }}` for local development.
 
-1. Fork the `{{ cookiecutter.project_slug }}` repo on GitHub.
-2. Clone your fork locally:
+1. [Make sure Poetry is installed](https://python-poetry.org/docs/#installation)
+2. Fork the `{{ cookiecutter.project_slug }}` repo on GitHub.
+3. Clone your fork locally:
     ```
     $ git clone git@github.com:your_name_here/{{ cookiecutter.project_slug }}.git
     ```
-3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development:
+4. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development:
     ```
     $ mkvirtualenv {{ cookiecutter.project_slug }}
     $ cd {{ cookiecutter.project_slug }}/
     $ python setup.py develop
     ```
 
-4. Create a branch for local development:
+5. Create a branch for local development:
     ```
     $ git checkout -b name-of-your-bugfix-or-feature
     ```
    Now you can make your changes locally.
 
-5. When you're done making changes, check that your changes pass flake8 and the
-   tests, including testing other Python versions with tox:
+6. When you're done making changes, check that your changes pass
+   the checks and tests, including testing other Python versions with
+   tox:
+    ```shell script
+    make lint
+    make test
+    make test-all # runs tox
     ```
-    $ flake8 {{ cookiecutter.project_slug }} tests
-    $ python setup.py test or pytest
-    $ tox
-    ```
-   To get flake8 and tox, just pip install them into your virtualenv.
+   To get the required tools for running checks and tests, install them
+   into your virtual environment:
+   ```shell script
+    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+    source $HOME/.poetry/env
+    poetry install
+   ```
 
-6. Commit your changes and push your branch to GitHub:
+7. Commit your changes and push your branch to GitHub:
     ```
     $ git add .
     $ git commit -m "Your detailed description of your changes."
     $ git push origin name-of-your-bugfix-or-feature
     ```
-7. Submit a pull request through the GitHub website.
+8. Submit a pull request through the GitHub website.
 
 # Pull Request Guidelines
 
