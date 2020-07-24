@@ -106,6 +106,9 @@ pygments_style = "sphinx"
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
 
+# Suppress "WARNING: unknown mimetype for ..." when building EPUB.
+suppress_warnings = ['epub.unknown_project_files']
+
 
 # -- Options for HTML output -------------------------------------------
 
