@@ -109,6 +109,9 @@ todo_include_todos = False
 # Suppress "WARNING: unknown mimetype for ..." when building EPUB.
 suppress_warnings = ['epub.unknown_project_files']
 
+# Avoid "configuration.rst:4:duplicate label configuration, other instance in configuration.rst"
+autosectionlabel_prefix_document = True
+
 
 # -- Options for HTML output -------------------------------------------
 
