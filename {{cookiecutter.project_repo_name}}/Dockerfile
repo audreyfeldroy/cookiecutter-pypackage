@@ -20,7 +20,7 @@ WORKDIR /opt/wps
 RUN ["conda", "env", "create", "-n", "wps", "-f", "environment.yml"]
 
 # Install WPS
-RUN ["/bin/bash", "-c", "source activate wps && python setup.py install"]
+RUN ["/bin/bash", "-c", "source activate wps && pip install -e ."]
 
 # Start WPS service on port {{ cookiecutter.http_port }} on 0.0.0.0
 EXPOSE {{ cookiecutter.http_port }}
