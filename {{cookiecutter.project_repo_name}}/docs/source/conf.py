@@ -61,8 +61,9 @@ autodoc_mock_imports = ["numpy", "xarray", "fiona", "rasterio", "shapely",
                         "scikit-learn", "cairo"]
 
 # Monkeypatch constant because the following are mock imports.
-import numpy
-numpy.pi = 3.1416
+# Only works if numpy is actually installed and at the same time being mocked.
+#import numpy
+#numpy.pi = 3.1416
 
 # We are using mock imports in readthedocs, so probably safer to not run the notebooks
 nbsphinx_execute = 'never'
