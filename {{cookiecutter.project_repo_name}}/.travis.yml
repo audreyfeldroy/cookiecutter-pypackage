@@ -5,6 +5,7 @@ os:
 python:
   - "3.6"
   - "3.7"
+  - "3.8"
 branches:
   only:
     - master
