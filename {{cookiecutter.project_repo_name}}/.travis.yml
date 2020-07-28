@@ -5,9 +5,6 @@ os:
 python:
   - "3.6"
   - "3.7"
-branches:
-  only:
-    - master
 jobs:
   include:
     - os: osx
