@@ -193,7 +193,7 @@ See the bumpversion_ documentation for details.
 .. _Cookiecutter: https://github.com/audreyr/cookiecutter
 .. _Cruft: https://timothycrosley.github.io/cruft/
 .. _`cookiecutter-pypackage tutorial`: https://cookiecutter-pypackage.readthedocs.io/en/latest/tutorial.html
-.. _cruft_skip: https://github.com/Ouranosinc/raven/blob/4d32f82cc993e5569eb7afc86aefd7ed88824b78/.cruft.json#L4-L14
+.. _cruft_skip: https://github.com/bird-house/emu/commit/fb1ff9ffdf9e7f0282b36ff0727996cba3bf081a
 .. _cruft_link: https://github.com/bird-house/finch/pull/128/commits/0b0d7f37966cbb5bf345dfd4b4ac7953f38f4867
 .. _Travis-CI: http://travis-ci.org/
 .. _Codacy: http://codacy.com

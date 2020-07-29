@@ -5,6 +5,7 @@ os:
 python:
   - "3.6"
   - "3.7"
+  - "3.8"
 jobs:
   include:
     - os: osx
@@ -43,4 +44,6 @@ script:
   - pytest
   - make test-notebooks
   - flake8
-  - make docs
+  - make docs  # default html
+  - make SPHINXOPTS='-b epub' docs  # to match RtD
+  - make SPHINXOPTS='-b latex' docs  # to match RtD
