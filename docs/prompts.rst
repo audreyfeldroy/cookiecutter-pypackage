@@ -29,9 +29,6 @@ project_short_description
 release_date
     The date of the first release.
 
-pypi_username
-    Your Python Package Index account username.
-
 year
     The year of the initial package copyright in the license file.
 

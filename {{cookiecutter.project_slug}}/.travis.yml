@@ -14,16 +14,14 @@ install: pip install -U tox-travis
 script: tox
 
 {% if cookiecutter.use_pypi_deployment_with_travis == 'y' -%}
-# Assuming you have installed the travis-ci CLI tool, after you
-# create the Github repo and add it to Travis, run the
-# following command to finish PyPI deployment setup:
-# $ travis encrypt --add deploy.password
+# Create a new token PyPI token for your project via:
+# https://pypi.org/manage/account/token/
+# Then add it to the `PYPI_PASSWORD` environment variable in your Travis project settings:
+# https://travis-ci.com/github/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/settings
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
-  user: {{ cookiecutter.pypi_username }}
-  password:
-    secure: PLEASE_REPLACE_ME
+  user: "__token__"
   on:
     tags: true
     repo: {{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
