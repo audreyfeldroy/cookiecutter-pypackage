@@ -1,6 +1,5 @@
 .. _travis-pypi-setup:
 
-
 Travis/PyPI Setup
 =================
 
@@ -8,11 +7,12 @@ Optionally, your package can automatically be released on PyPI whenever you
 push a new tag to the master branch.
 
 Install the Travis CLI tool
-----------------------------
+---------------------------
 
 This is OS-specific.
 
-### macOS
+macOS
+------
 
 We recommend the Homebrew travis package:
 
@@ -20,7 +20,8 @@ We recommend the Homebrew travis package:
 brew install travis
 ```
 
-### Windows and Linux
+Windows and Linux
+------------------
 
 Follow the official Travis CLI installationinstructions for your operating system:
 
