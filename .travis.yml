@@ -1,5 +1,8 @@
 # Config file for automatic testing at travis-ci.org
 
+os: linux
+dist: xenial
+
 language: python
 python:
   - 3.8
@@ -17,7 +20,7 @@ script: tox
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
-  user: audreyr
+  username: audreyr
   password:
     secure: PLEASE_REPLACE_ME
   on:
