@@ -1,11 +1,59 @@
 # Config file for automatic testing at travis-ci.com
 
 language: python
-python:
-  - 3.8
-  - 3.7
-  - 3.6
-  - 3.5
+
+dist: xenial
+os: linux
+
+jobs:
+  fast_finish: true
+  include:
+    - env: TOXENV=docs
+      name: "Documentation"
+      python: 3.6
+    - env: TOXENV=black
+      name: "Black"
+      python: 3.6
+    - env: TOXENV=py38-macOS
+      name: "Python3.8 (macOS)"
+      os: osx
+      language: shell
+      addons:
+        homebrew:
+          update: true
+          packages:
+            - python@3.8
+      install:
+        - /usr/local/opt/python@3.8/bin/pip3 install -U tox-travis
+    - env:
+        - TOXENV=py38-windows
+        - DESIRED_PYTHON=3.8
+        - MINICONDA_PATH=$(cygpath --windows /c/miniconda)
+      name: "Python3.8 (Windows + Anaconda via Chocolatey)"
+      os: windows
+      language: shell
+      before_install:
+        - printenv
+        - choco install miniconda3 --params="'/AddToPath:0 /D:$MINICONDA_PATH'"
+        - source /c/miniconda/Scripts/activate
+        - hash -r
+        - conda config --set always_yes yes --set changeps1 no
+        - conda install setuptools
+        - conda update -q conda
+        - conda create -n {{ cookiecutter.project_slug }} -c conda-forge python=$DESIRED_PYTHON
+        - source activate {{ cookiecutter.project_slug }}
+    - python: 3.6
+    - python: 3.7
+    - python: 3.8
+  allow_failures:
+    - env: TOXENV=black
+    - env: TOXENV=py38-macOS
+    - env:
+      - TOXENV=py38-Windows
+      - DESIRED_PYTHON=3.8
+      - MINICONDA_PATH=$(cygpath --windows /c/miniconda)
+
+before_install: printenv
 
 # Command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: pip install -U tox-travis
