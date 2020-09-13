@@ -70,7 +70,7 @@ coverage: ## check code coverage quickly with the default Python
 {%- endif %}
 	$(ENVIRONMENT) coverage report -m
 	$(ENVIRONMENT) coverage html
-	$(ENVIRONMENT) (BROWSER) htmlcov/index.html
+	$(ENVIRONMENT) $(BROWSER) htmlcov/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/{{ cookiecutter.project_slug }}.rst
