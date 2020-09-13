@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "{{ cookiecutter.project_slug }}"
+version = "{{ cookiecutter.version }}"
+description = "{{ cookiecutter.project_short_description }}"
+license = "{{ cookiecutter.open_source_license }}"
+authors = ["{{ cookiecutter.full_name.replace('\"', '\\\"') }} <{{ cookiecutter.email }}>"]
+readme = "README.rst"
+repository = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}"
+keywords = ["{{ cookiecutter.project_slug }}"]
+classifiers=[
+    'Development Status :: 2 - Pre-Alpha',
+    'Intended Audience :: Developers',
+    'Natural Language :: English',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.5',
+    'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+]
+
+[tool.poetry.dependencies]
+python = "^3.5"
+{% if cookiecutter.command_line_interface|lower == 'click' -%}
+click = "7.0"{% endif %}
+
+[tool.poetry.dev-dependencies]
+bump2version = "0.5.11"
+coverage= "4.5.4"
+flake8 = "3.7.8"
+{% if cookiecutter.use_pytest == 'y' -%}
+pytest = "4.6.5"
+pytest-runner= "5.1"{% endif %}
+sphinx = "1.8.5"
+tox = "3.14.0"
+watchdog = "0.9.0"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
