@@ -1,6 +1,17 @@
 CHANGES
 ********
 
+0.5.0 (2020-10-07)
+==================
+
+Changes:
+
+* Easier to deploy new template to existing project using cruft (#85, #61).
+* Use pip instead of setup.py (#97).
+* Added conda forge, Python3.8, and osx build (#38).
+* Backported fixes from birds (#86, #88, #89).
+* Other fixes (#92, #93, #96, #100).
+
 0.4.2 (2020-01-07)
 ==================
 
