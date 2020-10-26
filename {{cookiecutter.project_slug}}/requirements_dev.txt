@@ -1,20 +1,26 @@
-pip
-bumpversion
-wheel
-watchdog
-flake8
-tox
-coverage
-Sphinx
-twine
-pre_commit
-black
-sphinx-markdown-tables
-sphinx-rtd-theme
-m2r
-watchdog
-{% if cookiecutter.command_line_interface == 'y' -%}
-sphinx-click{% endif %}
 {% if cookiecutter.use_pytest == 'y' -%}
-pytest
-pytest-runner{% endif %}
+allure-pytest
+{% endif -%}
+bumpversion
+coverage
+flake8
+m2r
+pip
+pre_commit
+{% if cookiecutter.use_pytest == 'y' -%}
+pytest>=6.0.0
+pytest-runner
+recommonmark
+{% endif -%}
+Sphinx>=3.2.1
+sphinx-autodoc-typehints
+{% if cookiecutter.command_line_interface == 'Click' -%}
+sphinx-click
+{% endif -%}
+sphinx-markdown-tables
+sphinx-multiversion
+sphinx-rtd-theme
+tox
+twine
+watchdog
+wheel

@@ -2,14 +2,16 @@
 
 """Console script for {{cookiecutter.project_slug}}."""
 import sys
+
 import click
 
 
 @click.group()
 def cli(args=None):
-    """Console script for {{cookiecutter.project_slug}}."""
-    click.echo("Replace this message by putting your code into "
-               "{{cookiecutter.project_slug}}.cli.main")
+    """Console script for python_boilerplate."""
+    click.echo(
+        "Replace this message by putting your code into " "python_boilerplate.cli.main"
+    )
     click.echo("See click documentation at http://click.pocoo.org/")
 
 
@@ -21,4 +23,3 @@ def command(option):
 
 if __name__ == "__main__":
     sys.exit(cli())  # pragma: no cover
-    print("DERE")

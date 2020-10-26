@@ -5,29 +5,17 @@
 
 {% if cookiecutter.use_pytest == "y" -%}
 import pytest
-{% else %}
+{%- else %}
 import unittest
 {%- endif %}
-{%- if cookiecutter.command_line_interface|lower == "click" %}
+
+import allure
+{% if cookiecutter.command_line_interface|lower == "click" %}
 from click.testing import CliRunner
 {%- endif %}
 
-from {{ cookiecutter.project_slug }} import {{ cookiecutter.project_slug }}
-{%- if cookiecutter.command_line_interface|lower == "click" %}
-from {{ cookiecutter.project_slug }} import cli
-{%- endif %}
-
+from {{cookiecutter.project_slug}} import cli, {{ cookiecutter.project_slug }}
 {%- if cookiecutter.use_pytest == "y" %}
-
-
-@pytest.fixture
-def response():
-    """Sample pytest fixture.
-
-    See more at: http://doc.pytest.org/en/latest/fixture.html
-    """
-    # import requests
-    # return requests.get("https://github.com/audreyr/cookiecutter-pypackage")
 
 
 def test_content(response):
@@ -36,7 +24,7 @@ def test_content(response):
     # assert "GitHub" in BeautifulSoup(response.content).title.string
 {%- if cookiecutter.command_line_interface|lower == "click" %}
 
-
+@allure.title("TC_1")
 def test_cli_root():
     """Test the CLI."""
     runner = CliRunner()

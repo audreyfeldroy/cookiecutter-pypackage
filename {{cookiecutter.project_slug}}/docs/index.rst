@@ -1,5 +1,6 @@
-Welcome to {{ cookiecutter.project_name }}'s documentation!
-======================================
+{% set title = 'Welcome to ' + cookiecutter.project_name + '\'s documentation!' %}
+{{ title }}
+{{ "=" * title.__len__() }}
 
 .. toctree::
    :maxdepth: 2

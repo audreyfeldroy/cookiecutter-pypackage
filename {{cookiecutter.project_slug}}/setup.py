@@ -3,7 +3,7 @@
 
 """The setup script."""
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 with open("README.md") as readme_file:
     readme = readme_file.read()
@@ -14,9 +14,16 @@ with open("HISTORY.rst") as history_file:
 with open("requirements.txt", "r") as requirements_txt:
     requirements = requirements_txt.read().split("\n")
 
-setup_requirements = [{%- if cookiecutter.use_pytest == "y" %}"pytest-runner",{%- endif %} ]
+with open("requirements_dev.txt", "r") as requirements_txt:
+    dev_requirements = requirements_txt.read().split("\n")
 
-test_requirements = [{%- if cookiecutter.use_pytest == "y" %}"pytest",{%- endif %} ]
+setup_requirements = [
+    {%- if cookiecutter.use_pytest == "y" %}
+    "pytest-runner",
+    {%- endif %}
+]
+
+test_requirements = dev_requirements
 
 {%- set license_classifiers = {
     "MIT license": "License :: OSI Approved :: MIT License",
@@ -38,6 +45,7 @@ setup(
         "Natural Language :: English",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
     ],
     description="{{ cookiecutter.project_short_description }}",
     {%- if "no" not in cookiecutter.command_line_interface|lower %}
@@ -56,7 +64,8 @@ setup(
     include_package_data=True,
     keywords="{{ cookiecutter.project_slug }}",
     name="{{ cookiecutter.project_slug }}",
-    packages=find_packages(),
+    packages=find_packages("src"),
+    package_dir={"": "src"},
     setup_requires=setup_requirements,
     test_suite="tests",
     tests_require=test_requirements,

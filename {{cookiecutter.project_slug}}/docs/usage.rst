@@ -2,7 +2,10 @@
 Usage
 =====
 
-To use NFCTlog in a project::
+Library
+=======
+
+To use {{ cookiecutter.project_name }} in a project::
 
     import {{ cookiecutter.project_slug }}
 

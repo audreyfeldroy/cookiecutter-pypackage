@@ -21,6 +21,8 @@
 import os
 import sys
 
+import sphinx_rtd_theme
+
 import {{ cookiecutter.project_slug }}
 
 sys.path.insert(0, os.path.abspath(".."))  # noqa E402
@@ -35,11 +37,14 @@ sys.path.insert(0, os.path.abspath(".."))  # noqa E402
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
+    "recommonmark",
     "sphinx.ext.autodoc",
-    "sphinx_autodoc_annotation",
+    'sphinx_autodoc_typehints',
     "sphinx.ext.viewcode",
     "sphinx_markdown_tables",
-    "sphinx_click.ext"
+    "sphinx_click",
+    "sphinx_rtd_theme",
+    "sphinx_multiversion",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -88,7 +93,8 @@ todo_include_todos = False
 # configure parser for markdown files
 # http://www.sphinx-doc.org/en/master/usage/markdown.html
 source_parsers = {
-   ".md": "recommonmark.parser.CommonMarkParser",
+    '.rst': 'restructuredtext',
+    '.md': 'recommonmark.parser.CommonMarkParser',
 }
 
 # -- Options for HTML output -------------------------------------------
@@ -139,9 +145,13 @@ latex_elements = {
 # (source start file, target name, title, author, documentclass
 # [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, "{{ cookiecutter.project_slug }}.tex",
-     u"{{ cookiecutter.project_name }} Documentation",
-     u"{{ cookiecutter.full_name }}", "manual"),
+    (
+        master_doc,
+        "{{ cookiecutter.project_slug }}.tex",
+        u"{{ cookiecutter.project_name }} Documentation",
+        u"{{ cookiecutter.full_name }}",
+        "manual",
+    ),
 ]
 
 
@@ -150,9 +160,13 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, "{{ cookiecutter.project_slug }}",
-     u"{{ cookiecutter.project_name }} Documentation",
-     [author], 1)
+    (
+        master_doc,
+        "{{ cookiecutter.project_slug }}",
+        u"{{ cookiecutter.project_name }} Documentation",
+        [author],
+        1,
+    ),
 ]
 
 
@@ -162,10 +176,34 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, "{{ cookiecutter.project_slug }}",
-     u"{{ cookiecutter.project_name }} Documentation",
-     author,
-     "{{ cookiecutter.project_slug }}",
-     "One line description of project.",
-     "Miscellaneous"),
+    (
+        master_doc,
+        "{{ cookiecutter.project_slug }}",
+        u"{{ cookiecutter.project_name }} Documentation",
+        author,
+        "{{ cookiecutter.project_slug }}",
+        "One line description of project.",
+        "Miscellaneous",
+    ),
 ]
+
+# -- Options for Sphinx multiversion -----------------------------------
+
+# Whitelist pattern for tags (set to None to ignore all tags)
+smv_tag_whitelist = r"^.*$"
+
+# Whitelist pattern for branches (set to None to ignore all branches)
+smv_branch_whitelist = None
+
+# Whitelist pattern for remotes (set to None to use local branches only)
+smv_remote_whitelist = None
+
+# Pattern for released versions
+smv_released_pattern = r"^tags/.*$"
+
+# Format for versioned output directories inside the build directory
+smv_outputdir_format = "{ref.name}"
+
+# Determines whether remote or local git branches/tags
+# are preferred if their output dirs conflict
+smv_prefer_remote_refs = False
