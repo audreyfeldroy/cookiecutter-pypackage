@@ -26,14 +26,8 @@ project_slug
 project_short_description
     A 1-sentence description of what your Python package does.
 
-release_date
-    The date of the first release.
-
 pypi_username
     Your Python Package Index account username.
-
-year
-    The year of the initial package copyright in the license file.
 
 version
     The starting version number of the package.
@@ -43,8 +37,20 @@ Options
 
 The following package configuration options set up different features for your project.
 
+use_pytest
+    Whether to use `pytest <https://docs.pytest.org/en/latest/>`_
+
 use_pypi_deployment_with_travis
-    Whether to use PyPI deployment with Travis.
+    Whether to use PyPI deployment with `Travis <https://travis-ci.org/>`_.
+
+add_pyup_badge
+    Whether to include a `pyup <https://github.com/pyupio/pyup>`_ badge
 
 command_line_interface
-    Whether to create a console script using Click. Console script entry point will match the project_slug. Options: ['Click', "No command-line interface"]
+    Whether to create a console script using Click. Console script entry point will match the project_slug. Options: ['Click', 'Argparse', 'No command-line interface']
+    
+create_author_file
+    Whether to create an authors file
+    
+open_source_license
+    Choose a `license <https://choosealicense.com/>`_. Options: [1. MIT License, 2. BSD license, 3. ISC license, 4. Apache Software License 2.0, 5. GNU General Public License v3, 6. Not open source]
