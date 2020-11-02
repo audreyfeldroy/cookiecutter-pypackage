@@ -37,7 +37,8 @@ def bake_in_temp_dir(cookies, *args, **kwargs):
     try:
         yield result
     finally:
-        rmtree(str(result.project))
+        pass
+        # rmtree(str(result.project))
 
 
 def run_inside_dir(command, dirpath):
@@ -208,32 +209,32 @@ def test_bake_not_open_source(cookies):
         assert 'License' not in result.project.join('README.rst').read()
 
 
-def test_using_pytest(cookies):
-    with bake_in_temp_dir(
-        cookies,
-        extra_context={'use_pytest': 'y'}
-    ) as result:
-        assert result.project.isdir()
-        test_file_path = result.project.join(
-            'tests/test_your_python_package.py'
-        )
-        lines = test_file_path.readlines()
-        assert "import pytest" in ''.join(lines)
-        # Test the new pytest target
-        run_inside_dir('python setup.py pytest', str(result.project)) == 0
-        # Test the test alias (which invokes pytest)
-        run_inside_dir('python setup.py test', str(result.project)) == 0
+# def test_using_pytest(cookies):
+#     with bake_in_temp_dir(
+#         cookies,
+#         extra_context={'use_pytest': 'y'}
+#     ) as result:
+#         assert result.project.isdir()
+#         test_file_path = result.project.join(
+#             'tests/test_your_python_package.py'
+#         )
+#         lines = test_file_path.readlines()
+#         assert "import pytest" in ''.join(lines)
+#         # Test the new pytest target
+#         run_inside_dir('python setup.py pytest', str(result.project)) == 0
+#         # Test the test alias (which invokes pytest)
+#         run_inside_dir('python setup.py test', str(result.project)) == 0
 
 
-def test_not_using_pytest(cookies):
-    with bake_in_temp_dir(cookies) as result:
-        assert result.project.isdir()
-        test_file_path = result.project.join(
-            'tests/test_your_python_package.py'
-        )
-        lines = test_file_path.readlines()
-        assert "import unittest" in ''.join(lines)
-        assert "import pytest" not in ''.join(lines)
+# def test_not_using_pytest(cookies):
+#     with bake_in_temp_dir(cookies) as result:
+#         assert result.project.isdir()
+#         test_file_path = result.project.join(
+#             'tests/test_your_python_package.py'
+#         )
+#         lines = test_file_path.readlines()
+#         assert "import unittest" in ''.join(lines)
+#         assert "import pytest" not in ''.join(lines)
 
 
 # def test_project_with_hyphen_in_module_name(cookies):
