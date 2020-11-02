@@ -1,7 +1,7 @@
 {
   "full_name": "Mr Developer",
   "email": "developer@example.com",
-  "git_service": ["https://git.rwth-aachen.de", "https://github.com"],
+  "git_service": ["https://github.com", "https://git.rwth-aachen.de"],
   "git_username": "mr_developer",
   "project_name": "Your Python Project",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
@@ -13,7 +13,7 @@
   "use_pypi_deployment_with_travis": "y",
   "travis_username": "{{ cookiecutter.git_username }}",
   "add_pyup_badge": "n",
-  "command_line_interface": ["Click", "Argparse", "No command-line interface"],
+  "command_line_interface": ["No command-line interface", "Click", "Argparse"],
   "create_author_file": "y",
   "open_source_license": ["MIT license", "BSD license", "ISC license", "Apache Software License 2.0", "GNU General Public License v3", "Not open source"]
 }
