@@ -1,8 +1,8 @@
 {
-  "full_name": "Mr Developer",
+  "full_name": "The Developer",
   "email": "developer@example.com",
   "git_service": ["https://github.com", "https://git.rwth-aachen.de"],
-  "git_username": "mr_developer",
+  "git_username": "developer",
   "project_name": "Your Python Project",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
   "project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
