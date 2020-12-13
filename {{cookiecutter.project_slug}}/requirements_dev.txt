@@ -13,4 +13,4 @@ click==6.7{% endif %}
 pytest==3.4.2
 pytest-runner==2.11.1{% endif %}
 lxml==4.2.4
-mypy==0.620
+mypy==0.790

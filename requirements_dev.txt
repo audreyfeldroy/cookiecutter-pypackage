@@ -1,5 +1,9 @@
 pytest==3.4.2
-tox==2.9.1
+# pytest dependency fix: https://stackoverflow.com/questions/58189683/typeerror-attrib-got-an-unexpected-keyword-argument-convert
+attrs==19.1.0
+# https://travis-ci.org/github/apiology/cookiecutter-pypackage/jobs/749487415
+requests==2.25.0
+tox==3.14.1
 cookiecutter>=1.4.0
 pytest-cookies==0.3.0
 watchdog==0.8.3
