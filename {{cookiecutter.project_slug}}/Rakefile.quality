@@ -11,6 +11,7 @@ end
 task quality: %i[pronto]
 
 Quality::Rake::Task.new do |t|
+  t.skip_tools = %w[rubocop reek cane eslint flay flog jscs rails_best_practices scalastyle]
   t.exclude_files = ['docs/conf.py', 'CONTRIBUTING.rst']
   # t.verbose = true
 end

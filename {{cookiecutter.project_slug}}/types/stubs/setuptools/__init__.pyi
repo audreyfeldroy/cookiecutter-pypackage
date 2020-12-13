@@ -2,5 +2,5 @@ def setup(**attrs):
     ...
 
 
-def find_packages(where: str='.', exclude=(), include=('*',)):
+def find_packages(where: str = '.', exclude=(), include=('*',)):
     ...
