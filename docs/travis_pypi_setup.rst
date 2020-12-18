@@ -1,6 +1,5 @@
 .. _travis-pypi-setup:
 
-
 Travis/PyPI Setup
 =================
 
@@ -8,11 +7,12 @@ Optionally, your package can automatically be released on PyPI whenever you
 push a new tag to the master branch.
 
 Install the Travis CLI tool
---------------------------------------
+---------------------------
 
 This is OS-specific.
 
-### Mac OS X
+macOS
+------
 
 We recommend the Homebrew travis package:
 
@@ -20,7 +20,8 @@ We recommend the Homebrew travis package:
 brew install travis
 ```
 
-### Windows and Linux
+Windows and Linux
+------------------
 
 Follow the official Travis CLI installationinstructions for your operating system:
 
@@ -43,7 +44,7 @@ If you are using this feature, this is how you would do a patch release:
 
 .. code-block:: bash
 
-    bumpversion patch
+    bump2version patch
     git push --tags
 
 This will result in:

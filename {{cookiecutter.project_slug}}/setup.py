@@ -18,11 +18,11 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements: List[str] = [{%- if cookiecutter.command_line_interface|lower == 'click' %}'Click>=6.0',{%- endif %}]
+requirements: List[str] = [{%- if cookiecutter.command_line_interface|lower == 'click' %}'Click>=7.0',{%- endif %}]
 
 setup_requirements: List[str] = [{%- if cookiecutter.use_pytest == 'y' %}'pytest-runner',{%- endif %}]
 
-test_requirements: List[str] = [{%- if cookiecutter.use_pytest == 'y' %}'pytest',{%- endif %}]
+test_requirements: List[str] = [{%- if cookiecutter.use_pytest == 'y' %}'pytest>=3',{%- endif %} ]
 
 {%- set license_classifiers = {
     'MIT license': 'License :: OSI Approved :: MIT License',
@@ -102,6 +102,7 @@ class QualityCommand(Command):
 setup(
     author="{{ cookiecutter.full_name.replace('\"', '\\\"') }}",
     author_email='{{ cookiecutter.email }}',
+    python_requires='>=3.5',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
@@ -112,6 +113,7 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
     ],
     description="{{ cookiecutter.project_short_description }}",
     {%- if 'no' not in cookiecutter.command_line_interface|lower %}
@@ -129,7 +131,7 @@ setup(
     include_package_data=True,
     keywords='{{ cookiecutter.project_slug }}',
     name='{{ cookiecutter.project_slug }}',
-    packages=find_packages(include=['{{ cookiecutter.project_slug }}']),
+    packages=find_packages(include=['{{ cookiecutter.project_slug }}', '{{ cookiecutter.project_slug }}.*']),
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,

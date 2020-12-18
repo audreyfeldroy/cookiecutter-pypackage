@@ -1,4 +1,4 @@
-# Config file for automatic testing at travis-ci.org
+# Config file for automatic testing at travis-ci.com
 
 language: python
 matrix:
@@ -32,5 +32,5 @@ deploy:
   on:
     tags: true
     repo: {{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
-    python: 3.6
+    python: 3.8
 {%- endif %}

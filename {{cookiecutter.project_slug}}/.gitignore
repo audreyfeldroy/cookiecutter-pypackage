@@ -98,3 +98,6 @@ ENV/
 # mypy
 .mypy_cache/
 /types/coverage
+
+# IDE settings
+.vscode/
