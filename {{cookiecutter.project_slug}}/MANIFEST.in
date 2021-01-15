@@ -5,6 +5,10 @@ include CONTRIBUTING.rst
 include HISTORY.rst
 include LICENSE
 include README.rst
+include requirements_dev.txt
+{% if cookiecutter.make_docs ==  'y' -%}
+include requirements_docs.txt
+{% endif -%}
 
 recursive-include tests *
 recursive-exclude * __pycache__

@@ -1,22 +1,35 @@
 #!/usr/bin/env python
-import os
+from pathlib import Path
 
-PROJECT_DIRECTORY = os.path.realpath(os.path.curdir)
+PROJECT_DIRECTORY = Path().cwd().absolute()
 
 
 def remove_file(filepath):
-    os.remove(os.path.join(PROJECT_DIRECTORY, filepath))
+    Path(PROJECT_DIRECTORY).joinpath(filepath).unlink()
 
 
-if __name__ == '__main__':
+def remove_folder(folderpath):
+    for file in Path(PROJECT_DIRECTORY).joinpath(folderpath).iterdir():
+        if not file.is_dir():
+            file.unlink()
+            continue
+        file.rmdir()
+    Path(PROJECT_DIRECTORY).joinpath(folderpath).rmdir()
 
-    if '{{ cookiecutter.create_author_file }}' != 'y':
-        remove_file('AUTHORS.rst')
-        remove_file('docs/authors.rst')
 
-    if 'no' in '{{ cookiecutter.command_line_interface|lower }}':
-        cli_file = os.path.join('{{ cookiecutter.project_slug }}', 'cli.py')
+if __name__ == "__main__":
+
+    if "{{ cookiecutter.create_author_file }}" != "y":
+        remove_file("AUTHORS.rst")
+        remove_file("docs/authors.rst")
+
+    if "{{ cookiecutter.make_docs }}" != "y":
+        remove_file("requirements_docs.txt")
+        remove_folder("docs")
+
+    if "no" in "{{ cookiecutter.command_line_interface|lower }}":
+        cli_file = Path("{{ cookiecutter.project_slug }}").joinpath("cli.py")
         remove_file(cli_file)
 
-    if 'Not open source' == '{{ cookiecutter.open_source_license }}':
-        remove_file('LICENSE')
+    if "Not open source" == "{{ cookiecutter.open_source_license }}":
+        remove_file("LICENSE")
