@@ -36,14 +36,14 @@ set_pyenv_env_variables() {
   #
   # https://app.circleci.com/pipelines/github/apiology/cookiecutter-pypackage/15/workflows/10506069-7662-46bd-b915-2992db3f795b/jobs/15
   set +u
-  export PATH="$HOME/.pyenv/bin:$PATH"
+  export PATH="${HOME}/.pyenv/bin:$PATH"
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
   set -u
 }
 
 ensure_pyenv() {
-  if ! type pyenv >/dev/null 2>&1 && ! [ -f $HOME/.pyenv/bin/pyenv ]
+  if ! type pyenv >/dev/null 2>&1 && ! [ -f "${HOME}/.pyenv/bin/pyenv" ]
   then
     install_pyenv
   fi
@@ -88,7 +88,8 @@ done
 latest_python_version="$(cut -d' ' -f1 <<< "${python_versions}")"
 virtualenv_name="cookiecutter-pypackage-${latest_python_version}"
 pyenv virtualenv "${latest_python_version}" "${virtualenv_name}" || true
-pyenv local "${virtualenv_name}" ${python_versions}
+pyenv virtualenv mylibs || true
+pyenv local "${virtualenv_name}" ${python_versions} mylibs
 # Make sure we have a pip with the 20.3 resolver, and after the
 # initial bugfix release
 pip install 'pip>=20.3.1'
