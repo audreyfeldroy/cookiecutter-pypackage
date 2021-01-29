@@ -1,0 +1,21 @@
+version: 2
+
+jobs:
+  test:
+    docker:
+      - image: fkrull/multi-python
+    steps:
+      - checkout
+      - run:
+          name: Test
+          command: 'tox'
+          environment:
+            # https://app.circleci.com/pipelines/github/apiology/cookiecutter-pypackage/4/workflows/29074dc8-944c-4600-8aaa-5116575fed90/jobs/4
+            "LC_ALL": "C.UTF-8"
+            "LANG": "C.UTF-8"
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
