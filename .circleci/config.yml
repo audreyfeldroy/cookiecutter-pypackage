@@ -3,12 +3,25 @@ version: 2
 jobs:
   test:
     docker:
-      - image: fkrull/multi-python
+      - image: circleci/python
     steps:
       - checkout
+      - restore_cache:
+          key: fix.sh-v1-{{ checksum "fix.sh" }}
+      - run:
+          name: Initialize packages
+          command: './fix.sh'
+      - save_cache:
+          key: fix.sh-v1-{{ checksum "fix.sh" }}
+          paths:
+            - "/home/circleci/.pyenv"
       - run:
           name: Test
-          command: 'tox'
+          command: |
+            export PATH="$HOME/.pyenv/bin:$PATH"
+            eval "$(pyenv init -)"
+            eval "$(pyenv virtualenv-init -)"
+            tox
           environment:
             # https://app.circleci.com/pipelines/github/apiology/cookiecutter-pypackage/4/workflows/29074dc8-944c-4600-8aaa-5116575fed90/jobs/4
             "LC_ALL": "C.UTF-8"
