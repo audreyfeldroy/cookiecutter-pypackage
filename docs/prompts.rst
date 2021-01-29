@@ -40,9 +40,6 @@ The following package configuration options set up different features for your p
 use_pytest
     Whether to use `pytest <https://docs.pytest.org/en/latest/>`_
 
-use_pypi_deployment_with_travis
-    Whether to use PyPI deployment with `Travis <https://travis-ci.org/>`_.
-
 command_line_interface
     Whether to create a console script using Click. Console script entry point will match the project_slug. Options: ['Click', 'Argparse', 'No command-line interface']
 

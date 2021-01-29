@@ -5,15 +5,12 @@ Cookiecutter PyPackage
 This is a fork
 --------------
 
-.. image:: https://img.shields.io/travis/apiology/cookiecutter-pypackage.svg
-    :target: https://travis-ci.org/apiology/cookiecutter-pypackage
-    :alt: Linux build status on Travis CI
-
-
 Hi!  I'm apiology_ and this is my fork of https://github.com/audreyr/cookiecutter-pypackage/
 
 Changes made to the original (see `GitHub view <https://github.com/audreyr/cookiecutter-pypackage/compare/master...apiology:fork_info?expand=1>`_):
 
+* Remove TravisCI in favor of CircleCI
+* Remove pyup in favor of GitHub
 * Added note and new travis build icon to top of README
 * Some whitespace fixes in README.rst
 * Make setup.py executable

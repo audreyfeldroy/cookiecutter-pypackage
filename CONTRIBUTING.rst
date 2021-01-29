@@ -13,7 +13,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/audreyr/cookiecutter-pypackage/issues
+Report bugs at https://github.com/apiology/cookiecutter-pypackage/issues
 
 If you are reporting a bug, please include:
 
@@ -172,7 +172,7 @@ Before you submit a pull request, check that it meets these guidelines:
    the list in README.rst.
 
 3. The pull request should work for Python 3.6 and 3.7, 3.8, 3.9 and for PyPy. Check
-   https://travis-ci.org/audreyr/cookiecutter-pypackage/pull_requests and
+   https://app.circleci.com/pipelines/github/apiology/cookiecutter-pypackage and
    make sure that the tests pass for all supported Python versions.
 
 Add a New Test
