@@ -1,6 +1,13 @@
 CHANGES
 ********
 
+0.6.0
+=====
+
+Changes:
+
+* Replace `search` by `parse` in the bumpversion config for `docs/conf.py` to support the `version|release` expression.
+
 0.5.0 (2020-10-07)
 ==================
 
