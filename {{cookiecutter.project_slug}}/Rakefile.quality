@@ -3,9 +3,9 @@
 require 'quality/rake/task'
 
 task :pronto do
-  sh 'pronto run -c origin/master --no-exit-code --unstaged || true'
-  sh 'pronto run -c origin/master --no-exit-code --staged || true'
-  sh 'pronto run -c origin/master --no-exit-code || true'
+  sh 'pronto run -c origin/main --no-exit-code --unstaged || true'
+  sh 'pronto run -c origin/main --no-exit-code --staged || true'
+  sh 'pronto run -c origin/main --no-exit-code || true'
 end
 
 task quality: %i[pronto]

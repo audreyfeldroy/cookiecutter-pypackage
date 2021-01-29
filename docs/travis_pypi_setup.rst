@@ -4,7 +4,7 @@ Travis/PyPI Setup
 =================
 
 Optionally, your package can automatically be released on PyPI whenever you
-push a new tag to the master branch.
+push a new tag to the main branch.
 
 Install the Travis CLI tool
 ---------------------------

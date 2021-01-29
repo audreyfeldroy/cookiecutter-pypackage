@@ -32,7 +32,7 @@ Original README
     :target: https://pyup.io/repos/github/audreyfeldroy/cookiecutter-pypackage/
     :alt: Updates
 
-.. image:: https://travis-ci.org/audreyfeldroy/cookiecutter-pypackage.svg?branch=master
+.. image:: https://travis-ci.org/apiology/cookiecutter-pypackage.svg?branch=main
     :target: https://travis-ci.org/github/audreyfeldroy/cookiecutter-pypackage
     :alt: Build Status
 
@@ -54,7 +54,7 @@ Features
 * Tox_ testing: Setup to easily test for Python 3.6, 3.7, 3.8, 3.9
 * Sphinx_ docs: Documentation ready for generation with, for example, `Read the Docs`_
 * bump2version_: Pre-configured version bumping with a single command
-* Auto-release to PyPI_ when you push a new tag to master (optional)
+* Auto-release to PyPI_ when you push a new tag to main (optional)
 * Command line interface using Click (optional)
 
 .. _Cookiecutter: https://github.com/cookiecutter/cookiecutter
@@ -70,8 +70,8 @@ Linux:
 
 Windows:
 
-.. image:: https://ci.appveyor.com/api/projects/status/github/audreyr/cookiecutter-pypackage?branch=master&svg=true
-    :target: https://ci.appveyor.com/project/audreyr/cookiecutter-pypackage/branch/master
+.. image:: https://ci.appveyor.com/api/projects/status/github/apiology/cookiecutter-pypackage?branch=main&svg=true
+    :target: https://ci.appveyor.com/project/apiology/cookiecutter-pypackage/branch/main
     :alt: Windows build status on Appveyor
 
 Quickstart
@@ -93,9 +93,9 @@ Then:
 * Install the dev requirements into a virtualenv. (``pip install -r requirements_dev.txt``)
 * Register_ your project with PyPI.
 * Run the Travis CLI command ``travis encrypt --add deploy.password`` to encrypt your PyPI password in Travis config
-  and activate automated deployment on PyPI when you push a new tag to master branch.
+  and activate automated deployment on PyPI when you push a new tag to main branch.
 * Add the repo to your `Read the Docs`_ account + turn on the Read the Docs service hook.
-* Release your package by pushing a new tag to master.
+* Release your package by pushing a new tag to main.
 * Add a ``requirements.txt`` file that specifies the packages you will need for
   your project and their versions. For more info see the `pip docs for requirements files`_.
 * Activate your project on `pyup.io`_.
