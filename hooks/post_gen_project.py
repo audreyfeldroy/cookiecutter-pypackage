@@ -28,3 +28,4 @@ if __name__ == '__main__':
     subprocess.check_call(['git', 'add', '-A'])
     subprocess.check_call(['git', 'commit', '-m',
                            'Initial commit from boilerplate'])
+    subprocess.check_call(['gh', '--whaevs'])

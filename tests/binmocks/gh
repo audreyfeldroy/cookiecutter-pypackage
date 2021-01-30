@@ -1,0 +1,4 @@
+#!/bin/bash -e
+
+echo "gh called with $*"
+exit 0
