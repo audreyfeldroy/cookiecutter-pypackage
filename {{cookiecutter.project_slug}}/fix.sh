@@ -18,11 +18,19 @@ for ver in $python_versions
 do
   if [ "$(uname)" == Darwin ]
   then
-    # https://teratail.com/questions/309663
-    HOMEBREW_NO_AUTO_UPDATE=1 brew install zlib bzip2 || true
+    if ! [ -f /usr/local/opt/zlib/lib/libz.dylib ]
+    then
+      # https://teratail.com/questions/309663
+      HOMEBREW_NO_AUTO_UPDATE=1 brew install zlib || true
+    fi
+    if ! [ -f /usr/local/opt/bzip2/bin/bzip2 ]
+    then
+      # https://teratail.com/questions/309663
+      HOMEBREW_NO_AUTO_UPDATE=1 brew install bzip2 || true
+    fi
 
     pyenv_install() {
-      CFLAGS="-I$(brew --prefix zlib)/include -I$(brew --prefix bzip2)/include" LDFLAGS="-L$(brew --prefix zlib)/lib -L$(brew --prefix bzip2)/lib" pyenv install --skip-existing "$@"
+      CFLAGS="-I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include" LDFLAGS="-L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib" pyenv install --skip-existing "$@"
     }
 
     major_minor="$(cut -d. -f1-2 <<<"${ver}")"
