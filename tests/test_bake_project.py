@@ -189,6 +189,10 @@ def test_using_pytest(cookies):
         assert "import pytest" in ''.join(lines)
         # Test the new pytest target
         run_inside_dir('python setup.py pytest', str(result.project)) == 0
+        # Verify project is fresh and clean in this mode
+        run_inside_dir('python setup.py types', str(result.project)) == 0
+        run_inside_dir('overcommit --sign', str(result.project)) == 0
+        run_inside_dir('python setup.py quality', str(result.project)) == 0
         # Test the test alias (which invokes pytest)
         run_inside_dir('python setup.py test', str(result.project)) == 0
 

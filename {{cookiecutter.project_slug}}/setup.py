@@ -22,7 +22,7 @@ requirements: List[str] = [{%- if cookiecutter.command_line_interface|lower == '
 
 setup_requirements: List[str] = [{%- if cookiecutter.use_pytest == 'y' %}'pytest-runner'{%- endif %}]
 
-test_requirements: List[str] = [{%- if cookiecutter.use_pytest == 'y' %} 'pytest>=3' {%- endif %}]
+test_requirements: List[str] = [{%- if cookiecutter.use_pytest == 'y' %}'pytest>=3'{%- endif %}]
 
 {%- set license_classifiers = {
     'MIT license': 'License :: OSI Approved :: MIT License',

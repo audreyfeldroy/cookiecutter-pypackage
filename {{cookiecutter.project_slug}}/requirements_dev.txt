@@ -10,7 +10,7 @@ twine==3.2.0
 {% if cookiecutter.command_line_interface|lower == 'click' -%}
 Click==7.0{% endif %}
 {% if cookiecutter.use_pytest == 'y' -%}
-pytest==4.6.5
+pytest==6.2.2
 pytest-runner==5.1{% endif %}
 mypy==0.790
 # lxml is needed for mypy coverage reporting:
