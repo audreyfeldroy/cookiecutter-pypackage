@@ -79,7 +79,7 @@ install_pyenv() {
     if ! type pyenv 2>/dev/null
     then
       # https://github.com/pyenv/pyenv-installer/blob/master/bin/pyenv-installer
-      2>&1 cat <<EOF
+      >&2 cat <<EOF
 WARNING: seems you still have not added 'pyenv' to the load path.
 # Load pyenv automatically by adding
 # the following to ~/.bashrc:
