@@ -1,8 +1,8 @@
 [flake8]
-max_line_length=100
-exclude=
+exclude =
     {{cookiecutter.project_slug}}
     .tox
+max_line_length = 100
 per-file-ignores =
     # Sample code from Sphinx uses no-space comment to show
     # distinction between sample code and comments about it...which
