@@ -81,9 +81,11 @@ install_pyenv() {
       # https://github.com/pyenv/pyenv-installer/blob/master/bin/pyenv-installer
       >&2 cat <<EOF
 WARNING: seems you still have not added 'pyenv' to the load path.
+
 # Load pyenv automatically by adding
 # the following to ~/.bashrc:
-export PATH="/home/circleci/.pyenv/bin:$PATH"
+
+export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 EOF
