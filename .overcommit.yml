@@ -16,13 +16,17 @@
 # Uncomment the following lines to make the configuration take effect.
 
 PreCommit:
+  ALL:
+    exclude:
+      # Files are templated and the raw version is not always valid
+      # syntax as a result; these will be tested in pytest after being
+      # templated.
+      - '{{cookiecutter.project_slug}}/**/*'
   PythonFlake8:
     enabled: true
-    exclude:
-      # Files are templated and not always valid Python as a result; these will be tested in CircleCI
-     - '{{cookiecutter.project_slug}}/**/*.py'
   ShellCheck:
     enabled: true
+    on_warn: fail
 #  RuboCop:
 #    enabled: true
 #    on_warn: fail # Treat all warnings as failures
