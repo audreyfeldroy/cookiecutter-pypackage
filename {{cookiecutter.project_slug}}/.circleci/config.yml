@@ -1,0 +1,42 @@
+version: 2
+
+jobs:
+  test:
+    docker:
+      - image: circleci/python
+    steps:
+      - checkout
+      - restore_cache:
+          {% raw %}key: fix.sh-v2-{{ checksum "fix.sh" }}{% endraw %}
+      - run:
+          name: Initialize packages
+          command: './fix.sh'
+      - save_cache:
+          {% raw %}key: fix.sh-v2-{{ checksum "fix.sh" }}{% endraw %}
+          paths:
+            - "/home/circleci/.pyenv"
+            - "/home/circleci/.rbenv"
+      - run:
+          name: Test
+          command: |
+            export PATH="$HOME/.pyenv/bin:$HOME/.rbenv/bin:$PATH"
+            eval "$(rbenv init -)"
+            eval "$(pyenv init -)"
+            eval "$(pyenv virtualenv-init -)"
+
+            # Coax overcommit into working
+            git config --global user.email "fake@fake.fake"
+            git config --global user.name "Fake"
+            bundle exec overcommit --sign
+
+            tox
+          environment:
+            # https://app.circleci.com/pipelines/github/apiology/cookiecutter-pypackage/4/workflows/29074dc8-944c-4600-8aaa-5116575fed90/jobs/4
+            "LC_ALL": "C.UTF-8"
+            "LANG": "C.UTF-8"
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
