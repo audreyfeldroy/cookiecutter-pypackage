@@ -23,9 +23,11 @@ jobs:
             eval "$(pyenv init -)"
             eval "$(pyenv virtualenv-init -)"
             # These will be used in post_gen_project.py while testing
-            # the cookies
+            # the cookies, as well as by overcommit
             git config --global user.email "test@test.test"
             git config --global user.name "Test Test"
+            # Coax overcommit into working
+            bundle exec overcommit --sign
 
             tox
           environment:
