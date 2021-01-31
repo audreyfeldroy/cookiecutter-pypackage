@@ -7,18 +7,19 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: fix.sh-v1-{{ checksum "fix.sh" }}
+          key: fix.sh-v2-{{ checksum "fix.sh" }}
       - run:
           name: Initialize packages
           command: './fix.sh'
       - save_cache:
-          key: fix.sh-v1-{{ checksum "fix.sh" }}
+          key: fix.sh-v2-{{ checksum "fix.sh" }}
           paths:
             - "/home/circleci/.pyenv"
+            - "/home/circleci/.rbenv"
       - run:
           name: Test
           command: |
-            export PATH="$HOME/.pyenv/bin:$PATH"
+            export PATH="${HOME}/.pyenv/bin:${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
             eval "$(pyenv init -)"
             eval "$(pyenv virtualenv-init -)"
             # These will be used in post_gen_project.py while testing

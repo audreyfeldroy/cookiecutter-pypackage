@@ -18,11 +18,11 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements: List[str] = [{%- if cookiecutter.command_line_interface|lower == 'click' %}'Click>=7.0',{%- endif %}]
+requirements: List[str] = [{%- if cookiecutter.command_line_interface|lower == 'click' %}'Click>=7.0'{%- endif %}]
 
-setup_requirements: List[str] = [{%- if cookiecutter.use_pytest == 'y' %}'pytest-runner',{%- endif %}]
+setup_requirements: List[str] = [{%- if cookiecutter.use_pytest == 'y' %}'pytest-runner'{%- endif %}]
 
-test_requirements: List[str] = [{%- if cookiecutter.use_pytest == 'y' %}'pytest>=3',{%- endif %} ]
+test_requirements: List[str] = [{%- if cookiecutter.use_pytest == 'y' %} 'pytest>=3' {%- endif %}]
 
 {%- set license_classifiers = {
     'MIT license': 'License :: OSI Approved :: MIT License',
@@ -72,27 +72,18 @@ class MypyCommand(Command):
 class QualityCommand(Command):
     quality_target: Optional[str]
 
-    description = 'Run quality gem on source code'
-    user_options = [
-        # The format is (long option, short option, description).
-        ('quality-target=',
-         None,
-         'particular quality tool to run (default: all)')
-    ]
+    description = 'Run quality tools on source code'
+    user_options: List[Tuple[str, Optional[str], str]] = []
 
     def initialize_options(self) -> None:
-        """Set default values for options."""
-        # Each user option must be listed here with their default value.
-        self.quality_target = None
+        pass
 
     def finalize_options(self) -> None:
         pass
 
     def run(self) -> None:
         """Run command."""
-        command = ['./quality.sh']
-        if self.quality_target:
-            command.append(self.quality_target)
+        command = ['overcommit', '--run']
         self.announce(
             'Running command: %s' % str(command),
             level=distutils.log.INFO)  # type: ignore
@@ -116,7 +107,7 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
     ],
-    description="{{ cookiecutter.project_short_description }}",
+    description="{{ cookiecutter.project_short_description }}",  # noqa: E501
     {%- if 'no' not in cookiecutter.command_line_interface|lower %}
     entry_points={
         'console_scripts': [
