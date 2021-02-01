@@ -87,9 +87,9 @@ def test_bake_and_run_build(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
         run_inside_dir('overcommit --sign', str(result.project)) == 0
-        run_inside_dir('python setup.py types', str(result.project)) == 0
-        run_inside_dir('python setup.py test', str(result.project)) == 0
-        run_inside_dir('python setup.py quality', str(result.project)) == 0
+        run_inside_dir('tox -e mypy', str(result.project)) == 0
+        run_inside_dir('tox -e py36', str(result.project)) == 0
+        run_inside_dir('tox -e quality', str(result.project)) == 0
         print("test_bake_and_run_build path", str(result.project))
 
 
@@ -100,7 +100,7 @@ def test_bake_withspecialchars_and_run_tests(cookies):
         extra_context={'full_name': 'name "quote" name'}
     ) as result:
         assert result.project.isdir()
-        run_inside_dir('python setup.py test', str(result.project)) == 0
+        run_inside_dir('tox -e py36', str(result.project)) == 0
 
 
 def test_bake_with_apostrophe_and_run_tests(cookies):
@@ -110,7 +110,7 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
         extra_context={'full_name': "O'connor"}
     ) as result:
         assert result.project.isdir()
-        run_inside_dir('python setup.py test', str(result.project)) == 0
+        run_inside_dir('tox -e py36', str(result.project)) == 0
 
 
 def test_bake_without_author_file(cookies):
@@ -190,11 +190,11 @@ def test_using_pytest(cookies):
         # Test the new pytest target
         run_inside_dir('python setup.py pytest', str(result.project)) == 0
         # Verify project is fresh and clean in this mode
-        run_inside_dir('python setup.py types', str(result.project)) == 0
+        run_inside_dir('tox -e mypy', str(result.project)) == 0
         run_inside_dir('overcommit --sign', str(result.project)) == 0
-        run_inside_dir('python setup.py quality', str(result.project)) == 0
+        run_inside_dir('tox -e quality', str(result.project)) == 0
         # Test the test alias (which invokes pytest)
-        run_inside_dir('python setup.py test', str(result.project)) == 0
+        run_inside_dir('tox -e py36', str(result.project)) == 0
 
 
 def test_not_using_pytest(cookies):
