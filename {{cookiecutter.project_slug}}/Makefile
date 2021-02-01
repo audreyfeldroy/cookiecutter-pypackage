@@ -1,5 +1,5 @@
-.PHONY: clean clean-test clean-pyc clean-build docs help
-.DEFAULT_GOAL := help
+.PHONY: clean clean-test clean-pyc clean-build docs help typecheck
+.DEFAULT_GOAL := default
 
 define BROWSER_PYSCRIPT
 import os, webbrowser, sys
@@ -25,6 +25,11 @@ BROWSER := python -c "$$BROWSER_PYSCRIPT"
 
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
+
+default: typecheck test ## run default typechecking and tests
+
+typecheck: ## run mypy against project
+	mypy .
 
 clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
 
