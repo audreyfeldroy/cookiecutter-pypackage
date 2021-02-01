@@ -48,7 +48,18 @@ def test_command_line_interface():
 {%- else %}
 
 
-def test_parse_args_run_simple():
+def test_process_args():
+    args = '<fake>'
+    with patch('builtins.print') as mock_print:
+        out = process_args()
+
+        assert out == 0
+        mock_print.assert_called_with('Arguments: <fake>')
+        mock_print.assert_called_with('Replace this message by putting '
+                                      'your code into {{cookiecutter.project_slug}}.cli.process_args')
+
+
+def test_parse_argv_run_simple():
     argv = ['{{ cookiecutter.project_slug }}', 'whatever']
     args = parse_argv(argv)
     assert vars(args) == {'_': ['whatever']}
