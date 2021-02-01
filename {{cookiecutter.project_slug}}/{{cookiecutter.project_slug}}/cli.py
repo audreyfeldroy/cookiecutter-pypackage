@@ -18,11 +18,15 @@ def main(args=None):
     return 0
 {%- endif %}
 {%- if cookiecutter.command_line_interface|lower == 'argparse' %}
-def main():
-    """Console script for {{cookiecutter.project_slug}}."""
+def parse_argv(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('_', nargs='*')
-    args = parser.parse_args()
+    return parser.parse_args(argv[1:])
+
+def main(argv=sys.argv):
+    """Console script for {{cookiecutter.project_slug}}."""
+
+    args = parse_argv(argv)
 
     print("Arguments: " + str(args._))
     print("Replace this message by putting your code into "

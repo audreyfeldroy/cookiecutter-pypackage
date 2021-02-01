@@ -48,6 +48,12 @@ def test_command_line_interface():
 {%- else %}
 
 
+def test_parse_args_run_simple():
+    argv = ['{{ cookiecutter.project_slug }}', 'whatever']
+    args = parse_argv(argv)
+    assert vars(args) == {'_': ['whatever']}
+
+
 def test_cli_help():
     expected_help = """usage: {{ cookiecutter.project_slug }} [-h] [_ ...]
 
