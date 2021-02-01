@@ -45,6 +45,22 @@ def test_command_line_interface():
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
     assert '--help  Show this message and exit.' in help_result.output
+{%- else %}
+
+
+def test_cli_help():
+    expected_help = """usage: {{ cookiecutter.project_slug }} [-h] [_ ...]
+
+positional arguments:
+  _
+
+optional arguments:
+  -h, --help  show this help message and exit
+"""
+    # older python versions show arguments like this:
+    alt_expected_help = expected_help.replace('[_ ...]', '[_ [_ ...]]')
+    actual_help = subprocess.check_output(['{{ cookiecutter.project_slug }}', '--help']).decode('utf-8')
+    assert actual_help in [expected_help, alt_expected_help]
 {%- endif %}
 {%- else %}
 
