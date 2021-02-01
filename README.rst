@@ -18,6 +18,7 @@ Changes made to the original (see `GitHub view <https://github.com/audreyr/cooki
 * Support `quality gem <https://github.com/apiology/quality>`_ for linting
 * Support pyenv-virtualenv
 * Support mypy type checking
+* ...and no doubt others!
 
 .. _apiology: https://github.com/apiology
 
