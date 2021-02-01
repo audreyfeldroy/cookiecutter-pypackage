@@ -2,6 +2,9 @@
 Cookiecutter PyPackage
 ======================
 
+.. image:: https://circleci.com/gh/apiology/cookiecutter-pypackage.svg?style=svg
+    :target: https://circleci.com/gh/apiology/cookiecutter-pypackage
+
 This is a fork
 --------------
 
