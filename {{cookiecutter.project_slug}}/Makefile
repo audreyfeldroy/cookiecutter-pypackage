@@ -1,4 +1,4 @@
-.PHONY: clean clean-test clean-pyc clean-build docs help typecheck
+.PHONY: clean clean-test clean-pyc clean-build docs help typecheck quality
 .DEFAULT_GOAL := default
 
 define BROWSER_PYSCRIPT
@@ -64,6 +64,9 @@ test: ## run tests quickly with the default Python
 
 test-all: ## run tests on every Python version with tox
 	tox
+
+quality:  ## run precommit quality checks
+	bundle exec overcommit --run
 
 coverage: ## check code coverage quickly with the default Python
 {%- if cookiecutter.use_pytest == 'y' %}
