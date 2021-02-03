@@ -6,7 +6,7 @@ flake8==3.8.4
 tox==3.20.1
 coverage==5.3
 Sphinx==3.3.1
-twine==3.2.0
+twine==3.3.0
 {% if cookiecutter.command_line_interface|lower == 'click' -%}
 Click==7.0{% endif %}
 {% if cookiecutter.use_pytest == 'y' -%}
