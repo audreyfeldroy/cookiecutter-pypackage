@@ -23,6 +23,9 @@ if __name__ == '__main__':
     if 'Not open source' == '{{ cookiecutter.open_source_license }}':
         remove_file('LICENSE')
 
+    if 'n' == '{{ cookiecutter.use_pytest }}':
+        remove_file('tests/conftest.py')
+
     subprocess.check_call('./fix.sh')
     subprocess.check_call(['git', 'init'])
     subprocess.check_call(['git', 'add', '-A'])
