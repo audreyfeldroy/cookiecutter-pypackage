@@ -84,33 +84,16 @@ def test_bake_with_defaults(cookies):
 
 
 def test_bake_and_run_build(cookies):
-    with bake_in_temp_dir(cookies) as result:
+    with bake_in_temp_dir(
+        cookies,
+        extra_context={'full_name': 'name "quote" O\'connor'}
+    ) as result:
         assert result.project.isdir()
         run_inside_dir('overcommit --sign', str(result.project)) == 0
         run_inside_dir('tox -e mypy', str(result.project)) == 0
         run_inside_dir('tox -e py36', str(result.project)) == 0
         run_inside_dir('tox -e quality', str(result.project)) == 0
         print("test_bake_and_run_build path", str(result.project))
-
-
-def test_bake_withspecialchars_and_run_tests(cookies):
-    """Ensure that a `full_name` with double quotes does not break setup.py"""
-    with bake_in_temp_dir(
-        cookies,
-        extra_context={'full_name': 'name "quote" name'}
-    ) as result:
-        assert result.project.isdir()
-        run_inside_dir('tox -e py36', str(result.project)) == 0
-
-
-def test_bake_with_apostrophe_and_run_tests(cookies):
-    """Ensure that a `full_name` with apostrophes does not break setup.py"""
-    with bake_in_temp_dir(
-        cookies,
-        extra_context={'full_name': "O'connor"}
-    ) as result:
-        assert result.project.isdir()
-        run_inside_dir('tox -e py36', str(result.project)) == 0
 
 
 def test_bake_without_author_file(cookies):

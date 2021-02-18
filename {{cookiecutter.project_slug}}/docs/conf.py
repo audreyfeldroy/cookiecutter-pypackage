@@ -49,8 +49,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = '{{ cookiecutter.project_name }}'
-copyright = "{% now 'local', '%Y' %}, {{ cookiecutter.full_name }}"
-author = "{{ cookiecutter.full_name }}"
+copyright = "{% now 'local', '%Y' %}, {{ cookiecutter.full_name.replace('\"', '\\\"') }}"
+author = "{{ cookiecutter.full_name.replace('\"', '\\\"') }}"
 
 # The version info for the project you're documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
@@ -131,7 +131,7 @@ latex_elements: Dict[str, str] = {
 latex_documents = [
     (master_doc, '{{ cookiecutter.project_slug }}.tex',
      '{{ cookiecutter.project_name }} Documentation',
-     '{{ cookiecutter.full_name }}', 'manual'),
+     "{{ cookiecutter.full_name.replace('\"', '\\\"') }}", 'manual'),
 ]
 
 
