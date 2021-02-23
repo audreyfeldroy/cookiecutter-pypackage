@@ -1,0 +1,12 @@
+{
+    "_template": "https://github.com/apiology/cookiecutter-cookiecutter",
+    "email": "vince@broz.cc",
+    "full_name": "Vince Broz",
+    "github_username": "apiology",
+    "language_or_tool": "PyPackage",
+    "project_name": "Cookiecutter PyPackage",
+    "project_short_description": "PyPackage Boilerplate contains all the boilerplate you need to create a PyPackage project.",
+    "project_slug": "cookiecutter-pypackage",
+    "project_super_short_description": "Cookiecutter template for a Python package.",
+    "type_of_github_repo": "public"
+}

@@ -1,0 +1,11 @@
+{
+  "full_name": "Vince Broz",
+  "email": "vince@broz.cc",
+  "github_username": "apiology",
+  "project_name": "PyPackage Boilerplate",
+  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+  "project_short_description": "PyPackage Boilerplate contains all the boilerplate you need to create a PyPackage project.",
+  "version": "0.1.0",
+  "open_source_license": ["MIT license", "BSD license", "ISC license", "Apache Software License 2.0", "GNU General Public License v3", "Not open source"],
+  "type_of_github_repo": ["private", "public", "none"]
+}

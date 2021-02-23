@@ -1,0 +1,64 @@
+---
+version: 2.1
+
+commands:
+  tox:
+    description: "Run tox"
+    parameters:
+      tox_arguments:
+        type: string
+        default: ''
+        description: "Which tox arguments to pass"
+    steps:
+      - checkout
+      - restore_cache:
+          key: fix.sh-v2-{{ checksum "fix.sh" }}
+      - run:
+          name: Initialize packages
+          command: './fix.sh'
+      - save_cache:
+          key: fix.sh-v2-{{ checksum "fix.sh" }}
+          paths:
+            - "/home/circleci/.pyenv"
+            - "/home/circleci/.rbenv"
+      - run:
+          name: Test
+          command: |
+            export PATH="${HOME}/.pyenv/bin:${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
+            eval "$(pyenv init -)"
+            eval "$(pyenv virtualenv-init -)"
+            eval "$(rbenv init -)"
+            # These will be used in post_gen_project.py while testing
+            # the cookies, as well as by overcommit
+            git config --global user.email "test@test.test"
+            git config --global user.name "Test Test"
+            # Coax overcommit into working
+            bundle exec overcommit --sign
+
+            tox <<parameters.tox_arguments>>
+          environment:
+            # https://app.circleci.com/pipelines/github/apiology/cookiecutter-pypackage/4/workflows/29074dc8-944c-4600-8aaa-5116575fed90/jobs/4
+            "LC_ALL": "C.UTF-8"
+            "LANG": "C.UTF-8"
+
+jobs:
+  test:
+    docker:
+      - image: circleci/python
+    steps:
+      - unless:
+          condition:
+            equal: [ << pipeline.git.branch >>, "main" ]
+          steps:
+             - tox:
+                 tox_arguments: '-e py39'
+      - when:
+          condition:
+            equal: [ << pipeline.git.branch >>, "main" ]
+          steps:
+            - tox
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test

@@ -1,0 +1,63 @@
+---
+version: 2.1
+
+commands:
+  overcommit:
+    description: "Run overcommit"
+    steps:
+      - checkout
+      - restore_cache:
+          key: fix.sh-v1-{% raw %}{{ checksum "fix.sh" }}{% endraw %}
+      - run:
+          name: Initialize packages
+          command: './fix.sh'
+      - save_cache:
+          key: fix.sh-v1-{% raw %}{{ checksum "fix.sh" }}{% endraw %}
+          paths:
+            - "/home/circleci/.rbenv"
+            - "/home/circleci/.pyenv"
+      - run:
+          name: Download new circleci tool
+          command: |
+            curl -fLSs \
+            https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh | sudo bash
+      - run:
+          name: Run overcommit
+          command: |
+            export PATH="${HOME}/.pyenv/bin:${PATH}"
+            export PATH="${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
+            eval "$(pyenv init -)"
+            eval "$(pyenv virtualenv-init -)"
+            eval "$(rbenv init -)"
+            # Coax overcommit into working
+            git config --global user.email "test@test.test"
+            git config --global user.name "Test Test"
+            bundle exec overcommit --sign
+            bundle exec overcommit --sign pre-commit
+
+            bundle exec overcommit --run
+          environment:
+            # https://app.circleci.com/pipelines/github/apiology/cookiecutter-pypackage/4/workflows/29074dc8-944c-4600-8aaa-5116575fed90/jobs/4
+            "LC_ALL": "C.UTF-8"
+            "LANG": "C.UTF-8"
+
+jobs:
+  overcommit:
+    docker:
+      - image: circleci/ruby
+    steps:
+      - when:
+          condition:
+            equal: [<< pipeline.git.branch >>, "main"]
+          steps:
+            - overcommit
+      - unless:
+          condition:
+            equal: [<< pipeline.git.branch >>, "main"]
+          steps:
+            - run: echo "overcommit only runs on main branch"
+workflows:
+  version: 2
+  test:
+    jobs:
+      - overcommit
