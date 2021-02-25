@@ -22,9 +22,6 @@ if __name__ == '__main__':
     if 'Not open source' == '{{ cookiecutter.open_source_license }}':
         remove_file('LICENSE')
 
-    if 'n' == '{{ cookiecutter.use_pytest }}':
-        remove_file('tests/conftest.py')
-
     subprocess.check_call('./fix.sh')
     if os.environ.get('IN_COOKIECUTTER_PROJECT_UPGRADER', '0') != '1':
         # Don't run these non-idempotent things when in
