@@ -1,31 +1,6 @@
 #!/usr/bin/env python3
 
 from distutils.core import setup
-from distutils.cmd import Command
-from typing import List, Tuple, Optional
-import distutils
-import subprocess
-
-
-class QualityCommand(Command):
-    quality_target: Optional[str]
-
-    description = 'Run quality tools on source code'
-    user_options: List[Tuple[str, Optional[str], str]] = []
-
-    def initialize_options(self) -> None:
-        pass
-
-    def finalize_options(self) -> None:
-        pass
-
-    def run(self) -> None:
-        """Run command."""
-        command = ['overcommit', '--run']
-        self.announce(
-            'Running command: %s' % str(command),
-            level=distutils.log.INFO)  # type: ignore
-        subprocess.check_call(command)
 
 
 setup(
@@ -55,7 +30,4 @@ setup(
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Software Development',
     ],
-    cmdclass={
-        'quality': QualityCommand,
-    },
 )

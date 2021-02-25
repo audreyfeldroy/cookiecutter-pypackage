@@ -34,11 +34,12 @@ if __name__ == '__main__':
                 raise RuntimeError('Invalid argument to '
                                    'cookiecutter.type_of_github_repo: '
                                    '{{ cookiecutter.type_of_github_repo }}')
+            description = "{{ cookiecutter.project_short_description.replace('\"', '\\\"') }}"
             subprocess.check_call(['gh', 'repo', 'create',
                                    visibility_flag,
                                    '-y',
                                    '--description',
-                                   '{{ cookiecutter.project_short_description }}',
+                                   description,
                                    '{{ cookiecutter.github_username }}/'
                                    '{{ cookiecutter.project_slug }}'])
             subprocess.check_call(['circleci', 'follow'])

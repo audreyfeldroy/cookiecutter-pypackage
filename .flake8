@@ -1,6 +1,6 @@
 [flake8]
 exclude =
-    cookiecutter-pypackage
+    {{cookiecutter.project_slug}}
     .tox
 max_line_length = 100
 per-file-ignores =
