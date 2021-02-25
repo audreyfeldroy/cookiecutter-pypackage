@@ -15,6 +15,8 @@
         :alt: Documentation Status
 {%- endif %}
 
+WARNING: This is not ready for use yet!
+
 {{ cookiecutter.project_short_description }}
 
 {% if is_open_source %}

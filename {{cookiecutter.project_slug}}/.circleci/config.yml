@@ -1,35 +1,59 @@
-version: 2
+---
+version: 2.1
 
-jobs:
-  test:
-    docker:
-      - image: circleci/python
+commands:
+  set_up_environment:
+    description: "Install source environment"
     steps:
       - checkout
       - restore_cache:
-          {% raw %}key: fix.sh-v2-{{ checksum "fix.sh" }}{% endraw %}
+          key: gems-v1-{% raw %}{{ checksum "Gemfile.lock" }}{% endraw %}
+      - restore_cache:
+          key: ruby-and-python-v2-{% raw %}{{ checksum "fix.sh" }}{% endraw %}
       - run:
           name: Initialize packages
-          command: './fix.sh'
-      - save_cache:
-          {% raw %}key: fix.sh-v2-{{ checksum "fix.sh" }}{% endraw %}
-          paths:
-            - "/home/circleci/.pyenv"
-            - "/home/circleci/.rbenv"
-      - run:
-          name: Test
           command: |
-            export PATH="$HOME/.pyenv/bin:$HOME/.rbenv/bin:$PATH"
-            eval "$(rbenv init -)"
+            export BUNDLE_PATH=vendor/bundle
+            './fix.sh'
+      - save_cache:
+          key: ruby-and-python-v2-{% raw %}{{ checksum "fix.sh" }}{% endraw %}
+          paths:
+            - "/home/circleci/.rbenv"
+            - "/home/circleci/.pyenv"
+      - save_cache:
+          key: gems-v1-{% raw %}{{ checksum "Gemfile.lock" }}{% endraw %}
+          paths:
+            - "vendor/bundle"
+      - run:
+          name: Download new circleci tool
+          command: |
+            curl -fLSs \
+            https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh | sudo bash
+  overcommit:
+    description: "Run overcommit"
+    steps:
+      - set_up_environment
+      - run:
+          name: Download new circleci tool
+          command: |
+            curl -fLSs \
+            https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh | sudo bash
+      - run:
+          name: Run overcommit
+          command: |
+            export PATH="${HOME}/.pyenv/bin:${PATH}"
+            export PATH="${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
             eval "$(pyenv init -)"
             eval "$(pyenv virtualenv-init -)"
-
+            eval "$(rbenv init -)"
+            export BUNDLE_PATH=vendor/bundle
             # Coax overcommit into working
-            git config --global user.email "fake@fake.fake"
-            git config --global user.name "Fake"
+            git config --global user.email "test@test.test"
+            git config --global user.name "Test Test"
             bundle exec overcommit --sign
+            bundle exec overcommit --sign pre-commit
 
-            tox
+            bundle exec overcommit --run
           environment:
             # https://app.circleci.com/pipelines/github/apiology/cookiecutter-pypackage/4/workflows/29074dc8-944c-4600-8aaa-5116575fed90/jobs/4
             "LC_ALL": "C.UTF-8"
@@ -40,3 +64,59 @@ workflows:
   test:
     jobs:
       - test
+
+jobs:
+  overcommit:
+    docker:
+      - image: apiology/circleci-ruby:latest
+    steps:
+      - when:
+          condition:
+            equal: [<< pipeline.git.branch >>, "main"]
+          steps:
+            - overcommit
+      - unless:
+          condition:
+            equal: [<< pipeline.git.branch >>, "main"]
+          steps:
+            - run: echo "overcommit only runs on main branch"
+  build:
+    working_directory: ~/{{cookiecutter.project_slug}}
+    docker:
+      - image: apiology/circleci-ruby:latest
+    steps:
+      - set_up_environment
+      - run:
+          command: |
+            export PATH="${HOME}/.pyenv/bin:${PATH}"
+            export PATH="${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
+            eval "$(pyenv init -)"
+            eval "$(pyenv virtualenv-init -)"
+            eval "$(rbenv init -)"
+            export BUNDLE_PATH=vendor/bundle
+            # Coax overcommit into working
+            git config --global user.email "test@test.test"
+            git config --global user.name "Test Test"
+            bundle exec overcommit --sign
+            bundle exec overcommit --sign pre-commit
+
+            tox
+
+workflows:
+  version: 2
+  weekly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * 6"
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - build
+  overcommit:
+    jobs:
+      - overcommit
+  build:
+    jobs:
+      - build

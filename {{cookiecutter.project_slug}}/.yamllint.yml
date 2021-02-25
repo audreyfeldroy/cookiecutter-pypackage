@@ -1,0 +1,8 @@
+---
+# https://yamllint.readthedocs.io/en/stable/configuration.html
+extends: default
+
+rules:
+  comments: disable
+  line-length:
+    max: 120

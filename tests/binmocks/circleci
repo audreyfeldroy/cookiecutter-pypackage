@@ -1,0 +1,4 @@
+#!/bin/bash -e
+
+echo "circleci called with $*"
+exit 0

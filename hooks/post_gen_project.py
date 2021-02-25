@@ -11,7 +11,6 @@ def remove_file(filepath):
 
 
 if __name__ == '__main__':
-
     if '{{ cookiecutter.create_author_file }}' != 'y':
         remove_file('AUTHORS.rst')
         remove_file('docs/authors.rst')
@@ -27,23 +26,30 @@ if __name__ == '__main__':
         remove_file('tests/conftest.py')
 
     subprocess.check_call('./fix.sh')
-    subprocess.check_call(['git', 'init'])
-    subprocess.check_call(['git', 'add', '-A'])
-    subprocess.check_call(['git', 'commit', '-m',
-                           'Initial commit from boilerplate'])
-    if 'none' != '{{ cookiecutter.type_of_github_repo }}':
-        if 'private' == '{{ cookiecutter.type_of_github_repo }}':
-            visibility_flag = '--private'
-        elif 'public' == '{{ cookiecutter.type_of_github_repo }}':
-            visibility_flag = '--public'
-        else:
-            raise RuntimeError('Invalid argument to '
-                               'cookiecutter.type_of_github_repo: '
-                               '{{ cookiecutter.type_of_github_repo }}')
-        subprocess.check_call(['gh', 'repo', 'create',
-                               visibility_flag,
-                               '-y',
-                               '--description',
-                               '{{ cookiecutter.project_short_description }}',
-                               '{{ cookiecutter.github_username }}/'
-                               '{{ cookiecutter.project_slug }}'])
+    if os.environ.get('IN_COOKIECUTTER_PROJECT_UPGRADER', '0') != '1':
+        # Don't run these non-idempotent things when in
+        # cookiecutter_project_upgrader, which will run this hook
+        # multiple times over its lifetime.
+        subprocess.check_call(['bundle', 'exec', 'overcommit', '--install'])
+        subprocess.check_call(['git', 'init'])
+        subprocess.check_call(['git', 'add', '-A'])
+        subprocess.check_call(['git', 'commit', '-m',
+                               'Initial commit from boilerplate'])
+        if 'none' != '{{ cookiecutter.type_of_github_repo }}':
+            if 'private' == '{{ cookiecutter.type_of_github_repo }}':
+                visibility_flag = '--private'
+            elif 'public' == '{{ cookiecutter.type_of_github_repo }}':
+                visibility_flag = '--public'
+            else:
+                raise RuntimeError('Invalid argument to '
+                                   'cookiecutter.type_of_github_repo: '
+                                   '{{ cookiecutter.type_of_github_repo }}')
+            description = "{{ cookiecutter.project_short_description.replace('\"', '\\\"') }}"
+            subprocess.check_call(['gh', 'repo', 'create',
+                                   visibility_flag,
+                                   '-y',
+                                   '--description',
+                                   description,
+                                   '{{ cookiecutter.github_username }}/'
+                                   '{{ cookiecutter.project_slug }}'])
+            subprocess.check_call(['circleci', 'follow'])

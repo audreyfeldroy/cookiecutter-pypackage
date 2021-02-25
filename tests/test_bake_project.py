@@ -33,6 +33,8 @@ def bake_in_temp_dir(cookies, *args, **kwargs):
         cookie to be baked and its temporal files will be removed
     """
     result = cookies.bake(*args, **kwargs)
+    assert result is not None
+    assert result.project is not None
     try:
         yield result
     finally:
@@ -89,10 +91,11 @@ def test_bake_and_run_build(cookies):
         extra_context={'full_name': 'name "quote" O\'connor'}
     ) as result:
         assert result.project.isdir()
-        run_inside_dir('overcommit --sign', str(result.project)) == 0
-        run_inside_dir('tox -e mypy', str(result.project)) == 0
-        run_inside_dir('tox -e py36', str(result.project)) == 0
-        run_inside_dir('tox -e quality', str(result.project)) == 0
+        assert run_inside_dir('overcommit --sign', str(result.project)) == 0
+        assert run_inside_dir('overcommit --sign pre-commit', str(result.project)) == 0
+        assert run_inside_dir('make typecheck', str(result.project)) == 0
+        assert run_inside_dir('tox -e py36', str(result.project)) == 0
+        assert run_inside_dir('make quality', str(result.project)) == 0
         print("test_bake_and_run_build path", str(result.project))
 
 
@@ -125,7 +128,7 @@ def test_make_help(cookies):
                 'make help',
                 str(result.project)
             )
-            assert b"check code coverage quickly with the default Python" in \
+            assert b"run precommit quality checks" in \
                 output
 
 
@@ -171,13 +174,14 @@ def test_using_pytest(cookies):
         lines = test_file_path.readlines()
         assert "import pytest" in ''.join(lines)
         # Test the new pytest target
-        run_inside_dir('python setup.py pytest', str(result.project)) == 0
+        assert run_inside_dir('python setup.py pytest', str(result.project)) == 0
         # Verify project is fresh and clean in this mode
-        run_inside_dir('tox -e mypy', str(result.project)) == 0
-        run_inside_dir('overcommit --sign', str(result.project)) == 0
-        run_inside_dir('tox -e quality', str(result.project)) == 0
+        assert run_inside_dir('tox -e mypy', str(result.project)) == 0
+        assert run_inside_dir('overcommit --sign', str(result.project)) == 0
+        assert run_inside_dir('overcommit --sign pre-commit', str(result.project)) == 0
+        assert run_inside_dir('make quality', str(result.project)) == 0
         # Test the test alias (which invokes pytest)
-        run_inside_dir('tox -e py36', str(result.project)) == 0
+        assert run_inside_dir('tox -e py36', str(result.project)) == 0
 
 
 def test_not_using_pytest(cookies):
