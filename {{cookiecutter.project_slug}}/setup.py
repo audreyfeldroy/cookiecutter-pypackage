@@ -4,13 +4,7 @@
 """The setup script."""
 
 from setuptools import setup, find_packages
-import distutils
-from distutils.cmd import Command
-import distutils.command.clean
-from distutils.dir_util import remove_tree
-import subprocess
-import os
-from typing import List, Tuple, Optional
+from typing import List
 
 with open('README.rst') as readme_file:
     readme = readme_file.read()
@@ -31,63 +25,6 @@ test_requirements: List[str] = [{%- if cookiecutter.use_pytest == 'y' %}'pytest>
     'Apache Software License 2.0': 'License :: OSI Approved :: Apache Software License',
     'GNU General Public License v3': 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)'
 } %}
-
-
-class MypyCleanCommand(Command):
-    """Regular clean plus mypy cache"""
-
-    description = 'Run mypy on source code'
-    user_options: List[Tuple[str, Optional[str], str]] = []
-
-    def initialize_options(self) -> None:
-        pass
-
-    def finalize_options(self) -> None:
-        pass
-
-    def run(self) -> None:
-        if os.path.exists('.mypy_cache'):
-            remove_tree('.mypy_cache')
-
-
-class MypyCommand(Command):
-    description = 'Run mypy on source code'
-    user_options: List[Tuple[str, Optional[str], str]] = []
-
-    def initialize_options(self) -> None:
-        pass
-
-    def finalize_options(self) -> None:
-        pass
-
-    def run(self) -> None:
-        """Run command."""
-        command = ['mypy', '--html-report', 'types/coverage', '.']
-        self.announce(
-            'Running command: %s' % str(command),
-            level=distutils.log.INFO)  # type: ignore
-        subprocess.check_call(command)
-
-
-class QualityCommand(Command):
-    quality_target: Optional[str]
-
-    description = 'Run quality tools on source code'
-    user_options: List[Tuple[str, Optional[str], str]] = []
-
-    def initialize_options(self) -> None:
-        pass
-
-    def finalize_options(self) -> None:
-        pass
-
-    def run(self) -> None:
-        """Run command."""
-        command = ['overcommit', '--run']
-        self.announce(
-            'Running command: %s' % str(command),
-            level=distutils.log.INFO)  # type: ignore
-        subprocess.check_call(command)
 
 
 setup(
@@ -132,9 +69,4 @@ setup(
     url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}',
     version='{{ cookiecutter.version }}',
     zip_safe=False,
-    cmdclass={
-        'quality': QualityCommand,
-        'typesclean': MypyCleanCommand,
-        'types': MypyCommand,
-    },
 )

@@ -176,7 +176,7 @@ def test_using_pytest(cookies):
         # Test the new pytest target
         assert run_inside_dir('python setup.py pytest', str(result.project)) == 0
         # Verify project is fresh and clean in this mode
-        assert run_inside_dir('tox -e mypy', str(result.project)) == 0
+        assert run_inside_dir('make typecheck', str(result.project)) == 0
         assert run_inside_dir('overcommit --sign', str(result.project)) == 0
         assert run_inside_dir('overcommit --sign pre-commit', str(result.project)) == 0
         assert run_inside_dir('make quality', str(result.project)) == 0
