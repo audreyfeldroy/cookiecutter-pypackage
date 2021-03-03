@@ -22,15 +22,28 @@ def inside_dir(dirpath):
 
 
 @contextmanager
+def suppressed_github_and_circleci_creation():
+    """A context manager which sets an env variable to suppress creating
+    GitHub repos and pushing to CircleCI during the hooks.
+    """
+    os.environ['SKIP_GITHUB_AND_CIRCLECI_CREATION'] = '1'
+    try:
+        yield
+    finally:
+        del os.environ['SKIP_GITHUB_AND_CIRCLECI_CREATION']
+
+
+@contextmanager
 def bake_in_temp_dir(cookies, *args, **kwargs):
     """
     Delete the temporal directory that is created when executing the tests
     :param cookies: pytest_cookies.Cookies,
         cookie to be baked and its temporal files will be removed
     """
-    result = cookies.bake(*args, **kwargs)
-    assert result is not None
-    assert result.project is not None
+    with suppressed_github_and_circleci_creation():
+        result = cookies.bake(*args, **kwargs)
+        assert result is not None
+        assert result.project is not None
     try:
         yield result
     finally:
@@ -88,8 +101,8 @@ def test_bake_and_run_build(cookies):
                               'The greatest project ever created by name "quote" O\'connor.',
                           }) as result:
         assert result.project.isdir()
-        assert run_inside_dir('overcommit --sign', str(result.project)) == 0
         assert run_inside_dir('make test', str(result.project)) == 0
+        assert run_inside_dir('make quality', str(result.project)) == 0
         print("test_bake_and_run_build path", str(result.project))
 
 
@@ -103,31 +116,3 @@ def test_make_help(cookies):
             )
             assert b"run precommit quality checks" in \
                 output
-
-
-def test_bake_selecting_license(cookies):
-    license_strings = {
-        'MIT license': 'MIT ',
-        'BSD license': 'Redistributions of source code must retain the ' +
-                       'above copyright notice, this',
-        'ISC license': 'ISC License',
-        'Apache Software License 2.0':
-            'Licensed under the Apache License, Version 2.0',
-        'GNU General Public License v3': 'GNU GENERAL PUBLIC LICENSE',
-    }
-    for license, target_string in license_strings.items():
-        with bake_in_temp_dir(
-            cookies,
-            extra_context={'open_source_license': license}
-        ) as result:
-            assert target_string in result.project.join('LICENSE').read()
-
-
-def test_bake_not_open_source(cookies):
-    with bake_in_temp_dir(
-        cookies,
-        extra_context={'open_source_license': 'Not open source'}
-    ) as result:
-        found_toplevel_files = [f.basename for f in result.project.listdir()]
-        assert 'LICENSE' not in found_toplevel_files
-        assert 'License' not in result.project.join('README.md').read()

@@ -2,26 +2,54 @@
 version: 2.1
 
 commands:
+  run_with_languages:
+    description: "Run the given command in an environment that includes relevant langauges in the PATH"
+    parameters:
+      command:
+        type: string
+        description: "What command to execute"
+      label:
+        type: string
+        description: "What to label the run"
+        default: <<parameters.command>>
+    steps:
+      - run:
+          name: <<parameters.label>>
+          command: |
+            export PATH="${HOME}/.pyenv/bin:${PATH}"
+            export PATH="${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
+            export PATH="${HOME}/project/node_modules/.bin:${PATH}"
+            eval "$(pyenv init -)"
+            eval "$(pyenv virtualenv-init -)"
+            eval "$(rbenv init -)"
+            export BUNDLE_PATH=vendor/bundle
+
+            <<parameters.command>>
+          environment:
+            # https://app.circleci.com/pipelines/github/apiology/cookiecutter-pypackage/4/workflows/29074dc8-944c-4600-8aaa-5116575fed90/jobs/4
+            "LC_ALL": "C.UTF-8"
+            "LANG": "C.UTF-8"
   set_up_environment:
     description: "Install source environment"
     steps:
       - checkout
       - restore_cache:
-          key: gems-v1-{{ checksum "Gemfile.lock" }}
-      - restore_cache:
-          key: ruby-and-python-v2-{{ checksum "fix.sh" }}
+          key: gems-v4-{{ checksum "Gemfile.lock" }}
       - run:
           name: Initialize packages
           command: |
             export BUNDLE_PATH=vendor/bundle
             './fix.sh'
+      - run:
+          name: Verify Gemfile.lock
+          command: |
+            if ! git diff --exit-code Gemfile.lock
+            then
+              >&2 echo "Please resolve changes to Gemfile.lock after bundle install to avoid caching difficulties"
+              exit 1
+            fi
       - save_cache:
-          key: ruby-and-python-v2-{{ checksum "fix.sh" }}
-          paths:
-            - "/home/circleci/.pyenv"
-            - "/home/circleci/.rbenv"
-      - save_cache:
-          key: gems-v1-{{ checksum "Gemfile.lock" }}
+          key: gems-v4-{{ checksum "Gemfile.lock" }}
           paths:
             - "vendor/bundle"
       - run:
@@ -33,20 +61,9 @@ commands:
     description: "Run overcommit"
     steps:
       - set_up_environment
-      - run:
-          name: Download new circleci tool
+      - run_with_languages:
+          label: Run overcommit
           command: |
-            curl -fLSs \
-            https://raw.githubusercontent.com/CircleCI-Public/circleci-cli/master/install.sh | sudo bash
-      - run:
-          name: Run overcommit
-          command: |
-            export PATH="${HOME}/.pyenv/bin:${PATH}"
-            export PATH="${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
-            eval "$(pyenv init -)"
-            eval "$(pyenv virtualenv-init -)"
-            eval "$(rbenv init -)"
-            export BUNDLE_PATH=vendor/bundle
             # Coax overcommit into working
             git config --global user.email "test@test.test"
             git config --global user.name "Test Test"
@@ -54,10 +71,6 @@ commands:
             bundle exec overcommit --sign pre-commit
 
             bundle exec overcommit --run
-          environment:
-            # https://app.circleci.com/pipelines/github/apiology/cookiecutter-pypackage/4/workflows/29074dc8-944c-4600-8aaa-5116575fed90/jobs/4
-            "LC_ALL": "C.UTF-8"
-            "LANG": "C.UTF-8"
   tox:
     description: "Run tox"
     parameters:
@@ -67,15 +80,9 @@ commands:
         description: "Which tox arguments to pass"
     steps:
       - set_up_environment
-      - run:
-          name: Test
+      - run_with_languages:
+          label: Test
           command: |
-            export PATH="${HOME}/.pyenv/bin:${PATH}"
-            export PATH="${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
-            eval "$(pyenv init -)"
-            eval "$(pyenv virtualenv-init -)"
-            eval "$(rbenv init -)"
-            export BUNDLE_PATH=vendor/bundle
             # These will be used in post_gen_project.py while testing
             # the cookies, as well as by overcommit
             git config --global user.email "test@test.test"
@@ -85,15 +92,11 @@ commands:
             bundle exec overcommit --sign pre-commit
 
             tox <<parameters.tox_arguments>>
-          environment:
-            # https://app.circleci.com/pipelines/github/apiology/cookiecutter-pypackage/4/workflows/29074dc8-944c-4600-8aaa-5116575fed90/jobs/4
-            "LC_ALL": "C.UTF-8"
-            "LANG": "C.UTF-8"
 
 jobs:
   test:
     docker:
-      - image: apiology/circleci-ruby:latest
+      - image: apiology/circleci:latest
     steps:
       - unless:
           condition:
@@ -108,7 +111,7 @@ jobs:
             - tox
   overcommit:
     docker:
-      - image: apiology/circleci-ruby:latest
+      - image: apiology/circleci:latest
     steps:
       - when:
           condition:

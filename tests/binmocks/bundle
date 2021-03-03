@@ -1,4 +1,0 @@
-#!/bin/bash -e
-
-echo "bundle called with $*"
-exit 0

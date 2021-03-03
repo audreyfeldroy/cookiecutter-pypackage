@@ -24,19 +24,19 @@ default: test ## run default typechecking and tests
 test: ## run tests quickly
 	pytest
 
-quality:  ## run precommit quality checks
+quality: ## run precommit quality checks
 	bundle exec overcommit --run
 
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-bake:
+bake: ## generate project using defaults
 	cookiecutter $(BAKE_OPTIONS) . --overwrite-if-exists
 
-watch: bake
+watch: bake ## generate project using defaults and watch for changes
 	watchmedo shell-command -p '*.*' -c 'make bake -e BAKE_OPTIONS=$(BAKE_OPTIONS)' -W -R -D \cookiecutter-pypackage/
 
-replay: BAKE_OPTIONS=--replay
+replay: BAKE_OPTIONS=--replay ## replay last cookiecutter run and watch for changes
 replay: watch
 	;
 
