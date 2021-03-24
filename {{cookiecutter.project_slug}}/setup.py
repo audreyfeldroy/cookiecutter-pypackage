@@ -44,7 +44,7 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
     ],
-    description="{{ cookiecutter.project_short_description }}",  # noqa: E501
+    description="{{ cookiecutter.project_short_description.replace('\"', '\\\"') }}",  # noqa: E501
     {%- if 'no' not in cookiecutter.command_line_interface|lower %}
     entry_points={
         'console_scripts': [
