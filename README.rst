@@ -5,10 +5,12 @@ Cookiecutter PyPackage
 .. image:: https://circleci.com/gh/apiology/cookiecutter-pypackage.svg?style=svg
     :target: https://circleci.com/gh/apiology/cookiecutter-pypackage
 
+PyPackage Boilerplate contains all the boilerplate you need to create a PyPackage project.
+
 This is a fork
 --------------
 
-Hi!  I'm apiology_ and this is my fork of https://github.com/audreyr/cookiecutter-pypackage/
+Hi!  I'm apiology_ and this is (originally) a fork of https://github.com/audreyr/cookiecutter-pypackage/
 
 Changes made to the original (see `GitHub view <https://github.com/audreyr/cookiecutter-pypackage/compare/master...apiology:fork_info?expand=1>`_):
 
