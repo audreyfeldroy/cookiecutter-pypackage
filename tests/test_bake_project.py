@@ -48,10 +48,10 @@ def bake_in_temp_dir(cookies, *args, **kwargs):
         result = cookies.bake(*args, **kwargs)
         assert result is not None
         assert result.project is not None
-        try:
-            yield result
-        finally:
-            rmtree(str(result.project))
+    try:
+        yield result
+    finally:
+        rmtree(str(result.project))
 
 
 def run_inside_dir(command, dirpath):
@@ -180,7 +180,8 @@ def test_bake_not_open_source(cookies):
 
 def test_bake_with_no_console_script(cookies):
     context = {'command_line_interface': "No command-line interface"}
-    result = cookies.bake(extra_context=context)
+    with suppressed_github_and_circleci_creation():
+        result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     found_project_files = os.listdir(project_dir)
     assert "cli.py" not in found_project_files
@@ -192,7 +193,8 @@ def test_bake_with_no_console_script(cookies):
 
 def test_bake_with_console_script_files(cookies):
     context = {'command_line_interface': 'click'}
-    result = cookies.bake(extra_context=context)
+    with suppressed_github_and_circleci_creation():
+        result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     found_project_files = os.listdir(project_dir)
     assert "cli.py" in found_project_files
@@ -204,7 +206,8 @@ def test_bake_with_console_script_files(cookies):
 
 def test_bake_with_argparse_console_script_files(cookies):
     context = {'command_line_interface': 'argparse'}
-    result = cookies.bake(extra_context=context)
+    with suppressed_github_and_circleci_creation():
+        result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     found_project_files = os.listdir(project_dir)
     assert "cli.py" in found_project_files
@@ -216,7 +219,8 @@ def test_bake_with_argparse_console_script_files(cookies):
 
 def test_bake_with_console_script_cli(cookies):
     context = {'command_line_interface': 'click'}
-    result = cookies.bake(extra_context=context)
+    with suppressed_github_and_circleci_creation():
+        result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     module_path = os.path.join(project_dir, 'cli.py')
     module_name = '.'.join([project_slug, 'cli'])
@@ -237,7 +241,8 @@ def test_bake_with_console_script_cli(cookies):
 
 def test_bake_with_argparse_console_script_cli(cookies):
     context = {'command_line_interface': 'argparse'}
-    result = cookies.bake(extra_context=context)
+    with suppressed_github_and_circleci_creation():
+        result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     module_path = os.path.join(project_dir, 'cli.py')
     module_name = '.'.join([project_slug, 'cli'])
