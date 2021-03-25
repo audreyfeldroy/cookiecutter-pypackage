@@ -32,20 +32,14 @@ Temporary Items
 
 # Distribution / packaging
 .Python
-env/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
+/build/
+/develop-eggs/
+/eggs/
+/.eggs/
+/parts/
+/sdist/
 *.egg-info/
-.installed.cfg
+/.installed.cfg
 *.egg
 
 # Installed by fix.sh based on what latest versions are
@@ -102,3 +96,7 @@ cookiecutter-pypackage-env/
 
 # IDE settings
 .vscode/
+
+# Installed by fix.sh based on what latest versions are
+/.python-version
+/.ruby-version

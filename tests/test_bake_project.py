@@ -26,15 +26,28 @@ def inside_dir(dirpath):
 
 
 @contextmanager
+def suppressed_github_and_circleci_creation():
+    """A context manager which sets an env variable to suppress creating
+    GitHub repos and pushing to CircleCI during the hooks.
+    """
+    os.environ['SKIP_GITHUB_AND_CIRCLECI_CREATION'] = '1'
+    try:
+        yield
+    finally:
+        del os.environ['SKIP_GITHUB_AND_CIRCLECI_CREATION']
+
+
+@contextmanager
 def bake_in_temp_dir(cookies, *args, **kwargs):
     """
     Delete the temporal directory that is created when executing the tests
     :param cookies: pytest_cookies.Cookies,
         cookie to be baked and its temporal files will be removed
     """
-    result = cookies.bake(*args, **kwargs)
-    assert result is not None
-    assert result.project is not None
+    with suppressed_github_and_circleci_creation():
+        result = cookies.bake(*args, **kwargs)
+        assert result is not None
+        assert result.project is not None
     try:
         yield result
     finally:
@@ -83,16 +96,19 @@ def test_bake_with_defaults(cookies):
         assert 'python_boilerplate' in found_toplevel_files
         assert 'tox.ini' in found_toplevel_files
         assert 'tests' in found_toplevel_files
+        assert 'README.md' in found_toplevel_files
+        assert 'LICENSE' in found_toplevel_files
+        assert 'fix.sh' in found_toplevel_files
 
 
 def test_bake_and_run_build(cookies):
-    with bake_in_temp_dir(
-        cookies,
-        extra_context={'full_name': 'name "quote" O\'connor'}
-    ) as result:
+    with bake_in_temp_dir(cookies,
+                          extra_context={
+                              'full_name': 'name "quote" O\'connor',
+                              'project_short_description':
+                              'The greatest project ever created by name "quote" O\'connor.',
+                          }) as result:
         assert result.project.isdir()
-        assert run_inside_dir('overcommit --sign', str(result.project)) == 0
-        assert run_inside_dir('overcommit --sign pre-commit', str(result.project)) == 0
         assert run_inside_dir('make typecheck', str(result.project)) == 0
         assert run_inside_dir('tox -e py36', str(result.project)) == 0
         assert run_inside_dir('make quality', str(result.project)) == 0
@@ -164,7 +180,8 @@ def test_bake_not_open_source(cookies):
 
 def test_bake_with_no_console_script(cookies):
     context = {'command_line_interface': "No command-line interface"}
-    result = cookies.bake(extra_context=context)
+    with suppressed_github_and_circleci_creation():
+        result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     found_project_files = os.listdir(project_dir)
     assert "cli.py" not in found_project_files
@@ -176,7 +193,8 @@ def test_bake_with_no_console_script(cookies):
 
 def test_bake_with_console_script_files(cookies):
     context = {'command_line_interface': 'click'}
-    result = cookies.bake(extra_context=context)
+    with suppressed_github_and_circleci_creation():
+        result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     found_project_files = os.listdir(project_dir)
     assert "cli.py" in found_project_files
@@ -188,7 +206,8 @@ def test_bake_with_console_script_files(cookies):
 
 def test_bake_with_argparse_console_script_files(cookies):
     context = {'command_line_interface': 'argparse'}
-    result = cookies.bake(extra_context=context)
+    with suppressed_github_and_circleci_creation():
+        result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     found_project_files = os.listdir(project_dir)
     assert "cli.py" in found_project_files
@@ -200,7 +219,8 @@ def test_bake_with_argparse_console_script_files(cookies):
 
 def test_bake_with_console_script_cli(cookies):
     context = {'command_line_interface': 'click'}
-    result = cookies.bake(extra_context=context)
+    with suppressed_github_and_circleci_creation():
+        result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     module_path = os.path.join(project_dir, 'cli.py')
     module_name = '.'.join([project_slug, 'cli'])
@@ -221,7 +241,8 @@ def test_bake_with_console_script_cli(cookies):
 
 def test_bake_with_argparse_console_script_cli(cookies):
     context = {'command_line_interface': 'argparse'}
-    result = cookies.bake(extra_context=context)
+    with suppressed_github_and_circleci_creation():
+        result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     module_path = os.path.join(project_dir, 'cli.py')
     module_name = '.'.join([project_slug, 'cli'])

@@ -4,6 +4,8 @@
 import argparse
 {%- endif %}
 import sys
+{%- if cookiecutter.command_line_interface|lower == 'argparse' %}
+from typing import List{%- endif %}
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
 import click
 {%- endif %}
@@ -27,7 +29,7 @@ def parse_argv(argv: List[str]) -> argparse.Namespace:
 def process_args(args: argparse.Namespace) -> int:
     print("Arguments: " + str(args._))
     print("Replace this message by putting your code into "
-          "{{cookiecutter.project_slug}}.cli.main")
+          "{{cookiecutter.project_slug}}.cli.process_args")
     return 0
 
 

@@ -231,6 +231,5 @@ To write and run your new test, follow these steps:
    congratulations!
 
 .. cookiecutter: https://github.com/apiology/cookiecutter-pypackage
->>>>>>> cookiecutter-template
 .. virtualenv: https://virtualenv.pypa.io/en/stable/installation
 .. git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
