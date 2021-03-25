@@ -93,8 +93,20 @@ jobs:
       - image: apiology/circleci:latest
     steps:
       - set_up_environment
-      - run_with_languages:
-          command: tox
+      - unless:
+          condition:
+            equal: [<< pipeline.git.branch >>, "main"]
+          steps:
+            - run_with_languages:
+                label: tox
+                command: tox -e py39
+      - when:
+          condition:
+            equal: [<< pipeline.git.branch >>, "main"]
+          steps:
+            - run_with_languages:
+                label: tox
+                command: tox
 
 workflows:
   version: 2
