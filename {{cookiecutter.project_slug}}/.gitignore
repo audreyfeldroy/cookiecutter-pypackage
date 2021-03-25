@@ -52,6 +52,7 @@ __pycache__/
 /eggs/
 /.eggs/
 /parts/
+/dist/
 /sdist/
 /wheels/
 *.egg-info/
