@@ -55,7 +55,7 @@ def test_process_args():
         assert out == 0
         mock_print.assert_has_calls([call('Arguments: <fake>'),
                                      call('Replace this message by putting '
-                                          'your code into python_boilerplate.cli.process_args')])
+                                          'your code into {{cookiecutter.project_slug}}.cli.process_args')])
 
 
 def test_parse_argv_run_simple():
