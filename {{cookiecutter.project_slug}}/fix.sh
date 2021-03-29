@@ -242,6 +242,10 @@ ensure_python_requirements() {
   pip install -r requirements_dev.txt
 }
 
+ensure_python_editable() {
+  pip install -e .
+}
+
 install_shellcheck() {
   if [ "$(uname)" == "Darwin" ]
   then
@@ -277,5 +281,7 @@ ensure_pyenv_virtualenvs
 ensure_pip
 
 ensure_python_requirements
+
+ensure_python_editable
 
 ensure_shellcheck
