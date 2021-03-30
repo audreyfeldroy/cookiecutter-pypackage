@@ -98,7 +98,7 @@ ensure_ruby_versions() {
 
 ensure_bundle() {
   bundle --version >/dev/null 2>&1 || gem install bundler
-  bundle install
+  make bundle_install
   # https://bundler.io/v2.0/bundle_lock.html#SUPPORTING-OTHER-PLATFORMS
   #
   # "If you want your bundle to support platforms other than the one
@@ -107,7 +107,7 @@ ensure_bundle() {
   # re-resolve and consider the new platform when picking gems, all
   # without needing to have a machine that matches PLATFORM handy to
   # install those platform-specific gems on.'
-  bundle lock --add-platform x86_64-darwin-20 x86_64-linux
+  grep x86_64-darwin-20 Gemfile.lock >/dev/null 2>&1 || bundle lock --add-platform x86_64-darwin-20 x86_64-linux
 }
 
 set_ruby_local_version() {
@@ -235,11 +235,15 @@ ensure_pyenv_virtualenvs() {
 ensure_pip() {
   # Make sure we have a pip with the 20.3 resolver, and after the
   # initial bugfix release
-  pip install 'pip>=20.3.1'
+  major_pip_version=$(pip --version | cut -d' ' -f2 | cut -d '.' -f 1)
+  if [[ major_pip_version -lt 21 ]]
+  then
+    pip install 'pip>=20.3.1'
+  fi
 }
 
 ensure_python_requirements() {
-  pip install -r requirements_dev.txt
+  make pip_install
 }
 
 ensure_shellcheck() {
