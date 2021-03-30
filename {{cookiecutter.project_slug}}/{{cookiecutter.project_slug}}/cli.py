@@ -7,7 +7,6 @@ import sys
 {%- if cookiecutter.command_line_interface|lower == 'argparse' %}
 from typing import List{%- endif %}
 
-
 {% if cookiecutter.command_line_interface|lower == 'argparse' %}
 def parse_argv(argv: List[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser()
