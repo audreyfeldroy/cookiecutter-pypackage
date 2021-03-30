@@ -8,7 +8,7 @@ import sys
 from typing import List{%- endif %}
 
 
-{%- if cookiecutter.command_line_interface|lower == 'argparse' %}
+{% if cookiecutter.command_line_interface|lower == 'argparse' %}
 def parse_argv(argv: List[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument('_', nargs='*')
