@@ -38,7 +38,7 @@ Options
 The following package configuration options set up different features for your project.
 
 command_line_interface
-    Whether to create a console script using Click. Console script entry point will match the project_slug. Options: ['Click', 'Argparse', 'No command-line interface']
+    Whether to create a console script using argparse. Console script entry point will match the project_slug. Options: ['Argparse', 'No command-line interface']
 
 create_author_file
     Whether to create an authors file
