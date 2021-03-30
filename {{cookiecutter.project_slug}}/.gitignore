@@ -34,6 +34,10 @@ Temporary Items
 # IDE settings
 .vscode/
 
+# Used by Makefile to track what we have and haven't installed
+Gemfile.lock.installed
+requirements_dev.txt.installed
+
 # Installed by fix.sh based on what latest versions are
 /.python-version
 /.ruby-version

@@ -25,6 +25,7 @@ PreCommit:
       - '{{cookiecutter.project_slug}}/**/*'
   PythonFlake8:
     enabled: true
+    on_warn: fail
   ShellCheck:
     enabled: true
     on_warn: fail

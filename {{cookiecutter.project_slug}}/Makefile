@@ -17,18 +17,32 @@ help:
 
 default: test ## run default typechecking and tests
 
+requirements_dev.txt.installed: requirements_dev.txt
+	pip install -q --disable-pip-version-check -r requirements_dev.txt
+	touch requirements_dev.txt.installed
+
+pip_install: requirements_dev.txt.installed ## Install Python dependencies
+
+Gemfile.lock.installed: Gemfile.lock
+	bundle install
+	touch Gemfile.lock.installed
+
+bundle_install: Gemfile.lock.installed ## Install Ruby dependencies
+
 clean: ## remove all built artifacts
 
 test: ## run tests quickly
 
-quality:  ## run precommit quality checks
+quality: ## run precommit quality checks
 	bundle exec overcommit --run
 
 update_from_cookiecutter: ## Bring in changes from template project used to create this repo
+	bundle exec overcommit --uninstall
 	IN_COOKIECUTTER_PROJECT_UPGRADER=1 cookiecutter_project_upgrader || true
-	git checkout cookiecutter-template && git push && (git checkout main; bundle exec overcommit --sign)
-	git checkout main && bundle exec overcommit --sign && git pull && (git checkout -b update-from-cookiecutter-$$(date +%Y-%m-%d-%H%M); bundle exec overcommit --sign)
+	git checkout cookiecutter-template && git push && git checkout main
+	git checkout main && git pull && git checkout -b update-from-cookiecutter-$$(date +%Y-%m-%d-%H%M)
 	git merge cookiecutter-template || true
+	bundle exec overcommit --install
 	@echo
 	@echo "Please resolve any merge conflicts below and push up a PR with:"
 	@echo
