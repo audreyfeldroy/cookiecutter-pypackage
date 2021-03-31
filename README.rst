@@ -2,22 +2,10 @@
 Cookiecutter PyPackage
 ======================
 
-.. image:: https://pyup.io/repos/github/audreyfeldroy/cookiecutter-pypackage/shield.svg
-    :target: https://pyup.io/repos/github/audreyfeldroy/cookiecutter-pypackage/
-    :alt: Updates
-
-.. image:: https://travis-ci.org/audreyfeldroy/cookiecutter-pypackage.svg?branch=master
-    :target: https://travis-ci.org/github/audreyfeldroy/cookiecutter-pypackage
-    :alt: Build Status
-
-.. image:: https://readthedocs.org/projects/cookiecutter-pypackage/badge/?version=latest
-    :target: https://cookiecutter-pypackage.readthedocs.io/en/latest/?badge=latest
-    :alt: Documentation Status
-
 Cookiecutter_ template for a Python package.
 
-* GitHub repo: https://github.com/audreyfeldroy/cookiecutter-pypackage/
 * Documentation: https://cookiecutter-pypackage.readthedocs.io/
+* GitHub repo: https://github.com/lrivallain/cookiecutter-pypackage/
 * Free software: BSD license
 
 Features
@@ -31,7 +19,7 @@ Features
 * Auto-release to PyPI_ when you push a new tag to master (optional)
 * Command line interface using Click (optional)
 
-.. _Cookiecutter: https://github.com/cookiecutter/cookiecutter
+.. _Cookiecutter: https://github.com/lrivallain/cookiecutter-package
 
 Build Status
 -------------
@@ -58,7 +46,7 @@ Cookiecutter 1.4.0 or higher)::
 
 Generate a Python package project::
 
-    cookiecutter https://github.com/audreyfeldroy/cookiecutter-pypackage.git
+    cookiecutter https://github.com/lrivallain/cookiecutter-pypackage.git
 
 Then:
 
