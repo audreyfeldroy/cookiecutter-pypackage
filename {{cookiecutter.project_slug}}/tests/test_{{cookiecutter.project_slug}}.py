@@ -41,17 +41,19 @@ def test_process_args():
                                           'your code into {{cookiecutter.project_slug}}.cli.process_args')])
 
 
+# @pytest.mark.skip(reason="working on main help test first")
 def test_parse_argv_run_simple():
-    argv = ['{{ cookiecutter.project_slug }}', 'whatever']
+    argv = ['{{ cookiecutter.project_slug }}', 'op1', '123']
     args = parse_argv(argv)
-    assert vars(args) == {'_': ['whatever']}
+    assert vars(args) == {'operation': 'op1', 'arg1': 123}
 
 
 def test_cli_help():
-    expected_help = """usage: {{ cookiecutter.project_slug }} [-h] [_ ...]
+    expected_help = """usage: {{ cookiecutter.project_slug }} [-h] {op1} ...
 
 positional arguments:
-  _
+  {op1}
+    op1       Do some kind of operation
 
 optional arguments:
   -h, --help  show this help message and exit
