@@ -98,14 +98,14 @@ jobs:
             equal: [<< pipeline.git.branch >>, "main"]
           steps:
             - run_with_languages:
-                label: tox
-                command: tox -e py39
+                label: test
+                command: make test
       - when:
           condition:
             equal: [<< pipeline.git.branch >>, "main"]
           steps:
             - run_with_languages:
-                label: tox
+                label: test
                 command: tox
 
 workflows:
