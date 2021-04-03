@@ -268,6 +268,17 @@ ensure_shellcheck() {
   fi
 }
 
+ensure_overcommit() {
+  # don't run if we're in the middle of a cookiecutter child project
+  # test, or otherwise don't have a Git repo to install hooks into...
+  if [ -d .git ]
+  then
+    bundle exec overcommit --install
+  else
+    >&2 echo 'Not in a git repo; not installing git hooks'
+  fi
+}
+
 ensure_rbenv
 
 ensure_ruby_versions
@@ -289,3 +300,5 @@ ensure_python_requirements
 ensure_python_editable
 
 ensure_shellcheck
+
+ensure_overcommit
