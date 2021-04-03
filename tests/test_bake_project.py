@@ -106,7 +106,7 @@ def test_bake_and_run_build(cookies):
                           }) as result:
         assert result.project.isdir()
         assert run_inside_dir('make typecheck', str(result.project)) == 0
-        assert run_inside_dir('tox -e py36', str(result.project)) == 0
+        assert run_inside_dir('make test', str(result.project)) == 0
         assert run_inside_dir('make quality', str(result.project)) == 0
         print("test_bake_and_run_build path", str(result.project))
 
@@ -186,7 +186,7 @@ def test_bake_with_no_console_script(cookies):
     with open(setup_path, 'r') as setup_file:
         assert 'entry_points' not in setup_file.read()
     assert run_inside_dir('make typecheck', str(result.project)) == 0
-    assert run_inside_dir('tox -e py36', str(result.project)) == 0
+    assert run_inside_dir('make test', str(result.project)) == 0
     assert run_inside_dir('make quality', str(result.project)) == 0
 
 
@@ -202,5 +202,5 @@ def test_bake_with_argparse_console_script_files(cookies):
     with open(setup_path, 'r') as setup_file:
         assert 'entry_points' in setup_file.read()
     assert run_inside_dir('make typecheck', str(result.project)) == 0
-    assert run_inside_dir('tox -e py36', str(result.project)) == 0
+    assert run_inside_dir('make test', str(result.project)) == 0
     assert run_inside_dir('make quality', str(result.project)) == 0
