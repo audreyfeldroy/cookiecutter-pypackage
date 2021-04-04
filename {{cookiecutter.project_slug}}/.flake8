@@ -1,3 +1,5 @@
 [flake8]
 exclude = docs
 max_line_length = 100
+application-import-names = op_env,tests
+import-order-style = google
