@@ -66,13 +66,6 @@ def check_output_inside_dir(command, dirpath):
         return subprocess.check_output(shlex.split(command))
 
 
-def test_year_compute_in_license_file(cookies):
-    with bake_in_temp_dir(cookies) as result:
-        license_file_path = result.project.join('LICENSE')
-        now = datetime.datetime.now()
-        assert str(now.year) in license_file_path.read()
-
-
 def project_info(result):
     """Get toplevel dir, project_slug, and project dir from baked cookies"""
     project_path = str(result.project)
@@ -161,6 +154,9 @@ def test_bake_selecting_license(cookies):
         ) as result:
             assert target_string in result.project.join('LICENSE').read()
             assert license in result.project.join('setup.py').read()
+            license_file_path = result.project.join('LICENSE')
+            now = datetime.datetime.now()
+            assert str(now.year) in license_file_path.read()
 
 
 def test_bake_not_open_source(cookies):
