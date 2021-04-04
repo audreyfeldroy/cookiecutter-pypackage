@@ -2,14 +2,16 @@
 
 """Tests for `{{ cookiecutter.project_slug }}` package."""
 
-import pytest
-
 # from {{ cookiecutter.project_slug }} import {{ cookiecutter.project_slug }}
 {%- if cookiecutter.command_line_interface|lower == 'argparse' %}
 import argparse
 import subprocess
-from unittest.mock import patch, call
-from {{cookiecutter.project_slug}}.cli import process_args, parse_argv{%- endif %}
+from unittest.mock import call, patch
+{%- endif %}
+
+import pytest
+{%- if cookiecutter.command_line_interface|lower == 'argparse' %}
+from {{cookiecutter.project_slug}}.cli import parse_argv, process_args{%- endif %}
 
 
 @pytest.fixture
