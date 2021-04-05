@@ -1,5 +1,5 @@
 [flake8]
 exclude = docs
 max_line_length = 100
-application-import-names = op_env,tests
+application-import-names = {{cookiecutter.project_slug}},tests
 import-order-style = google
