@@ -90,18 +90,11 @@ def test_bake_with_defaults(cookies):
         assert 'fix.sh' in found_toplevel_files
 
 
-def test_bake_and_run_build(cookies):
-    with bake_in_temp_dir(cookies,
-                          extra_context={
-                              'full_name': 'name "quote" O\'connor',
-                              'project_short_description':
-                              'The greatest project ever created by name "quote" O\'connor.',
-                          }) as result:
-        assert result.project.isdir()
-        assert run_inside_dir('make typecheck', str(result.project)) == 0
-        assert run_inside_dir('make test', str(result.project)) == 0
-        assert run_inside_dir('make quality', str(result.project)) == 0
-        print("test_bake_and_run_build path", str(result.project))
+TRICKY_QUOTE_CHARACTERS_CONTEXT = {
+    'full_name': 'name "quote" O\'connor',
+    'project_short_description':
+    'The greatest project ever created by name "quote" O\'connor.',
+}
 
 
 def test_bake_without_author_file(cookies):
@@ -172,6 +165,7 @@ def test_bake_not_open_source(cookies):
 
 def test_bake_with_no_console_script(cookies):
     context = {'command_line_interface': "No command-line interface"}
+    context.update(TRICKY_QUOTE_CHARACTERS_CONTEXT)
     with suppressed_github_and_circleci_creation():
         result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
@@ -188,6 +182,7 @@ def test_bake_with_no_console_script(cookies):
 
 def test_bake_with_argparse_console_script_files(cookies):
     context = {'command_line_interface': 'argparse'}
+    context.update(TRICKY_QUOTE_CHARACTERS_CONTEXT)
     with suppressed_github_and_circleci_creation():
         result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
