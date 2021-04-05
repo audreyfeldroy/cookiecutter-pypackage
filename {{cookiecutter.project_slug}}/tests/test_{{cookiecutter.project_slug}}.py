@@ -11,6 +11,7 @@ from unittest.mock import call, patch
 
 import pytest
 {%- if cookiecutter.command_line_interface|lower == 'argparse' %}
+
 from {{cookiecutter.project_slug}}.cli import parse_argv, process_args{%- endif %}
 
 
