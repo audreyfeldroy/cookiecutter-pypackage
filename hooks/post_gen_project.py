@@ -35,6 +35,9 @@ if __name__ == '__main__':
         # multiple times over its lifetime.
         subprocess.check_call(['git', 'init'])
         subprocess.check_call(['git', 'add', '-A'])
+
+    if (os.environ.get('SKIP_FIX_SCRIPT', '0') != '1' and
+       os.environ.get('SKIP_GIT_CREATION', '0') != '1'):
         subprocess.check_call(['bundle', 'exec', 'overcommit', '--install'])
         subprocess.check_call(['bundle', 'exec', 'overcommit', '--sign'])
         subprocess.check_call(['bundle', 'exec', 'overcommit', '--sign', 'pre-commit'])
