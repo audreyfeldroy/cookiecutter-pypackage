@@ -106,7 +106,8 @@ TRICKY_QUOTE_CHARACTERS_CONTEXT = {
 def test_bake_without_author_file(cookies):
     with bake_in_temp_dir(
         cookies,
-        extra_context={'create_author_file': 'n'}
+        extra_context={'create_author_file': 'n'},
+        skip_fix_script=True,
     ) as result:
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert 'AUTHORS.rst' not in found_toplevel_files
@@ -125,7 +126,8 @@ def test_bake_without_author_file(cookies):
 
 
 def test_make_help(cookies):
-    with bake_in_temp_dir(cookies) as result:
+    with bake_in_temp_dir(cookies,
+                          skip_fix_script=True) as result:
         # The supplied Makefile does not support win32
         if sys.platform != "win32":
             output = check_output_inside_dir(
@@ -162,7 +164,8 @@ def test_bake_selecting_license(cookies):
 def test_bake_not_open_source(cookies):
     with bake_in_temp_dir(
         cookies,
-        extra_context={'open_source_license': 'Not open source'}
+        extra_context={'open_source_license': 'Not open source'},
+        skip_fix_script=True,
     ) as result:
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert 'setup.py' in found_toplevel_files
