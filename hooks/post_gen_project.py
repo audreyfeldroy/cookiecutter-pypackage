@@ -22,10 +22,12 @@ if __name__ == '__main__':
     if 'Not open source' == '{{ cookiecutter.open_source_license }}':
         remove_file('LICENSE')
 
-    subprocess.check_call('./fix.sh')
     if os.environ.get('IN_COOKIECUTTER_PROJECT_UPGRADER', '0') == '1':
         os.environ['SKIP_GIT_CREATION'] = '1'
         os.environ['SKIP_GITHUB_AND_CIRCLECI_CREATION'] = '1'
+
+    if os.environ.get('SKIP_FIX_SCRIPT', '0') != '1':
+        subprocess.check_call('./fix.sh')
 
     if os.environ.get('SKIP_GIT_CREATION', '0') != '1':
         # Don't run these non-idempotent things when in

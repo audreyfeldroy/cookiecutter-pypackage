@@ -22,25 +22,31 @@ def inside_dir(dirpath):
 
 
 @contextmanager
-def suppressed_github_and_circleci_creation():
-    """A context manager which sets an env variable to suppress creating
-    GitHub repos and pushing to CircleCI during the hooks.
+def suppressed_hook_items(skip_github_and_circleci_creation=True,
+                          skip_fix_script=False):
+    """A context manager which sets an env variable to suppress different
+    hook items
+
     """
-    os.environ['SKIP_GITHUB_AND_CIRCLECI_CREATION'] = '1'
+    os.environ['SKIP_GITHUB_AND_CIRCLECI_CREATION'] =\
+        '1' if skip_github_and_circleci_creation else '0'
+    os.environ['SKIP_FIX_SCRIPT'] = '1' if skip_fix_script else '0'
     try:
         yield
     finally:
         del os.environ['SKIP_GITHUB_AND_CIRCLECI_CREATION']
+        del os.environ['SKIP_FIX_SCRIPT']
 
 
 @contextmanager
-def bake_in_temp_dir(cookies, *args, **kwargs):
+def bake_in_temp_dir(cookies, skip_fix_script=False, *args, **kwargs):
     """
     Delete the temporal directory that is created when executing the tests
     :param cookies: pytest_cookies.Cookies,
         cookie to be baked and its temporal files will be removed
     """
-    with suppressed_github_and_circleci_creation():
+    with suppressed_hook_items(skip_github_and_circleci_creation=True,
+                               skip_fix_script=skip_fix_script):
         result = cookies.bake(*args, **kwargs)
         assert result is not None
         assert result.project is not None
@@ -75,7 +81,7 @@ def project_info(result):
 
 
 def test_bake_with_defaults(cookies):
-    with bake_in_temp_dir(cookies) as result:
+    with bake_in_temp_dir(cookies, skip_fix_script=True) as result:
         assert result.project.isdir()
         assert result.exit_code == 0
         assert result.exception is None
@@ -143,7 +149,8 @@ def test_bake_selecting_license(cookies):
     for license, target_string in license_strings.items():
         with bake_in_temp_dir(
             cookies,
-            extra_context={'open_source_license': license}
+            extra_context={'open_source_license': license},
+            skip_fix_script=True,
         ) as result:
             assert target_string in result.project.join('LICENSE').read()
             assert license in result.project.join('setup.py').read()
@@ -166,7 +173,7 @@ def test_bake_not_open_source(cookies):
 def test_bake_with_no_console_script(cookies):
     context = {'command_line_interface': "No command-line interface"}
     context.update(TRICKY_QUOTE_CHARACTERS_CONTEXT)
-    with suppressed_github_and_circleci_creation():
+    with suppressed_hook_items():
         result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     found_project_files = os.listdir(project_dir)
@@ -183,8 +190,11 @@ def test_bake_with_no_console_script(cookies):
 def test_bake_with_argparse_console_script_files(cookies):
     context = {'command_line_interface': 'argparse'}
     context.update(TRICKY_QUOTE_CHARACTERS_CONTEXT)
-    with suppressed_github_and_circleci_creation():
+    with suppressed_hook_items():
         result = cookies.bake(extra_context=context)
+        assert result is not None
+        assert result.project is not None
+
     project_path, project_slug, project_dir = project_info(result)
     found_project_files = os.listdir(project_dir)
     assert "cli.py" in found_project_files
