@@ -8,3 +8,5 @@ per-file-ignores =
     # distinction between sample code and comments about it...which
     # affects indentation when in a multi-line literal dictionary
     docs/conf.py:E265,E122
+application-import-names = tests
+import-order-style = google

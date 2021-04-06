@@ -1,9 +1,10 @@
 from contextlib import contextmanager
-import shlex
-import os
-import sys
-import subprocess
 import datetime
+import os
+import shlex
+import subprocess
+import sys
+
 from cookiecutter.utils import rmtree
 
 

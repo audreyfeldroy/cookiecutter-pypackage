@@ -98,6 +98,10 @@ cookiecutter-pypackage-env/
 # IDE settings
 .vscode/
 
+# Editor temp files
+*~
+\#*\#
+
 # Used by Makefile to track what we have and haven't installed
 Gemfile.lock.installed
 requirements_dev.txt.installed
