@@ -2,7 +2,7 @@
 Cookiecutter PyPackage
 ======================
 
-.. image:: https://img.shields.io/travis/briggySmalls/cookiecutter-pypackage.svg
+.. image:: https://travis-ci.org/briggySmalls/cookiecutter-pypackage.svg?branch=master
     :target: https://travis-ci.org/briggySmalls/cookiecutter-pypackage
     :alt: Linux build status on Travis CI
 
