@@ -13,7 +13,9 @@ def parse_argv(argv: List[str]) -> argparse.Namespace:
     # https://docs.python.org/3/library/argparse.html
     # https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser.add_subparsers
     subparsers = parser.add_subparsers(dest='operation')
-    op1_parser = subparsers.add_parser('op1', help='Do some kind of operation')
+    op1_parser = subparsers.add_parser('op1',
+                                       help='Do some kind of operation',
+                                       description='Do some kind of operation')
     op1_parser.add_argument('arg1', type=int, help='arg1 help')
     return parser.parse_args(argv[1:])
 

@@ -59,6 +59,8 @@ def test_cli_op1_help():
     env.update(request_long_lines)
     expected_help = """usage: {{ cookiecutter.project_slug }} op1 [-h] arg1
 
+Do some kind of operation
+
 positional arguments:
   arg1        arg1 help
 
