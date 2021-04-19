@@ -52,6 +52,25 @@ def test_parse_argv_run_simple():
     assert vars(args) == {'operation': 'op1', 'arg1': 123}
 
 
+def test_cli_op1_help():
+    request_long_lines = {'COLUMNS': '999', 'LINES': '25'}
+    env = {}
+    env.update(os.environ)
+    env.update(request_long_lines)
+    expected_help = """usage: {{ cookiecutter.project_slug }} op1 [-h] arg1
+
+positional arguments:
+  arg1        arg1 help
+
+optional arguments:
+  -h, --help  show this help message and exit
+"""
+    # older python versions show arguments like this:
+    actual_help = subprocess.check_output(['{{ cookiecutter.project_slug }}', 'op1', '--help'],
+                                          env=env).decode('utf-8')
+    assert actual_help == expected_help
+
+
 def test_cli_help():
     request_long_lines = {'COLUMNS': '999', 'LINES': '25'}
     env = {}
