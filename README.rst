@@ -105,6 +105,8 @@ Similar Cookiecutter Templates
 
 * `veit/cookiecutter-namespace-template`_: A cookiecutter template for python modules with a namespace
 
+* `zillionare/cookiecutter-pypackage`_: A template containing Poetry_, Mkdocs_, Github CI and many more. It's a template and a package also (can be installed with `pip`)
+
 * Also see the `network`_ and `family tree`_ for this repo. (If you find
   anything that should be listed here, please add it and send a pull request!)
 
@@ -137,6 +139,7 @@ make my own packaging experience better.
 .. _Punch: https://github.com/lgiordani/punch
 .. _Poetry: https://python-poetry.org/
 .. _PyPi: https://pypi.python.org/pypi
+.. _Mkdocs: https://pypi.org/project/mkdocs/
 
 .. _`Nekroze/cookiecutter-pypackage`: https://github.com/Nekroze/cookiecutter-pypackage
 .. _`tony/cookiecutter-pypackage-pythonic`: https://github.com/tony/cookiecutter-pypackage-pythonic
@@ -144,6 +147,7 @@ make my own packaging experience better.
 .. _`lgiordani/cookiecutter-pypackage`: https://github.com/lgiordani/cookiecutter-pypackage
 .. _`briggySmalls/cookiecutter-pypackage`: https://github.com/briggySmalls/cookiecutter-pypackage
 .. _`veit/cookiecutter-namespace-template`: https://github.com/veit/cookiecutter-namespace-template
+.. _`zillionare/cookiecutter-pypackage`: https://zillionare.github.io/cookiecutter-pypackage/
 .. _github comparison view: https://github.com/tony/cookiecutter-pypackage-pythonic/compare/audreyr:master...master
 .. _`network`: https://github.com/audreyr/cookiecutter-pypackage/network
 .. _`family tree`: https://github.com/audreyr/cookiecutter-pypackage/network/members
