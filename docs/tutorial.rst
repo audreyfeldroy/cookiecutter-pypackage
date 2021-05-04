@@ -110,7 +110,7 @@ In your terminal, your virtualenv should still be activated. If it isn't, activa
 
 .. code-block:: bash
 
-    travis encrypt --add deploy.password
+    travis encrypt X="REPLACE WITH PYPI PASSWORD" --add deploy.password
 
 This will:
 
