@@ -12,3 +12,5 @@ Click==7.0{% endif %}
 {% if cookiecutter.use_pytest == 'y' -%}
 pytest==4.6.5
 pytest-runner==5.1{% endif %}
+{% if cookiecutter.use_black == 'y' -%}
+black==19.10b0{% endif %}
