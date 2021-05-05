@@ -8,7 +8,6 @@ python:
   - 3.8
   - 3.7
   - 3.6
-  - 3.5
   - pypy3
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
@@ -21,7 +20,7 @@ script: tox
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
-  username: audreyr
+  user: audreyr
   password:
     secure: PLEASE_REPLACE_ME
   on:
