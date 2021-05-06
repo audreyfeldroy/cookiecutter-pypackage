@@ -1,0 +1,47 @@
+default_language_version:
+    python: python3
+
+repos:
+-   repo: https://github.com/asottile/pyupgrade
+    rev: v2.13.0
+    hooks:
+    -   id: pyupgrade
+        language_version: python3
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.4.0
+    hooks:
+    -   id: trailing-whitespace
+        language_version: python3
+    -   id: end-of-file-fixer
+        language_version: python3
+    -   id: check-yaml
+        language_version: python3
+    -   id: debug-statements
+        language_version: python3
+-   repo: https://github.com/ambv/black
+    rev: 21.4b1
+    hooks:
+    -   id: black
+        language_version: python3
+-   repo: https://github.com/pycqa/flake8
+    rev: 3.9.1
+    hooks:
+    -   id: flake8
+        language_version: python3
+        args: ['--config=setup.cfg']
+-   repo: https://github.com/timothycrosley/isort
+    rev: 5.8.0
+    hooks:
+    -   id: isort
+        language_version: python3
+        args: ['--profile', 'black', '--filter-files']
+-   repo: https://github.com/pycqa/pydocstyle
+    rev: 6.0.0
+    hooks:
+    -   id: pydocstyle
+        language_version: python3
+        args: ['--convention=numpy', '--match="(?!test_).*\.py"']
+-   repo: meta
+    hooks:
+    -   id: check-hooks-apply
+    -   id: check-useless-excludes
