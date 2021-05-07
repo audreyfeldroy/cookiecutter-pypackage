@@ -4,19 +4,24 @@
 
 from setuptools import setup, find_packages
 
-with open('README.rst') as readme_file:
+with open('README.md') as readme_file:
     readme = readme_file.read()
 
-with open('HISTORY.rst') as history_file:
+with open('HISTORY.md') as history_file:
     history = history_file.read()
 
 requirements = [
     "coloredlogs",
-    {%- if cookiecutter.command_line_interface|lower == 'click' %}'Click>=7.0',{%- endif %} ]
+    {%- if cookiecutter.command_line_interface|lower == 'click' %}'Click>=7.0',{%- endif %}
+]
 
-setup_requirements = [{%- if cookiecutter.use_pytest == 'y' %}'pytest-runner',{%- endif %} ]
+setup_requirements = [
+    {%- if cookiecutter.use_pytest == 'y' %}'pytest-runner',{%- endif %}
+]
 
-test_requirements = [{%- if cookiecutter.use_pytest == 'y' %}'pytest>=3',{%- endif %} ]
+test_requirements = [
+    {%- if cookiecutter.use_pytest == 'y' %}'pytest>=3',{%- endif %} 
+]
 
 {%- set license_classifiers = {
     'MIT license': 'License :: OSI Approved :: MIT License',
@@ -32,7 +37,6 @@ description = "{{ cookiecutter.project_short_description }}"
 
 setup(
     author="{{ cookiecutter.full_name.replace('\"', '\\\"') }}",
-    author_email='{{ cookiecutter.email }}',
     python_requires='>=3.6',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
@@ -46,6 +50,7 @@ setup(
         'Programming Language :: Python :: 3.8',
     ],
     description=description,
+    long_description_content_type = "text/markdown",
     {%- if 'no' not in cookiecutter.command_line_interface|lower %}
     entry_points={
         'console_scripts': [

@@ -6,8 +6,6 @@ Welcome to {{ cookiecutter.project_name }}'s documentation!
    :caption: Contents:
 
    readme
-   installation
-   usage
    modules
    contributing
    {% if cookiecutter.create_author_file == 'y' -%}authors

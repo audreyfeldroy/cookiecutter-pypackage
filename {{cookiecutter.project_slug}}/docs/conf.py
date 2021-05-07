@@ -31,7 +31,21 @@ import {{ cookiecutter.project_slug }}
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode']
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',
+    'sphinx.ext.doctest',
+    'sphinx.ext.todo',
+    'sphinx.ext.autosummary',
+    'sphinx.ext.extlinks',
+    'sphinx.ext.viewcode',
+    'recommonmark'
+]
+
+from recommonmark.parser import CommonMarkParser
+source_parsers = {
+    '.md': CommonMarkParser,
+}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -40,7 +54,7 @@ templates_path = ['_templates']
 # You can specify multiple suffix as a list of string:
 #
 # source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+source_suffix = ['.rst', '.md']
 
 # The master toctree document.
 master_doc = 'index'
@@ -72,7 +86,7 @@ language = None
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = 'monokai'
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
@@ -83,13 +97,20 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a
 # theme further.  For a list of options available for each theme, see the
 # documentation.
 #
 # html_theme_options = {}
+html_theme_options = {
+    'collapse_navigation': False,
+    'sticky_navigation': False,
+    'navigation_depth': 4,
+    'includehidden': True,
+    'titles_only': False
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -158,5 +179,12 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
+# -- Extension configuration -------------------------------------------------
+# This value selects if automatically documented members are sorted alphabetical
+# (value 'alphabetical'), by member type (value 'groupwise') or by source order
+# (value 'bysource'). The default is alphabetical.
+autodoc_member_order = 'bysource'
 
-
+# If true, the current module name will be prepended to all description
+# unit titles (such as .. function::).
+add_module_names = False
