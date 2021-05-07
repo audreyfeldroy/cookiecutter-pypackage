@@ -39,13 +39,8 @@ extensions = [
     'sphinx.ext.autosummary',
     'sphinx.ext.extlinks',
     'sphinx.ext.viewcode',
-    'recommonmark'
+    'm2r2'
 ]
-
-from recommonmark.parser import CommonMarkParser
-source_parsers = {
-    '.md': CommonMarkParser,
-}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
