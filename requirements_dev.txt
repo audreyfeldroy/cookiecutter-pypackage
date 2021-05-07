@@ -9,10 +9,11 @@ ptpython
 pytest
 pytest-runner
 flake8
-#flake8-bugbear # assert sys.version_info >= (3, 5, 0), "bugbear requires Python 3.5+"
 flake8-colors
 flake8-docstrings
 flake8-import-order
-#flake8-typing-imports #No matching distribution found for flake8-typing-imports
 pep8-naming
 sphinx_rtd_theme
+cookiecutter
+pytest-cookies
+alabaster

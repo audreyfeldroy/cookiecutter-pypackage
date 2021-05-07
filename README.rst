@@ -4,6 +4,7 @@ Cookiecutter PyPackage
 
 Cookiecutter_ template for a Python package.
 
+* Documentation: https://cookiecutter-pypackage.readthedocs.io/
 * GitHub repo: https://github.com/lrivallain/cookiecutter-pypackage/
 * Free software: BSD license
 
@@ -12,8 +13,8 @@ Features
 
 * Testing setup with ``unittest`` and ``python setup.py test`` or ``pytest``
 * Travis-CI_: Ready for Travis Continuous Integration testing
-* Tox_ testing: Setup to easily test for Python 3.5, 3.6, 3.7, 3.8
-* Sphinx_ docs: Documentation ready for generation with, for example, ReadTheDocs_
+* Tox_ testing: Setup to easily test for Python 3.6, 3.7, 3.8
+* Sphinx_ docs: Documentation ready for generation with, for example, `Read the Docs`_
 * bump2version_: Pre-configured version bumping with a single command
 * Auto-release to PyPI_ when you push a new tag to master (optional)
 * Command line interface using Click (optional)
@@ -25,8 +26,8 @@ Build Status
 
 Linux:
 
-.. image:: https://img.shields.io/travis/audreyr/cookiecutter-pypackage.svg
-    :target: https://travis-ci.org/audreyr/cookiecutter-pypackage
+.. image:: https://img.shields.io/travis/audreyfeldroy/cookiecutter-pypackage.svg
+    :target: https://travis-ci.org/audreyfeldroy/cookiecutter-pypackage
     :alt: Linux build status on Travis CI
 
 Windows:
@@ -53,11 +54,11 @@ Then:
 * Add the repo to your Travis-CI_ account.
 * Install the dev requirements into a virtualenv. (``pip install -r requirements_dev.txt``)
 * Register_ your project with PyPI.
-* Run the Travis CLI command `travis encrypt --add deploy.password` to encrypt your PyPI password in Travis config
+* Run the Travis CLI command ``travis encrypt --add deploy.password`` to encrypt your PyPI password in Travis config
   and activate automated deployment on PyPI when you push a new tag to master branch.
-* Add the repo to your ReadTheDocs_ account + turn on the ReadTheDocs service hook.
+* Add the repo to your `Read the Docs`_ account + turn on the Read the Docs service hook.
 * Release your package by pushing a new tag to master.
-* Add a `requirements.txt` file that specifies the packages you will need for
+* Add a ``requirements.txt`` file that specifies the packages you will need for
   your project and their versions. For more info see the `pip docs for requirements files`_.
 * Activate your project on `pyup.io`_.
 
@@ -77,7 +78,7 @@ Similar Cookiecutter Templates
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * `Nekroze/cookiecutter-pypackage`_: A fork of this with a PyTest test runner,
-  strict flake8 checking with Travis/Tox, and some docs and `setup.py` differences.
+  strict flake8 checking with Travis/Tox, and some docs and ``setup.py`` differences.
 
 * `tony/cookiecutter-pypackage-pythonic`_: Fork with py2.7+3.3 optimizations.
   Flask/Werkzeug-style test runner, ``_compat`` module and module/doc conventions.
@@ -88,29 +89,14 @@ Similar Cookiecutter Templates
 
 * `lgiordani/cookiecutter-pypackage`_: A fork of Cookiecutter that uses Punch_ instead of bump2version_ and with separate requirements files.
 
-* `briggySmalls/cookiecutter-pypackage`_: A fork using Pipenv_ for package management, with linting, formatting and more.
+* `briggySmalls/cookiecutter-pypackage`_: A fork using Poetry_ for neat package management and deployment, with linting, formatting, no makefiles and more.
+
+* `veit/cookiecutter-namespace-template`_: A cookiecutter template for python modules with a namespace
+
+* `zillionare/cookiecutter-pypackage`_: A template containing Poetry_, Mkdocs_, Github CI and many more. It's a template and a package also (can be installed with `pip`)
 
 * Also see the `network`_ and `family tree`_ for this repo. (If you find
   anything that should be listed here, please add it and send a pull request!)
-
-Support this Project
-~~~~~~~~~~~~~~~~~~~~~
-
-You can take our detailed course that covers all the features of this template, which has the added bonus of funding this project:
-
-.. image:: https://www.pydanny.com/static/packaging-course.jpg
-   :name: Creating and Distributing Python Packages image
-   :align: center
-   :alt: Creating and Distributing Python Packages
-   :target: https://twoscoopspress.thinkific.com/courses/creating-and-distributing-python-packages
-
-También disponible en español:
-
-.. image:: https://www.pydanny.com/static/packaging-course-es.jpg
-   :name: Creating and Distributing Python Packages ES image
-   :align: center
-   :alt: Creating and Distributing Python Packages ES
-   :target: https://twoscoopspress.thinkific.com/courses/creating-and-distributing-python-packages-es
 
 Fork This / Create Your Own
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -135,18 +121,21 @@ make my own packaging experience better.
 .. _Travis-CI: http://travis-ci.org/
 .. _Tox: http://testrun.org/tox/
 .. _Sphinx: http://sphinx-doc.org/
-.. _ReadTheDocs: https://readthedocs.io/
+.. _Read the Docs: https://readthedocs.io/
 .. _`pyup.io`: https://pyup.io/
 .. _bump2version: https://github.com/c4urself/bump2version
 .. _Punch: https://github.com/lgiordani/punch
-.. _Pipenv: https://pipenv.readthedocs.io/en/latest/
+.. _Poetry: https://python-poetry.org/
 .. _PyPi: https://pypi.python.org/pypi
+.. _Mkdocs: https://pypi.org/project/mkdocs/
 
 .. _`Nekroze/cookiecutter-pypackage`: https://github.com/Nekroze/cookiecutter-pypackage
 .. _`tony/cookiecutter-pypackage-pythonic`: https://github.com/tony/cookiecutter-pypackage-pythonic
 .. _`ardydedase/cookiecutter-pypackage`: https://github.com/ardydedase/cookiecutter-pypackage
 .. _`lgiordani/cookiecutter-pypackage`: https://github.com/lgiordani/cookiecutter-pypackage
 .. _`briggySmalls/cookiecutter-pypackage`: https://github.com/briggySmalls/cookiecutter-pypackage
+.. _`veit/cookiecutter-namespace-template`: https://github.com/veit/cookiecutter-namespace-template
+.. _`zillionare/cookiecutter-pypackage`: https://zillionare.github.io/cookiecutter-pypackage/
 .. _github comparison view: https://github.com/tony/cookiecutter-pypackage-pythonic/compare/audreyr:master...master
 .. _`network`: https://github.com/audreyr/cookiecutter-pypackage/network
 .. _`family tree`: https://github.com/audreyr/cookiecutter-pypackage/network/members
