@@ -1,0 +1,14 @@
+name: {{ cookiecutter.project_slug }}
+channels:
+- conda-forge
+- defaults
+dependencies:
+  - sphinx
+  - pandoc
+  - sphinx_rtd_theme
+  - sphinx-autoapi
+  - sphinxcontrib-napoleon
+{% if cookiecutter.command_line_interface|lower == 'click' -%}
+  - click
+  - sphinx-click
+{% endif %}

@@ -10,10 +10,10 @@ jobs:
   include:
     - env: TOXENV=docs
       name: "Documentation"
-      python: 3.6
+      python: 3.7
     - env: TOXENV=black
       name: "Black"
-      python: 3.6
+      python: 3.7
     - env: TOXENV=py38-macOS
       name: "Python3.8 (macOS)"
       os: osx
