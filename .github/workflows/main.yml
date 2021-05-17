@@ -7,18 +7,6 @@ on:
     pull_request:
 
 jobs:
-    black:
-        runs-on: ubuntu-latest
-        steps:
-            -   uses: actions/checkout@v2
-            -   uses: actions/setup-python@v2
-                with:
-                    python-version: 3.7
-            -   name: Install pre-commit
-                run: |
-                    pip install pre-commit
-            -   name: Run linting suite
-                run: pre-commit run --all-files
     tests:
         runs-on: ubuntu-latest
         strategy:
@@ -32,6 +20,8 @@ jobs:
                         python-version: 3.8
                     -   tox-env: py39
                         python-version: 3.9
+                    -   tox-env: pypy
+                        python-version: pypy3
         steps:
             -   uses: actions/checkout@v2
             -   uses: actions/setup-python@v2
