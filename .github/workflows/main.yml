@@ -17,7 +17,6 @@ jobs:
             -   name: Install pre-commit
                 run: |
                     pip install pre-commit
-                    pre-commit install --all-hooks
             -   name: Run linting suite
                 run: pre-commit run --all-files
     tests:
@@ -37,7 +36,7 @@ jobs:
             -   uses: actions/checkout@v2
             -   uses: actions/setup-python@v2
                 with:
-                    python-version: 3.7
+                    python-version: ${{ matrix.python-version }}
             -   name: Install tox
                 run: pip install tox
             -   name: Run linting suite
