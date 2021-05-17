@@ -1,0 +1,44 @@
+name: cookiecutter-pypackage
+
+on:
+    push:
+        branches:
+            - master
+    pull_request:
+
+jobs:
+    black:
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v2
+            -   uses: actions/setup-python@v2
+                with:
+                    python-version: 3.7
+            -   name: Install pre-commit
+                run: |
+                    pip install pre-commit
+                    pre-commit install --all-hooks
+            -   name: Run linting suite
+                run: pre-commit run --all-files
+    tests:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                include:
+                    -   tox-env: py36
+                        python-version: 3.6
+                    -   tox-env: py37
+                        python-version: 3.7
+                    -   tox-env: py38
+                        python-version: 3.8
+                    -   tox-env: py39
+                        python-version: 3.9
+        steps:
+            -   uses: actions/checkout@v2
+            -   uses: actions/setup-python@v2
+                with:
+                    python-version: 3.7
+            -   name: Install tox
+                run: pip install tox
+            -   name: Run linting suite
+                run: tox -e ${{ matrix.tox-env }}
