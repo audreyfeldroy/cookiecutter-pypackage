@@ -93,9 +93,20 @@ jobs:
       - image: apiology/circleci:latest
     steps:
       - set_up_environment
-      - run_with_languages:
-          label: Test
-          command: make test
+      - unless:
+          condition:
+            equal: [<< pipeline.git.branch >>, "main"]
+          steps:
+            - run_with_languages:
+                label: test
+                command: make test
+      - when:
+          condition:
+            equal: [<< pipeline.git.branch >>, "main"]
+          steps:
+            - run_with_languages:
+                label: test
+                command: tox
 
 workflows:
   version: 2
