@@ -10,3 +10,8 @@ dependencies.
 
 This project uses [overcommit](https://github.com/sds/overcommit) for
 quality checks.  `bundle exec overcommit --install` will install it.
+
+## direnv
+
+This project uses direnv to manage environment variables used during
+development.  See the `.envrc` file for detail.

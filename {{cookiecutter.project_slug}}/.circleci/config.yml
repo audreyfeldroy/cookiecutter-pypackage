@@ -19,7 +19,7 @@ commands:
             export PATH="${HOME}/.pyenv/bin:${PATH}"
             export PATH="${HOME}/.rbenv/bin:${HOME}/.rbenv/shims:${PATH}"
             export PATH="${HOME}/project/node_modules/.bin:${PATH}"
-            eval "$(pyenv init -)"
+            eval "$(pyenv init --path)"
             eval "$(pyenv virtualenv-init -)"
             eval "$(rbenv init -)"
             export BUNDLE_PATH=vendor/bundle
@@ -94,6 +94,7 @@ jobs:
     steps:
       - set_up_environment
       - run_with_languages:
+          label: Test
           command: make test
 
 workflows:

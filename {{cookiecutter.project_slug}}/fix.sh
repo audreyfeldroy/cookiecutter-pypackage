@@ -2,6 +2,16 @@
 
 set -o pipefail
 
+apt_upgraded=0
+
+update_apt() {
+  if [ "${apt_upgraded}" = 0 ]
+  then
+    sudo apt-get update -y
+    apt_upgraded=1
+  fi
+}
+
 install_rbenv() {
   if [ "$(uname)" == "Darwin" ]
   then
@@ -97,7 +107,21 @@ ensure_ruby_versions() {
 }
 
 ensure_bundle() {
+  # Not sure why this is needed a second time, but it seems to be?
+  #
+  # https://app.circleci.com/pipelines/github/apiology/source_finder/21/workflows/88db659f-a4f4-4751-abc0-46f5929d8e58/jobs/107
+  set_rbenv_env_variables
   bundle --version >/dev/null 2>&1 || gem install bundler
+  bundler_version=$(bundle --version | cut -d ' ' -f3)
+  bundler_version_major=$(cut -d. -f1 <<< "${bundler_version}")
+  bundler_version_minor=$(cut -d. -f2 <<< "${bundler_version}")
+  # Version 2.1 of bundler seems to have some issues with nokogiri:
+  #
+  # https://app.asana.com/0/1107901397356088/1199504270687298
+  if [ "${bundler_version_major}" == 2 ] && [ "${bundler_version_minor}" -lt 2 ]
+  then
+    gem install bundler
+  fi
   make bundle_install
   # https://bundler.io/v2.0/bundle_lock.html#SUPPORTING-OTHER-PLATFORMS
   #
@@ -134,8 +158,9 @@ WARNING: seems you still have not added 'pyenv' to the load path.
 # Load pyenv automatically by adding
 # the following to ~/.bashrc:
 
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
+export PYENV_ROOT="${HOME}/.pyenv"
+export PATH="${PYENV_ROOT}/bin:$PATH"
+eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 EOF
     fi
@@ -149,8 +174,11 @@ set_pyenv_env_variables() {
   #
   # https://app.circleci.com/pipelines/github/apiology/cookiecutter-pypackage/15/workflows/10506069-7662-46bd-b915-2992db3f795b/jobs/15
   set +u
-  export PATH="${HOME}/.pyenv/bin:$PATH"
+  export PYENV_ROOT="${HOME}/.pyenv"
+  export PATH="${PYENV_ROOT}/bin:$PATH"
+  # TODO: This can be removed once Homebrew updates pyenv past 1.2.27
   eval "$(pyenv init -)"
+  eval "$(pyenv init --path)"
   eval "$(pyenv virtualenv-init -)"
   set -u
 }
@@ -175,7 +203,7 @@ install_package() {
     HOMEBREW_NO_AUTO_UPDATE=1 brew install "${homebrew_package}"
   elif type apt-get >/dev/null 2>&1
   then
-    sudo apt-get update -y
+    update_apt
     sudo apt-get install -y "${apt_package}"
   else
     >&2 echo "Teach me how to install packages on this plaform"
