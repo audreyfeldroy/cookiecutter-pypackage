@@ -142,3 +142,4 @@ ENV/
 .mypy_cache/
 /types/coverage
 /.ruby-version
+/.dmypy.json
