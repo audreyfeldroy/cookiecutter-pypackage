@@ -15,8 +15,6 @@ with open('HISTORY.rst') as history_file:
 
 requirements: List[str] = []
 
-setup_requirements: List[str] = ['pytest-runner']
-
 test_requirements: List[str] = ['pytest>=3']
 
 {%- set license_classifiers = {
@@ -64,7 +62,6 @@ setup(
     name='{{ cookiecutter.project_slug }}',
     packages=find_packages(include=['{{ cookiecutter.project_slug }}',
                                     '{{ cookiecutter.project_slug }}.*']),
-    setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}',
