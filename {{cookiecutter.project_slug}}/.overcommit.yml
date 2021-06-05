@@ -39,3 +39,7 @@ PreCommit:
 #
 #  IndexTags:
 #    enabled: true # Generate a tags file with `ctags` each time HEAD changes
+
+PrePush:
+  Pytest:
+    enabled: true
