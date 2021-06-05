@@ -9,7 +9,7 @@ coverage==5.3
 Sphinx==3.3.1
 twine==3.3.0
 pytest==6.2.4
-mypy==0.790
+mypy==0.812
 # lxml is needed for mypy coverage reporting:
 #
 # You must install the lxml package before you can run mypy with `--html-report`.
