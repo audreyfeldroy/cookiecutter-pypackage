@@ -98,8 +98,11 @@ jobs:
             equal: [<< pipeline.git.branch >>, "main"]
           steps:
             - run_with_languages:
+                label: typecheck
+                command: make citypecheck citypecoverage
+            - run_with_languages:
                 label: test
-                command: make test
+                command: make citest cicoverage
       - when:
           condition:
             equal: [<< pipeline.git.branch >>, "main"]

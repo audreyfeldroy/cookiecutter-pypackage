@@ -143,3 +143,4 @@ ENV/
 /types/coverage
 /.ruby-version
 /.dmypy.json
+/typecover
