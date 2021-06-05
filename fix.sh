@@ -87,6 +87,8 @@ ensure_dev_library() {
 
 ensure_ruby_build_requirements() {
   ensure_dev_library readline/readline.h readline libreadline-dev
+  ensure_dev_library zlib.h zlib zlib1g-dev
+  ensure_dev_library openssl/ssl.h openssl libssl-dev
 }
 
 # You can find out which feature versions are still supported / have
@@ -102,7 +104,17 @@ ensure_ruby_versions() {
 
   for ver in $ruby_versions
   do
-    rbenv install -s "${ver}"
+    # These CFLAGS can be retired once 2.6.7 is no longer needed :
+    #
+    # https://github.com/rbenv/ruby-build/issues/1747
+    # https://github.com/rbenv/ruby-build/issues/1489
+    # https://bugs.ruby-lang.org/issues/17777
+    if [ "${ver}" == 2.6.7 ]
+    then
+      CFLAGS="-Wno-error=implicit-function-declaration" rbenv install -s "${ver}"
+    else
+      rbenv install -s "${ver}"
+    fi
   done
 }
 
@@ -111,7 +123,7 @@ ensure_bundle() {
   #
   # https://app.circleci.com/pipelines/github/apiology/source_finder/21/workflows/88db659f-a4f4-4751-abc0-46f5929d8e58/jobs/107
   set_rbenv_env_variables
-  bundle --version >/dev/null 2>&1 || gem install bundler
+  bundle --version >/dev/null 2>&1 || gem install --no-document bundler
   bundler_version=$(bundle --version | cut -d ' ' -f3)
   bundler_version_major=$(cut -d. -f1 <<< "${bundler_version}")
   bundler_version_minor=$(cut -d. -f2 <<< "${bundler_version}")
@@ -120,7 +132,7 @@ ensure_bundle() {
   # https://app.asana.com/0/1107901397356088/1199504270687298
   if [ "${bundler_version_major}" == 2 ] && [ "${bundler_version_minor}" -lt 2 ]
   then
-    gem install bundler
+    gem install --no-document bundler
   fi
   make bundle_install
   # https://bundler.io/v2.0/bundle_lock.html#SUPPORTING-OTHER-PLATFORMS
@@ -176,8 +188,6 @@ set_pyenv_env_variables() {
   set +u
   export PYENV_ROOT="${HOME}/.pyenv"
   export PATH="${PYENV_ROOT}/bin:$PATH"
-  # TODO: This can be removed once Homebrew updates pyenv past 1.2.27
-  eval "$(pyenv init -)"
   eval "$(pyenv init --path)"
   eval "$(pyenv virtualenv-init -)"
   set -u
@@ -216,6 +226,7 @@ ensure_python_build_requirements() {
   ensure_dev_library bzlib.h bzip2 libbz2-dev
   ensure_dev_library openssl/ssl.h openssl libssl-dev
   ensure_dev_library ffi.h libffi libffi-dev
+  ensure_dev_library sqlite3.h sqlite3 libsqlite3-dev
 }
 
 # You can find out which feature versions are still supported / have
