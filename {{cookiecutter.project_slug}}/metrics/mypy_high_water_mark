@@ -1,1 +1,5 @@
-91.3000
+{%- if cookiecutter.command_line_interface|lower == 'argparse' -%}
+95.6500
+{%- else -%}
+100.0
+{%- endif %}

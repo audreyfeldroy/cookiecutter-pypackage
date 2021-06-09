@@ -186,8 +186,8 @@ def test_bake_with_no_console_script(cookies):
     setup_path = os.path.join(project_path, 'setup.py')
     with open(setup_path, 'r') as setup_file:
         assert 'entry_points' not in setup_file.read()
-    assert run_inside_dir('make typecheck', str(result.project)) == 0
-    assert run_inside_dir('make test coverage', str(result.project)) == 0
+    assert run_inside_dir('make citypecheck citypecoverage', str(result.project)) == 0
+    assert run_inside_dir('make citest cicoverage', str(result.project)) == 0
     assert run_inside_dir('make quality', str(result.project)) == 0
 
 
@@ -206,6 +206,6 @@ def test_bake_with_argparse_console_script_files(cookies):
     setup_path = os.path.join(project_path, 'setup.py')
     with open(setup_path, 'r') as setup_file:
         assert 'entry_points' in setup_file.read()
-    assert run_inside_dir('make typecheck', str(result.project)) == 0
-    assert run_inside_dir('make test coverage', str(result.project)) == 0
+    assert run_inside_dir('make citypecheck citypecoverage', str(result.project)) == 0
+    assert run_inside_dir('make citest cicoverage', str(result.project)) == 0
     assert run_inside_dir('make quality', str(result.project)) == 0
