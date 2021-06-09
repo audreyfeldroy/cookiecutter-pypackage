@@ -8,7 +8,7 @@ import os
 import os.path
 from typing import List
 
-# This must be about distutils, despite flake8's opinions.  Otherwise,
+# This must be above distutils, despite flake8's opinions.  Otherwise,
 # this diagnostic is emitted:
 
 # UserWarning: Distutils was imported before Setuptools. This usage is
