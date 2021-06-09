@@ -36,11 +36,11 @@ def test_content(response):
 def test_process_args():
     with patch('builtins.print') as mock_print:
         ns = argparse.Namespace()
-        setattr(ns, '_', '<fake>')
+        setattr(ns, 'foo', '<fake>')
         out = process_args(ns)
 
         assert out == 0
-        mock_print.assert_has_calls([call('Arguments: <fake>'),
+        mock_print.assert_has_calls([call("Arguments: Namespace(foo='<fake>')"),
                                      call('Replace this message by putting '
                                           'your code into {{cookiecutter.project_slug}}.cli.process_args')])
 
