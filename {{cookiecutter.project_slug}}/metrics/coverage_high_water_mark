@@ -1,5 +1,5 @@
-{%- if cookiecutter.command_line_interface|lower == 'argparse' %}
+{%- if cookiecutter.command_line_interface|lower == 'argparse' -%}
 100.0
-{% else %}
+{%- else -%}
 0.0
 {%- endif %}
