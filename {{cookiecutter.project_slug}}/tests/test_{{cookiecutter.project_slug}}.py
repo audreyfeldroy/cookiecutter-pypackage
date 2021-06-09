@@ -13,7 +13,7 @@ from unittest.mock import call, patch
 import pytest
 {%- if cookiecutter.command_line_interface|lower == 'argparse' %}
 
-from {{cookiecutter.project_slug}}.cli import parse_argv, process_args{%- endif %}
+from {{cookiecutter.project_slug}}.cli import main, parse_argv, process_args{%- endif %}
 
 
 @pytest.fixture
@@ -50,6 +50,15 @@ def test_parse_argv_run_simple():
     argv = ['{{ cookiecutter.project_slug }}', 'op1', '123']
     args = parse_argv(argv)
     assert vars(args) == {'operation': 'op1', 'arg1': 123}
+
+
+def test_main():
+    with patch('{{ cookiecutter.project_slug }}.cli.parse_argv') as mock_parse_argv,\
+         patch('{{ cookiecutter.project_slug }}.cli.process_args') as mock_process_args:
+        argv = object()
+        args = mock_parse_argv.return_value
+        assert mock_process_args.return_value == main(argv)
+        mock_process_args.assert_called_with(args)
 
 
 def test_cli_op1_help():
