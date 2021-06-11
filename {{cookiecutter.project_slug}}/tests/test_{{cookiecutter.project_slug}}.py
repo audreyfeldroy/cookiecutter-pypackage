@@ -33,16 +33,16 @@ def test_content(response):
 {%- if cookiecutter.command_line_interface|lower == 'argparse' %}
 
 
-def test_process_args():
-    with patch('builtins.print') as mock_print:
-        ns = argparse.Namespace()
-        setattr(ns, 'foo', '<fake>')
-        out = process_args(ns)
+@patch('builtins.print', autospec=print)
+def test_process_args(print):
+    ns = argparse.Namespace()
+    setattr(ns, 'foo', '<fake>')
+    out = process_args(ns)
 
-        assert out == 0
-        mock_print.assert_has_calls([call("Arguments: Namespace(foo='<fake>')"),
-                                     call('Replace this message by putting '
-                                          'your code into {{cookiecutter.project_slug}}.cli.process_args')])
+    assert out == 0
+    print.assert_has_calls([call("Arguments: Namespace(foo='<fake>')"),
+                            call('Replace this message by putting '
+                                 'your code into {{cookiecutter.project_slug}}.cli.process_args')])
 
 
 # @pytest.mark.skip(reason="working on main help test first")
@@ -52,13 +52,13 @@ def test_parse_argv_run_simple():
     assert vars(args) == {'operation': 'op1', 'arg1': 123}
 
 
-def test_main():
-    with patch('{{ cookiecutter.project_slug }}.cli.parse_argv') as mock_parse_argv,\
-         patch('{{ cookiecutter.project_slug }}.cli.process_args') as mock_process_args:
-        argv = object()
-        args = mock_parse_argv.return_value
-        assert mock_process_args.return_value == main(argv)
-        mock_process_args.assert_called_with(args)
+@patch('{{ cookiecutter.project_slug }}.cli.parse_argv', autospec=parse_argv)
+@patch('{{ cookiecutter.project_slug }}.cli.process_args', autospec=process_args)
+def test_main(process_args, parse_argv):
+    argv = object()
+    args = parse_argv.return_value
+    assert process_args.return_value == main(argv)
+    process_args.assert_called_with(args)
 
 
 def test_cli_op1_help():
