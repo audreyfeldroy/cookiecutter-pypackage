@@ -82,6 +82,22 @@ optional arguments:
     assert actual_help == expected_help
 
 
+def test_cli_no_command():
+    request_long_lines = {'COLUMNS': '999', 'LINES': '25'}
+    env = {}
+    env.update(os.environ)
+    env.update(request_long_lines)
+    expected_help = """usage: {{ cookiecutter.project_slug }} [-h] {op1} ...
+{{ cookiecutter.project_slug }}: error: Please provide a command
+"""
+    # older python versions show arguments like this:
+    result = subprocess.run(['{{ cookiecutter.project_slug }}'],
+                            capture_output=True,
+                            env=env)
+    actual_help = result.stderr.decode('utf-8')
+    assert actual_help == expected_help
+
+
 def test_cli_help():
     request_long_lines = {'COLUMNS': '999', 'LINES': '25'}
     env = {}

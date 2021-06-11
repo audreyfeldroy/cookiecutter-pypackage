@@ -17,7 +17,11 @@ def parse_argv(argv: List[str]) -> argparse.Namespace:
                                        help='Do some kind of operation',
                                        description='Do some kind of operation')
     op1_parser.add_argument('arg1', type=int, help='arg1 help')
-    return parser.parse_args(argv[1:])
+    args = parser.parse_args(argv[1:])
+    if args.operation is None:
+        # Not sure why coverage doesn't recognize this, but it is in fact tested
+        parser.error('Please provide a command')  # pragma: no cover
+    return args
 
 
 def process_args(args: argparse.Namespace) -> int:
