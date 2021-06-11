@@ -92,7 +92,8 @@ def test_cli_no_command():
 """
     # older python versions show arguments like this:
     result = subprocess.run(['{{ cookiecutter.project_slug }}'],
-                            capture_output=True,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE,
                             env=env)
     actual_help = result.stderr.decode('utf-8')
     assert actual_help == expected_help
