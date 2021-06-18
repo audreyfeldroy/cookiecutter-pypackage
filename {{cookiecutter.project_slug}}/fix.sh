@@ -283,7 +283,20 @@ ensure_pip() {
   fi
 }
 
+ensure_python_requirements_build_requirements() {
+  # During the Python 3.10 beta period, the lxml package didn't have a
+  # prebuilt binary for at least Linux on CircleCI:
+  #
+  # https://app.circleci.com/pipelines/github/apiology/docker-circleci/124/workflows/91397303-085c-46fe-bf2b-93c3e0e0f615/jobs/236
+  #
+  # While this can probably be removed, maybe it'll be required again
+  # for the next beta period?
+  ensure_dev_library xslt.h libxslt libxslt-dev
+  ensure_dev_library libxml/xmlschemas.h libxml2 libxml2-dev
+}
+
 ensure_python_requirements() {
+  ensure_python_requirements_build_requirements
   make pip_install
 }
 
