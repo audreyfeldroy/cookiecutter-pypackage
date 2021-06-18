@@ -136,6 +136,7 @@ workflows:
                 - main
     jobs:
       - test
+      - overcommit
   overcommit:
     jobs:
       - overcommit
