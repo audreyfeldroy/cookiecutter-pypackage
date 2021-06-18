@@ -103,7 +103,7 @@ jobs:
             equal: [<< pipeline.git.branch >>, "main"]
           steps:
             - tox:
-                tox_arguments: '-e py39'
+                tox_arguments: '-e py310'
       - when:
           condition:
             equal: [<< pipeline.git.branch >>, "main"]

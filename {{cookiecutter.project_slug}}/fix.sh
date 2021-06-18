@@ -236,7 +236,7 @@ ensure_python_build_requirements() {
 ensure_python_versions() {
   # You can find out which feature versions are still supported / have
   # been release here: https://www.python.org/downloads/
-  python_versions="$(latest_python_version 3.9)"
+  python_versions="$(latest_python_version 3.10)"
 
   echo "Latest Python versions: ${python_versions}"
 
