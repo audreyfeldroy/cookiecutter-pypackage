@@ -92,7 +92,7 @@ def test_bake_with_defaults(cookies):
         assert 'python_boilerplate' in found_toplevel_files
         assert 'tox.ini' in found_toplevel_files
         assert 'tests' in found_toplevel_files
-        assert 'README.md' in found_toplevel_files
+        assert 'README.rst' in found_toplevel_files
         assert 'LICENSE' in found_toplevel_files
         assert 'fix.sh' in found_toplevel_files
 
