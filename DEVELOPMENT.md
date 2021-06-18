@@ -1,5 +1,32 @@
 # Development
 
+## Adding or removing a Python version
+
+To add or remove a supported Python version:
+
+If adding, first add the new Python version in docker-circleci to
+ensure fast builds afterwards.
+
+Then, update cookiecutter-cookiecutter with the following:
+
+1. Grep for and change areas surrounding the existing used version
+2. Do the same for an existing version's tox environment
+
+Update cookiecutter-cookiecutter from itself and then update
+cookiecutter-pypackage from cookiecutter-cookiecutter.
+
+Then, in cookiecutter-pypackage:
+
+1. Grep for and change areas surrounding the existing used version
+2. Do the same for an existing version's tox environment
+
+You may encounter the following problems:
+
+* Subtle changes in behavior in argparse affecting CLI tests (add an
+  if statement).
+* Libraries that don't yet have binary versions published (add a
+  binary dependency in fix.sh)
+
 ## fix.sh
 
 If you want to use rbenv/pyenv/etc to manage versions of tools,

@@ -120,6 +120,7 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
     ],
     description="{{ cookiecutter.project_short_description.replace('\"', '\\\"') }}",  # noqa: E501
     {%- if 'no' not in cookiecutter.command_line_interface|lower %}
