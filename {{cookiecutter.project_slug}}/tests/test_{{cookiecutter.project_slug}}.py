@@ -7,6 +7,7 @@
 import argparse
 import os
 import subprocess
+import sys
 from unittest.mock import call, patch
 {%- endif %}
 
@@ -76,7 +77,10 @@ positional arguments:
 options:
   -h, --help  show this help message and exit
 """
-    # older python versions show arguments like this:
+    if sys.version_info <= (3, 10):
+        # 3.10 changed the wording a bit
+        expected_help = expected_help.replace('options:', 'optional arguments:')
+
     actual_help = subprocess.check_output(['{{ cookiecutter.project_slug }}', 'op1', '--help'],
                                           env=env).decode('utf-8')
     assert actual_help == expected_help
@@ -90,7 +94,6 @@ def test_cli_no_command():
     expected_help = """usage: {{ cookiecutter.project_slug }} [-h] {op1} ...
 {{ cookiecutter.project_slug }}: error: Please provide a command
 """
-    # older python versions show arguments like this:
     result = subprocess.run(['{{ cookiecutter.project_slug }}'],
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE,
@@ -113,7 +116,10 @@ positional arguments:
 options:
   -h, --help  show this help message and exit
 """
-    # older python versions show arguments like this:
+    if sys.version_info <= (3, 10):
+        # 3.10 changed the wording a bit
+        expected_help = expected_help.replace('options:', 'optional arguments:')
+
     actual_help = subprocess.check_output(['{{ cookiecutter.project_slug }}', '--help'],
                                           env=env).decode('utf-8')
     assert actual_help == expected_help
