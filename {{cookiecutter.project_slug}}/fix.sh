@@ -227,6 +227,8 @@ ensure_python_build_requirements() {
   ensure_dev_library openssl/ssl.h openssl libssl-dev
   ensure_dev_library ffi.h libffi libffi-dev
   ensure_dev_library sqlite3.h sqlite3 libsqlite3-dev
+  ensure_dev_library lzma.h xz liblzma-dev
+  ensure_dev_library readline.h readline libreadline-dev
 }
 
 # You can find out which feature versions are still supported / have

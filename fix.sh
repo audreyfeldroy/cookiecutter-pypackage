@@ -95,7 +95,7 @@ ensure_ruby_build_requirements() {
 # been release here: https://www.ruby-lang.org/en/downloads/
 ensure_ruby_versions() {
   # You can find out which feature versions are still supported / have
-  # been release here: https://www.python.org/downloads/
+  # been release here: https://www.ruby-lang.org/en/downloads/
   ruby_versions="$(latest_ruby_version 3.0)"
 
   echo "Latest Ruby versions: ${ruby_versions}"
@@ -227,6 +227,8 @@ ensure_python_build_requirements() {
   ensure_dev_library openssl/ssl.h openssl libssl-dev
   ensure_dev_library ffi.h libffi libffi-dev
   ensure_dev_library sqlite3.h sqlite3 libsqlite3-dev
+  ensure_dev_library lzma.h xz liblzma-dev
+  ensure_dev_library readline.h readline libreadline-dev
 }
 
 # You can find out which feature versions are still supported / have
@@ -234,7 +236,7 @@ ensure_python_build_requirements() {
 ensure_python_versions() {
   # You can find out which feature versions are still supported / have
   # been release here: https://www.python.org/downloads/
-  python_versions="$(latest_python_version 3.9) $(latest_python_version 3.8) $(latest_python_version 3.7) $(latest_python_version 3.6)"
+  python_versions="$(latest_python_version 3.10) $(latest_python_version 3.9) $(latest_python_version 3.8) $(latest_python_version 3.7) $(latest_python_version 3.6)"
 
   echo "Latest Python versions: ${python_versions}"
 
