@@ -105,7 +105,7 @@ clean-coverage: ## Clean out previous output of test coverage to avoid flaky res
 
 coverage: test ## check code coverage and then ratchet coverage in metrics/coverage_high_water_mark
 	@coverage report -m
-	@coverage html
+	@coverage html --directory=cover
 	@coverage xml
 	@python setup.py coverage_ratchet
 
