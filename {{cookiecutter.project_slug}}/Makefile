@@ -126,7 +126,10 @@ servedocs: docs ## compile the docs watching for changes
 	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
 
 release: dist ## package and upload a release
-	twine upload dist/*
+	set -e; \
+	new_version=$$(python3 setup.py --version); \
+	twine upload -u $$(with-op op get item 'PyPI - test' --fields username) -p $$(with-op op get item 'PyPI - test' --fields password) dist/op_env-$${new_version:?}.tar.gz -r testpypi; \
+	twine upload -u $$(with-op op get item 'PyPI' --fields username) -p $$(with-op op get item 'PyPI' --fields password) dist/op_env-$${new_version:?}.tar.gz -r pypi
 
 dist: clean ## builds source and wheel package
 	python setup.py sdist
