@@ -273,7 +273,7 @@ ensure_pyenv_virtualenvs() {
   pyenv local "${virtualenv_name}" ${python_versions} mylibs
 }
 
-ensure_pip() {
+ensure_pip_and_wheel() {
   # Make sure we have a pip with the 20.3 resolver, and after the
   # initial bugfix release
   major_pip_version=$(pip --version | cut -d' ' -f2 | cut -d '.' -f 1)
@@ -281,6 +281,8 @@ ensure_pip() {
   then
     pip install 'pip>=20.3.1'
   fi
+  # wheel is helpful for being able to cache long package builds
+  pip show wheel >/dev/null 2>&1 || pip install wheel
 }
 
 ensure_python_requirements_build_requirements() {
@@ -343,7 +345,7 @@ ensure_python_versions
 
 ensure_pyenv_virtualenvs
 
-ensure_pip
+ensure_pip_and_wheel
 
 ensure_python_requirements
 
