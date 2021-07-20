@@ -4,23 +4,13 @@
 Installation
 ============
 
-
-Stable release
+Compile to exe
 --------------
-
-To install {{ cookiecutter.project_name }}, run this command in your terminal:
 
 .. code-block:: console
 
-    $ pip install {{ cookiecutter.project_slug }}
+    $ pyinstaller --onefile {{ cookiecutter.project_name }}/main.py --name "{{ cookiecutter.project_name }}_{{ cookiecutter.version }}"
 
-This is the preferred method to install {{ cookiecutter.project_name }}, as it will always install the most recent stable release.
-
-If you don't have `pip`_ installed, this `Python installation guide`_ can guide
-you through the process.
-
-.. _pip: https://pip.pypa.io
-.. _Python installation guide: http://docs.python-guide.org/en/latest/starting/installation/
 
 
 From sources

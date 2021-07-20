@@ -1,6 +1,5 @@
 * {{ cookiecutter.project_name }} version:
-* Python version:
-* Operating System:
+* Python or app version:
 
 ### Description
 

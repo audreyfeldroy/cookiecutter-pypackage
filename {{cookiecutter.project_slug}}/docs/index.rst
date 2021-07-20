@@ -6,6 +6,8 @@ Welcome to {{ cookiecutter.project_name }}'s documentation!
    :caption: Contents:
 
    readme
+   how_to_use
+   troubleshooting
    installation
    usage
    modules

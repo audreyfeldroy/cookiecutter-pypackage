@@ -1,4 +1,4 @@
-pip==19.2.3
+pip>=19.2.3
 bump2version==0.5.11
 wheel==0.33.6
 watchdog==0.9.0
@@ -13,3 +13,7 @@ Click==7.1.2{% endif %}
 pytest==6.2.4{% endif %}
 {% if cookiecutter.use_black == 'y' -%}
 black==21.7b0{% endif %}
+openpyxl==3.*
+xlrd==2.*
+pyodbc==4.*
+pyinstaller==4.2
