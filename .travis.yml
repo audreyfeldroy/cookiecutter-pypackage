@@ -20,7 +20,7 @@ script: tox
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
-  user: audreyr
+  username: audreyr
   password:
     secure: PLEASE_REPLACE_ME
   on:
