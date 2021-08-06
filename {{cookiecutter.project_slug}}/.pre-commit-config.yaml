@@ -3,12 +3,12 @@ default_language_version:
 
 repos:
 -   repo: https://github.com/asottile/pyupgrade
-    rev: v2.13.0
+    rev: v2.23.3
     hooks:
     -   id: pyupgrade
         language_version: python3
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.4.0
+    rev: v4.0.1
     hooks:
     -   id: trailing-whitespace
         language_version: python3
@@ -19,24 +19,24 @@ repos:
     -   id: debug-statements
         language_version: python3
 -   repo: https://github.com/ambv/black
-    rev: 21.4b1
+    rev: 21.7b0
     hooks:
     -   id: black
         language_version: python3
 -   repo: https://github.com/pycqa/flake8
-    rev: 3.9.1
+    rev: 3.9.2
     hooks:
     -   id: flake8
         language_version: python3
         args: ['--config=setup.cfg']
 -   repo: https://github.com/timothycrosley/isort
-    rev: 5.8.0
+    rev: 5.9.3
     hooks:
     -   id: isort
         language_version: python3
         args: ['--profile', 'black', '--filter-files']
 -   repo: https://github.com/pycqa/pydocstyle
-    rev: 6.0.0
+    rev: 6.1.1
     hooks:
     -   id: pydocstyle
         language_version: python3
