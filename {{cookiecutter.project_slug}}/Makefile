@@ -49,7 +49,7 @@ clean-test: ## remove test and coverage artifacts
 
 lint: ## check style with flake8
 	flake8 {{ cookiecutter.project_slug }} tests
-	black --check --target-version py36 {{ cookiecutter.project_slug }} tests
+	black --check {{ cookiecutter.project_slug }} tests
 
 test: ## run tests quickly with the default Python
 {%- if cookiecutter.use_pytest == 'y' %}
