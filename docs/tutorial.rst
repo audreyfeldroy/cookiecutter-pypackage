@@ -100,7 +100,7 @@ Your virtualenv should still be activated. If it isn't, activate it now. Install
 Step 5: Set Up Travis CI
 ------------------------
 
-`Travis CI org`_ [*]_ is a continuous integration tool used to prevent integration problems. Every commit to the master branch will trigger automated builds of the application.
+`Travis CI com`_ is a continuous integration tool used to prevent integration problems. Every commit to the master branch will trigger automated builds of the application.
 
 Login using your Github credentials. It may take a few minutes for Travis CI to load up a list of all your GitHub repos. They will be listed with boxes to the left of the repo name, where the boxes have an ``X`` in them, meaning it is not connected to Travis CI.
 
@@ -119,9 +119,6 @@ This will:
 
 See :ref:`travis-pypi-setup` for more information.
 
-.. [*] For private projects go to `Travis CI com`_
-
-.. _`Travis CI org`: https://travis-ci.org/
 .. _`Travis CI com`: https://travis-ci.com/
 
 
@@ -162,7 +159,7 @@ When you are ready, release your package the standard Python way.
 
 See `PyPI Help`_ for more information about submitting a package.
 
-Here's a release checklist you can use: https://gist.github.com/audreyr/5990987
+Here's a release checklist you can use: https://github.com/audreyfeldroy/cookiecutter-pypackage/blob/master/docs/pypi_release_checklist.rst
 
 .. _`PyPI`: https://pypi.python.org/pypi
 .. _`PyPI Help`: https://pypi.org/help/#publishing
