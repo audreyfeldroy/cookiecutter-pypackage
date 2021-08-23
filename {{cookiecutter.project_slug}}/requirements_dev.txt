@@ -1,12 +1,13 @@
-pip
-bump2version
-wheel
-watchdog
-flake8
-pylint
-tox
-coverage
 Sphinx
-twine
+black
+bump2version
+coverage
+flake8
+pip
+pylint
 {% if cookiecutter.use_pytest == 'y' -%}
 pytest{% endif %}
+tox
+twine
+watchdog
+wheel
