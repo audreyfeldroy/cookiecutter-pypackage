@@ -26,7 +26,7 @@ BROWSER := python -c "$$BROWSER_PYSCRIPT"
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
+clean: clean-build clean-pyc clean-test clean-venv ## remove all build, test, coverage and Python artifacts
 
 clean-build: ## remove build artifacts
 	rm -fr build/
@@ -46,6 +46,9 @@ clean-test: ## remove test and coverage artifacts
 	rm -f .coverage
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
+
+clean-venv:     ## Remove virtualenv
+    rm -rf .venv
 
 lint: ## check style with flake8
 	flake8 {{ cookiecutter.project_slug }} tests
@@ -91,3 +94,14 @@ dist: clean ## builds source and wheel package
 
 install: clean ## install the package to the active Python's site-packages
 	python setup.py install
+
+venv:
+	python3 -m venv .venv
+	./.venv/bin/python3 -m pip install -r requirements_dev.txt
+	./.venv/bin/python3 -m pip install -r requirements.txt
+
+pex:
+	./.venv/bin/python3 -m pip install pex
+	./.venv/bin/python3 ./setup.py bdist_pex --pex-args '-vv'
+
+# EOF
