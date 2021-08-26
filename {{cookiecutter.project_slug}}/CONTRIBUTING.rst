@@ -163,8 +163,7 @@ In order to prepare an initial release on conda-forge, we *strongly* suggest con
  * https://conda-forge.org/docs/maintainer/adding_pkgs.html
  * https://github.com/conda-forge/staged-recipes
  
- 
- Before updating the main conda-forge recipe, we echo the conda-forge documenattion and *strongly* suggest performing the following checks:
+Before updating the main conda-forge recipe, we echo the conda-forge documenattion and *strongly* suggest performing the following checks:
  * Ensure that dependencies and dependency versions correspond with those of the tagged version, with open or pinned versions for the `host` requirements.
  * If possible, configure tests within the conda-forge build CI (e.g. `imports: {{ cookiecutter.project_slug }}`, `commands: pytest {{ cookiecutter.project_slug }}`)
 
