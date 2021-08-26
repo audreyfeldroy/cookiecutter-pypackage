@@ -156,16 +156,22 @@ The new version based off of the version checked out will now be available via `
 Releasing on conda-forge
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
+Initial Release
+^^^^^^^^^^^^^^^
+
 In order to prepare an initial release on conda-forge, we *strongly* suggest consulting the following links:
  * https://conda-forge.org/docs/maintainer/adding_pkgs.html
  * https://github.com/conda-forge/staged-recipes
 
-When a new release is published on PyPI, `regro-cf-autotick-bot` will open Pull Requests automatically on the conda-forge feedstock.
+Subsequent releases
+^^^^^^^^^^^^^^^^^^^
 
-Before updating the conda-forge packages, we *strongly* suggest performing the following:
- * Ensure that dependencies and dependency versions correspond with those of the tagged version.
- * Provide a minimal set of `host` requirements, and the minimum requirements for running the library to the `run` section.
- * If possible, configure tests within the conda build CI (e.g. `imports: {{ cookiecutter.project_slug }}`, `commands: pytest {{ cookiecutter.project_slug }}`)
+If the conda-forge feedstock recipe is built from PyPI, then when a new release is published on PyPI, `regro-cf-autotick-bot` will open Pull Requests automatically on the conda-forge feedstock.
+It is up to the conda-forge feedstock maintainers to verify that the package is building properly before merging the Pull Request to the main branch.
+
+Before updating the main conda-forge recipe, we *strongly* suggest performing the following checks:
+ * Ensure that dependencies and dependency versions correspond with those of the tagged version, with open or pinned versions for the `host` requirements.
+ * If possible, configure tests within the conda-forge build CI (e.g. `imports: {{ cookiecutter.project_slug }}`, `commands: pytest {{ cookiecutter.project_slug }}`)
 
 Building sources for wide support with `manylinux` image
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -177,7 +183,6 @@ Building sources for wide support with `manylinux` image
 In order to do ensure best compatibility across architectures, we suggest building wheels using the `PyPA`'s `manylinux`
 docker images (at time of writing, we endorse using `manylinux_2_24_x86_64`).
 
-With `docker` installed and running, begin by pulling the image::
 With `docker` installed and running, begin by pulling the image::
 
     $ sudo docker pull quay.io/pypa/manylinux_2_24_x86_64
