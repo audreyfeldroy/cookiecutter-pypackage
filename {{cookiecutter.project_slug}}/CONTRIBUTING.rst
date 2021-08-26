@@ -118,8 +118,8 @@ To run a subset of tests::
     $ python -m unittest tests.test_{{ cookiecutter.project_slug }}
 {%- endif %}
 
-Deploying
----------
+Versioning/Tagging
+------------------
 
 A reminder for the maintainers on how to deploy.
 Make sure all your changes are committed (including an entry in HISTORY.rst).
@@ -129,4 +129,73 @@ $ bumpversion patch # possible: major / minor / patch
 $ git push
 $ git push --tags
 
-Travis will then deploy to PyPI if tests pass.
+Packaging
+---------
+
+When a new version has been minted (features have been successfully integrated test coverage and stability is adequate),
+maintainers should update the pip-installable package (wheel and source release) on PyPI as well as the binary on conda-forge.
+
+The simple approach
+~~~~~~~~~~~~~~~~~~~
+
+The simplest approach to packaging for general support (pip wheels) requires the following packages installed:
+ * setuptools
+ * wheel
+ * twine
+
+From the command line on your Linux distribution, simply run the following from the clone's main dev branch::
+
+    # To build the packages (sources and wheel)
+    $ python setup.py sdist bdist_wheel
+
+    # To upload to PyPI
+    $ twine upload dist/*
+
+The new version based off of the version checked out will now be available via `pip` (`$ pip install {{ cookiecutter.project_slug }}`).
+
+Releasing on conda-forge
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Initial Release
+^^^^^^^^^^^^^^^
+
+In order to prepare an initial release on conda-forge, we *strongly* suggest consulting the following links:
+ * https://conda-forge.org/docs/maintainer/adding_pkgs.html
+ * https://github.com/conda-forge/staged-recipes
+
+Subsequent releases
+^^^^^^^^^^^^^^^^^^^
+
+If the conda-forge feedstock recipe is built from PyPI, then when a new release is published on PyPI, `regro-cf-autotick-bot` will open Pull Requests automatically on the conda-forge feedstock.
+It is up to the conda-forge feedstock maintainers to verify that the package is building properly before merging the Pull Request to the main branch.
+
+Before updating the main conda-forge recipe, we *strongly* suggest performing the following checks:
+ * Ensure that dependencies and dependency versions correspond with those of the tagged version, with open or pinned versions for the `host` requirements.
+ * If possible, configure tests within the conda-forge build CI (e.g. `imports: {{ cookiecutter.project_slug }}`, `commands: pytest {{ cookiecutter.project_slug }}`)
+
+Building sources for wide support with `manylinux` image
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. warning::
+    This section is for building source files that link to or provide links to C/C++ dependencies.
+    It is not necessary to perform the following when building pure Python packages.
+
+In order to do ensure best compatibility across architectures, we suggest building wheels using the `PyPA`'s `manylinux`
+docker images (at time of writing, we endorse using `manylinux_2_24_x86_64`).
+
+With `docker` installed and running, begin by pulling the image::
+
+    $ sudo docker pull quay.io/pypa/manylinux_2_24_x86_64
+
+From the {{ cookiecutter.project_slug }} source folder we can enter into the docker container, providing access to the `{{ cookiecutter.project_slug }}` source files by linking them to the running image::
+
+    $ sudo docker run --rm -ti -v $(pwd):/{{ cookiecutter.project_slug }} -w /{{ cookiecutter.project_slug }} quay.io/pypa/manylinux_2_24_x86_64 bash
+
+Finally, to build the wheel, we run it against the provided Python3.7 binary::
+
+    $ /opt/python/cp37-cp37m/bin/python setup.py sdist bdist_wheel
+
+This will then place two files in `{{ cookiecutter.project_slug }}/dist/` ("{{ cookiecutter.project_slug }}-1.2.3-py3-none-any.whl" and "{{ cookiecutter.project_slug }}-1.2.3.tar.gz").
+We can now leave our docker container (`$ exit`) and continue with uploading the files to PyPI::
+
+    $ twine upload dist/*

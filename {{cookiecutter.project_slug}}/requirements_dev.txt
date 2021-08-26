@@ -1,5 +1,6 @@
 pip
-bumpversion
+bump2version
+setuptools
 wheel
 watchdog
 flake8
@@ -15,3 +16,6 @@ Click>=7.0{% endif %}
 pytest>=6.0.0
 pytest-runner
 pytest-cov{% endif %}
+black
+isort
+pre-commit
