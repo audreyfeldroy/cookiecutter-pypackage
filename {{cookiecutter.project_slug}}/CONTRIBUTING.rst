@@ -135,7 +135,7 @@ Packaging
 When a new version has been minted (features have been successfully integrated test coverage and stability is adequate),
 maintainers should update the pip-installable package (wheel and source release) on PyPI as well as the binary on conda-forge.
 
-The Simple approach
+The simple approach
 ~~~~~~~~~~~~~~~~~~~
 
 The simplest approach to packaging for general support (pip wheels) requires the following packages installed:
@@ -143,7 +143,7 @@ The simplest approach to packaging for general support (pip wheels) requires the
  * wheel
  * twine
 
-From the command line on your Linux distribution, simply run the following from the clones main dev branch::
+From the command line on your Linux distribution, simply run the following from the clone's main dev branch::
 
     # To build the packages (sources and wheel)
     $ python setup.py sdist bdist_wheel
