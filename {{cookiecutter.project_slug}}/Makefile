@@ -152,3 +152,6 @@ update_from_cookiecutter: ## Bring in changes from template project used to crea
 	@echo '   gh pr create --title "Update from cookiecutter" --body "Automated PR to update from cookiecutter boilerplate"'
 	@echo
 	@echo
+
+repl:
+	python3
