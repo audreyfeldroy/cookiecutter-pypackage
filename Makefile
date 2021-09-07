@@ -23,6 +23,11 @@ requirements_dev.txt.installed: requirements_dev.txt
 
 pip_install: requirements_dev.txt.installed ## Install Python dependencies
 
+# bundle install doesn't get run here so that we can catch it below in
+# fresh-checkout and fresh-rbenv cases
+Gemfile.lock: Gemfile
+
+# Ensure any Gemfile.lock changes ensure a bundle is installed.
 Gemfile.lock.installed: Gemfile.lock
 	bundle install
 	touch Gemfile.lock.installed
@@ -36,8 +41,10 @@ default: test ## run default typechecking and tests
 test: ## run tests quickly
 	pytest
 
-quality: ## run precommit quality checks
+overcommit: ## run precommit quality checks
 	bundle exec overcommit --run
+
+quality: overcommit ## run precommit quality checks
 
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
