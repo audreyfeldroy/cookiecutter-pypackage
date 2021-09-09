@@ -8,8 +8,13 @@ from contextlib import contextmanager
 
 import pytest
 import yaml
-from click.testing import CliRunner
+import datetime
+import pytest
 from cookiecutter.utils import rmtree
+
+from click.testing import CliRunner
+
+import importlib
 
 
 @contextmanager
@@ -205,9 +210,7 @@ def test_using_pytest(cookies):
         lines = test_file_path.readlines()
         assert "import pytest" in "".join(lines)
         # Test the new pytest target
-        assert run_inside_dir("python setup.py pytest", str(result.project)) == 0
-        # Test the test alias (which invokes pytest)
-        assert run_inside_dir("python setup.py test", str(result.project)) == 0
+        run_inside_dir("pytest", str(result.project)) == 0
 
 
 def test_not_using_pytest(cookies):
@@ -284,3 +287,16 @@ def test_bake_with_console_options_script_cli(cookies, option):
     help_result = runner.invoke(cli.main, ["--help"])
     assert help_result.exit_code == 0
     assert "Show this message" in help_result.output
+
+
+@pytest.mark.parametrize("use_black,expected", [("y", True), ("n", False)])
+def test_black(cookies, use_black, expected):
+    with bake_in_temp_dir(
+        cookies,
+        extra_context={'use_black': use_black}
+    ) as result:
+        assert result.project.isdir()
+        requirements_path = result.project.join('requirements_dev.txt')
+        assert ("black" in requirements_path.read()) is expected
+        makefile_path = result.project.join('Makefile')
+        assert ("black --check" in makefile_path.read()) is expected
