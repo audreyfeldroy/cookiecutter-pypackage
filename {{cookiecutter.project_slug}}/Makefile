@@ -49,7 +49,6 @@ clean-test: ## remove test and coverage artifacts
 
 lint/flake8: ## check style with flake8
 	flake8 {{ cookiecutter.project_slug }} tests
-	black --check {{ cookiecutter.project_slug }} tests
 
 {%- if cookiecutter.use_black == 'y' %}
 lint/black: ## check style with black
