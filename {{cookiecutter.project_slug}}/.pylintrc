@@ -3,3 +3,6 @@ disable=fixme, no-self-use, too-few-public-methods
 
 [SIMILARITIES]
 min-similarity-lines=10
+
+[FORMAT]
+max-line-length=140
