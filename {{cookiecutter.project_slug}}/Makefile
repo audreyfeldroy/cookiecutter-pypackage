@@ -98,7 +98,6 @@ install: clean ## install the package to the active Python's site-packages
 venv:
 	python3 -m venv .venv
 	./.venv/bin/python3 -m pip install -r requirements_dev.txt
-	./.venv/bin/python3 -m pip install -r requirements.txt
 
 pex:
 	./.venv/bin/python3 -m pip install pex
