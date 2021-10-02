@@ -2,14 +2,10 @@
 * Python version:
 * Operating System:
 
-### Description
+### Background
 
-Describe what you were trying to get done.
-Tell us what happened, what went wrong, and what you expected to happen.
+Sufficient context to understand what the issue is about.
 
-### What I Did
+### Tasks
 
-```
-Paste the command(s) you ran and the output.
-If there was a crash, please include the traceback here.
-```
+- [ ] Detailed list of specific tasks to complete.

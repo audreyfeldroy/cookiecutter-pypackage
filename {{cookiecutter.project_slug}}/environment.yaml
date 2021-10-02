@@ -1,0 +1,14 @@
+name: {{ cookiecutter.project_slug }}
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - click
+  - pydantic
+  - pytest
+  - pytest-cov
+  - sphinx
+  - sphinx_rtd_theme
+  - sphinxcontrib-apidoc
+  - pre-commit
+  - toml
