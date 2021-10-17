@@ -1,18 +1,31 @@
 #!/usr/bin/env python
-
-"""The setup script."""
-
+import os
+from pathlib import Path
 from setuptools import setup, find_packages
 
-with open('README.rst') as readme_file:
-    readme = readme_file.read()
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.rst").read_text()
 
-with open('HISTORY.rst') as history_file:
-    history = history_file.read()
+def parse_requirements(filename):
+    """ load requirements from a pip requirements file """
+    lineiter = (line.strip() for line in open(filename))
+    return [line for line in lineiter if line and not line.startswith("#")]
 
-requirements = [{%- if cookiecutter.command_line_interface|lower == 'click' %}'Click>=7.0',{%- endif %} ]
+## workaround derived from: https://github.com/pypa/pip/issues/7645#issuecomment-578210649
+requirements = parse_requirements(
+    'requirements.txt',
+)
+## workaround derived from: https://github.com/pypa/pip/issues/7645#issuecomment-578210649
+dev_requirements = parse_requirements(
+    'requirements_dev.txt',
+)
 
-test_requirements = [{%- if cookiecutter.use_pytest == 'y' %}'pytest>=3',{%- endif %} ]
+test_requirements = [{%- if cookiecutter.use_pytest == 'y' %}'pytest>=3', "pytest-cov",{%- endif %} ]
+
+extras_requires = {
+    "dev": dev_requirements,
+    "test": test_requirements,
+}
 
 {%- set license_classifiers = {
     'MIT license': 'License :: OSI Approved :: MIT License',
@@ -47,10 +60,11 @@ setup(
     },
     {%- endif %}
     install_requires=requirements,
+    extra_requires=extras_requires,
 {%- if cookiecutter.open_source_license in license_classifiers %}
     license="{{ cookiecutter.open_source_license }}",
 {%- endif %}
-    long_description=readme + '\n\n' + history,
+    long_description=long_description,
     include_package_data=True,
     keywords='{{ cookiecutter.project_slug }}',
     name='{{ cookiecutter.project_slug }}',

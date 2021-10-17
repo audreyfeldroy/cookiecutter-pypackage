@@ -1,0 +1,2 @@
+{% if cookiecutter.command_line_interface|lower == 'click' -%}
+Click==7.1{% endif %}
