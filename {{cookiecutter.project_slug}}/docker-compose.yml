@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  {{cookiecutter.project_slug}}:
+    image: {{cookiecutter.project_slug}}
+    build:
+      context: .
+      dockerfile: ./Dockerfile
