@@ -71,7 +71,7 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
-requirements_dev.txt.installed: requirements_dev.txt
+requirements_dev.txt.installed: requirements_dev.txt setup.py
 	pip install --disable-pip-version-check -r requirements_dev.txt -e .
 	touch requirements_dev.txt.installed
 
