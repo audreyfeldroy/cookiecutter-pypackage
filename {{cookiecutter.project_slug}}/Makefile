@@ -24,7 +24,7 @@ export PRINT_HELP_PYSCRIPT
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-default: quicktypecheck clean-coverage test coverage clean-mypy typecheck typecoverage ## run default typechecking and tests
+default: quicktypecheck clean-coverage test coverage clean-mypy typecheck typecoverage quality ## run default typechecking, tests and quality
 
 # Does not support coverage reporting and may be unreliable - 'dmypy
 # restart' should clear things up if so.
