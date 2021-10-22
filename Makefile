@@ -15,7 +15,9 @@ endef
 export PRINT_HELP_PYSCRIPT
 
 
-all: test quality
+all: default
+
+default: test quality ## run default tests and quality
 
 requirements_dev.txt.installed: requirements_dev.txt
 	pip install -q --disable-pip-version-check -r requirements_dev.txt
@@ -35,8 +37,6 @@ Gemfile.lock.installed: Gemfile.lock
 bundle_install: Gemfile.lock.installed ## Install Ruby dependencies
 
 clean: ## remove all built artifacts
-
-default: test ## run default typechecking and tests
 
 test: ## run tests quickly
 	pytest
