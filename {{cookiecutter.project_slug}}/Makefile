@@ -15,7 +15,7 @@ export PRINT_HELP_PYSCRIPT
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-default: test ## run default typechecking and tests
+default: test quality ## run default tests and quality
 
 requirements_dev.txt.installed: requirements_dev.txt
 	pip install -q --disable-pip-version-check -r requirements_dev.txt

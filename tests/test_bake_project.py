@@ -6,6 +6,7 @@ import subprocess
 import sys
 
 from cookiecutter.utils import rmtree
+import jinja2
 
 
 @contextmanager
@@ -34,6 +35,13 @@ def suppressed_github_and_circleci_creation():
         del os.environ['SKIP_GITHUB_AND_CIRCLECI_CREATION']
 
 
+def errmsg(exception):
+    if isinstance(exception, jinja2.exceptions.TemplateSyntaxError):
+        return "Found error at {result.exception.filename}:{result.exception.lineno}"
+    else:
+        return str(exception)
+
+
 @contextmanager
 def bake_in_temp_dir(cookies, *args, **kwargs):
     """
@@ -43,8 +51,9 @@ def bake_in_temp_dir(cookies, *args, **kwargs):
     """
     with suppressed_github_and_circleci_creation():
         result = cookies.bake(*args, **kwargs)
-        assert result is not None
-        assert result.project is not None
+        assert result is not None, result
+        assert result.exception is None, errmsg(result.exception)
+        assert result.exit_code == 0
     try:
         yield result
     finally:
