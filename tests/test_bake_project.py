@@ -42,7 +42,7 @@ def suppressed_hook_items(skip_github_and_circleci_creation=True,
 
 def errmsg(exception):
     if isinstance(exception, jinja2.exceptions.TemplateSyntaxError):
-        return "Found error at {result.exception.filename}:{result.exception.lineno}"
+        return f"Found error at {exception.filename}:{exception.lineno}"
     else:
         return str(exception)
 
