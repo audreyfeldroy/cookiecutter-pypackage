@@ -43,9 +43,6 @@ Temporary Items
 /.installed.cfg
 *.egg
 
-# Installed by fix.sh based on what latest versions are
-/.python-version
-
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
@@ -105,6 +102,9 @@ cookiecutter-pypackage-env/
 # Used by Makefile to track what we have and haven't installed
 Gemfile.lock.installed
 requirements_dev.txt.installed
+
+# Used by CircleCI as a place to store installed gems
+/vendor
 
 # Installed by fix.sh based on what latest versions are
 /.python-version

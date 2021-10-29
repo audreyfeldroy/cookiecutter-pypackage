@@ -257,7 +257,7 @@ ensure_python_build_requirements() {
   ensure_dev_library ffi.h libffi libffi-dev
   ensure_dev_library sqlite3.h sqlite3 libsqlite3-dev
   ensure_dev_library lzma.h xz liblzma-dev
-  ensure_dev_library readline.h readline libreadline-dev
+  ensure_dev_library readline/readline.h readline libreadline-dev
 }
 
 # You can find out which feature versions are still supported / have
@@ -275,8 +275,12 @@ ensure_python_versions() {
   do
     if [ "$(uname)" == Darwin ]
     then
+      if [ -z "${HOMEBREW_OPENSSL_PREFIX:-}" ]
+      then
+        HOMEBREW_OPENSSL_PREFIX="$(brew --prefix openssl)"
+      fi
       pyenv_install() {
-        CFLAGS="-I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include -I$(brew --prefix openssl)/include" LDFLAGS="-L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib -L$(brew --prefix openssl)/lib" pyenv install --skip-existing "$@"
+        CFLAGS="-I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include -I${HOMEBREW_OPENSSL_PREFIX}/include" LDFLAGS="-L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib -L${HOMEBREW_OPENSSL_PREFIX}/lib" pyenv install --skip-existing "$@"
       }
 
       major_minor="$(cut -d. -f1-2 <<<"${ver}")"

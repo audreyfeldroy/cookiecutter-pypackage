@@ -76,31 +76,12 @@ def check_output_inside_dir(command, dirpath):
         return subprocess.check_output(shlex.split(command))
 
 
-def test_year_compute_in_license_file(cookies):
-    with bake_in_temp_dir(cookies) as result:
-        license_file_path = result.project.join('LICENSE')
-        now = datetime.datetime.now()
-        assert str(now.year) in license_file_path.read()
-
-
 def project_info(result):
     """Get toplevel dir, project_slug, and project dir from baked cookies"""
     project_path = str(result.project)
     project_slug = os.path.split(project_path)[-1]
     project_dir = os.path.join(project_path, project_slug)
     return project_path, project_slug, project_dir
-
-
-def test_bake_with_defaults(cookies):
-    with bake_in_temp_dir(cookies) as result:
-        assert result.project.isdir()
-        assert result.exit_code == 0
-        assert result.exception is None
-
-        found_toplevel_files = [f.basename for f in result.project.listdir()]
-        assert 'README.md' in found_toplevel_files
-        assert 'LICENSE' in found_toplevel_files
-        assert 'fix.sh' in found_toplevel_files
 
 
 def test_bake_and_run_build(cookies):
@@ -111,13 +92,16 @@ def test_bake_and_run_build(cookies):
                               'The greatest project ever created by name "quote" O\'connor.',
                           }) as result:
         assert result.project.isdir()
+        assert result.exit_code == 0
+        assert result.exception is None
+
+        found_toplevel_files = [f.basename for f in result.project.listdir()]
+        assert 'README.md' in found_toplevel_files
+        assert 'LICENSE' in found_toplevel_files
+        assert 'fix.sh' in found_toplevel_files
+
         assert run_inside_dir('make test', str(result.project)) == 0
         assert run_inside_dir('make quality', str(result.project)) == 0
-        print("test_bake_and_run_build path", str(result.project))
-
-
-def test_make_help(cookies):
-    with bake_in_temp_dir(cookies) as result:
         # The supplied Makefile does not support win32
         if sys.platform != "win32":
             output = check_output_inside_dir(
@@ -126,3 +110,7 @@ def test_make_help(cookies):
             )
             assert b"run precommit quality checks" in \
                 output
+        license_file_path = result.project.join('LICENSE')
+        now = datetime.datetime.now()
+        assert str(now.year) in license_file_path.read()
+        print("test_bake_and_run_build path", str(result.project))
