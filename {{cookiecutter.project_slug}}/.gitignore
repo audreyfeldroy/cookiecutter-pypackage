@@ -42,6 +42,9 @@ Temporary Items
 Gemfile.lock.installed
 requirements_dev.txt.installed
 
+# Used by CircleCI as a place to store installed gems
+/vendor
+
 # Installed by fix.sh based on what latest versions are
 /.python-version
 
