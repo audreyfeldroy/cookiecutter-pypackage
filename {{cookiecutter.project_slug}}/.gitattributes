@@ -1,0 +1,6 @@
+# there's a lot of .sh in the build machinery; this can overwhelm
+# smaller projects and confuse GitHub's detection of majority project
+# type (GitHub uses the linguist library)
+#
+# https://dev.to/katkelly/changing-your-repo-s-language-in-github-5gjo
+*.sh linguist-detectable=false
