@@ -108,8 +108,21 @@ jobs:
           condition:
             equal: [<< pipeline.git.branch >>, "main"]
           steps:
-            - tox:
-                tox_arguments: '-e py310'
+            # skip tox to speed things by not installing another
+            # virtualenv, and only run in default Python version.
+            - set_up_environment
+            - run_with_languages:
+                label: make test
+                command: |
+                  # These will be used in post_gen_project.py while testing
+                  # the cookies, as well as by overcommit
+                  git config --global user.email "test@test.test"
+                  git config --global user.name "Test Test"
+                  # Coax overcommit into working
+                  bundle exec overcommit --sign
+                  bundle exec overcommit --sign pre-commit
+
+                  make test
       - when:
           condition:
             equal: [<< pipeline.git.branch >>, "main"]
