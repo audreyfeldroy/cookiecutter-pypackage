@@ -102,6 +102,8 @@ jobs:
       - run_with_languages:
           label: Test
           command: make test
+    # This seemed to shave 5ish% of the build time off when added
+    resource_class: large
 
 workflows:
   version: 2
