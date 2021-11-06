@@ -81,7 +81,7 @@ commands:
 jobs:
   overcommit:
     docker:
-      - image: apiology/circleci:latest
+      - image: apiology/circleci-python:latest
     steps:
       - when:
           condition:
@@ -116,6 +116,8 @@ jobs:
             - run_with_languages:
                 label: test
                 command: tox
+    # This seemed to shave 5ish% of the build time off when added
+    resource_class: large
 
 workflows:
   version: 2
