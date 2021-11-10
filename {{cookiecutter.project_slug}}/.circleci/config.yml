@@ -96,7 +96,7 @@ jobs:
   build:
     working_directory: ~/{{cookiecutter.project_slug}}
     docker:
-      - image: apiology/circleci:latest
+      - image: apiology/circleci-python:latest
     steps:
       - set_up_environment
       - unless:
