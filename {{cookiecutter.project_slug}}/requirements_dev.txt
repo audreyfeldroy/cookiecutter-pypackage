@@ -8,7 +8,7 @@ coverage==4.5.4
 Sphinx==1.8.5
 twine==1.14.0
 {% if cookiecutter.command_line_interface|lower == 'click' -%}
-Click==7.0{% endif %}
+Click==7.1.2{% endif %}
 {% if cookiecutter.use_pytest == 'y' -%}
 pytest==6.2.4{% endif %}
 {% if cookiecutter.use_black == 'y' -%}
