@@ -48,7 +48,7 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 
 clean-venv:     ## Remove virtualenv
-    rm -rf .venv
+	rm -rf .venv
 
 lint: ## check style with flake8
 	flake8 {{ cookiecutter.project_slug }} tests
