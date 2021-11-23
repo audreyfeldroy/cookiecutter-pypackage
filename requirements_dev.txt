@@ -2,7 +2,7 @@ alabaster==0.7.12
 cookiecutter>=1.4.0
 flake8==3.8.4
 flake8-import-order==0.18.1
-pip==21.0.1
+pip==21.1
 pytest-cookies==0.6.1
 pytest==6.2.4
 tox==3.14.1
