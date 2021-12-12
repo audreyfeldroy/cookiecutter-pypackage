@@ -28,12 +28,12 @@ First, make sure version has been bumped:
 git checkout main
 git pull
 git stash
-last_released_version=v"$(python -c 'import op_env; print(op_env.__version__)')"
+last_released_version=v"$(python -c 'import {{cookiecutter.project_slug}}; print({{cookiecutter.project_slug}}.__version__)')"
 git log ${last_released_version:?}..
 bumpversion # give it major, minor or patch
 git push
 git push --tags
 make release
 git stash pop
-open https://pypi.org/project/op_env
+open https://pypi.org/project/{{cookiecutter.project_slug}}
 ```
