@@ -21,7 +21,10 @@ project_name
     The name of your new Python package project. This is used in documentation, so spaces and any characters are fine here.
 
 project_slug
-    The namespace of your Python package. This should be Python import-friendly. Typically, it is the slugified version of project_name.
+    The GitHub project name and CLI name for your project.  Can include '-'.  Typically, it is the slugified version of project_name.
+
+package_name
+    The namespace of your Python package. This should be Python import-friendly. Typically, it is the project_slug with hyphens turned into underscores.
 
 project_short_description
     A 1-sentence description of what your Python package does.

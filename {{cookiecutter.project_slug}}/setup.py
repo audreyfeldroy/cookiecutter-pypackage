@@ -126,7 +126,7 @@ setup(
     {%- if 'no' not in cookiecutter.command_line_interface|lower %}
     entry_points={
         'console_scripts': [
-            '{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:main',
+            '{{ cookiecutter.project_slug }}={{ cookiecutter.package_name }}.cli:main',
         ],
     },
     {%- endif %}
@@ -143,8 +143,8 @@ setup(
     include_package_data=True,
     keywords='{{ cookiecutter.project_slug }}',
     name='{{ cookiecutter.project_slug }}',
-    packages=find_packages(include=['{{ cookiecutter.project_slug }}',
-                                    '{{ cookiecutter.project_slug }}.*']),
+    packages=find_packages(include=['{{ cookiecutter.package_name }}',
+                                    '{{ cookiecutter.package_name }}.*']),
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}',

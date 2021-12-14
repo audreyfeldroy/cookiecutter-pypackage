@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-"""Tests for `{{ cookiecutter.project_slug }}` package."""
+"""Tests for `{{ cookiecutter.package_name }}` package."""
 
-# from {{ cookiecutter.project_slug }} import {{ cookiecutter.project_slug }}
+# from {{ cookiecutter.package_name }} import {{ cookiecutter.package_name }}
 {%- if cookiecutter.command_line_interface|lower == 'argparse' %}
 import argparse
 import os
@@ -14,7 +14,7 @@ from unittest.mock import call, patch
 import pytest
 {%- if cookiecutter.command_line_interface|lower == 'argparse' %}
 
-from {{cookiecutter.project_slug}}.cli import main, parse_argv, process_args{%- endif %}
+from {{cookiecutter.package_name}}.cli import main, parse_argv, process_args{%- endif %}
 
 
 @pytest.fixture
@@ -43,7 +43,7 @@ def test_process_args(print):
     assert out == 0
     print.assert_has_calls([call("Arguments: Namespace(foo='<fake>')"),
                             call('Replace this message by putting '
-                                 'your code into {{cookiecutter.project_slug}}.cli.process_args')])
+                                 'your code into {{cookiecutter.package_name}}.cli.process_args')])
 
 
 # @pytest.mark.skip(reason="working on main help test first")
@@ -53,8 +53,8 @@ def test_parse_argv_run_simple():
     assert vars(args) == {'operation': 'op1', 'arg1': 123}
 
 
-@patch('{{ cookiecutter.project_slug }}.cli.parse_argv', autospec=parse_argv)
-@patch('{{ cookiecutter.project_slug }}.cli.process_args', autospec=process_args)
+@patch('{{ cookiecutter.package_name }}.cli.parse_argv', autospec=parse_argv)
+@patch('{{ cookiecutter.package_name }}.cli.process_args', autospec=process_args)
 def test_main(process_args, parse_argv):
     argv = object()
     args = parse_argv.return_value

@@ -28,7 +28,7 @@ First, make sure version has been bumped:
 git checkout main
 git pull
 git stash
-last_released_version=v"$(python -c 'import {{cookiecutter.project_slug}}; print({{cookiecutter.project_slug}}.__version__)')"
+last_released_version=v"$(python -c 'import {{cookiecutter.package_name}}; print({{cookiecutter.package_name}}.__version__)')"
 git log ${last_released_version:?}..
 bumpversion # give it major, minor or patch
 git push

@@ -63,7 +63,7 @@ def bake_in_temp_dir(cookies, skip_fix_script=False, *args, **kwargs):
     try:
         yield result
     finally:
-        rmtree(str(result.project))
+        rmtree(str(result.project_path))
 
 
 def run_inside_dir(command, dirpath):
@@ -84,9 +84,9 @@ def check_output_inside_dir(command, dirpath):
 
 def project_info(result):
     """Get toplevel dir, project_slug, and project dir from baked cookies"""
-    project_path = str(result.project)
+    project_path = str(result.project_path)
     project_slug = os.path.split(project_path)[-1]
-    project_dir = os.path.join(project_path, project_slug)
+    project_dir = os.path.join(project_path, result.context['package_name'])
     return project_path, project_slug, project_dir
 
 
