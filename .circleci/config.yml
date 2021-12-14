@@ -132,7 +132,7 @@ jobs:
     resource_class: large
   overcommit:
     docker:
-      - image: apiology/circleci:latest
+      - image: apiology/circleci-python:latest
     steps:
       - when:
           condition:
