@@ -135,8 +135,8 @@ servedocs: docs ## compile the docs watching for changes
 release: dist ## package and upload a release
 	set -e; \
 	new_version=$$(python3 setup.py --version); \
-	twine upload -u $$(with-op op get item 'PyPI - test' --fields username) -p $$(with-op op get item 'PyPI - test' --fields password) dist/{{cookiecutter.package_name}}-$${new_version:?}.tar.gz -r testpypi; \
-	twine upload -u $$(with-op op get item 'PyPI' --fields username) -p $$(with-op op get item 'PyPI' --fields password) dist/{{cookiecutter.package_name}}-$${new_version:?}.tar.gz -r pypi
+	twine upload -u $$(with-op op get item 'PyPI - test' --fields username) -p $$(with-op op get item 'PyPI - test' --fields password) dist/{{cookiecutter.project_slug}}-$${new_version:?}.tar.gz -r testpypi; \
+	twine upload -u $$(with-op op get item 'PyPI' --fields username) -p $$(with-op op get item 'PyPI' --fields password) dist/{{cookiecutter.project_slug}}-$${new_version:?}.tar.gz -r pypi
 
 dist: clean ## builds source and wheel package
 	python setup.py sdist
