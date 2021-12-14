@@ -30,11 +30,11 @@ default: quicktypecheck clean-coverage test coverage clean-mypy typecheck typeco
 # restart' should clear things up if so.
 #
 quicktypecheck: ## Use dmypy for cached mypy runs.
-	@dmypy run --timeout 300 *.py tests {{cookiecutter.project_slug}}
+	@dmypy run --timeout 300 *.py tests {{cookiecutter.package_name}}
 
 # https://app.circleci.com/pipelines/github/apiology/cookiecutter-pypackage/281/workflows/b85985a9-16d0-42c4-93d4-f965a111e090/jobs/366
 typecheck: ## run mypy against project
-	mypy --cobertura-xml-report typecover --html-report typecover {{cookiecutter.project_slug}}
+	mypy --cobertura-xml-report typecover --html-report typecover {{cookiecutter.package_name}}
 	mypy tests
 
 citypecheck: typecheck ## Run type check from CircleCI
@@ -89,7 +89,7 @@ Gemfile.lock.installed: Gemfile.lock
 bundle_install: Gemfile.lock.installed ## Install Ruby dependencies
 
 lint: ## check style with flake8
-	flake8 {{ cookiecutter.project_slug }} tests
+	flake8 {{ cookiecutter.package_name }} tests
 
 test-reports:
 	mkdir test-reports
@@ -97,7 +97,7 @@ test-reports:
 citest: test-reports test ## Run unit tests from CircleCI
 
 test: ## run tests quickly with the default Python
-	@coverage run --source {{cookiecutter.project_slug}} -m pytest
+	@coverage run --source {{cookiecutter.package_name}} -m pytest
 
 test-all: ## run tests on every Python version with tox
 	tox
@@ -122,9 +122,9 @@ cicoverage: coverage ## check code coverage, ratchet coverage, and then complain
 	@test -z "$$(git status --porcelain metrics/coverage_high_water_mark)"
 
 docs: ## generate Sphinx HTML documentation, including API docs
-	rm -f docs/{{ cookiecutter.project_slug }}.rst
+	rm -f docs/{{ cookiecutter.package_name }}.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ {{ cookiecutter.project_slug }}
+	sphinx-apidoc -o docs/ {{ cookiecutter.package_name }}
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html
@@ -135,8 +135,8 @@ servedocs: docs ## compile the docs watching for changes
 release: dist ## package and upload a release
 	set -e; \
 	new_version=$$(python3 setup.py --version); \
-	twine upload -u $$(with-op op get item 'PyPI - test' --fields username) -p $$(with-op op get item 'PyPI - test' --fields password) dist/{{cookiecutter.project_slug}}-$${new_version:?}.tar.gz -r testpypi; \
-	twine upload -u $$(with-op op get item 'PyPI' --fields username) -p $$(with-op op get item 'PyPI' --fields password) dist/{{cookiecutter.project_slug}}-$${new_version:?}.tar.gz -r pypi
+	twine upload -u $$(with-op op get item 'PyPI - test' --fields username) -p $$(with-op op get item 'PyPI - test' --fields password) dist/{{cookiecutter.package_name}}-$${new_version:?}.tar.gz -r testpypi; \
+	twine upload -u $$(with-op op get item 'PyPI' --fields username) -p $$(with-op op get item 'PyPI' --fields password) dist/{{cookiecutter.package_name}}-$${new_version:?}.tar.gz -r pypi
 
 dist: clean ## builds source and wheel package
 	python setup.py sdist
