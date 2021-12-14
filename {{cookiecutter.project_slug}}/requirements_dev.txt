@@ -6,7 +6,7 @@ flake8==3.9.2
 flake8-import-order==0.18.1
 tox==3.23.1
 coverage==5.5
-Sphinx==4.0.2
+Sphinx==4.3.1
 twine==3.4.1
 pytest==6.2.4
 mypy==0.910
@@ -14,5 +14,5 @@ mypy==0.910
 #
 # You must install the lxml package before you can run mypy with `--html-report`.
 # You can do this with `python3 -m pip install lxml`.
-lxml==4.6.3
+lxml==4.6.5
 yamllint==1.26.1
