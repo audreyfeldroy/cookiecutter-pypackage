@@ -92,11 +92,11 @@ def project_info(result):
 
 def test_bake_with_defaults(cookies):
     with bake_in_temp_dir(cookies, skip_fix_script=True) as result:
-        assert result.project.isdir()
+        assert result.project_path.is_dir()
         assert result.exit_code == 0
         assert result.exception is None
 
-        found_toplevel_files = [f.basename for f in result.project.listdir()]
+        found_toplevel_files = [f.name for f in result.project_path.iterdir()]
         assert 'setup.py' in found_toplevel_files
         assert 'python_boilerplate' in found_toplevel_files
         assert 'tox.ini' in found_toplevel_files
@@ -119,18 +119,18 @@ def test_bake_without_author_file(cookies):
         extra_context={'create_author_file': 'n'},
         skip_fix_script=True,
     ) as result:
-        found_toplevel_files = [f.basename for f in result.project.listdir()]
+        found_toplevel_files = [f.name for f in result.project_path.iterdir()]
         assert 'AUTHORS.rst' not in found_toplevel_files
-        doc_files = [f.basename for f in result.project.join('docs').listdir()]
+        doc_files = [f.name for f in (result.project_path / 'docs').iterdir()]
         assert 'authors.rst' not in doc_files
 
         # Assert there are no spaces in the toc tree
-        docs_index_path = result.project.join('docs/index.rst')
+        docs_index_path = result.project_path / 'docs/index.rst'
         with open(str(docs_index_path)) as index_file:
             assert 'contributing\n   history' in index_file.read()
 
         # Check that
-        manifest_path = result.project.join('MANIFEST.in')
+        manifest_path = result.project_path / 'MANIFEST.in'
         with open(str(manifest_path)) as manifest_file:
             assert 'AUTHORS.rst' not in manifest_file.read()
 
@@ -142,7 +142,7 @@ def test_make_help(cookies):
         if sys.platform != "win32":
             output = check_output_inside_dir(
                 'make help',
-                str(result.project)
+                str(result.project_path)
             )
             assert b"run precommit quality checks" in \
                 output
@@ -164,11 +164,11 @@ def test_bake_selecting_license(cookies):
             extra_context={'open_source_license': license},
             skip_fix_script=True,
         ) as result:
-            assert target_string in result.project.join('LICENSE').read()
-            assert license in result.project.join('setup.py').read()
-            license_file_path = result.project.join('LICENSE')
+            assert target_string in (result.project_path / 'LICENSE').open().read()
+            assert license in (result.project_path / 'setup.py').open().read()
+            license_file_path = result.project_path / 'LICENSE'
             now = datetime.datetime.now()
-            assert str(now.year) in license_file_path.read()
+            assert str(now.year) in license_file_path.open().read()
 
 
 def test_bake_not_open_source(cookies):
@@ -177,10 +177,10 @@ def test_bake_not_open_source(cookies):
         extra_context={'open_source_license': 'Not open source'},
         skip_fix_script=True,
     ) as result:
-        found_toplevel_files = [f.basename for f in result.project.listdir()]
+        found_toplevel_files = [f.name for f in result.project_path.iterdir()]
         assert 'setup.py' in found_toplevel_files
         assert 'LICENSE' not in found_toplevel_files
-        assert 'License' not in result.project.join('README.rst').read()
+        assert 'License' not in (result.project_path / 'README.rst').open().read()
 
 
 def test_bake_with_no_console_script(cookies):
@@ -195,10 +195,10 @@ def test_bake_with_no_console_script(cookies):
     setup_path = os.path.join(project_path, 'setup.py')
     with open(setup_path, 'r') as setup_file:
         assert 'entry_points' not in setup_file.read()
-    assert run_inside_dir('make citypecheck citypecoverage', str(result.project)) == 0
-    assert run_inside_dir('make citest cicoverage', str(result.project)) == 0
-    assert run_inside_dir('make quality', str(result.project)) == 0
-    assert run_inside_dir('make docs BROWSER=echo', str(result.project)) == 0
+    assert run_inside_dir('make citypecheck citypecoverage', str(result.project_path)) == 0
+    assert run_inside_dir('make citest cicoverage', str(result.project_path)) == 0
+    assert run_inside_dir('make quality', str(result.project_path)) == 0
+    assert run_inside_dir('make docs BROWSER=echo', str(result.project_path)) == 0
 
 
 def test_bake_with_argparse_console_script_files(cookies):
@@ -207,7 +207,7 @@ def test_bake_with_argparse_console_script_files(cookies):
     with suppressed_hook_items():
         result = cookies.bake(extra_context=context)
         assert result is not None
-        assert result.project is not None
+        assert result.project_path is not None
 
     project_path, project_slug, project_dir = project_info(result)
     found_project_files = os.listdir(project_dir)
@@ -216,6 +216,6 @@ def test_bake_with_argparse_console_script_files(cookies):
     setup_path = os.path.join(project_path, 'setup.py')
     with open(setup_path, 'r') as setup_file:
         assert 'entry_points' in setup_file.read()
-    assert run_inside_dir('make citypecheck citypecoverage', str(result.project)) == 0
-    assert run_inside_dir('make citest cicoverage', str(result.project)) == 0
-    assert run_inside_dir('make quality', str(result.project)) == 0
+    assert run_inside_dir('make citypecheck citypecoverage', str(result.project_path)) == 0
+    assert run_inside_dir('make citest cicoverage', str(result.project_path)) == 0
+    assert run_inside_dir('make quality', str(result.project_path)) == 0
