@@ -1,5 +1,2 @@
 """Top-level package for {{ cookiecutter.project_name }}."""
-
-__author__ = """{{ cookiecutter.full_name }}"""
-__email__ = '{{ cookiecutter.email }}'
-__version__ = '{{ cookiecutter.version }}'
+from {{ cookiecutter.project_slug }}.__about__ import __author__, __email__, __title__, __version__  # noqa
