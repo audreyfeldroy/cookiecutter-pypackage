@@ -31,7 +31,7 @@ dev_requirements = parse_requirements(
 
 test_requirements = [{%- if cookiecutter.use_pytest == 'y' %}'pytest>=3', "pytest-cov",{%- endif %} ]
 
-extras_requires = {
+extras_require = {
     "dev": dev_requirements,
     "test": test_requirements,
 }
@@ -69,7 +69,7 @@ setup(
     },
     {%- endif %}
     install_requires=requirements,
-    extra_requires=extras_requires,
+    extra_require=extras_require,
 {%- if cookiecutter.open_source_license in license_classifiers %}
     license="{{ cookiecutter.open_source_license }}",
 {%- endif %}
