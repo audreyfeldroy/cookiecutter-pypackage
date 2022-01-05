@@ -1,15 +1,18 @@
 -r requirements.txt
-pex
 Sphinx
-black
 bump2version
 coverage
 flake8
+pex
 pip
 pylint
-{% if cookiecutter.use_pytest == 'y' -%}
-pytest{% endif %}
 tox
 twine
 watchdog
 wheel
+{% if cookiecutter.command_line_interface|lower == 'click' -%}
+Click{% endif %}
+{% if cookiecutter.use_pytest == 'y' -%}
+pytest{% endif %}
+{% if cookiecutter.use_black == 'y' -%}
+black{% endif %}
