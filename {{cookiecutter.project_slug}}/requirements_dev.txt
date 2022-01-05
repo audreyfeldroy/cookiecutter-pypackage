@@ -1,4 +1,5 @@
 -r requirements.txt
+pex
 Sphinx
 black
 bump2version
