@@ -1,4 +1,4 @@
-.PHONY: clean clean-test clean-pyc clean-build docs help
+.PHONY: clean clean-test clean-pyc clean-build docs help pex
 .DEFAULT_GOAL := help
 
 define BROWSER_PYSCRIPT
@@ -22,6 +22,7 @@ endef
 export PRINT_HELP_PYSCRIPT
 
 BROWSER := python -c "$$BROWSER_PYSCRIPT"
+VERSION := $(shell python ./setup.py --version)
 
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
@@ -99,8 +100,9 @@ venv:
 	python3 -m venv .venv
 	./.venv/bin/python3 -m pip install -r requirements_dev.txt
 
-pex:
-	./.venv/bin/python3 -m pip install pex
+pex: dist/{{ cookiecutter.project_slug }}-$(VERSION).pex
+
+dist/{{ cookiecutter.project_slug }}-$(VERSION).pex:  $(shell find {{ cookiecutter.project_slug }} -type f) setup.py
 	./.venv/bin/python3 ./setup.py bdist_pex --pex-args '-vv'
 
 # EOF
