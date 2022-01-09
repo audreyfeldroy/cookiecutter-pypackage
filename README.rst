@@ -54,7 +54,7 @@ Features
 
 * Testing setup with ``unittest`` and ``python setup.py test`` or ``pytest``
 * Travis-CI_: Ready for Travis Continuous Integration testing
-* Tox_ testing: Setup to easily test for Python 3.6, 3.7, 3.8, 3.9 and 3.10
+* Tox_ testing: Setup to easily test for Python 3.7, 3.8, 3.9 and 3.10
 * Sphinx_ docs: Documentation ready for generation with, for example, `Read the Docs`_
 * bump2version_: Pre-configured version bumping with a single command
 * Auto-release to PyPI_ when you push a new tag to main (optional)

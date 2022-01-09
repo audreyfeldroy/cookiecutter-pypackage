@@ -284,12 +284,7 @@ ensure_python_versions() {
       }
 
       major_minor="$(cut -d. -f1-2 <<<"${ver}")"
-      if [ "${major_minor}" == 3.6 ]
-      then
-        pyenv_install --patch "${ver}" < <(curl -sSL https://github.com/python/cpython/commit/8ea6353.patch\?full_index=1)
-      else
-        pyenv_install "${ver}"
-      fi
+      pyenv_install "${ver}"
     else
       pyenv install -s "${ver}"
     fi
