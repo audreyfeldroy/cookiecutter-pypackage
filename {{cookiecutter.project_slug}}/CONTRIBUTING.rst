@@ -13,7 +13,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/apiology/{{ cookiecutter.project_slug }}/issues
+Report bugs at https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/issues
 
 If you are reporting a bug, please include:
 
@@ -41,14 +41,14 @@ Write Documentation
 ~~~~~~~~~~~~~~~~~~~
 
 {{ cookiecutter.project_name }} could always use more documentation, whether as part of
-the official docs, in docstrings, or even on the web in blog posts, articles,
+the official {{ cookiecutter.project_name }} docs, in docstrings, or even on the web in blog posts, articles,
 and such.
 
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
 The best way to send feedback is to file an issue at
-https://github.com/apiology/{{ cookiecutter.project_slug }}/issues.
+https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/issues.
 
 If you are proposing a new feature:
 
