@@ -42,14 +42,15 @@ coding it.
 Write Documentation
 ~~~~~~~~~~~~~~~~~~~
 
-{{ cookiecutter.project_name }} could always use more documentation, whether as part of the
-official {{ cookiecutter.project_name }} docs, in docstrings, or even on the web in blog posts,
-articles, and such.
+{{ cookiecutter.project_name }} could always use more documentation, whether as part of
+the official {{ cookiecutter.project_name }} docs, in docstrings, or even on the web in blog posts, articles,
+and such.
 
 Submit Feedback
 ~~~~~~~~~~~~~~~
 
-The best way to send feedback is to file an issue at https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/issues.
+The best way to send feedback is to file an issue at
+https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/issues.
 
 If you are proposing a new feature:
 
