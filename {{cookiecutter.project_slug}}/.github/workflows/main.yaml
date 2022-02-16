@@ -1,0 +1,27 @@
+name: Package Application with Pyinstaller
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Package Application
+      uses: JackMcKew/pyinstaller-action-windows@main
+      with:
+        path: {{ cookiecutter.project_slug }}
+        spec: ../build.spec
+        requirements: ../requirements.txt
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: {{ cookiecutter.project_slug }}
+        path: {{ cookiecutter.project_slug }}/dist/windows

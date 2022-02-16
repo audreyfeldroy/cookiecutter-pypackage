@@ -37,6 +37,11 @@ extensions = [
     'sphinx.ext.viewcode',
 ]
 
+# Specify order of documented objects by source, not in aphabetic order.
+# if needed by alphabet, but for specific module, use notations:
+#   :member-order: bysource
+autodoc_member_order = 'bysource'
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -53,8 +58,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'cookiecutter-pypackage'
-copyright = '2015, Audrey Roy Greenfeld'
-author = 'Audrey Roy Greenfeld'
+copyright = '2021, Jakub Cehak'
+author = 'Jakub Cehak'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -114,7 +119,7 @@ todo_include_todos = True
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'alabaster'
+html_theme = 'pydata_sphinx_theme' #"sphinx_book_theme" #'alabaster'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -229,7 +234,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
   (master_doc, 'cookiecutter-pypackage.tex', 'cookiecutter-pypackage Documentation',
-   'Audrey Roy Greenfeld', 'manual'),
+   'Jakub Cehak', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
