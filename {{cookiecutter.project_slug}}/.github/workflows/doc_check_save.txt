@@ -1,0 +1,16 @@
+name: "Pull Request Docs Check and Save"
+on: [push, pull_request]
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: ammaraskar/sphinx-action@master
+      with:
+        docs-folder: "docs/"
+        
+    - uses: actions/upload-artifact@v1
+      with:
+        name: {{ cookiecutter.project_slug }}_html_docs
+        path: docs/_build/html/
