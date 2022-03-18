@@ -1,0 +1,20 @@
+ignore:
+  - "{{cookiecutter.package_name}}/_version.py"
+  - "setup.py"
+  - "versioneer.py"
+
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+        paths:
+          - "{{cookiecutter.package_name}}"
+        informational: true
+    patch:
+      default:
+        target: auto
+        paths:
+          - "{{cookiecutter.package_name}}"
+        informational: true
+

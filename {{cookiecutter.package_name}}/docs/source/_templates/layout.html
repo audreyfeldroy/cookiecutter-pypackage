@@ -1,0 +1,48 @@
+{% raw %}
+{% extends "!layout.html" %}
+{% block linktags %}
+<!-- BOOTSTRAP -->
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+{{ super() }}
+{% endblock %}
+
+{% block scripts %}
+{% if meta is defined and 'banner' in meta %}
+<style>
+    /* Hide document h1s (they show in the banners) */
+    .document h1 {
+        display: none;
+    }
+</style>
+{% endif %}
+{{ super() }}
+{% endblock %}
+
+{% block mobile_nav %}
+{{ super() }}
+{% if meta is defined and 'banner' in meta %}
+</nav>
+<div class="container" style="text-align: center; position: relative; width:100%; max-width: unset; height:{{ meta.banner_height|default('340px', true)}}; background-size:cover; background-position:center {{ meta.banner_align|default('center', true) }}; transform: translate3d(0px, 0px, 0px); background-image: linear-gradient(rgba({{meta.banner_shade|default(0, true)|float}}, {{meta.banner_shade|default(0, true)|float}}, {{meta.banner_shade|default(0, true)|float}}, {{1 - meta.banner_brightness|default(1, true)|float}}), rgba({{meta.banner_shade|default(0, true)|float}}, {{meta.banner_shade|default(0, true)|float}}, {{meta.banner_shade|default(0, true)|float}}, {{1 - meta.banner_brightness|default(1, true)|float}})), url('{{ meta.banner }}');">
+    {% if 'banner_contents' in meta %}
+    {{ meta.banner_contents }}
+    {% else %}
+    <h1 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight:700; font-size:64pt; color: {{ meta.banner_text_color|default('whitesmoke', true) }};">{{ title }}</h1>
+    {% endif %}
+</div>
+<nav>
+{% endif %}
+{% endblock %}
+
+{% block menu %}
+{{ super() }}
+<div id="ethical-ad-placement"></div>
+{% endblock %}
+{% endraw %}

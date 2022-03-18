@@ -1,0 +1,6 @@
+@import url("default.css"); /* make sure to sync this with the base theme's css filename */
+
+.document {
+    margin-left:0;
+    margin-right:0;
+}

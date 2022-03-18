@@ -1,0 +1,92 @@
+@import 'css/theme.css';
+
+.wy-nav-content {
+    max-width: unset;
+}
+
+.wy-side-nav-search {
+    background-color: unset;
+}
+
+#landing-logo {
+    width: 100%;
+}
+
+#landing-image {
+    width:100%;
+}
+
+#landing-div {
+    position: absolute;
+    left:0;
+    top:0;
+    margin-left:420px;
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    color: white;
+}
+
+.headshot-main {
+    text-align: center;
+}
+
+.headshot-main img {
+    width: 266px;
+}
+
+.headshot {
+    text-align: center;
+    font-size: 11pt;
+}
+
+.headshot img{
+    width: 167px;
+    margin: 10px;
+}
+
+.headshots {
+    width: 921px;
+    margin: auto;
+}
+
+
+/* Fix things broken by bootstrap */
+html.writer-html5 .rst-content table.docutils td > p, html.writer-html5 .rst-content table.docutils th > p {
+    line-height: unset;
+    font-size: unset;
+}
+
+body.wy-body-for-nav {
+    font-size: 16px;
+    font-family: Lato,proxima-nova,Helvetica Neue,Arial,sans-serif;
+    line-height: unset;
+}
+
+form#rtd-search-form input {
+    color: gray;
+}
+
+/* Landing page layout */
+.card-box .col, .card-box img {
+    width: 266px;
+    height: 275px;
+}
+
+.card-box .col {
+    padding: 15px;
+}
+
+.card-box .h3 {
+    font-weight: 700;
+}
+
+.centered-heading p{
+    font-size: 19pt;
+    color: rgba(127,17,70,1);
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
+}
