@@ -1,4 +1,6 @@
+from datetime import datetime
 from {{cookiecutter.package_name}} import _version
+
 
 # Configuration file for the Sphinx documentation builder.
 #
@@ -21,7 +23,7 @@ from {{cookiecutter.package_name}} import _version
 
 project = '{{cookiecutter.project_name}}'
 
-copyright = '2021, Marcus Michael Noack'
+copyright = f'{datetime.now().year}, ' + '{{cookiecutter.full_name}}'
 author = '{{cookiecutter.full_name}}'
 version = _version.get_versions()['version']
 
