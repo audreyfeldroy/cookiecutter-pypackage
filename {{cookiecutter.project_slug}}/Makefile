@@ -50,6 +50,22 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
+# NOTE: You might want to make the following invocation of flake8 less strict 
+# than what .flake8 specifies (especially if you'll be running this frequently 
+# against a work in progress)
+#
+# To do this, add the following option to the command line:
+#
+#   --extend-ignore=W191,W391,E203,E265,F841,E722,E301
+#
+#   E301 = expected 1 blank line, found 0
+#   F841 = variable defined but never used
+#   E722 = do not use bare 'except'
+#
+# You might also want to add:
+#
+#   --max-line-length=256
+
 lint/flake8: ## check style with flake8
 	flake8 {{ cookiecutter.project_slug }} tests
 
