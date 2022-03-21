@@ -58,7 +58,7 @@ lint/black: ## check style with black
 {%- endif %}
 
 lint/isort: ## clean up all of the imports (using isort)
-	${BIN}\isort src tests
+	isort src tests
 
 lint: lint/flake8{%- if cookiecutter.use_black == 'y' %} lint/black{%- endif %}{%- if cookiecutter.use_isort == 'y' %} lint/isort{%- endif %} ## check style
 
