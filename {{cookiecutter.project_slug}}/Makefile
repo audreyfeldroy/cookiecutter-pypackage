@@ -12,6 +12,8 @@ endef
 export BROWSER_PYSCRIPT
 
 define PRINT_HELP_PYSCRIPT
+# Scan thru a Makefile (e.g. this file), looking for target definitions that have a special trailing comment
+# (one that starts with two #'s), and consider that comment to be the help text.
 import re, sys
 
 for line in sys.stdin:
@@ -25,7 +27,7 @@ export PRINT_HELP_PYSCRIPT
 BROWSER := python -c "$$BROWSER_PYSCRIPT"
 
 help:
-	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
+	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST) # MAKEFILE_LIST names this file itself, plus any include files
 
 clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
 
