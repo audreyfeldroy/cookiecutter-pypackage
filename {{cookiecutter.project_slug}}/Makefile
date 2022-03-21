@@ -1,5 +1,6 @@
 .PHONY: clean clean-build clean-pyc clean-test coverage dist docs help install lint lint/flake8
         {%- if cookiecutter.use_black == 'y' %} lint/black{% endif %}
+        {%- if cookiecutter.use_isort == 'y' %} lint/isort{% endif %}
 .DEFAULT_GOAL := help
 
 define BROWSER_PYSCRIPT
@@ -56,7 +57,10 @@ lint/black: ## check style with black
 	black --check {{ cookiecutter.project_slug }} tests
 {%- endif %}
 
-lint: lint/flake8{%- if cookiecutter.use_black == 'y' %} lint/black{%- endif %} ## check style
+lint/isort: | .venv ## clean up all of the imports (using isort)
+	${BIN}\isort src tests
+
+lint: lint/flake8{%- if cookiecutter.use_black == 'y' %} lint/black{%- endif %}{%- if cookiecutter.use_isort == 'y' %} lint/isort{%- endif %} ## check style
 
 test: ## run tests quickly with the default Python
 {%- if cookiecutter.use_pytest == 'y' %}
