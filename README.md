@@ -7,6 +7,9 @@ adapted from [audreyfeldroy](https://github.com/audreyfeldroy).
 * Documentation: https://cookiecutter-pypackage.readthedocs.io/
 * Free software: BSD license
 
+For more details about cookiecutter,
+see the [cookiecutter-pypackage tutorial](https://cookiecutter-pypackage.readthedocs.io/en/latest/tutorial.html)
+
 ## Quickstart
 
 ### Install cookiecutter
@@ -18,7 +21,7 @@ Cookiecutter 1.4.0 or higher):
 pip install -U cookiecutter
 ```
 
-### Generate a Python package project
+### Generate a Python package project using cookiecutter
 
 We will use cookiecutter to create your Python project.
 
@@ -35,31 +38,33 @@ when you push a new tag to the GitHub repo.
 cookiecutter https://github.com/ihumphrey/cookiecutter-pypackage.git
 ```
 
-### Setup Repos
+### Setting up GitHub and local repositories
 
-Create a new repo on GitHub, `git init` the created python package project, and push it up to the new repo:
+[Create a new repository on GitHub](https://github.com/new)
+with the name matching the `package_name` you provided during the cookiecutter setup.
+Note that this repository should be created under the `username` provided during the cookiecutter setup.
+
+Then, initialize created python package project as a local git repository, and push it up to the GitHub repository,
+substituting `username` and `package_name` with what you provided during the cookiecutter setup.
 
 ```
 cd [package_name]
 git init .
-git remote add origin git@github.com:[username]/[package_name].git
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/[username]/[package_name].git
 git branch -M main
 git push -u origin main
 ```
 
-Create a venv or conda environment.
+### Create a conda or virtual environtment
 
-### Setup versioneer
+It is recommended that you either create a new Python3 environment using `conda` or `venv`.
 
-Install versioneer:
-
-```
-pip install -U versioneer
-versioneer install
-git add -u
-git commit -m "install versioneer"
-git push
-```
+* [Instructions for creating and activating a new virtual env (venv)](https://docs.python.org/3/library/venv.html#creating-virtual-environments)
+* For `conda`, you may either install [Anaconda3](https://www.anaconda.com/) or [Miniconda3](https://docs.conda.io/en/latest/miniconda.html)
+(miniconda provides `conda` and bare Python3 essentials - small download; anaconda includes many additional scientific python packages - larger download)
+  * Run `conda create -n environment_name python` followed by `conda activate` to create and activate a new python environment.
 
 ### Install package for development
 
@@ -68,6 +73,8 @@ Install the package via an editable pip installation for local development:
 ```
 pip install -e .[docs, tests]
 ```
+
+## Additional Setup
 
 ### Setup Codecov:
 * On codecov.io, copy API token
@@ -92,9 +99,4 @@ If you want to release and distribute your package via pip, you will need to reg
 * Release your package by pushing a new tag to main (master); this will generate a GitHub release and PyPI release
 via your CI GitHub Action
 * DOI
-
-For more details, see the [cookiecutter-pypackage tutorial](https://cookiecutter-pypackage.readthedocs.io/en/latest/tutorial.html)
-
-
-
 

@@ -9,4 +9,4 @@ recursive-exclude * *.py[co]
 
 recursive-include docs *.rst conf.py Makefile make.bat *.jpg *.png *.gif
 include versioneer.py
-include {{cookiecutter.project_name}}/_version.py
+include {{cookiecutter.package_name}}/_version.py
