@@ -105,7 +105,7 @@ Similar Cookiecutter Templates
 
 * `veit/cookiecutter-namespace-template`_: A cookiecutter template for python modules with a namespace
 
-* `zillionare/cookiecutter-pypackage`_: A template containing Poetry_, Mkdocs_, Github CI and many more. It's a template and a package also (can be installed with `pip`)
+* `zillionare/python-project-wizard`_: A template containing Poetry_, Mkdocs_, Github CI, pre-commit, automatically generate release notes from CHANGELOG and many more. To use this template, just install ppw by running 'pip install ppw', then you're ready to go by running 'ppw'
 
 * `waynerv/cookiecutter-pypackage`_: A fork using Poetry_, Mkdocs_, Pre-commit_, Black_ and Mypy_. Run test, staging and release workflows with GitHub Actions, automatically generate release notes from CHANGELOG.
 
