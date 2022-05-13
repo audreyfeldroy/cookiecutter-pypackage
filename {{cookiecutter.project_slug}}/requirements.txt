@@ -16,7 +16,7 @@ Click>=7.0{% endif %}
 {% if cookiecutter.use_pytest == 'y' -%}
 pytest>=6.2.4{% endif %}
 
-
+loguru
 #openpyxl>=3.*
 #xlrd>=2.*
 #pyodbc>=4.*
