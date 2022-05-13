@@ -8,6 +8,9 @@ import sys
 import click
 {%- endif %}
 
+from {{ cookiecutter.project_slug }}.log import logger
+
+
 {% if cookiecutter.command_line_interface|lower == 'click' %}
 @click.command()
 def main(args=None):
