@@ -50,6 +50,15 @@ Not Exactly What You Want?
 Don't worry, we can change it.
 
 
+TODO
+----
+
+* Use the Makefile to setup the dev dependencies and pre-commit installation
+* Check that the pytest config is correct
+* Check that linters are working properly (docstring warnings!)
+* Check that Sphinx is properly configured
+* Add Docker support
+
 .. _Travis-CI: http://travis-ci.org/
 .. _Tox: http://testrun.org/tox/
 .. _Sphinx: http://sphinx-doc.org/
@@ -64,15 +73,3 @@ Don't worry, we can change it.
 .. _Black: https://black.readthedocs.io/en/stable/
 .. _Mypy: https://mypy.readthedocs.io/en/stable/
 .. _flakeheaven: https://flakeheaven.readthedocs.io/en/latest/
-
-.. _`Nekroze/cookiecutter-pypackage`: https://github.com/Nekroze/cookiecutter-pypackage
-.. _`tony/cookiecutter-pypackage-pythonic`: https://github.com/tony/cookiecutter-pypackage-pythonic
-.. _`ardydedase/cookiecutter-pypackage`: https://github.com/ardydedase/cookiecutter-pypackage
-.. _`lgiordani/cookiecutter-pypackage`: https://github.com/lgiordani/cookiecutter-pypackage
-.. _`briggySmalls/cookiecutter-pypackage`: https://github.com/briggySmalls/cookiecutter-pypackage
-.. _`veit/cookiecutter-namespace-template`: https://github.com/veit/cookiecutter-namespace-template
-.. _`zillionare/cookiecutter-pypackage`: https://zillionare.github.io/cookiecutter-pypackage/
-.. _`waynerv/cookiecutter-pypackage`: https://waynerv.github.io/cookiecutter-pypackage/
-.. _github comparison view: https://github.com/tony/cookiecutter-pypackage-pythonic/compare/audreyr:master...master
-.. _`network`: https://github.com/audreyr/cookiecutter-pypackage/network
-.. _`family tree`: https://github.com/audreyr/cookiecutter-pypackage/network/members
