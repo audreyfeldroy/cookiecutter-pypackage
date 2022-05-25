@@ -1,0 +1,19 @@
+fail_fast: true  # stops checks if one fails
+
+repos:
+  - repo: https://github.com/ambv/black
+    rev: 22.3.0
+    hooks:
+      - id: black
+        args: [--diff, --check]
+ 
+  - repo: local
+    hooks:             
+      - id: flakeheaven
+        name: flakeheaven
+        entry: flakeheaven lint
+        types: [python]
+        # files: ^project/
+        language: python
+        additional_dependencies: [flakeheaven==1.0.0]
+        stages: [push, commit]

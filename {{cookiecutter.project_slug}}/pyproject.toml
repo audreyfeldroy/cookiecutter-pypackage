@@ -1,0 +1,124 @@
+[build-system]
+requires = ["setuptools >= 50.3.2"]
+build-backend = "setuptools.build_meta"
+
+[tool.poetry]
+name = "{{cookiecutter.project_name}}"
+version = "{{cookiecutter.version}}"
+description = "{{cookiecutter.project_short_description}}"
+authors = ["{{cookiecutter.full_name}} <{{cookiecutter.email}}>"]
+license = "{{cookiecutter.open_source_license}}"
+readme = "README.rst"
+homepage = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}"
+repository = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}"
+documentation = "https://{{cookiecutter.project_name}}.readthedocs.io"
+{% if cookiecutter.project_slug != cookiecutter.project_name.replace('-', '_') -%}
+packages = [
+    { include = "{{cookiecutter.project_slug}}"},
+]
+{% endif -%}
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+]
+
+[tool.poetry.urls]
+Changelog = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/releases"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+click = ">=8.0.1"
+
+[tool.poetry.dev-dependencies]
+Pygments = ">=2.10.0"
+black = ">=21.10b0"
+coverage = {extras = ["toml"], version = ">=6.2"}
+darglint = ">=1.8.1"
+flake8 = ">=4.0.1"
+flake8-bandit = ">=2.1.2"
+flake8-bugbear = ">=21.9.2"
+flake8-docstrings = ">=1.6.0"
+flake8-rst-docstrings = ">=0.2.5"
+furo = ">=2021.11.12"
+isort = ">=5.10.1"
+pylint = ">=2.7.4"
+pep8-naming = ">=0.12.1"
+pre-commit = ">=2.16.0"
+pre-commit-hooks = ">=4.1.0"
+pytest = ">=6.2.5"
+pyupgrade = ">=2.29.1"
+safety = ">=1.10.3"
+sphinx = ">=4.3.2"
+sphinx-autobuild = ">=2021.3.14"
+sphinx-click = ">=3.0.2"
+typeguard = ">=2.13.3"
+xdoctest = {extras = ["colors"], version = ">=0.15.10"}
+myst-parser = {version = ">=0.16.1"}
+flakeheaven = {version = ">=1.0.0"}
+
+# black is the tool to format the source code
+[tool.black]
+line-length = 120
+target-version = ['py310']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+# isort orders and lints imports
+[tool.isort]
+profile = "black"
+line_length = 120
+multi_line_output = 3
+order_by_type = false
+force_alphabetical_sort_within_sections = true
+force_sort_within_sections = true
+combine_as_imports = true
+include_trailing_comma = true
+color_output = true
+lines_after_imports = 2
+honor_noqa = true
+
+# [tool.pylint.master]
+# ignore = 'tests'
+# load-plugins =' pylint.extensions.docparams,pylint.extensions.docstyle'
+
+# [tool.pylint.messages_control]
+# # we should disbale more pylint warnings since it can get quite anoying
+# disable = 'too-few-public-methods, missing-module-docstring'
+
+# [tool.pylint.docstyle]
+# default-docstring-type = "numpy"
+
+[tool.flakeheaven]
+# optionally inherit from remote config (or local if you want)
+base = "https://raw.githubusercontent.com/flakeheaven/flakeheaven/main/pyproject.toml"
+# specify any flake8 options. For example, exclude "example.py":
+exclude = [".git", "docs", ".ipynb*", "*.ipynb", ".pytest_cache"]
+# make output nice
+format = "grouped"
+# 80 chars aren't enough in 21 century
+max_line_length = 120
+# show line of source code in output
+show_source = true
+
+# list of plugins and rules for them
+[tool.flakeheaven.plugins]
+# include everything in pyflakes except F401
+pyflakes = ["+*", "-F401"]
+# enable only codes from S100 to S199
+flake8-bandit = ["-*", "+S1??"]
+# enable everything that starts from `flake8-`
+"flake8-*" = ["+*"]
+# explicitly disable plugin
+flake8-docstrings = ["-*"]
+pylint = ["+*"]
