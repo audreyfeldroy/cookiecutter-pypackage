@@ -54,6 +54,7 @@ TODO
 ----
 
 * Use the Makefile to setup the dev dependencies and pre-commit installation
+* Convert the .rst file to .md
 * Check that the pytest config is correct
 * Check that linters are working properly (docstring warnings!)
 * Check that Sphinx is properly configured

@@ -9,9 +9,9 @@ description = "{{cookiecutter.project_short_description}}"
 authors = ["{{cookiecutter.full_name}} <{{cookiecutter.email}}>"]
 license = "{{cookiecutter.open_source_license}}"
 readme = "README.rst"
-homepage = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}"
-repository = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}"
-documentation = "https://{{cookiecutter.project_name}}.readthedocs.io"
+homepage = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_slug}}"
+repository = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_slug}}"
+documentation = "https://{{cookiecutter.project_slug}}.readthedocs.io"
 {% if cookiecutter.project_slug != cookiecutter.project_name.replace('-', '_') -%}
 packages = [
     { include = "{{cookiecutter.project_slug}}"},
@@ -22,7 +22,7 @@ classifiers = [
 ]
 
 [tool.poetry.urls]
-Changelog = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_name}}/releases"
+Changelog = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_slug}}/releases"
 
 [tool.poetry.dependencies]
 python = "^3.7"
@@ -53,7 +53,7 @@ sphinx-click = ">=3.0.2"
 typeguard = ">=2.13.3"
 xdoctest = {extras = ["colors"], version = ">=0.15.10"}
 myst-parser = {version = ">=0.16.1"}
-flakeheaven = {version = ">=1.0.0"}
+flakeheaven = {version = ">=1.0.1"}
 
 # black is the tool to format the source code
 [tool.black]
@@ -87,17 +87,6 @@ include_trailing_comma = true
 color_output = true
 lines_after_imports = 2
 honor_noqa = true
-
-# [tool.pylint.master]
-# ignore = 'tests'
-# load-plugins =' pylint.extensions.docparams,pylint.extensions.docstyle'
-
-# [tool.pylint.messages_control]
-# # we should disbale more pylint warnings since it can get quite anoying
-# disable = 'too-few-public-methods, missing-module-docstring'
-
-# [tool.pylint.docstyle]
-# default-docstring-type = "numpy"
 
 [tool.flakeheaven]
 # optionally inherit from remote config (or local if you want)

@@ -13,7 +13,7 @@ repos:
         name: flakeheaven
         entry: flakeheaven lint
         types: [python]
-        # files: ^project/
+        files: ^{{cookiecutter.project_slug}}/
         language: python
-        additional_dependencies: [flakeheaven==1.0.0]
+        additional_dependencies: [flakeheaven==1.0.1]
         stages: [push, commit]
