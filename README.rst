@@ -53,11 +53,10 @@ Don't worry, we can change it.
 TODO
 ----
 
-* Use the Makefile to setup the dev dependencies and pre-commit installation
-* Convert the .rst file to .md
+* Convert all the .rst files to .md
 * Check that the pytest config is correct
-* Check that linters are working properly (docstring warnings!)
-* Check that Sphinx is properly configured
+* Check that linters are working properly (docstring warnings are broken currently!)
+* Check that Sphinx is properly configured and the template looks good
 * Add Docker support
 
 .. _Travis-CI: http://travis-ci.org/
