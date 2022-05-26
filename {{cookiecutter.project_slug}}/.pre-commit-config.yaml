@@ -6,7 +6,7 @@ repos:
     hooks:
       - id: black
         args: [--diff, --check]
-        exclude: [^test/, ^docs/]
+        exclude: (^test/|^docs/)
  
   - repo: local
     hooks:             

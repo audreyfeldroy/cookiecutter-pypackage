@@ -94,4 +94,8 @@ install: clean ## install the package to the active Python's site-packages
 develope:
 	poetry install
 	poetry run pre-commit install
-	poetry shell
+	@echo "\n\033[1mNow you can run 'poetry shell' to activate the environment.\033[0m"
+
+style:
+	poetry run black .
+	poetry run isort .
