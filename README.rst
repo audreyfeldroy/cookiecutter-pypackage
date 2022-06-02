@@ -53,11 +53,12 @@ Don't worry, we can change it.
 TODO
 ----
 
-* Convert all the .rst files to .md
+* Convert all the .rst files to .md ?
 * Check that the pytest config is correct
 * Check that linters are working properly (docstring warnings are broken currently!)
 * Check that Sphinx is properly configured and the template looks good
 * Add Docker support
+* Review default values for author, email and usernames and set them to generic Vizzuality account info
 
 .. _Travis-CI: http://travis-ci.org/
 .. _Tox: http://testrun.org/tox/
