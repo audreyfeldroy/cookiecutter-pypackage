@@ -54,7 +54,6 @@ TODO
 ----
 
 * Convert all the .rst files to .md ?
-* Check that the pytest config is correct
 * Check that linters are working properly (docstring warnings are broken currently!)
 * Check that Sphinx is properly configured and the template looks good
 * Add Docker support

@@ -26,15 +26,14 @@ Changelog = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.
 
 [tool.poetry.dependencies]
 python = "^3.7"
-click = ">=8.0.1"
+{% if cookiecutter.command_line_interface|lower == 'click' -%}
+click = ">=8.0.1"{% endif %}
 
 [tool.poetry.dev-dependencies]
 Pygments = ">=2.10.0"
 black = ">=21.10b0"
 bump2version= ">=0.5.11"
 coverage = {extras = ["toml"], version = ">=6.2"}
-{% if cookiecutter.command_line_interface|lower == 'click' -%}
-Click= ">=7.1.2"{% endif %}
 darglint = ">=1.8.1"
 flake8 = ">=4.0.1"
 flake8-bandit = ">=2.1.2"
@@ -115,3 +114,4 @@ flake8-bandit = ["-*", "+S1??"]
 # explicitly disable plugin
 flake8-docstrings = ["-*"]
 pylint = ["+*"]
+pycodestyle = ["-W503"]
