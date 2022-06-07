@@ -1,6 +1,7 @@
+{% if cookiecutter.poetry_or_conda == 'Poetry' -%}
 [build-system]
-requires = ["setuptools >= 50.3.2"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "{{cookiecutter.project_name}}"
@@ -25,7 +26,7 @@ classifiers = [
 Changelog = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.project_slug}}/releases"
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^{{ cookiecutter.python_version }}"
 {% if cookiecutter.command_line_interface|lower == 'click' -%}
 click = ">=8.0.1"{% endif %}
 
@@ -56,6 +57,12 @@ typeguard = ">=2.13.3"
 xdoctest = {extras = ["colors"], version = ">=0.15.10"}
 myst-parser = {version = ">=0.16.1"}
 flakeheaven = {version = ">=1.0.1"}
+
+{% else -%}
+[build-system]
+requires = ["setuptools >= 50.3.2"]
+build-backend = "setuptools.build_meta"
+{% endif -%}
 
 # black is the tool to format the source code
 [tool.black]
