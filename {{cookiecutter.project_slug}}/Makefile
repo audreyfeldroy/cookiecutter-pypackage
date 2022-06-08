@@ -92,10 +92,19 @@ install: clean ## install the package to the active Python's site-packages
 	python setup.py install
 
 develope:
+{% if cookiecutter.poetry_or_conda == 'Poetry' %}
 	poetry install
 	poetry run pre-commit install
 	@echo "\n\033[1mActivate the environment with:\033[0m poetry shell"
-
+{% else %}
+	conda create -n {{ cookiecutter.project_slug }} --channel conda-forge python={{ cookiecutter.python_version }} --file requirements_dev.txt
+	@echo "\n\033[1mActivate the environment with:\033[0m conda activate {{ cookiecutter.project_slug }}"
+{% endif %}
 style:
+{% if cookiecutter.poetry_or_conda == 'Poetry' %}
 	poetry run black .
 	poetry run isort .
+{% else %}
+	black .
+	isort .
+{% endif %}

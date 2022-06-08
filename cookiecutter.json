@@ -9,7 +9,7 @@
   "version": "0.1.0",
   "command_line_interface": ["Click", "No command-line interface"],
   "poetry_or_conda": ["Poetry", "Conda"],
-  "python_versions": "3.10",
+  "python_version": "3.10",
   "create_author_file": "y",
   "open_source_license": ["MIT license", "BSD license", "ISC license", "Apache Software License 2.0", "GNU General Public License v3", "Not open source"]
 }
