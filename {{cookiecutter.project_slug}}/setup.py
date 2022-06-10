@@ -12,8 +12,6 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [{%- if cookiecutter.command_line_interface|lower == 'click' %}'Click>=7.0',{%- endif %} ]
 
-setup_requirements = [{%- if cookiecutter.use_pytest == 'y' %}'pytest-runner',{%- endif %} ]
-
 test_requirements = [{%- if cookiecutter.use_pytest == 'y' %}'pytest>=3',{%- endif %} ]
 
 {%- set license_classifiers = {
@@ -27,7 +25,7 @@ test_requirements = [{%- if cookiecutter.use_pytest == 'y' %}'pytest>=3',{%- end
 setup(
     author="{{ cookiecutter.full_name.replace('\"', '\\\"') }}",
     author_email='{{ cookiecutter.email }}',
-    python_requires='>=3.5',
+    python_requires='>=3.6',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Scientists',
@@ -36,7 +34,6 @@ setup(
 {%- endif %}
         'Natural Language :: English',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
@@ -58,7 +55,6 @@ setup(
     keywords='{{ cookiecutter.project_slug }}',
     name='{{ cookiecutter.project_slug }}',
     packages=find_packages(include=['{{ cookiecutter.project_slug }}', '{{ cookiecutter.project_slug }}.*']),
-    setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
     url='{{ cookiecutter.git_service }}/{{ cookiecutter.git_username }}/{{ cookiecutter.project_slug }}',

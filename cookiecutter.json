@@ -10,6 +10,7 @@
   "pypi_username": "{{ cookiecutter.git_username }}",
   "version": "0.1.0",
   "use_pytest": "y",
+  "use_black": "n",
   "use_pypi_deployment_with_travis": "y",
   "travis_username": "{{ cookiecutter.git_username }}",
   "add_pyup_badge": "n",
