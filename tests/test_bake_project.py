@@ -5,6 +5,7 @@ import sys
 import subprocess
 import yaml
 import datetime
+import pytest
 from cookiecutter.utils import rmtree
 
 from click.testing import CliRunner
@@ -209,21 +210,19 @@ def test_bake_not_open_source(cookies):
         assert 'License' not in result.project.join('README.rst').read()
 
 
-# def test_using_pytest(cookies):
-#     with bake_in_temp_dir(
-#         cookies,
-#         extra_context={'use_pytest': 'y'}
-#     ) as result:
-#         assert result.project.isdir()
-#         test_file_path = result.project.join(
-#             'tests/test_your_python_package.py'
-#         )
-#         lines = test_file_path.readlines()
-#         assert "import pytest" in ''.join(lines)
-#         # Test the new pytest target
-#         run_inside_dir('python setup.py pytest', str(result.project)) == 0
-#         # Test the test alias (which invokes pytest)
-#         run_inside_dir('python setup.py test', str(result.project)) == 0
+def test_using_pytest(cookies):
+    with bake_in_temp_dir(
+        cookies,
+        extra_context={'use_pytest': 'y'}
+    ) as result:
+        assert result.project.isdir()
+        test_file_path = result.project.join(
+            'tests/test_python_boilerplate.py'
+        )
+        lines = test_file_path.readlines()
+        assert "import pytest" in ''.join(lines)
+        # Test the new pytest target
+        run_inside_dir('pytest', str(result.project)) == 0
 
 
 # def test_not_using_pytest(cookies):
@@ -270,67 +269,80 @@ def test_bake_with_no_console_script(cookies):
         assert 'entry_points' not in setup_file.read()
 
 
-# def test_bake_with_console_script_files(cookies):
-#     context = {'command_line_interface': 'click'}
-#     result = cookies.bake(extra_context=context)
-#     project_path, project_slug, project_dir = project_info(result)
-#     found_project_files = os.listdir(project_dir)
-#     assert "cli.py" in found_project_files
+def test_bake_with_console_script_files(cookies):
+    context = {'command_line_interface': 'click'}
+    result = cookies.bake(extra_context=context)
+    project_path, project_slug, project_dir = project_info(result)
+    found_project_files = os.listdir(project_dir)
+    assert "cli.py" in found_project_files
 
-#     setup_path = os.path.join(project_path, 'setup.py')
-#     with open(setup_path, 'r') as setup_file:
-#         assert 'entry_points' in setup_file.read()
-
-
-# def test_bake_with_argparse_console_script_files(cookies):
-#     context = {'command_line_interface': 'argparse'}
-#     result = cookies.bake(extra_context=context)
-#     project_path, project_slug, project_dir = project_info(result)
-#     found_project_files = os.listdir(project_dir)
-#     assert "cli.py" in found_project_files
-
-#     setup_path = os.path.join(project_path, 'setup.py')
-#     with open(setup_path, 'r') as setup_file:
-#         assert 'entry_points' in setup_file.read()
+    setup_path = os.path.join(project_path, 'setup.py')
+    with open(setup_path, 'r') as setup_file:
+        assert 'entry_points' in setup_file.read()
 
 
-# def test_bake_with_console_script_cli(cookies):
-#     context = {'command_line_interface': 'click'}
-#     result = cookies.bake(extra_context=context)
-#     project_path, project_slug, project_dir = project_info(result)
-#     module_path = os.path.join(project_dir, 'cli.py')
-#     module_name = '.'.join([project_slug, 'cli'])
-#     spec = importlib.util.spec_from_file_location(module_name, module_path)
-#     cli = importlib.util.module_from_spec(spec)
-#     spec.loader.exec_module(cli)
-#     runner = CliRunner()
-#     noarg_result = runner.invoke(cli.main)
-#     assert noarg_result.exit_code == 0
-#     noarg_output = ' '.join([
-#         'Replace this message by putting your code into',
-#         project_slug])
-#     assert noarg_output in noarg_result.output
-#     help_result = runner.invoke(cli.main, ['--help'])
-#     assert help_result.exit_code == 0
-#     assert 'Show this message' in help_result.output
+def test_bake_with_argparse_console_script_files(cookies):
+    context = {'command_line_interface': 'argparse'}
+    result = cookies.bake(extra_context=context)
+    project_path, project_slug, project_dir = project_info(result)
+    found_project_files = os.listdir(project_dir)
+    assert "cli.py" in found_project_files
+
+    setup_path = os.path.join(project_path, 'setup.py')
+    with open(setup_path, 'r') as setup_file:
+        assert 'entry_points' in setup_file.read()
 
 
-# def test_bake_with_argparse_console_script_cli(cookies):
-#     context = {'command_line_interface': 'argparse'}
-#     result = cookies.bake(extra_context=context)
-#     project_path, project_slug, project_dir = project_info(result)
-#     module_path = os.path.join(project_dir, 'cli.py')
-#     module_name = '.'.join([project_slug, 'cli'])
-#     spec = importlib.util.spec_from_file_location(module_name, module_path)
-#     cli = importlib.util.module_from_spec(spec)
-#     spec.loader.exec_module(cli)
-#     runner = CliRunner()
-#     noarg_result = runner.invoke(cli.main)
-#     assert noarg_result.exit_code == 0
-#     noarg_output = ' '.join([
-#         'Replace this message by putting your code into',
-#         project_slug])
-#     assert noarg_output in noarg_result.output
-#     help_result = runner.invoke(cli.main, ['--help'])
-#     assert help_result.exit_code == 0
-#     assert 'Show this message' in help_result.output
+def test_bake_with_console_script_cli(cookies):
+    context = {'command_line_interface': 'click'}
+    result = cookies.bake(extra_context=context)
+    project_path, project_slug, project_dir = project_info(result)
+    module_path = os.path.join(project_dir, 'cli.py')
+    module_name = '.'.join([project_slug, 'cli'])
+    spec = importlib.util.spec_from_file_location(module_name, module_path)
+    cli = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(cli)
+    runner = CliRunner()
+    noarg_result = runner.invoke(cli.main)
+    assert noarg_result.exit_code == 0
+    noarg_output = ' '.join([
+        'Replace this message by putting your code into',
+        project_slug])
+    assert noarg_output in noarg_result.output
+    help_result = runner.invoke(cli.main, ['--help'])
+    assert help_result.exit_code == 0
+    assert 'Show this message' in help_result.output
+
+
+def test_bake_with_argparse_console_script_cli(cookies):
+    context = {'command_line_interface': 'argparse'}
+    result = cookies.bake(extra_context=context)
+    project_path, project_slug, project_dir = project_info(result)
+    module_path = os.path.join(project_dir, 'cli.py')
+    module_name = '.'.join([project_slug, 'cli'])
+    spec = importlib.util.spec_from_file_location(module_name, module_path)
+    cli = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(cli)
+    runner = CliRunner()
+    noarg_result = runner.invoke(cli.main)
+    assert noarg_result.exit_code == 0
+    noarg_output = ' '.join([
+        'Replace this message by putting your code into',
+        project_slug])
+    assert noarg_output in noarg_result.output
+    help_result = runner.invoke(cli.main, ['--help'])
+    assert help_result.exit_code == 0
+    assert 'Show this message' in help_result.output
+
+
+@pytest.mark.parametrize("use_black,expected", [("y", True), ("n", False)])
+def test_black(cookies, use_black, expected):
+    with bake_in_temp_dir(
+        cookies,
+        extra_context={'use_black': use_black}
+    ) as result:
+        assert result.project.isdir()
+        requirements_path = result.project.join('requirements_dev.txt')
+        assert ("black" in requirements_path.read()) is expected
+        makefile_path = result.project.join('Makefile')
+        assert ("black --check" in makefile_path.read()) is expected
