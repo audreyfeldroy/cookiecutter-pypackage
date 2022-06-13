@@ -2,6 +2,8 @@
 
 language: python
 python:
+  - 3.10
+  - 3.9
   - 3.8
   - 3.7
   - 3.6
@@ -12,7 +14,7 @@ install: pip install -U tox-travis
 # Command to run tests, e.g. python setup.py test
 script: tox
 
-{% if cookiecutter.use_pypi_deployment_with_travis == 'y' -%}
+{% if cookiecutter.use_pypi_deployment_with_ci  == 'y' -%}
 # Assuming you have installed the travis-ci CLI tool, after you
 # create the Github repo and add it to Travis, run the
 # following command to finish PyPI deployment setup:

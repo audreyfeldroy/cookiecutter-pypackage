@@ -136,7 +136,10 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
 def test_bake_without_travis_pypi_setup(cookies):
     with bake_in_temp_dir(
         cookies,
-        extra_context={'use_pypi_deployment_with_travis': 'n'}
+        extra_context={
+            'use_pypi_deployment_with_ci': 'n',
+            'use_travis_ci': 'y'
+            }
     ) as result:
         result_travis_config = yaml.load(
             result.project.join(".travis.yml").open(),
@@ -167,6 +170,26 @@ def test_bake_without_author_file(cookies):
         with open(str(manifest_path)) as manifest_file:
             assert 'AUTHORS.rst' not in manifest_file.read()
 
+
+# def test_bake_without_author_file(cookies):
+#     with bake_in_temp_dir(
+#         cookies,
+#         extra_context={'create_author_file': 'n'}
+#     ) as result:
+#         found_toplevel_files = [f.basename for f in result.project.listdir()]
+#         assert 'AUTHORS.rst' not in found_toplevel_files
+#         doc_files = [f.basename for f in result.project.join('docs').listdir()]
+#         assert 'authors.rst' not in doc_files
+
+#         # Assert there are no spaces in the toc tree
+#         docs_index_path = result.project.join('docs/index.rst')
+#         with open(str(docs_index_path)) as index_file:
+#             assert 'contributing\n   history' in index_file.read()
+
+#         # Check that
+#         manifest_path = result.project.join('MANIFEST.in')
+#         with open(str(manifest_path)) as manifest_file:
+#             assert 'AUTHORS.rst' not in manifest_file.read()
 
 def test_make_help(cookies):
     with bake_in_temp_dir(cookies) as result:
@@ -208,21 +231,6 @@ def test_bake_not_open_source(cookies):
         assert 'setup.py' in found_toplevel_files
         assert 'LICENSE' not in found_toplevel_files
         assert 'License' not in result.project.join('README.rst').read()
-
-
-def test_using_pytest(cookies):
-    with bake_in_temp_dir(
-        cookies,
-        extra_context={'use_pytest': 'y'}
-    ) as result:
-        assert result.project.isdir()
-        test_file_path = result.project.join(
-            'tests/test_python_boilerplate.py'
-        )
-        lines = test_file_path.readlines()
-        assert "import pytest" in ''.join(lines)
-        # Test the new pytest target
-        run_inside_dir('pytest', str(result.project)) == 0
 
 
 # def test_not_using_pytest(cookies):
@@ -269,72 +277,6 @@ def test_bake_with_no_console_script(cookies):
         assert 'entry_points' not in setup_file.read()
 
 
-def test_bake_with_console_script_files(cookies):
-    context = {'command_line_interface': 'click'}
-    result = cookies.bake(extra_context=context)
-    project_path, project_slug, project_dir = project_info(result)
-    found_project_files = os.listdir(project_dir)
-    assert "cli.py" in found_project_files
-
-    setup_path = os.path.join(project_path, 'setup.py')
-    with open(setup_path, 'r') as setup_file:
-        assert 'entry_points' in setup_file.read()
-
-
-def test_bake_with_argparse_console_script_files(cookies):
-    context = {'command_line_interface': 'argparse'}
-    result = cookies.bake(extra_context=context)
-    project_path, project_slug, project_dir = project_info(result)
-    found_project_files = os.listdir(project_dir)
-    assert "cli.py" in found_project_files
-
-    setup_path = os.path.join(project_path, 'setup.py')
-    with open(setup_path, 'r') as setup_file:
-        assert 'entry_points' in setup_file.read()
-
-
-def test_bake_with_console_script_cli(cookies):
-    context = {'command_line_interface': 'click'}
-    result = cookies.bake(extra_context=context)
-    project_path, project_slug, project_dir = project_info(result)
-    module_path = os.path.join(project_dir, 'cli.py')
-    module_name = '.'.join([project_slug, 'cli'])
-    spec = importlib.util.spec_from_file_location(module_name, module_path)
-    cli = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(cli)
-    runner = CliRunner()
-    noarg_result = runner.invoke(cli.main)
-    assert noarg_result.exit_code == 0
-    noarg_output = ' '.join([
-        'Replace this message by putting your code into',
-        project_slug])
-    assert noarg_output in noarg_result.output
-    help_result = runner.invoke(cli.main, ['--help'])
-    assert help_result.exit_code == 0
-    assert 'Show this message' in help_result.output
-
-
-def test_bake_with_argparse_console_script_cli(cookies):
-    context = {'command_line_interface': 'argparse'}
-    result = cookies.bake(extra_context=context)
-    project_path, project_slug, project_dir = project_info(result)
-    module_path = os.path.join(project_dir, 'cli.py')
-    module_name = '.'.join([project_slug, 'cli'])
-    spec = importlib.util.spec_from_file_location(module_name, module_path)
-    cli = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(cli)
-    runner = CliRunner()
-    noarg_result = runner.invoke(cli.main)
-    assert noarg_result.exit_code == 0
-    noarg_output = ' '.join([
-        'Replace this message by putting your code into',
-        project_slug])
-    assert noarg_output in noarg_result.output
-    help_result = runner.invoke(cli.main, ['--help'])
-    assert help_result.exit_code == 0
-    assert 'Show this message' in help_result.output
-
-
 @pytest.mark.parametrize("use_black,expected", [("y", True), ("n", False)])
 def test_black(cookies, use_black, expected):
     with bake_in_temp_dir(
@@ -346,3 +288,36 @@ def test_black(cookies, use_black, expected):
         assert ("black" in requirements_path.read()) is expected
         makefile_path = result.project.join('Makefile')
         assert ("black --check" in makefile_path.read()) is expected
+
+
+@pytest.mark.parametrize("use_gitlab_ci,expected", [('y', True), ('n', False)])
+def test_bake_with_and_wo_gitlab_ci(cookies, use_gitlab_ci, expected):
+    with bake_in_temp_dir(
+        cookies,
+        extra_context={'use_gitlab_ci': use_gitlab_ci}
+    ) as result:
+        assert result.project.isdir()
+        found_toplevel_files = [f.basename for f in result.project.listdir()]
+        assert ('.gitlab-ci.yml' in found_toplevel_files) is expected
+
+
+@pytest.mark.parametrize("use_travis_ci,expected", [('y', True), ('n', False)])
+def test_bake_with_and_wo_travis_ci(cookies, use_travis_ci, expected):
+    with bake_in_temp_dir(
+        cookies,
+        extra_context={'use_travis_ci': use_travis_ci}
+    ) as result:
+        assert result.project.isdir()
+        found_toplevel_files = [f.basename for f in result.project.listdir()]
+        assert ('.travis.yml' in found_toplevel_files) is expected
+
+
+@pytest.mark.parametrize("use_circle_ci,expected", [('y', True), ('n', False)])
+def test_bake_with_and_wo_circle_ci(cookies, use_circle_ci, expected):
+    with bake_in_temp_dir(
+        cookies,
+        extra_context={'use_circle_ci': use_circle_ci}
+    ) as result:
+        # assert result.project.isdir()
+        found_toplevel_files = [f.basename for f in result.project.listdir()]
+        assert ('.circleci' in found_toplevel_files) is expected
