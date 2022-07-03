@@ -202,7 +202,7 @@ def test_bake_with_no_console_script(cookies):
 
 
 def test_bake_with_argparse_console_script_files(cookies):
-    context = {'command_line_interface': 'argparse'}
+    context = {'command_line_interface': 'Argparse'}
     context.update(TRICKY_QUOTE_CHARACTERS_CONTEXT)
     with suppressed_hook_items():
         result = cookies.bake(extra_context=context)
