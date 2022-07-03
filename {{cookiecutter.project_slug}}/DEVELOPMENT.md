@@ -22,8 +22,6 @@ Related backlog tasks:
 
 * Do release of cookiecutter-pypackage projects in CircleCI (after other tests pass)
 
-First, make sure version has been bumped:
-
 ```sh
 git checkout main
 git pull
