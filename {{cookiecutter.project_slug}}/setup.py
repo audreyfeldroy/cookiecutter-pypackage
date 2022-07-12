@@ -20,6 +20,10 @@ def parse_requirements(filename):
     lineiter = (line.strip() for line in open(filename))
     return [line for line in lineiter if line and not line.startswith("#")]
 
+def readme():
+    with open(os.path.join(this_directory, "README.md"), "r", "utf-8") as f:
+        return f.read()
+
 ## workaround derived from: https://github.com/pypa/pip/issues/7645#issuecomment-578210649
 requirements = parse_requirements(
     'requirements.txt',
@@ -61,6 +65,8 @@ setup(
         'Programming Language :: Python :: 3.8',
     ],
     description=about.get('__description__'),
+    long_description=readme(),
+    long_description_content_type="text/markdown",
     {%- if 'no' not in cookiecutter.command_line_interface|lower %}
     entry_points={
         'console_scripts': [
