@@ -105,7 +105,7 @@ Similar Cookiecutter Templates
 
 * `tony/cookiecutter-pypackage-pythonic`_: Fork with py2.7+3.3 optimizations.
   Flask/Werkzeug-style test runner, ``_compat`` module and module/doc conventions.
-  See ``README.rst`` or the `github comparison view`_ for exhaustive list of
+  See ``README.md`` or the `github comparison view`_ for exhaustive list of
   additions and modifications.
 
 * `ardydedase/cookiecutter-pypackage`_: A fork with separate requirements files rather than a requirements list in the ``setup.py`` file.

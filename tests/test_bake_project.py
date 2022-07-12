@@ -206,7 +206,7 @@ def test_bake_not_open_source(cookies):
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert 'setup.py' in found_toplevel_files
         assert 'LICENSE' not in found_toplevel_files
-        assert 'License' not in result.project.join('README.rst').read()
+        assert 'License' not in result.project.join('README.md').read()
 
 
 def test_using_pytest(cookies):

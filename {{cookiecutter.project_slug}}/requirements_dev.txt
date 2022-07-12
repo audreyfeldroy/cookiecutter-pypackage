@@ -6,6 +6,8 @@ flake8==3.7.8
 tox==3.14.0
 coverage==4.5.4
 Sphinx==1.8.5
+jinja<3.0.0
+markupsafe<2.0.0
 twine==1.14.0
 {% if cookiecutter.command_line_interface|lower == 'click' -%}
 Click==7.1.2{% endif %}

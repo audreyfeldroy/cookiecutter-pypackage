@@ -4,7 +4,6 @@ from pathlib import Path
 from setuptools import setup, find_packages
 
 this_directory = Path(__file__).parent.absolute()
-long_description = (this_directory / "README.rst").read_text()
 
 about = {}
 about_path = os.path.join(this_directory, '{{ cookiecutter.project_slug }}', "__about__.py")
@@ -21,7 +20,7 @@ def parse_requirements(filename):
     return [line for line in lineiter if line and not line.startswith("#")]
 
 def readme():
-    with open(os.path.join(this_directory, "README.md"), "r", "utf-8") as f:
+    with open(os.path.join(this_directory, "README.md"), "r", encoding="utf-8") as f:
         return f.read()
 
 ## workaround derived from: https://github.com/pypa/pip/issues/7645#issuecomment-578210649
@@ -75,11 +74,10 @@ setup(
     },
     {%- endif %}
     install_requires=requirements,
-    extra_require=extras_require,
+    extras_require=extras_require,
 {%- if cookiecutter.open_source_license in license_classifiers %}
     license="{{ cookiecutter.open_source_license }}",
 {%- endif %}
-    long_description=long_description,
     include_package_data=True,
     keywords='{{ cookiecutter.project_slug }}',
     name='{{ cookiecutter.project_slug }}',
