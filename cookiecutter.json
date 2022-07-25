@@ -1,7 +1,7 @@
 {
-  "full_name": "Audrey Roy Greenfeld",
-  "email": "audreyr@example.com",
-  "github_username": "audreyr",
+  "full_name": "Hirayama Yuuichi",
+  "email": "hirayama.yuuichi@gmail.com",
+  "github_username": "hirayama-yuuichi",
   "project_name": "Python Boilerplate",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
   "project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
@@ -24,7 +24,5 @@
     "Apache Software License 2.0",
     "GNU General Public License v3",
     "Not open source"
-
-aaaaaaaaaaaaaaaaaaaaaaaa1
   ]
 }
