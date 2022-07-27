@@ -1,0 +1,11 @@
+sphinx
+sphinx-rtd-theme
+autodocsumm
+myst-parser[linkify]
+autoclasstoc
+sphinx-copybutton
+sphinx_autodoc_defaultargs
+sphinxcontrib-apidoc
+sphinx-click
+sphinx-autodoc-typehints
+autodoc_pydantic

@@ -133,7 +133,3 @@ dmypy.json
 
 # IDE Files
 .idea/
-
-# Cookiecutter Examples
-example/
-ridbpy/
