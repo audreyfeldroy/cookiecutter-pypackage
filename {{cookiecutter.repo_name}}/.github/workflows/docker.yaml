@@ -1,0 +1,37 @@
+name: Docker CI/CD
+
+on:
+    pull_request:
+        branches: ['**']
+jobs:
+    docker:
+        runs-on: ubuntu-latest
+        steps:
+        -   name: Set up Github Workspace
+            uses: actions/checkout@v3
+            with:
+                fetch-depth: 0
+        -   name: Set up QEMU
+            uses: docker/setup-qemu-action@v1
+        -   name: Set up Docker Buildx
+            uses: docker/setup-buildx-action@v1
+        -   name: Set up Python
+            uses: actions/setup-python@v2
+            with:
+                python-version: '3.9'
+        -   name: Install Dependencies
+            run: |
+                pip install --upgrade pip
+                pip install packaging poetry
+        -   name: Declare Version Variable
+            run: |
+                PROJECT_VERSION=$(poetry version --short)
+                PROJECT_NAME=$(poetry version | cut -d " " -f1)
+                echo PROJECT_VERSION=${PROJECT_VERSION} >> $GITHUB_ENV
+                echo PROJECT_NAME=${PROJECT_NAME} >> $GITHUB_ENV
+        -   name: Docker Image Building and Publishing
+            id: docker_build
+            uses: docker/build-push-action@v2
+            with:
+                push: false
+                tags: {{ cookiecutter.github_username }}/${{"{{"}} env.PROJECT_NAME {{"}}"}}:latest

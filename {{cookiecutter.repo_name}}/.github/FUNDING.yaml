@@ -1,0 +1,4 @@
+github: {{ cookiecutter.github_username }}
+custom:
+-   https://paypal.me/{{ cookiecutter.github_username }}
+-   https://venmo.com/{{ cookiecutter.github_username }}

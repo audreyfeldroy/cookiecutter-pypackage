@@ -1,7 +1,7 @@
 # {{ cookiecutter.project_slug }} CLI
 
 ```{eval-rst}
-.. click:: {{ cookiecutter.project_slug }}.cli:command_line_interface
+.. click:: {{ cookiecutter.project_slug }}._cli:command_line_interface
    :prog: {{ cookiecutter.project_slug }}
    :nested: full
 ```

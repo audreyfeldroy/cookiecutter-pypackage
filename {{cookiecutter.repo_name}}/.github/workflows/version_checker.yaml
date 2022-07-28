@@ -1,0 +1,39 @@
+name: Version Checker
+
+on:
+    pull_request:
+        branches:
+        -   {{ cookiecutter.default_branch }}
+jobs:
+    version-checker:
+        runs-on: ubuntu-latest
+        steps:
+        -   name: Set up Python
+            uses: actions/setup-python@v2
+            with:
+                python-version: '3.9'
+        -   name: Install Dependencies
+            run: |
+                pip install --upgrade pip
+                pip install packaging poetry
+        -   name: Checkout {{ cookiecutter.default_branch }} Branch
+            uses: actions/checkout@v3
+            with:
+                fetch-depth: 0
+                ref: {{ cookiecutter.default_branch }}
+        -   name: Get Version from {{ cookiecutter.default_branch }}
+            run: |
+                COMPARED_VERSION="$(poetry version --short)"
+                echo COMPARED_VERSION="${COMPARED_VERSION}" >> ${GITHUB_ENV}
+        -   name: Checkout Current Ref
+            uses: actions/checkout@v3
+            with:
+                fetch-depth: 0
+                ref: ${{"{{"}} github.ref {{"}}"}}
+        -   name: Get Current Version
+            run: |
+                CURRENT_VERSION="$(poetry version --short)"
+                echo CURRENT_VERSION="${CURRENT_VERSION}" >> ${GITHUB_ENV}
+        -   name: Compare Versions
+            run: |
+                python "${{"{{"}} github.workspace {{"}}"}}/.github/helpers/version_check.py"

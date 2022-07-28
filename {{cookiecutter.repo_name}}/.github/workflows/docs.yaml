@@ -1,0 +1,58 @@
+name: Documentation
+
+on:
+    release:
+        types: [published]
+
+jobs:
+    github-pages-publish:
+        runs-on: ubuntu-latest
+        steps:
+        -   name: Checkout Latest Changes
+            uses: actions/checkout@v3
+            with:
+                path: ${{"{{"}} github.workspace {{"}}"}}/{{ cookiecutter.default_branch }}
+                ref: ${{"{{"}} github.ref {{"}}"}}
+                fetch-depth: 0
+        -   name: Create gh-pages if not exists
+            working-directory: ${{"{{"}} github.workspace {{"}}"}}/{{ cookiecutter.default_branch }}
+            run: |
+                git checkout gh-pages || git checkout -b gh-pages
+                git push --set-upstream origin gh-pages || true
+                git checkout {{ cookiecutter.default_branch }}
+        -   name: Checkout gh-pages Branch
+            uses: actions/checkout@v3
+            with:
+                path: ${{"{{"}} github.workspace {{"}}"}}/github-pages
+                ref: gh-pages
+                fetch-depth: 0
+        -   name: Set up Python Environment
+            uses: actions/setup-python@v2
+            with:
+                python-version: '3.9'
+        -   name: Install Test Dependencies
+            run: |
+                python -m pip install --upgrade pip wheel
+                python -m pip install tox
+        -   name: Tox Sphinx Generation
+            working-directory: ${{"{{"}} github.workspace {{"}}"}}/{{ cookiecutter.default_branch }}
+            run: |
+                tox -e sphinx
+        -   name: Setup Git Config
+            run: |
+                git config --global user.name "github-actions[bot]"
+                git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        -   name: Get Commit SHA from {{ cookiecutter.default_branch }}
+            working-directory: ${{"{{"}} github.workspace {{"}}"}}/{{ cookiecutter.default_branch }}
+            run: |
+                COMMIT_SHA=$(git rev-parse HEAD)
+                echo "COMMIT_SHA=${COMMIT_SHA}" >> ${GITHUB_ENV}
+        -   name: Commit Changes to gh-pages Branch
+            working-directory: ${{"{{"}} github.workspace {{"}}"}}/github-pages
+            run: |
+                git rm -rf . || true
+                cp -R ${{"{{"}} github.workspace {{"}}"}}/{{ cookiecutter.default_branch }}/docs/_build/html/* ${PWD}
+                touch .nojekyll
+                git add .
+                git diff-index --quiet HEAD || git commit -m "GitHub Pages - ${{"{{"}} env.COMMIT_SHA {{"}}"}}"
+                git push origin gh-pages --force

@@ -1,0 +1,41 @@
+default_stages: [commit]
+fail_fast: false
+
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: check-yaml
+    -   id: check-ast
+    -   id: check-docstring-first
+    -   id: check-merge-conflict
+    -   id: mixed-line-ending
+
+-   repo: https://github.com/timothycrosley/isort
+    rev: 5.10.1
+    hooks:
+    -   id: isort
+        args: [--profile, black]
+
+-   repo: https://github.com/psf/black
+    rev: 22.6.0
+    hooks:
+    -   id: black-jupyter
+
+-   repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+    rev: v2.4.0
+    hooks:
+    -   id: pretty-format-yaml
+        args: [--autofix, --indent, '4']
+    -   id: pretty-format-ini
+        args: [--autofix]
+    -   id: pretty-format-toml
+        args: [--autofix]
+
+# sets up .pre-commit-ci.yaml to ensure pre-commit dependencies stay up to date
+ci:
+    autoupdate_schedule: weekly
+    skip: []
+    submodules: false

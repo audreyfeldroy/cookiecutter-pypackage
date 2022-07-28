@@ -3,7 +3,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
-name = "{{ cookiecutter.project_name }}"
+name = "{{ cookiecutter.repo_name }}"
 description = "{{ cookiecutter.project_short_description }}"
 version = "{{ cookiecutter.version }}"
 authors = ["{{ cookiecutter.full_name }} <{{ cookiecutter.email }}>"]
@@ -12,21 +12,21 @@ readme = "README.md"
 homepage = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}"
 repository = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}"
 documentation = "https://{{ cookiecutter.github_username }}.github.io/{{ cookiecutter.repo_name }}"
-classifiers = [
-    "Development Status :: 3 - Alpha",
-]
+classifiers = ["Development Status :: 3 - Alpha"]
 
 [tool.poetry.dependencies]
 python = ">=3.7.1,<4.0"
 click = ">=8.0.1"
-pytest = { version = ">=6.2.5", optional = true }
-coverage = { extras = ["toml"], version = ">=6.2", optional = true }
-flake8 = { version = ">=3.0.0", optional = true }
 
-[tool.poetry.extras]
-dev = ["pytest", "coverage", "flake8"]
+[tool.poetry.dev-dependencies]
+pytest = ">=5.2"
+coverage = { extras = ["toml"], version = ">=6.2" }
+flake8 = ">=3.0.0"
+tox = "^3.25.1"
+mypy = "^0.971"
 
 [tool.poetry.scripts]
+{{ cookiecutter.repo_name }} = "{{ cookiecutter.project_slug }}.__main__:main"
 
 [tool.poetry.urls]
 Changelog = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/releases"

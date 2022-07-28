@@ -135,5 +135,5 @@ dmypy.json
 .idea/
 
 # Cookiecutter Examples
-example/
+example-project/
 ridbpy/
