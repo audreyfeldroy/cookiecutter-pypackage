@@ -37,7 +37,7 @@ jobs:
         -   name: Declare Version Variable
             run: |
                 PROJECT_VERSION=$(poetry version --short)
-                PROJECT_NAME=$(poetry version | cut -d " " -f1)
+                PROJECT_NAME=$(poetry version | awk '{ print $2 }')
                 echo PROJECT_VERSION=${PROJECT_VERSION} >> $GITHUB_ENV
                 echo PROJECT_NAME=${PROJECT_NAME} >> $GITHUB_ENV
         -   name: Tag Setter
@@ -98,7 +98,7 @@ jobs:
         -   name: Declare Version Variable
             run: |
                 PACKAGE_VERSION=$(poetry version --short)
-                PACKAGE_NAME=$(poetry version | cut -d " " -f1)
+                PACKAGE_NAME=$(poetry version | awk '{ print $2 }')
                 echo PACKAGE_VERSION=${PACKAGE_VERSION} >> $GITHUB_ENV
                 echo PACKAGE_NAME=${PACKAGE_NAME} >> $GITHUB_ENV
         -   name: Docker Image Building and Publishing

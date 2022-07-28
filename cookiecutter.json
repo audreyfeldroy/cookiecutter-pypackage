@@ -1,17 +1,17 @@
 {
-  "full_name": "Justin Flannery",
-  "email": "juftin@juftin.com",
-  "github_username": "juftin",
   "project_name": "example-project",
   "repo_name": "{{ cookiecutter.project_name.lower().replace(' ', '-').replace('-', '-') }}",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
   "project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
-  "version": "0.0.1",
+  "version": "0.0.0",
+  "default_branch": "main",
+  "full_name": "Justin Flannery",
+  "email": "juftin@juftin.com",
+  "github_username": "juftin",
   "logo_url": "https://raw.githubusercontent.com/juftin/juftin/main/static/juftin.png",
   "favicon": "https://juftin.com/favicon.ico",
   "paypal_username": "{{ cookiecutter.github_username }}",
   "venmo_username": "{{ cookiecutter.github_username }}",
   "personal_access_token_secret_name": "PERSONAL_ACCESS_TOKEN",
-  "default_branch": "main",
   "_copy_without_render": []
 }

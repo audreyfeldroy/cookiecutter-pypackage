@@ -12,7 +12,7 @@ manage its Python environment. To get started first install `poetry` (I recommen
 
 ### Installation
 
-```commandline
+```shell
 poetry install
 poetry run {{ cookiecutter.repo_name }}
 ```
@@ -27,7 +27,7 @@ poetry run tox
 
 {{ cookiecutter.project_name }} makes use of a couple tools to help with contributing: `pre-commit` and `tox`
 
-```commandline
+```shell
 pip install pre-commit
 pip install tox
 

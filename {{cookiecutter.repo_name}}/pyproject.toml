@@ -17,6 +17,11 @@ classifiers = ["Development Status :: 3 - Alpha"]
 [tool.poetry.dependencies]
 python = ">=3.7.1,<4.0"
 click = ">=8.0.1"
+pytest = { version = ">=5.2", optional = true }
+flake8 = { version = ">=3.0.0", optional = true }
+coverage = { version = ">=6.2", extras = ["toml"], optional = true }
+mypy = { version = "^0.971", optional = true }
+tox = { version = "^3.25.1", optional = true }
 
 [tool.poetry.dev-dependencies]
 pytest = ">=5.2"
@@ -24,6 +29,15 @@ coverage = { extras = ["toml"], version = ">=6.2" }
 flake8 = ">=3.0.0"
 tox = "^3.25.1"
 mypy = "^0.971"
+
+[tool.poetry.extras]
+dev = [
+    "pytest",
+    "flake8",
+    "coverage",
+    "mypy",
+    "tox"
+]
 
 [tool.poetry.scripts]
 {{ cookiecutter.repo_name }} = "{{ cookiecutter.project_slug }}.__main__:main"
