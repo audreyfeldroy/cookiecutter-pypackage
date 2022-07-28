@@ -1,0 +1,93 @@
+name: Version Bump
+
+on:
+  :
+    branches:
+      - {{ cookiecutter.default_branch }}
+
+jobs:
+  release:
+    name:    Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.9"
+      - name: Upgrade pip
+        run:  |
+              pip install --upgrade pip
+              pip --version
+      - name: Install Poetry
+        run:  |
+              pip install poetry
+              poetry --version
+      - name: Check if there is a parent commit
+        id:   check-parent-commit
+        run:  |
+              echo "::set-output name=sha::$(git rev-parse --verify --quiet HEAD^)"
+      - name: Version Bump - MAJOR
+        if: contains( github.event.pull_request.labels.*.name, 'MAJOR')
+        run: |
+              poetry version major
+      - name: Version Bump - MINOR
+        if: contains( github.event.pull_request.labels.*.name, 'MINOR')
+        run: |
+              poetry version minor
+      - name: Version Bump - PATCH
+        if: contains( github.event.pull_request.labels.*.name, 'PATCH')
+        run: |
+              poetry version patch
+
+      - name: Detect and tag new version
+        id:   check-version
+        if:   steps.check-parent-commit.outputs.sha
+        uses: salsify/action-detect-and-tag-new-version@v2.0.1
+        with:
+          version-command: |
+                           bash -o pipefail -c "poetry version | awk '{ print \$2 }'"
+      - name: Build package
+        run:  |
+              poetry build --ansi
+      - name: Publish package on PyPI
+        if:   steps.check-version.outputs.tag
+        uses: pypa/gh-action-pypi-publish@v1.5.0
+        with:
+          user: __token__
+          password: ${{"{{"}} secrets.PYPI_TOKEN {{"}}"}}
+      - name: Publish the release notes
+        uses: release-drafter/release-drafter@v5.20.0
+        with:
+          publish: ${{"{{"}} steps.check-version.outputs.tag != '' {{"}}"}}
+          tag: ${{"{{"}} steps.check-version.outputs.tag {{"}}"}}
+        env:
+          GITHUB_TOKEN: {{ cookiecutter.personal_access_token_secret_name }}
+      - name: Set up QEMU
+        if:   steps.check-version.outputs.tag
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        if:   steps.check-version.outputs.tag
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        if:   steps.check-version.outputs.tag
+        uses: docker/login-action@v1
+        with:
+          username: ${{"{{"}} secrets.DOCKER_USERNAME {{"}}"}}
+          password: ${{"{{"}} secrets.DOCKER_PASSWORD {{"}}"}}
+      - name: Declare Version Variable
+        if:   steps.check-version.outputs.tag
+        run:  |
+              PACKAGE_VERSION=$(poetry version --short)
+              PACKAGE_NAME=$(poetry version | awk '{ print $2 }')
+              echo PACKAGE_VERSION=${PACKAGE_VERSION} >> $GITHUB_ENV
+              echo PACKAGE_NAME=${PACKAGE_NAME} >> $GITHUB_ENV
+      - name: Docker Image Building and Publishing
+        id:   docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: {{ cookiecutter.github_username }}/${{"{{"}} env.PACKAGE_NAME {{"}}"}}:latest,{{ cookiecutter.github_username }}/${{"{{"}} env.PACKAGE_NAME {{"}}"}}:${{"{{"}} env.PACKAGE_VERSION {{"}}"}}
