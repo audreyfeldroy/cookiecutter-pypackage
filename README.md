@@ -16,8 +16,6 @@ pipx install poetry
 
 [pipx] is preferred, but you can also install with `pip install --user`.
 
-It is recommended to set up Python 3.7, 3.8, 3.9, 3.10 using [pyenv].
-
 ## Creating a project
 
 Generate a Python project:

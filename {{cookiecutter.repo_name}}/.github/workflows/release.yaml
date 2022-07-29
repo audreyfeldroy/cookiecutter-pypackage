@@ -10,7 +10,7 @@ on:
 jobs:
 
   version-bump:
-    name:    version-bumpp
+    name:    version-bump
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
     steps:
@@ -104,4 +104,4 @@ jobs:
                 tag: ${{"{{"}} env.PROJECT_TAG {{"}}"}}
                 publish: true
             env:
-                GITHUB_TOKEN: ${{"{{"}} secrets.{{ cookiecutter.personal_access_token_secret_name }} {{"}}"}}
+                GITHUB_TOKEN: ${{"{{"}} secrets.PERSONAL_ACCESS_TOKEN {{"}}"}}

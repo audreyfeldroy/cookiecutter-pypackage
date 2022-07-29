@@ -7,12 +7,20 @@ name = "{{ cookiecutter.repo_name }}"
 description = "{{ cookiecutter.project_short_description }}"
 version = "{{ cookiecutter.version }}"
 authors = ["{{ cookiecutter.full_name }} <{{ cookiecutter.email }}>"]
-license = "MIT"
+license = "{{ cookiecutter.license }}"
 readme = "README.md"
 homepage = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}"
 repository = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}"
 documentation = "https://{{ cookiecutter.github_username }}.github.io/{{ cookiecutter.repo_name }}"
-classifiers = ["Development Status :: 3 - Alpha"]
+classifiers = [
+    "{{ cookiecutter.development_status }}",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10"
+]
 
 [tool.poetry.dependencies]
 python = ">=3.7.1,<4.0"
@@ -40,7 +48,7 @@ dev = [
 ]
 
 [tool.poetry.scripts]
-{{ cookiecutter.repo_name }} = "{{ cookiecutter.project_slug }}.__main__:main"
+{{ cookiecutter.repo_name }} = "{{ cookiecutter.project_slug }}._cli:command_line_interface"
 
 [tool.poetry.urls]
 Changelog = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/releases"
