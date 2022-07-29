@@ -8,13 +8,13 @@ Install [Cookiecutter]:
 pipx install cookiecutter
 ```
 
-[pipx] is preferred, but you can also install with `pip install --user`.
-
-Install [Poetry] by downloading and running [install-poetry.py]:
+Install [Poetry]:
 
 ```shell
-python install-poetry.py
+pipx install poetry
 ```
+
+[pipx] is preferred, but you can also install with `pip install --user`.
 
 It is recommended to set up Python 3.7, 3.8, 3.9, 3.10 using [pyenv].
 
@@ -68,6 +68,8 @@ poetry run tox
 1. Sign up at [GitHub].
 2. Create an empty repository for your project.
 3. Follow the instructions to push an existing repository from the command line.
+4. Go to the repository settings on GitHub, and
+   add a secret named `PERSONAL_ACCESS_TOKEN` with your GitHub Personal Access Token.
 
 ### PyPI
 
@@ -76,14 +78,6 @@ poetry run tox
    generate an API token, and copy it.
 3. Go to the repository settings on GitHub, and
    add a secret named `PYPI_TOKEN` with the token you just copied.
-
-### TestPyPI
-
-1. Sign up at [TestPyPI].
-2. Go to the Account Settings on TestPyPI,
-   generate an API token, and copy it.
-3. Go to the repository settings on GitHub, and
-   add a secret named `TEST_PYPI_TOKEN` with the token you just copied.
 
 ### Read the Docs
 
@@ -97,14 +91,13 @@ poetry run tox
 
 ## Releasing
 
-Releases are triggered by a version bump on the default branch.
-It is recommended to do this in a separate pull request:
+Releases are triggered entirely by CI/CD via Pull requests being merged into 
+the main branch. 
 
-1. Switch to a branch.
-2. Bump the version using [poetry version].
-3. Commit and push to GitHub.
-4. Open a pull request.
-5. Merge the pull request.
+The version bump on each release is decided by the labels placed on the Pull Requests.
+There must be one, and only one, of the following labels on each pull request to the main branch:
+`MAJOR`, `MINOR`, `PATCH`. Pull Requests will be un-mergeable unless the version on
+your `pyproject.toml` matches the main branch and the proper version labels are applied.
 
 The Release workflow performs the following automated steps:
 

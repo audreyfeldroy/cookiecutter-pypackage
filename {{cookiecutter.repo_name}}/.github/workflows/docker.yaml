@@ -4,7 +4,7 @@ on:
     pull_request:
         branches: ['**']
 jobs:
-    docker:
+    docker-ci-test:
         runs-on: ubuntu-latest
         steps:
         -   name: Set up Github Workspace
@@ -26,7 +26,7 @@ jobs:
         -   name: Declare Version Variable
             run: |
                 PROJECT_VERSION=$(poetry version --short)
-                PROJECT_NAME=$(poetry version | awk '{ print $2 }')
+                PROJECT_NAME=$(poetry version | awk '{ print $1 }')
                 echo PROJECT_VERSION=${PROJECT_VERSION} >> $GITHUB_ENV
                 echo PROJECT_NAME=${PROJECT_NAME} >> $GITHUB_ENV
         -   name: Docker Image Building and Publishing

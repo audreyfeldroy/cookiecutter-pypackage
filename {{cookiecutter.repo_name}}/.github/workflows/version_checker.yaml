@@ -5,7 +5,7 @@ on:
         branches:
         -   {{ cookiecutter.default_branch }}
 jobs:
-    version-checker:
+    version-checker-{{ cookiecutter.default_branch }}:
         runs-on: ubuntu-latest
         steps:
         -   name: Set up Python
@@ -34,6 +34,35 @@ jobs:
             run: |
                 CURRENT_VERSION="$(poetry version --short)"
                 echo CURRENT_VERSION="${CURRENT_VERSION}" >> ${GITHUB_ENV}
-        -   name: Compare Versions
+                if [ "${CURRENT_VERSION}" == "${COMPARED_VERSION}" ]; then
+                   echo MATCH="true" >> ${GITHUB_ENV}
+                else
+                   echo MATCH="false" >> ${GITHUB_ENV}
+                fi
+        - uses: marocchino/sticky-pull-request-comment@v2
+          if: ${{"{{"}} env.MATCH == 'false' {{"}}"}}
+          with:
+              header: different-version-{{ cookiecutter.default_branch }}
+              message:  |
+                  # Incorrect Version - pyproject.toml
+
+                  Your version doesn't align with what's on the `{{ cookiecutter.default_branch }}` branch.
+
+                  Set your version to `${{"{{"}} env.COMPARED_VERSION {{"}}"}}` to proceed:
+                  ```shell
+                  poetry version ${{"{{"}} env.COMPARED_VERSION {{"}}"}}
+                  git add pyproject.toml
+                  git commit -m "Version Bump - ${{"{{"}} env.COMPARED_VERSION {{"}}"}}"
+                  git push
+                  ```
+        - uses: marocchino/sticky-pull-request-comment@v2
+          if: ${{"{{"}} env.MATCH == 'true' {{"}}"}}
+          with:
+              header: different-version-{{ cookiecutter.default_branch }}
+              delete: true
+        -   name: Raise Error
+            if: ${{"{{"}} env.MATCH == 'false' {{"}}"}}
             run: |
-                python "${{"{{"}} github.workspace {{"}}"}}/.github/helpers/version_check.py compare-versions"
+                echo "Versions don't align: ${CURRENT_VERSION} ${COMPARED_VERSION}"
+                echo "This repository updates the version automatically using labels"
+                exit 1

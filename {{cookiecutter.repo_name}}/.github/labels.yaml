@@ -6,13 +6,13 @@
 # the GitHub Action https://github.com/marketplace/actions/github-labeler.
 - name: MAJOR
   description: Apply a MAJOR version bump
-  color: AF9500
+  color: af9500
 - name: MINOR
   description: Apply a MINOR version bump
-  color: D7D7D7
+  color: d7d7d7
 - name: PATCH
   description: Apply a PATCH version bump
-  color: AD8A56
+  color: ad8a56
 - name: breaking
   description: Breaking Changes
   color: bfd4f2
@@ -73,3 +73,6 @@
 - name: wontfix
   description: This will not be worked on
   color: ffffff
+- name: triage
+  description: This will looked at
+  color: 68bd3b
