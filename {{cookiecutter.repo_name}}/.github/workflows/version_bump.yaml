@@ -1,7 +1,9 @@
 name: Version Bump
 
 on:
-  :
+  pull_request:
+    types:
+      - closed
     branches:
       - {{ cookiecutter.default_branch }}
 
