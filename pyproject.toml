@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "cookiecutter-juftin"
+description = "Personal Cookie Cutter Template"
+version = "0.0.1"
+authors = ["Justin Flannery <juftin@juftin.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/juftin/example-project"
+repository = "https://github.com/juftin/example-project"
+documentation = "https://juftin.github.io/example-project"
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10"
+]
+
+[tool.poetry.dependencies]
+python = ">=3.7.1,<4.0"
+click = ">=8.0.1"
+cookiecutter = ">=2.1.1"
+
+[tool.poetry.dev-dependencies]
+pytest = ">=5.2"
+coverage = { extras = ["toml"], version = ">=6.2" }
+flake8 = ">=3.0.0"
+tox = "^3.25.1"
+mypy = "^0.971"

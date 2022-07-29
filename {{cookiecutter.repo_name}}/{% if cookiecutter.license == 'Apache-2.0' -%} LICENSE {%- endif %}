@@ -1,4 +1,4 @@
-Copyright {{ cookiecutter.copyright_year }} {{ cookiecutter.full_name }}
+Copyright {% now 'local', '%Y' %} {{ cookiecutter.full_name }}
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

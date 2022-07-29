@@ -1,15 +1,15 @@
 {
   "project_name": "example-project",
-  "repo_name": "{{ cookiecutter.project_name.lower().replace(' ', '-').replace('-', '-') }}",
-  "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
-  "project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
+  "friendly_name": "{{ cookiecutter.project_name.lower().replace(' ', '-').replace('-', '-') }}",
+  "repo_name": "{{ cookiecutter.friendly_name.lower().replace(' ', '-').replace('-', '-') }}",
+  "project_slug": "{{ cookiecutter.friendly_name.lower().replace(' ', '_').replace('-', '_') }}",
+  "project_short_description": "Brief description of the project",
   "version": "0.0.0",
   "default_branch": "main",
   "full_name": "Justin Flannery",
   "email": "juftin@juftin.com",
   "github_username": "juftin",
-  "copyright_year": "{% now 'local', '%Y' %}",
-  "license": ["MIT", "Apache-2.0", "GPL-3.0"],
+  "license": ["MIT", "Apache-2.0", "GPL-3.0", "UNLICENSED"],
   "development_status": [
     "Development Status :: 1 - Planning",
     "Development Status :: 2 - Pre-Alpha",
@@ -19,7 +19,8 @@
     "Development Status :: 6 - Mature",
     "Development Status :: 7 - Inactive"
   ],
+  "publish_to_pypi": [false, true],
+  "publish_to_docker_hub": [ false, true],
   "logo_url": "https://raw.githubusercontent.com/juftin/juftin/main/static/juftin.png",
-  "favicon": "https://juftin.com/favicon.ico",
-  "_copy_without_render": []
+  "favicon": "https://juftin.com/favicon.ico"
 }

@@ -1,7 +1,7 @@
-# {{ cookiecutter.repo_name }} CLI
+# {{ cookiecutter.friendly_name }} CLI
 
 ```{eval-rst}
 .. click:: {{ cookiecutter.project_slug }}._cli:command_line_interface
-   :prog: {{ cookiecutter.repo_name }}
+   :prog: {{ cookiecutter.friendly_name }}
    :nested: full
 ```

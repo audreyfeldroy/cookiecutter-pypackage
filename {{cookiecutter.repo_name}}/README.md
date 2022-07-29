@@ -39,7 +39,7 @@ Run the command-line interface from the source tree:
 
 ```shell
 poetry install
-poetry run {{ cookiecutter.repo_name }}
+poetry run {{ cookiecutter.friendly_name }}
 ```
 
 Run an interactive Python session:

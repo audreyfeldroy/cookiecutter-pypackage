@@ -6,7 +6,7 @@ on:
             - created
 
 jobs:
-
+{% if cookiecutter.publish_to_pypi == 'True' -%}
     pypi-publish:
         name:    PyPI
         runs-on: ubuntu-latest
@@ -36,7 +36,8 @@ jobs:
                 with:
                     user: __token__
                     password: ${{"{{"}} secrets.PYPI_TOKEN {{"}}"}}
-
+{% endif %}
+{% if cookiecutter.publish_to_docker_hub == 'True' -%}
     docker-hub-publish:
         name:    docker-hub
         runs-on: ubuntu-latest
@@ -70,7 +71,4 @@ jobs:
                 with:
                     push: false
                     tags: {{ cookiecutter.github_username }}/${{"{{"}} env.PACKAGE_NAME {{"}}"}}:latest,{{ cookiecutter.github_username }}/${{"{{"}} env.PACKAGE_NAME {{"}}"}}:${{"{{"}} env.PACKAGE_VERSION {{"}}"}}
-
-
-
-
+{% endif %}

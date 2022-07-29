@@ -4,5 +4,5 @@
 
 __author__ = "{{ cookiecutter.full_name }}"
 __email__ = "{{ cookiecutter.email }}"
-__application__ = "{{ cookiecutter.repo_name }}"
+__application__ = "{{ cookiecutter.friendly_name }}"
 __version__ = "{{ cookiecutter.version }}"
