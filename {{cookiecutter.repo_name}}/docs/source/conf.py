@@ -10,7 +10,7 @@ _project_path = Path(__file__).resolve().parent.parent.parent
 _project_dir = str(_project_path)
 sys.path.insert(0, _project_dir)
 
-from {{cookiecutter.project_slug}}._version import __application__, __author__, __version__  # noqa
+from {{ cookiecutter.project_slug }}._version import __application__, __author__, __version__  # noqa
 
 _author = __author__
 project = __application__

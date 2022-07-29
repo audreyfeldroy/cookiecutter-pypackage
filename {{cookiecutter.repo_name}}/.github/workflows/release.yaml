@@ -1,73 +1,19 @@
 name: Release
 
 on:
-  pull_request:
-    types:
-      - closed
-    branches:
-      -   {{ cookiecutter.default_branch }}
+    pull_request:
+        types:
+        -   closed
+        branches:
+        -   {{ cookiecutter.default_branch }}
 
 jobs:
 
-  version-bump:
-    name:    version-bump
-    runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
-    steps:
-      -   name: Check out the repository
-          uses: actions/checkout@v3
-          with:
-            fetch-depth: 2
-            ref: {{ cookiecutter.default_branch }}
-      -   name: Set up Python
-          uses: actions/setup-python@v3
-          with:
-            python-version: "3.9"
-      -   name: Upgrade pip
-          run:  |
-                pip install --upgrade pip
-                pip --version
-      -   name: Install Poetry
-          run:  |
-                pip install poetry
-                poetry --version
-      -   name: Check if there is a parent commit
-          id:   check-parent-commit
-          run:  |
-                echo "::set-output name=sha::$(git rev-parse --verify --quiet HEAD^)"
-      -   name: Version Bump - MAJOR
-          if:   contains( github.event.pull_request.labels.*.name, 'MAJOR')
-          run:  |
-                poetry version major
-      -   name: Version Bump - MINOR
-          if:   contains( github.event.pull_request.labels.*.name, 'MINOR')
-          run:  |
-                poetry version minor
-      -   name: Version Bump - PATCH
-          if:   contains( github.event.pull_request.labels.*.name, 'PATCH')
-          run:  |
-                poetry version patch
-      -   name: Setup Git Config
-          run:  |
-                git config --global user.name "github-actions[bot]"
-                git config --global user.email "github-actions[bot]@users.noreply.github.com"
-      -   name: Update Version Variable
-          run: |
-              PROJECT_VERSION=$(poetry version --short)
-              REPLACED_VERSION_FILE_TEXT=$(grep -F -v "__version__" {{ cookiecutter.project_slug }}/_version.py)
-              echo "${REPLACED_VERSION_FILE_TEXT}" > {{ cookiecutter.project_slug }}/_version.py
-              echo "__version__ = \""${PROJECT_VERSION}\""" >> {{ cookiecutter.project_slug }}/_version.py
-              git add {{ cookiecutter.project_slug }}/_version.py
-              git add pyproject.toml
-              git commit -m "Version Bump - ${PROJECT_VERSION}" || true
-              git push
-
-  github-release:
-    name:    github-release
-    runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
-    needs: version-bump
-    steps:
+    version-bump:
+        name: version-bump
+        runs-on: ubuntu-latest
+        if: github.event.pull_request.merged == true
+        steps:
         -   name: Check out the repository
             uses: actions/checkout@v3
             with:
@@ -76,15 +22,69 @@ jobs:
         -   name: Set up Python
             uses: actions/setup-python@v3
             with:
-                python-version: "3.9"
+                python-version: '3.9'
         -   name: Upgrade pip
-            run:  |
-                  pip install --upgrade pip
-                  pip --version
+            run: |
+                pip install --upgrade pip
+                pip --version
         -   name: Install Poetry
-            run:  |
-                  pip install poetry
-                  poetry --version
+            run: |
+                pip install poetry
+                poetry --version
+        -   name: Check if there is a parent commit
+            id: check-parent-commit
+            run: |
+                echo "::set-output name=sha::$(git rev-parse --verify --quiet HEAD^)"
+        -   name: Version Bump - MAJOR
+            if: contains( github.event.pull_request.labels.*.name, 'MAJOR')
+            run: |
+                poetry version major
+        -   name: Version Bump - MINOR
+            if: contains( github.event.pull_request.labels.*.name, 'MINOR')
+            run: |
+                poetry version minor
+        -   name: Version Bump - PATCH
+            if: contains( github.event.pull_request.labels.*.name, 'PATCH')
+            run: |
+                poetry version patch
+        -   name: Setup Git Config
+            run: |
+                git config --global user.name "github-actions[bot]"
+                git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        -   name: Update Version Variable
+            run: |
+                PROJECT_VERSION=$(poetry version --short)
+                REPLACED_VERSION_FILE_TEXT=$(grep -F -v "__version__" {{ cookiecutter.project_slug }}/_version.py)
+                echo "${REPLACED_VERSION_FILE_TEXT}" > {{ cookiecutter.project_slug }}/_version.py
+                echo "__version__ = \""${PROJECT_VERSION}\""" >> {{ cookiecutter.project_slug }}/_version.py
+                git add {{ cookiecutter.project_slug }}/_version.py
+                git add pyproject.toml
+                git commit -m "Version Bump - ${PROJECT_VERSION}" || true
+                git push
+
+    github-release:
+        name: github-release
+        runs-on: ubuntu-latest
+        if: github.event.pull_request.merged == true
+        needs: version-bump
+        steps:
+        -   name: Check out the repository
+            uses: actions/checkout@v3
+            with:
+                fetch-depth: 2
+                ref: {{ cookiecutter.default_branch }}
+        -   name: Set up Python
+            uses: actions/setup-python@v3
+            with:
+                python-version: '3.9'
+        -   name: Upgrade pip
+            run: |
+                pip install --upgrade pip
+                pip --version
+        -   name: Install Poetry
+            run: |
+                pip install poetry
+                poetry --version
         -   name: Declare Version Variable
             run: |
                 PROJECT_VERSION=$(poetry version --short)

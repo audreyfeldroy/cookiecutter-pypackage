@@ -20,7 +20,7 @@
     "Development Status :: 7 - Inactive"
   ],
   "publish_to_pypi": [false, true],
-  "publish_to_docker_hub": [ false, true],
+  "publish_to_docker_hub": [false, true],
   "logo_url": "https://raw.githubusercontent.com/juftin/juftin/main/static/juftin.png",
   "favicon": "https://juftin.com/favicon.ico"
 }

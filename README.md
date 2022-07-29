@@ -24,7 +24,7 @@ Generate a Python project:
 cookiecutter gh:juftin/cookiecutter-pypackage
 ```
 
-Change to the root directory of your new project, create a Git 
+Change to the root directory of your new project, create a Git
 repository, and install [pre-commit]
 
 ```shell
@@ -89,8 +89,8 @@ poetry run tox
 
 ## Releasing
 
-Releases are triggered entirely by CI/CD via Pull requests being merged into 
-the main branch. 
+Releases are triggered entirely by CI/CD via Pull requests being merged into
+the main branch.
 
 The version bump on each release is decided by the labels placed on the Pull Requests.
 There must be one, and only one, of the following labels on each pull request to the main branch:

@@ -8,7 +8,7 @@
 
 ### Requirements
 
-{{ cookiecutter.project_name }} uses [Poetry] to  manage its Python environment. 
+{{ cookiecutter.project_name }} uses [Poetry] to  manage its Python environment.
 To get started first install `poetry`:
 
 ```shell
@@ -19,8 +19,8 @@ pipx install poetry
 
 ### Coding
 
-{{ cookiecutter.project_name }} makes use of a couple tools to help with contributing via 
-`pre-commit`. 
+{{ cookiecutter.project_name }} makes use of a couple tools to help with contributing via
+`pre-commit`.
 
 - [pre-commit](https://pre-commit.com/) is a tool to manage git-hooks scripts, which are useful
   for identifying simple issues before submission to code review.

@@ -1,13 +1,13 @@
 # Description
 
-Please include a summary of the changes and a link/description of the related issue. 
+Please include a summary of the changes and a link/description of the related issue.
 Please also include relevant motivation and context.
 
 
 # Has This Been Tested?
 
-Please describe the tests that you ran to verify your changes. 
-Provide instructions to reproduce - please also list any relevant details for 
+Please describe the tests that you ran to verify your changes.
+Provide instructions to reproduce - please also list any relevant details for
 your test configuration
 
 

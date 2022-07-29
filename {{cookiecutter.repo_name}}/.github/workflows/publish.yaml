@@ -6,7 +6,8 @@ on:
             - created
 
 jobs:
-{% if cookiecutter.publish_to_pypi == 'True' -%}
+
+    {% if cookiecutter.publish_to_pypi == 'True' -%}
     pypi-publish:
         name:    PyPI
         runs-on: ubuntu-latest
@@ -35,9 +36,8 @@ jobs:
                 uses: pypa/gh-action-pypi-publish@v1.5.0
                 with:
                     user: __token__
-                    password: ${{"{{"}} secrets.PYPI_TOKEN {{"}}"}}
-{% endif %}
-{% if cookiecutter.publish_to_docker_hub == 'True' -%}
+                    password: ${{"{{"}} secrets.PYPI_TOKEN {{"}}"}}{% endif %}
+    {% if cookiecutter.publish_to_docker_hub == 'True' %}
     docker-hub-publish:
         name:    docker-hub
         runs-on: ubuntu-latest
@@ -70,5 +70,4 @@ jobs:
                 uses: docker/build-push-action@v2
                 with:
                     push: false
-                    tags: {{ cookiecutter.github_username }}/${{"{{"}} env.PACKAGE_NAME {{"}}"}}:latest,{{ cookiecutter.github_username }}/${{"{{"}} env.PACKAGE_NAME {{"}}"}}:${{"{{"}} env.PACKAGE_VERSION {{"}}"}}
-{% endif %}
+                    tags: {{ cookiecutter.github_username }}/${{"{{"}} env.PACKAGE_NAME {{"}}"}}:latest,{{ cookiecutter.github_username }}/${{"{{"}} env.PACKAGE_NAME {{"}}"}}:${{"{{"}} env.PACKAGE_VERSION {{"}}"}}{% endif %}

@@ -39,27 +39,27 @@ jobs:
                 else
                    echo MATCH="false" >> ${GITHUB_ENV}
                 fi
-        - uses: marocchino/sticky-pull-request-comment@v2
-          if: ${{"{{"}} env.MATCH == 'false' {{"}}"}}
-          with:
-              header: different-version-{{ cookiecutter.default_branch }}
-              message:  |
-                  # Incorrect Version - pyproject.toml
+        -   uses: marocchino/sticky-pull-request-comment@v2
+            if: ${{"{{"}} env.MATCH == 'false' {{"}}"}}
+            with:
+                header: different-version-{{ cookiecutter.default_branch }}
+                message: |
+                    # Incorrect Version - pyproject.toml
 
-                  Your version doesn't align with what's on the `{{ cookiecutter.default_branch }}` branch.
+                    Your version doesn't align with what's on the `{{ cookiecutter.default_branch }}` branch.
 
-                  Set your version to `${{"{{"}} env.COMPARED_VERSION {{"}}"}}` to proceed:
-                  ```shell
-                  poetry version ${{"{{"}} env.COMPARED_VERSION {{"}}"}}
-                  git add pyproject.toml
-                  git commit -m "Version Bump - ${{"{{"}} env.COMPARED_VERSION {{"}}"}}"
-                  git push
-                  ```
-        - uses: marocchino/sticky-pull-request-comment@v2
-          if: ${{"{{"}} env.MATCH == 'true' {{"}}"}}
-          with:
-              header: different-version-{{ cookiecutter.default_branch }}
-              delete: true
+                    Set your version to `${{"{{"}} env.COMPARED_VERSION {{"}}"}}` to proceed:
+                    ```shell
+                    poetry version ${{"{{"}} env.COMPARED_VERSION {{"}}"}}
+                    git add pyproject.toml
+                    git commit -m "Version Bump - ${{"{{"}} env.COMPARED_VERSION {{"}}"}}"
+                    git push
+                    ```
+        -   uses: marocchino/sticky-pull-request-comment@v2
+            if: ${{"{{"}} env.MATCH == 'true' {{"}}"}}
+            with:
+                header: different-version-{{ cookiecutter.default_branch }}
+                delete: true
         -   name: Raise Error
             if: ${{"{{"}} env.MATCH == 'false' {{"}}"}}
             run: |

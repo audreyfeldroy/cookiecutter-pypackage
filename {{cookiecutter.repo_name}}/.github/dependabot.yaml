@@ -1,33 +1,33 @@
 version: 2
 updates:
-  - package-ecosystem: github-actions
-    directory:         "/"
+-   package-ecosystem: github-actions
+    directory: /
     schedule:
-      interval: daily
+        interval: daily
     labels:
-      - "dependencies"
-      - "PATCH"
-  - package-ecosystem: pip
-    directory:         "/.github/workflows"
+    -   dependencies
+    -   PATCH
+-   package-ecosystem: pip
+    directory: /.github/workflows
     schedule:
-      interval: daily
+        interval: daily
     labels:
-      - "dependencies"
-      - "PATCH"
-  - package-ecosystem: pip
-    directory:         "/docs"
+    -   dependencies
+    -   PATCH
+-   package-ecosystem: pip
+    directory: /docs
     schedule:
-      interval: daily
+        interval: daily
     labels:
-      - "dependencies"
-      - "PATCH"
-  - package-ecosystem:   pip
-    directory:           "/"
+    -   dependencies
+    -   PATCH
+-   package-ecosystem: pip
+    directory: /
     schedule:
-      interval: daily
+        interval: daily
     versioning-strategy: lockfile-only
     allow:
-      - dependency-type: "all"
+    -   dependency-type: all
     labels:
-      - "dependencies"
-      - "PATCH"
+    -   dependencies
+    -   PATCH

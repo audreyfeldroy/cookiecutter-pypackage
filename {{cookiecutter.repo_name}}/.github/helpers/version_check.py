@@ -20,10 +20,7 @@ logging.basicConfig(
 current_version_env = getenv("CURRENT_VERSION", None)
 compared_version_env = getenv("COMPARED_VERSION", None)
 
-if any([
-    current_version_env is None,
-    compared_version_env is None
-]):
+if any([current_version_env is None, compared_version_env is None]):
     raise EnvironmentError(
         f"You must set the `CURRENT_VERSION` and `MAIN_VERSION` "
         "environment variables."
