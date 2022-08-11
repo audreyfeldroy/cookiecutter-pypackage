@@ -6,16 +6,18 @@ from setuptools import setup, find_packages
 this_directory = Path(__file__).parent.absolute()
 
 about = {}
-about_path = os.path.join(this_directory, '{{ cookiecutter.project_slug }}', "__about__.py")
-try: 
+about_path = os.path.join(this_directory, "{{ cookiecutter.project_slug }}", "__about__.py")
+try:
     with open(about_path, "r", encoding="utf-8") as f:
         exec(f.read(), about)
 except:
     print(about_path)
     print(__file__)
     raise FileNotFoundError(about_path)
+
+
 def parse_requirements(filename):
-    """ load requirements from a pip requirements file """
+    """Load requirements from a pip requirements file."""
     lineiter = (line.strip() for line in open(filename))
     return [line for line in lineiter if line and not line.startswith("#")]
 
@@ -25,14 +27,14 @@ def readme():
 
 ## workaround derived from: https://github.com/pypa/pip/issues/7645#issuecomment-578210649
 requirements = parse_requirements(
-    'requirements.txt',
+    "requirements.txt",
 )
 ## workaround derived from: https://github.com/pypa/pip/issues/7645#issuecomment-578210649
 dev_requirements = parse_requirements(
-    'requirements_dev.txt',
+    "requirements_dev.txt",
 )
 
-test_requirements = [{%- if cookiecutter.use_pytest == 'y' %}'pytest>=3', "pytest-cov",{%- endif %} ]
+test_requirements = [{%- if cookiecutter.use_pytest == "y" %}"pytest>=3", "pytest-cov",{%- endif %} ]
 
 extras_require = {
     "dev": dev_requirements,
@@ -40,36 +42,36 @@ extras_require = {
 }
 
 {%- set license_classifiers = {
-    'MIT license': 'License :: OSI Approved :: MIT License',
-    'BSD license': 'License :: OSI Approved :: BSD License',
-    'ISC license': 'License :: OSI Approved :: ISC License (ISCL)',
-    'Apache Software License 2.0': 'License :: OSI Approved :: Apache Software License',
-    'GNU General Public License v3': 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)'
+    "MIT license": "License :: OSI Approved :: MIT License",
+    "BSD license": "License :: OSI Approved :: BSD License",
+    "ISC license": "License :: OSI Approved :: ISC License (ISCL)",
+    "Apache Software License 2.0": "License :: OSI Approved :: Apache Software License",
+    "GNU General Public License v3": "License :: OSI Approved :: GNU General Public License v3 (GPLv3)"
 } %}
 
 setup(
-    author=about.get('__author__'),
-    author_email=about.get('__email__'),
-    python_requires='>=3.6',
+    author=about.get("__author__"),
+    author_email=about.get("__email__"),
+    python_requires=">=3.6",
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
-        'Intended Audience :: Developers',
+        "Development Status :: 2 - Pre-Alpha",
+        "Intended Audience :: Developers",
 {%- if cookiecutter.open_source_license in license_classifiers %}
-        '{{ license_classifiers[cookiecutter.open_source_license] }}',
+        "{{ license_classifiers[cookiecutter.open_source_license] }}",
 {%- endif %}
-        'Natural Language :: English',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
+        "Natural Language :: English",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
     ],
-    description=about.get('__description__'),
+    description=about.get("__description__"),
     long_description=readme(),
     long_description_content_type="text/markdown",
-    {%- if 'no' not in cookiecutter.command_line_interface|lower %}
+    {%- if "no" not in cookiecutter.command_line_interface|lower %}
     entry_points={
-        'console_scripts': [
-            '{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:main',
+        "console_scripts": [
+            "{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:main",
         ],
     },
     {%- endif %}
@@ -79,12 +81,12 @@ setup(
     license="{{ cookiecutter.open_source_license }}",
 {%- endif %}
     include_package_data=True,
-    keywords='{{ cookiecutter.project_slug }}',
-    name='{{ cookiecutter.project_slug }}',
-    packages=find_packages(include=['{{ cookiecutter.project_slug }}', '{{ cookiecutter.project_slug }}.*']),
-    test_suite='tests',
+    keywords="{{ cookiecutter.project_slug }}",
+    name="{{ cookiecutter.project_slug }}",
+    packages=find_packages(include=["{{ cookiecutter.project_slug }}", "{{ cookiecutter.project_slug }}.*"]),
+    test_suite="tests",
     tests_require=test_requirements,
-    url=about.get('__url__'),
-    version=about.get('__version__'),
+    url=about.get("__url__"),
+    version=about.get("__version__"),
     zip_safe=False,
 )

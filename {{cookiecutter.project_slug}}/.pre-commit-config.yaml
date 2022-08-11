@@ -1,10 +1,16 @@
 repos:
   - repo: https://github.com/timothycrosley/isort
-    rev: stable
+    rev: 5.10.1
     hooks:
       - id: isort
         additional_dependencies: ["toml"]
   - repo: https://github.com/psf/black
-    rev: stable
+    rev: 22.6.0
     hooks:
       - id: black
+        exclude: |
+              (?x)(
+                  ^docs/|
+                  ^tests/|
+                  ^setup.py
+              )
