@@ -1,0 +1,3 @@
+myst_parser
+furo
+Sphinx==5.1.1
