@@ -92,8 +92,10 @@ docs: ## generate Sphinx HTML documentation, including API docs
 servedocs: docs ## compile the docs watching for changes
 	watchmedo shell-command -p '*.rst' -c '$(MAKE) -C docs html' -R -D .
 
+{%- if cookiecutter.pypi_username %}
 release: dist ## package and upload a release
 	twine upload dist/*
+{%- endif %}
 
 release-patch:
 	@# Remove the trailing -dev0 from version number and tag the new version
