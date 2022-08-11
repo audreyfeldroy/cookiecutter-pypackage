@@ -41,8 +41,6 @@ TODO
 
 * Merge config files into pyproject.toml 
 * Add `mypy` config
-* Change .rst format to .md format and migrate doc to Mkdocs
-* Add `fire` support in CLI
 
 Build Status
 -------------
