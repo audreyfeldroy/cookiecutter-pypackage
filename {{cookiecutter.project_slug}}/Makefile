@@ -132,3 +132,4 @@ dist: clean ## builds source and wheel package
 
 install: clean ## install the package to the active Python's site-packages
 	pip install -e ".[dev,test]"
+	pre-commit install

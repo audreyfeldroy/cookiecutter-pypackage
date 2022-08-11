@@ -1,0 +1,10 @@
+repos:
+  - repo: https://github.com/timothycrosley/isort
+    rev: stable
+    hooks:
+      - id: isort
+        additional_dependencies: ["toml"]
+  - repo: https://github.com/psf/black
+    rev: stable
+    hooks:
+      - id: black
