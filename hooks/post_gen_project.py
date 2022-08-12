@@ -20,3 +20,6 @@ if __name__ == '__main__':
 
     if 'Not open source' == '{{ cookiecutter.open_source_license }}':
         remove_file('LICENSE')
+
+    if 'n' == '{{ cookiecutter.use_travis }}':
+        remove_file('.travis.yml')
