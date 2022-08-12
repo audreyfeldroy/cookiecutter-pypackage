@@ -166,3 +166,13 @@ make my own packaging experience better.
 .. _github comparison view: https://github.com/tony/cookiecutter-pypackage-pythonic/compare/audreyr:master...master
 .. _`network`: https://github.com/audreyr/cookiecutter-pypackage/network
 .. _`family tree`: https://github.com/audreyr/cookiecutter-pypackage/network/members
+
+Run tests
+----
+
+```
+pip install -r requirements_dev.txt
+python -m pytest tests
+```
+
+or use `act` to run in docker the github workflows.

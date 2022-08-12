@@ -2,6 +2,7 @@ name: cookiecutter_pypackage tests
 
 on:
   push:
+<<<<<<< HEAD
     branches:
       - main
     # paths:
@@ -11,6 +12,17 @@ on:
       - main
     # paths:
     #   - '**.py'
+=======
+    branches: 
+      - main
+    paths:
+      - '**.py'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**.py'
+>>>>>>> 18c4d1d (Add workflows)
 
 jobs:
   test:
@@ -20,7 +32,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install dependencies
       run: |
-        pip install -e ".[test]"
+        pip install -r requirements_dev.txt
     - name: Run tests with Pytest
       run: |
         python -m pytest tests
