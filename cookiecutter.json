@@ -10,6 +10,7 @@
   "use_pytest": "n",
   "use_black": "y",
   "use_pypi_deployment_with_travis": "n",
+  "use_pre_commit": "y",
   "use_travis": "n",
   "add_pyup_badge": "n",
   "command_line_interface": ["Click", "Argparse", "No command-line interface"],

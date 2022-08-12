@@ -354,3 +354,18 @@ def test_black(cookies, use_black, expected):
         assert ("black" in requirements_path.read()) is expected
         makefile_path = result.project.join('Makefile')
         assert ("black --check" in makefile_path.read()) is expected
+
+
+@pytest.mark.parametrize("use_pre_commit,expected", [("y", True), ("n", False)])
+def test_pre_commit(cookies, use_pre_commit, expected):
+    with bake_in_temp_dir(
+        cookies,
+        extra_context={'use_pre_commit': use_pre_commit}
+    ) as result:
+        assert result.project.isdir()
+        requirements_path = result.project.join('requirements_dev.txt')
+        assert ("pre-commit" in requirements_path.read()) is expected
+        makefile_path = result.project.join('Makefile')
+        assert ("pre-commit install" in makefile_path.read()) is expected
+        pre_commit_path = result.project.join('.pre-commit-config.yaml')
+        assert pre_commit_path.exists() is expected

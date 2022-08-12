@@ -23,3 +23,6 @@ if __name__ == '__main__':
 
     if 'n' == '{{ cookiecutter.use_travis }}':
         remove_file('.travis.yml')
+
+    if 'n' == '{{ cookiecutter.use_pre_commit }}':
+        remove_file('.pre-commit-config.yaml')
