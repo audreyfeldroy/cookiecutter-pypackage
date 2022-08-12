@@ -24,12 +24,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install dependencies
       run: |
-        pip install pytest
-        pip install pytest-cov
-        pip install -e .
+        pip install -e ".[test]"
     - name: Run tests with Pytest
       run: |
-        coverage run -m pytest . && coverage xml
-
+        make coverage
     - name: Doctests
-      run: pytest --doctest-modules .
+      run: make doctest

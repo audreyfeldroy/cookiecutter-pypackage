@@ -1,0 +1,26 @@
+name: cookiecutter_pypackage tests
+
+on:
+  push:
+    branches:
+      - main
+    # paths:
+    #   - '**.py'
+  pull_request:
+    branches:
+      - main
+    # paths:
+    #   - '**.py'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: python:3.8
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: |
+        pip install -e ".[test]"
+    - name: Run tests with Pytest
+      run: |
+        python -m pytest tests

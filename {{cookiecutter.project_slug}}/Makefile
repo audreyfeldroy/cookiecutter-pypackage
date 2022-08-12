@@ -51,6 +51,9 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
+doctest:
+	python -m pytest --doctest-modules {{ cookiecutter.project_slug }} tests
+
 lint/flake8: ## check style with flake8
 	flake8 {{ cookiecutter.project_slug }} tests
 
