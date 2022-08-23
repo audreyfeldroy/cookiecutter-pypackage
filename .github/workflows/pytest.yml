@@ -1,0 +1,38 @@
+name: cookiecutter_pypackage tests
+
+on:
+  push:
+<<<<<<< HEAD
+    branches:
+      - main
+    # paths:
+    #   - '**.py'
+  pull_request:
+    branches:
+      - main
+    # paths:
+    #   - '**.py'
+=======
+    branches: 
+      - main
+    paths:
+      - '**.py'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**.py'
+>>>>>>> 18c4d1d (Add workflows)
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: python:3.8
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: |
+        pip install -r requirements_dev.txt
+    - name: Run tests with Pytest
+      run: |
+        python -m pytest tests

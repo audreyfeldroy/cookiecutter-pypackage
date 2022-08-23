@@ -41,8 +41,6 @@ TODO
 
 * Merge config files into pyproject.toml 
 * Add `mypy` config
-* Change .rst format to .md format and migrate doc to Mkdocs
-* Add `fire` support in CLI
 
 Build Status
 -------------
@@ -105,7 +103,7 @@ Similar Cookiecutter Templates
 
 * `tony/cookiecutter-pypackage-pythonic`_: Fork with py2.7+3.3 optimizations.
   Flask/Werkzeug-style test runner, ``_compat`` module and module/doc conventions.
-  See ``README.rst`` or the `github comparison view`_ for exhaustive list of
+  See ``README.md`` or the `github comparison view`_ for exhaustive list of
   additions and modifications.
 
 * `ardydedase/cookiecutter-pypackage`_: A fork with separate requirements files rather than a requirements list in the ``setup.py`` file.
@@ -168,3 +166,13 @@ make my own packaging experience better.
 .. _github comparison view: https://github.com/tony/cookiecutter-pypackage-pythonic/compare/audreyr:master...master
 .. _`network`: https://github.com/audreyr/cookiecutter-pypackage/network
 .. _`family tree`: https://github.com/audreyr/cookiecutter-pypackage/network/members
+
+Run tests
+----
+
+```
+pip install -r requirements_dev.txt
+python -m pytest tests
+```
+
+or use `act` to run in docker the github workflows.

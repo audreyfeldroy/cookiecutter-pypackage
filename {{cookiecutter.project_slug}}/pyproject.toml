@@ -1,0 +1,28 @@
+[tool.black]
+line-length=120
+include = '\.pyi?$'
+force-exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | docs
+  | dist
+  | setup.py
+)/
+'''
+
+[tool.isort]
+default_section="THIRDPARTY"
+known_first_party=["{{ cookiecutter.project_slug }}"]
+multi_line_output=3
+include_trailing_comma=true
+force_grid_wrap=0
+use_parentheses=true
+line_length=120
+extend_skip_glob = ["setup.py", "tests/*", "docs/*"]

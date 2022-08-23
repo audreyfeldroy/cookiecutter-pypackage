@@ -135,7 +135,7 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
 def test_bake_without_travis_pypi_setup(cookies):
     with bake_in_temp_dir(
         cookies,
-        extra_context={'use_pypi_deployment_with_travis': 'n'}
+        extra_context={'use_pypi_deployment_with_travis': 'n', 'use_travis': 'y'}
     ) as result:
         result_travis_config = yaml.load(
             result.project.join(".travis.yml").open(),
@@ -144,6 +144,15 @@ def test_bake_without_travis_pypi_setup(cookies):
         assert "deploy" not in result_travis_config
         assert "python" == result_travis_config["language"]
         # found_toplevel_files = [f.basename for f in result.project.listdir()]
+
+
+def test_bake_without_travis(cookies):
+    with bake_in_temp_dir(
+        cookies,
+        extra_context={'use_travis': 'n'}
+    ) as result:
+        found_toplevel_files = [f.basename for f in result.project.listdir()]
+        assert '.travis.yml' not in found_toplevel_files
 
 
 def test_bake_without_author_file(cookies):
@@ -206,7 +215,7 @@ def test_bake_not_open_source(cookies):
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert 'setup.py' in found_toplevel_files
         assert 'LICENSE' not in found_toplevel_files
-        assert 'License' not in result.project.join('README.rst').read()
+        assert 'License' not in result.project.join('README.md').read()
 
 
 def test_using_pytest(cookies):
@@ -345,3 +354,18 @@ def test_black(cookies, use_black, expected):
         assert ("black" in requirements_path.read()) is expected
         makefile_path = result.project.join('Makefile')
         assert ("black --check" in makefile_path.read()) is expected
+
+
+@pytest.mark.parametrize("use_pre_commit,expected", [("y", True), ("n", False)])
+def test_pre_commit(cookies, use_pre_commit, expected):
+    with bake_in_temp_dir(
+        cookies,
+        extra_context={'use_pre_commit': use_pre_commit}
+    ) as result:
+        assert result.project.isdir()
+        requirements_path = result.project.join('requirements_dev.txt')
+        assert ("pre-commit" in requirements_path.read()) is expected
+        makefile_path = result.project.join('Makefile')
+        assert ("pre-commit install" in makefile_path.read()) is expected
+        pre_commit_path = result.project.join('.pre-commit-config.yaml')
+        assert pre_commit_path.exists() is expected
