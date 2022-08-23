@@ -1,3 +1,5 @@
+![tests workflow](https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug}}/actions/workflows/pytest.yml/badge.svg)
+![lint workflow](https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug}}/actions/workflows/pylint.yml/badge.svg)
 {% set is_open_source = cookiecutter.open_source_license != 'Not open source' -%}
 # {{ cookiecutter.project_name }}
 
