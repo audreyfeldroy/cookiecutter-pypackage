@@ -1,4 +1,4 @@
-name: cookiecutter_pypackage tests
+name: tests
 
 on:
   push:

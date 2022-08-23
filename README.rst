@@ -14,6 +14,11 @@ Cookiecutter PyPackage
     :target: https://cookiecutter-pypackage.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
+.. image:: https://github.com/mazzma12/cookiecutter-pypackage/actions/workflows/pytest.yml/badge.svg/?branch=master&label=tests
+    :target: https://github.com/mazzma12/cookiecutter-pypackage/actions
+    :alt: Actions Status
+
+
 Cookiecutter_ template for a Python package.
 
 * GitHub repo: https://github.com/audreyfeldroy/cookiecutter-pypackage/
