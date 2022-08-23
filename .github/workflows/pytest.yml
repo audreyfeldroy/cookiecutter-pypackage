@@ -2,27 +2,15 @@ name: cookiecutter_pypackage tests
 
 on:
   push:
-<<<<<<< HEAD
     branches:
-      - main
+      - master
     # paths:
     #   - '**.py'
   pull_request:
     branches:
-      - main
+      - master
     # paths:
     #   - '**.py'
-=======
-    branches: 
-      - main
-    paths:
-      - '**.py'
-  pull_request:
-    branches:
-      - main
-    paths:
-      - '**.py'
->>>>>>> 18c4d1d (Add workflows)
 
 jobs:
   test:
