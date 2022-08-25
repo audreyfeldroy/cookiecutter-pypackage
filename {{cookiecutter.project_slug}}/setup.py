@@ -68,7 +68,14 @@ setup(
     description=about.get("__description__"),
     long_description=readme(),
     long_description_content_type="text/markdown",
-    {%- if "no" not in cookiecutter.command_line_interface|lower %}
+    {%- if "no" in cookiecutter.command_line_interface|lower %}
+    {%- elif "typer" in cookiecutter.command_line_interface|lower %}
+    entry_points={
+        "console_scripts": [
+            "{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:app",
+        ],
+    },
+    {%- else %}
     entry_points={
         "console_scripts": [
             "{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:main",
