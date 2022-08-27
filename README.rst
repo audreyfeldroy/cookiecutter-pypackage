@@ -109,7 +109,7 @@ Similar Cookiecutter Templates
 
 * `waynerv/cookiecutter-pypackage`_: A fork using Poetry_, Mkdocs_, Pre-commit_, Black_ and Mypy_. Run test, staging and release workflows with GitHub Actions, automatically generate release notes from CHANGELOG.
 
-* `mishamsk/cookiecutter-pypackage`_: A modernized fork of waynerv above, using unified formatting & linting across local tests, pre-commit & CI. Upgraded CI using Github Actions, option to automatically create package with most up-to-date deps and `keep_a_changelog_` CHANGELOG among other stuff
+* `mishamsk/cookiecutter-pypackage`_: A modernized fork of waynerv above, using unified formatting & linting across local tests, pre-commit & CI. Upgraded CI using Github Actions, option to automatically create package with most up-to-date deps and `Keep a changelog`_ CHANGELOG among other stuff
 
 * Also see the `network`_ and `family tree`_ for this repo. (If you find
   anything that should be listed here, please add it and send a pull request!)
@@ -147,7 +147,7 @@ make my own packaging experience better.
 .. _Pre-commit: https://pre-commit.com/
 .. _Black: https://black.readthedocs.io/en/stable/
 .. _Mypy: https://mypy.readthedocs.io/en/stable/
-.. _keep_a_changelog: https://keepachangelog.com/en/1.0.0/
+.. _Keep a changelog: https://keepachangelog.com/en/1.0.0/
 
 .. _`Nekroze/cookiecutter-pypackage`: https://github.com/Nekroze/cookiecutter-pypackage
 .. _`tony/cookiecutter-pypackage-pythonic`: https://github.com/tony/cookiecutter-pypackage-pythonic
