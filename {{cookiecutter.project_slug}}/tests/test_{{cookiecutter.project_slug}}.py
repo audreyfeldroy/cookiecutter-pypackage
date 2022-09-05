@@ -9,6 +9,8 @@ import unittest
 {%- endif %}
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
 from click.testing import CliRunner
+{%- elif cookiecutter.command_line_interface|lower == 'typer' %}
+from typer.testing import CliRunner
 {%- endif %}
 
 from {{ cookiecutter.project_slug }} import {{ cookiecutter.project_slug }}
@@ -45,6 +47,18 @@ def test_command_line_interface():
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
     assert '--help  Show this message and exit.' in help_result.output
+{%- elif cookiecutter.command_line_interface|lower == 'typer' %}
+
+
+def test_command_line_interface():
+    """Test the CLI."""
+    runner = CliRunner()
+    result = runner.invoke(cli.app)
+    assert result.exit_code == 0
+    assert '{{ cookiecutter.project_slug }}.cli.app' in result.output
+    help_result = runner.invoke(cli.app, ['--help'])
+    assert help_result.exit_code == 0
+    assert 'Show this message and exit.' in help_result.output
 {%- endif %}
 {%- else %}
 
@@ -71,5 +85,15 @@ class Test{{ cookiecutter.project_slug|title }}(unittest.TestCase):
         help_result = runner.invoke(cli.main, ['--help'])
         assert help_result.exit_code == 0
         assert '--help  Show this message and exit.' in help_result.output
+{%- elif cookiecutter.command_line_interface|lower == 'typer' %}
+    def test_command_line_interface():
+        """Test the CLI."""
+        runner = CliRunner()
+        result = runner.invoke(cli.app)
+        assert result.exit_code == 0
+        assert '{{ cookiecutter.project_slug }}.cli.app' in result.output
+        help_result = runner.invoke(cli.app, ['--help'])
+        assert help_result.exit_code == 0
+        assert 'Show this message and exit.' in help_result.output
 {%- endif %}
 {%- endif %}
