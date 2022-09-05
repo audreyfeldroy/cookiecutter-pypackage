@@ -13,7 +13,6 @@ from click.testing import CliRunner
 from typer.testing import CliRunner
 {%- endif %}
 
-from {{ cookiecutter.project_slug }} import {{ cookiecutter.project_slug }}
 {%- if cookiecutter.command_line_interface|lower in ('click', 'typer') %}
 from {{ cookiecutter.project_slug }} import cli
 {%- endif %}
