@@ -9,6 +9,7 @@ import pytest
 from cookiecutter.utils import rmtree
 
 from click.testing import CliRunner
+from typer.testing import CliRunner as TyperCliRunner
 
 import importlib
 
@@ -278,7 +279,7 @@ def test_bake_with_no_console_script(cookies):
 
 
 def test_bake_with_console_script_files(cookies):
-    context = {'command_line_interface': 'click'}
+    context = {'command_line_interface': 'Click'}
     result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     found_project_files = os.listdir(project_dir)
@@ -290,7 +291,7 @@ def test_bake_with_console_script_files(cookies):
 
 
 def test_bake_with_argparse_console_script_files(cookies):
-    context = {'command_line_interface': 'argparse'}
+    context = {'command_line_interface': 'Argparse'}
     result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     found_project_files = os.listdir(project_dir)
@@ -302,7 +303,7 @@ def test_bake_with_argparse_console_script_files(cookies):
 
 
 def test_bake_with_console_script_cli(cookies):
-    context = {'command_line_interface': 'click'}
+    context = {'command_line_interface': 'Click'}
     result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     module_path = os.path.join(project_dir, 'cli.py')
@@ -322,8 +323,28 @@ def test_bake_with_console_script_cli(cookies):
     assert 'Show this message' in help_result.output
 
 
-def test_bake_with_argparse_console_script_cli(cookies):
-    context = {'command_line_interface': 'argparse'}
+# def test_bake_with_argparse_console_script_cli(cookies):
+#     context = {'command_line_interface': 'Argparse'}
+#     result = cookies.bake(extra_context=context)
+#     project_path, project_slug, project_dir = project_info(result)
+#     module_path = os.path.join(project_dir, 'cli.py')
+#     module_name = '.'.join([project_slug, 'cli'])
+#     spec = importlib.util.spec_from_file_location(module_name, module_path)
+#     cli = importlib.util.module_from_spec(spec)
+#     spec.loader.exec_module(cli)
+#     runner = CliRunner()
+#     noarg_result = runner.invoke(cli.main)
+#     assert noarg_result.exit_code == 0
+#     noarg_output = ' '.join([
+#         'Replace this message by putting your code into',
+#         project_slug])
+#     assert noarg_output in noarg_result.output
+#     help_result = runner.invoke(cli.main, ['--help'])
+#     assert help_result.exit_code == 0
+#     assert 'Show this message' in help_result.output
+
+def test_bake_with_typer_console_script_cli(cookies):
+    context = {'command_line_interface': 'Typer'}
     result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     module_path = os.path.join(project_dir, 'cli.py')
@@ -331,14 +352,14 @@ def test_bake_with_argparse_console_script_cli(cookies):
     spec = importlib.util.spec_from_file_location(module_name, module_path)
     cli = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(cli)
-    runner = CliRunner()
-    noarg_result = runner.invoke(cli.main)
+    runner = TyperCliRunner()
+    noarg_result = runner.invoke(cli.app)
     assert noarg_result.exit_code == 0
     noarg_output = ' '.join([
         'Replace this message by putting your code into',
         project_slug])
     assert noarg_output in noarg_result.output
-    help_result = runner.invoke(cli.main, ['--help'])
+    help_result = runner.invoke(cli.app, ['--help'])
     assert help_result.exit_code == 0
     assert 'Show this message' in help_result.output
 

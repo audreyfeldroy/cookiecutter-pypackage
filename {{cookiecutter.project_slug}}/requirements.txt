@@ -1,2 +1,4 @@
-{% if cookiecutter.command_line_interface|lower == 'click' -%}
+{%- if cookiecutter.command_line_interface|lower == 'click' -%}
 Click~=8.1.3{% endif %}
+{%- if cookiecutter.command_line_interface|lower == 'typer' -%}
+typer~=0.6.1{% endif %}
