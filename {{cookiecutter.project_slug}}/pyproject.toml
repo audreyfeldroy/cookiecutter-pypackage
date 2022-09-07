@@ -1,0 +1,63 @@
+[build-system]
+requires = [
+  "setuptools >= 48",
+  "setuptools_scm[toml] >= 6.2",
+  "setuptools_scm_git_archive",
+  "wheel >= 0.29.0",
+]
+build-backend = 'setuptools.build_meta'
+
+[project]
+name="{{ cookiecutter.project_slug }}"
+dynamic = ['version']
+description="{{ cookiecutter.project_short_description }}"
+readme = "README.md"
+requires-python = ">=3.8"
+keywords = ["{{ cookiecutter.project_slug }}"]
+authors = [
+  {email = "{{ cookiecutter.email }}"},
+  {name = "{{ cookiecutter.full_name.replace('\"', '\\\"') }}"}
+]
+classifiers=[
+  "Development Status :: 2 - Pre-Alpha",
+  "Natural Language :: English",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+]
+dependencies = [
+  {%- if cookiecutter.command_line_interface|lower == 'click' %}
+  "Click>=7.0",
+  {%- endif %}
+]
+
+[project.optional-dependencies]
+test = [
+  {%- if cookiecutter.use_pytest == 'y' %}
+  "pytest < 5.0.0",
+  "pytest-cov[all]",
+  {%- endif %}
+]
+
+[project.urls]
+repository = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}"
+
+{%- if 'no' not in cookiecutter.command_line_interface|lower %}
+[project.scripts]
+"{{ cookiecutter.project_slug }}" = "{{ cookiecutter.project_slug }}.cli:main"
+{%- endif %}
+
+[tool.black]
+line-length = 79
+
+[tool.setuptools.packages.find]
+include = ['{{ cookiecutter.project_slug }}', '{{ cookiecutter.project_slug }}.*']
+namespaces = false
+
+[tool.setuptools_scm]
+write_to = "{{ cookiecutter.project_slug }}/version.py"
+git_describe_command = "git describe --dirty --tags --long --match 'v*' --first-parent"
+
+[tool.pytest]
+collect_ignore = ['setup.py']
