@@ -216,10 +216,20 @@ Deploying
 
 A reminder for the maintainers on how to deploy.
 Make sure all your changes are committed (including an entry in HISTORY.rst).
-Then run::
+Then run:
 
-$ bump2version patch # possible: major / minor / patch
-$ git push
-$ git push --tags
+..  code-block:: console
 
-Travis will then deploy to PyPI if tests pass.
+    $ bump2version patch # possible: major / minor / patch
+    $ git push
+    $ git push --tags
+
+{% if cookiecutter.use_pypi_deployment_with_ci == 'y' -%}
+{% if cookiecutter.use_circle_ci =='y' %}CircleCI{% elif cookiecutter.use_gitlab_ci %}GitLabCI{% elif cookiecutter.use_travis_ci %}Travis{% endif %} will then deploy to PyPI if tests pass.
+{% endif %}
+To manually build the package and upload to pypi run::
+
+.. code-block:: console
+
+    $ python setup.py sdist bdist_wheel
+    $ twine upload dist/*
