@@ -1,0 +1,17 @@
+pip
+bump2version
+wheel
+watchdog
+flake8
+tox
+coverage
+Sphinx
+twine
+virtualenv
+mock
+{% if cookiecutter.command_line_interface|lower == 'click' -%}
+Click{% endif %}
+{% if cookiecutter.use_pytest == 'y' -%}
+pytest{% endif %}
+{% if cookiecutter.use_black == 'y' -%}
+black{% endif %}
