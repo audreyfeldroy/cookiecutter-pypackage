@@ -14,5 +14,5 @@ mypy==0.931
 #
 # You must install the lxml package before you can run mypy with `--html-report`.
 # You can do this with `python3 -m pip install lxml`.
-lxml==4.6.5
+lxml==4.9.1
 yamllint==1.26.1
