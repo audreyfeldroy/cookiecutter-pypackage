@@ -101,6 +101,7 @@ def test_bake_and_run_build(cookies):
         assert 'fix.sh' in found_toplevel_files
 
         assert run_inside_dir('make test', str(result.project_path)) == 0
+        assert run_inside_dir('make typecheck', str(result.project_path)) == 0
         assert run_inside_dir('make quality', str(result.project_path)) == 0
         # The supplied Makefile does not support win32
         if sys.platform != "win32":

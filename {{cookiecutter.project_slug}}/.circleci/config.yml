@@ -80,6 +80,7 @@ commands:
 
 jobs:
   overcommit:
+    working_directory: ~/{{cookiecutter.project_slug}}
     docker:
       - image: apiology/circleci:latest
     steps:

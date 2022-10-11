@@ -1,13 +1,32 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    chef-utils (17.10.0)
+      concurrent-ruby
     childprocess (4.0.0)
+    concurrent-ruby (1.1.10)
     iniparse (1.5.0)
+    kramdown (2.4.0)
+      rexml
+    kramdown-parser-gfm (1.1.0)
+      kramdown (~> 2.0)
+    mdl (0.11.0)
+      kramdown (~> 2.3)
+      kramdown-parser-gfm (~> 1.1)
+      mixlib-cli (~> 2.1, >= 2.1.1)
+      mixlib-config (>= 2.2.1, < 4)
+      mixlib-shellout
+    mixlib-cli (2.1.8)
+    mixlib-config (3.0.27)
+      tomlrb
+    mixlib-shellout (3.2.7)
+      chef-utils
     overcommit (0.58.0)
       childprocess (>= 0.6.3, < 5)
       iniparse (~> 1.4)
       rexml (~> 3.2)
     rexml (3.2.5)
+    tomlrb (2.0.3)
 
 PLATFORMS
   ruby
@@ -15,7 +34,8 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  mdl
   overcommit (>= 0.58.0)
 
 BUNDLED WITH
-   2.2.3
+   2.2.33
