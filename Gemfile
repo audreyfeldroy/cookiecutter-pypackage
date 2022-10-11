@@ -6,3 +6,5 @@ source 'https://rubygems.org'
 # magit doesn't seem to want to use the bundled version at the moment,
 # so let's favor the more recent version...
 gem 'overcommit', ['>=0.58.0']
+
+gem 'mdl'
