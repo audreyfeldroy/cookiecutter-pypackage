@@ -112,7 +112,7 @@ development. Please note this documentation assumes you already have
 
 6. The next step would be to run the test cases. `cookiecutter-pypackage` uses
    pytest, you can run PyTest. Before you run pytest you should ensure all
-   dependancies are installed:
+   dependencies are installed:
 
    .. code-block:: bash
 
