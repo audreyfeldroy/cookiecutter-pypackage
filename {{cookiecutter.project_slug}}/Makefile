@@ -102,8 +102,6 @@ test: ## run tests quickly with the default Python
 test-all: ## run tests on every Python version with tox
 	tox
 
-typecheck: ## validate types in code and configuration
-
 overcommit: ## run precommit quality checks
 	bundle exec overcommit --run
 
