@@ -101,6 +101,7 @@ commands:
 
 jobs:
   test:
+    working_directory: ~/cookiecutter-pypackage
     docker:
       - image: apiology/circleci-python:latest
     steps:
@@ -131,6 +132,7 @@ jobs:
     # This seemed to shave 5ish% of the build time off when added
     resource_class: large
   overcommit:
+    working_directory: ~/cookiecutter-pypackage
     docker:
       - image: apiology/circleci-python:latest
     steps:

@@ -41,6 +41,8 @@ clean: ## remove all built artifacts
 test: ## run tests quickly
 	pytest
 
+typecheck: ## validate types in code and configuration
+
 overcommit: ## run precommit quality checks
 	bundle exec overcommit --run
 

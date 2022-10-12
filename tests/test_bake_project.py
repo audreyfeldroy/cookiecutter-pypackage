@@ -90,8 +90,8 @@ def project_info(result):
     return project_path, project_slug, project_dir
 
 
-def test_bake_with_defaults(cookies):
-    with bake_in_temp_dir(cookies, skip_fix_script=True) as result:
+def test_bake_and_run_build(cookies):
+    with bake_in_temp_dir(cookies) as result:
         assert result.project_path.is_dir()
         assert result.exit_code == 0
         assert result.exception is None
@@ -104,6 +104,22 @@ def test_bake_with_defaults(cookies):
         assert 'README.rst' in found_toplevel_files
         assert 'LICENSE' in found_toplevel_files
         assert 'fix.sh' in found_toplevel_files
+
+        assert run_inside_dir('make test', str(result.project_path)) == 0
+        assert run_inside_dir('make typecheck', str(result.project_path)) == 0
+        assert run_inside_dir('make quality', str(result.project_path)) == 0
+        # The supplied Makefile does not support win32
+        if sys.platform != "win32":
+            output = check_output_inside_dir(
+                'make help',
+                str(result.project_path)
+            )
+            assert b"run precommit quality checks" in \
+                output
+        license_file_path = result.project_path / 'LICENSE'
+        now = datetime.datetime.now()
+        assert str(now.year) in license_file_path.open().read()
+        print("test_bake_and_run_build path", str(result.project_path))
 
 
 TRICKY_QUOTE_CHARACTERS_CONTEXT = {
@@ -133,19 +149,6 @@ def test_bake_without_author_file(cookies):
         manifest_path = result.project_path / 'MANIFEST.in'
         with open(str(manifest_path)) as manifest_file:
             assert 'AUTHORS.rst' not in manifest_file.read()
-
-
-def test_make_help(cookies):
-    with bake_in_temp_dir(cookies,
-                          skip_fix_script=True) as result:
-        # The supplied Makefile does not support win32
-        if sys.platform != "win32":
-            output = check_output_inside_dir(
-                'make help',
-                str(result.project_path)
-            )
-            assert b"run precommit quality checks" in \
-                output
 
 
 def test_bake_selecting_license(cookies):
