@@ -36,14 +36,12 @@ if __name__ == '__main__':
         subprocess.check_call(['git', 'init'])
         subprocess.check_call(['git', 'add', '-A'])
 
-    if (os.environ.get('SKIP_FIX_SCRIPT', '0') != '1'):
-        # overcommit requires Ruby and bundle installed
+    if (os.environ.get('SKIP_FIX_SCRIPT', '0') != '1' and
+       (os.environ.get('SKIP_GIT_CREATION', '0') != '1')):
         subprocess.check_call(['bundle', 'exec', 'overcommit', '--sign'])
         subprocess.check_call(['bundle', 'exec', 'overcommit', '--sign', 'pre-commit'])
-
-        if (os.environ.get('SKIP_GIT_CREATION', '0') != '1'):
-            subprocess.check_call(['bundle', 'exec', 'git', 'commit', '-m',
-                                   'Initial commit from boilerplate'])
+        subprocess.check_call(['bundle', 'exec', 'git', 'commit', '-m',
+                               'Initial commit from boilerplate'])
 
     if os.environ.get('SKIP_GITHUB_AND_CIRCLECI_CREATION', '0') != '1':
         if 'none' != '{{ cookiecutter.type_of_github_repo }}':
