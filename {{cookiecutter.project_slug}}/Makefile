@@ -97,7 +97,7 @@ test-reports:
 citest: test-reports test ## Run unit tests from CircleCI
 
 test: ## run tests quickly with the default Python
-	@pytest --cov={{cookiecutter.package_name}} tests/
+	@coverage run --source {{cookiecutter.package_name}} -m pytest
 
 test-all: ## run tests on every Python version with tox
 	tox
@@ -110,13 +110,22 @@ quality: overcommit ## run precommit quality checks
 clean-coverage: ## Clean out previous output of test coverage to avoid flaky results from previous runs
 	@rm -fr .coverage
 
-coverage: test ## check code coverage and then ratchet coverage in metrics/coverage_high_water_mark
+coverage: test report-coverage ratchet-coverage ## check code coverage and then ratchet coverage in metrics/coverage_high_water_mark
+
+report-coverage: test ## Report summary of coverage to stdout, and generate HTML, XML coverage report
 	@coverage report -m
 	@coverage html --directory=cover
 	@coverage xml
+
+report-coverage-to-codecov: report-coverage ## use codecov.io for PR-scoped code coverage reports
+	@curl -Os https://uploader.codecov.io/latest/linux/codecov
+	@chmod +x codecov
+	@./codecov --file coverage.xml
+
+ratchet-coverage: report-coverage ## Adjust coverage_high_water_market file and fail if coverage dropped
 	@python setup.py coverage_ratchet
 
-cicoverage: coverage ## check code coverage, ratchet coverage, and then complain if ratchet needs to be committed
+cicoverage: report-coverage-to-codecov ratchet-coverage ## check code coverage, ratchet coverage, and then complain if ratchet needs to be committed
 	@echo "Looking for un-checked-in unit test coverage metrics..."
 	@git status --porcelain metrics/coverage_high_water_mark
 	@test -z "$$(git status --porcelain metrics/coverage_high_water_mark)"
