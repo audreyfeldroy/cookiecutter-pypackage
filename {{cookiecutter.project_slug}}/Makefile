@@ -97,7 +97,7 @@ test-reports:
 citest: test-reports test ## Run unit tests from CircleCI
 
 test: ## run tests quickly with the default Python
-	@coverage run --source {{cookiecutter.package_name}} -m pytest
+	@pytest --cov={{cookiecutter.package_name}} tests/
 
 test-all: ## run tests on every Python version with tox
 	tox
