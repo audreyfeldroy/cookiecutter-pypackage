@@ -122,7 +122,7 @@ report-coverage: test ## Report summary of coverage to stdout, and generate HTML
 report-coverage-to-codecov: report-coverage ## use codecov.io for PR-scoped code coverage reports
 	@curl -Os https://uploader.codecov.io/latest/linux/codecov
 	@chmod +x codecov
-	@./codecov --file coverage.xml
+	@./codecov --file coverage.xml --nonZero
 
 ratchet-coverage: report-coverage ## Adjust coverage_high_water_market file and fail if coverage dropped
 	@python setup.py coverage_ratchet
