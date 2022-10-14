@@ -34,9 +34,9 @@ commands:
     steps:
       - checkout
       - restore_cache:
-          key: gems-v1-{{ checksum "Gemfile.lock" }}
+          key: gems-v2-{{ checksum "Gemfile.lock" }}
       - restore_cache:
-          key: wheels-v1-{{ checksum "requirements_dev.txt" }}
+          key: wheels-v2-{{ checksum "requirements_dev.txt" }}
       - run:
           name: Initialize packages
           command: |
@@ -51,11 +51,11 @@ commands:
               exit 1
             fi
       - save_cache:
-          key: gems-v1-{{ checksum "Gemfile.lock" }}
+          key: gems-v2-{{ checksum "Gemfile.lock" }}
           paths:
             - "vendor/bundle"
       - save_cache:
-          key: wheels-v1-{{ checksum "requirements_dev.txt" }}
+          key: wheels-v2-{{ checksum "requirements_dev.txt" }}
           paths:
             - "/home/circleci/.cache/pip/wheels"
       - run:
@@ -101,6 +101,7 @@ commands:
 
 jobs:
   test:
+    working_directory: ~/cookiecutter-pypackage
     docker:
       - image: apiology/circleci-python:latest
     steps:
@@ -122,7 +123,7 @@ jobs:
                   bundle exec overcommit --sign
                   bundle exec overcommit --sign pre-commit
 
-                  make test
+                  make citest cicoverage
       - when:
           condition:
             equal: [<< pipeline.git.branch >>, "main"]
