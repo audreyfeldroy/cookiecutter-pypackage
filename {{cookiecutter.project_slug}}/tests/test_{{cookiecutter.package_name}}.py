@@ -12,8 +12,9 @@ from unittest.mock import call, patch
 {%- endif %}
 
 import pytest
-{%- if cookiecutter.command_line_interface|lower == 'argparse' %}
 
+import {{cookiecutter.package_name}}
+{%- if cookiecutter.command_line_interface|lower == 'argparse' %}
 from {{cookiecutter.package_name}}.cli import main, parse_argv, process_args{%- endif %}
 
 
@@ -27,10 +28,10 @@ def response():
     # return requests.get('https://github.com/audreyr/cookiecutter-pypackage')
 
 
-def test_content(response):
-    """Sample pytest test function with the pytest fixture as an argument."""
-    # from bs4 import BeautifulSoup
-    # assert 'GitHub' in BeautifulSoup(response.content).title.string
+def test_dunders(response):
+    assert {{cookiecutter.package_name}}.__author__ is not None
+    assert {{cookiecutter.package_name}}.__email__ is not None
+    assert {{cookiecutter.package_name}}.__version__ is not None
 {%- if cookiecutter.command_line_interface|lower == 'argparse' %}
 
 

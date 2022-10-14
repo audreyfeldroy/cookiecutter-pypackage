@@ -9,6 +9,7 @@ coverage==5.5
 Sphinx==4.3.1
 twine==3.4.1
 pytest==6.2.4
+pytest-cov==4.0.0
 mypy==0.931
 # lxml is needed for mypy coverage reporting:
 #
