@@ -45,10 +45,12 @@ typecoverage: typecheck ## Run type checking and then ratchet coverage in metric
 clean-mypy: ## Clean out mypy previous results to avoid flaky results
 	@rm -fr .mypy_cache
 
-citypecoverage: typecoverage ## Run type checking, ratchet coverage, and then complain if ratchet needs to be committed
+ratchet-typecoverage: ## Run type checking, ratchet coverage, and then complain if ratchet needs to be committed
 	@echo "Looking for un-checked-in type coverage metrics..."
 	@git status --porcelain metrics/mypy_high_water_mark
 	@test -z "$$(git status --porcelain metrics/mypy_high_water_mark)"
+
+citypecoverage: ratchet-typecoverage ## Run type checking, ratchet coverage, and then complain if ratchet needs to be committed
 
 clean: clean-build clean-pyc clean-test clean-mypy clean-coverage ## remove all build, test, coverage and Python artifacts
 
@@ -97,7 +99,7 @@ test-reports:
 citest: test-reports test ## Run unit tests from CircleCI
 
 test: ## run tests quickly with the default Python
-	@coverage run --source {{cookiecutter.package_name}} -m pytest
+	@pytest --cov={{cookiecutter.package_name}} tests/
 
 test-all: ## run tests on every Python version with tox
 	tox
