@@ -16,10 +16,11 @@ jobs:
         with:
           python-version: "3.10"
           cache: "pip"
+          cache-dependency-path: "**/requirements_dev.txt"
 
       - name: Install dependencies
         run: |
-          pip install -r dev-requirements.txt
+          pip install -r requirements_dev.txt
 
       - name: test
         run: |
