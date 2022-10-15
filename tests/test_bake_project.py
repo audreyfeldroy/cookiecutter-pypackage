@@ -100,4 +100,7 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
         run_inside_dir("pytest", str(result.project)) == 0
 
 
-# test flake8 in generated project
+def test_bake_and_run_flake8(cookies):
+    with bake_in_temp_dir(cookies) as result:
+        assert result.project.isdir()
+        run_inside_dir("flake8", str(result.project)) == 0
