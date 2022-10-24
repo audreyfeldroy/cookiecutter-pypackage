@@ -3,12 +3,14 @@ import os
 import shlex
 import subprocess
 from contextlib import contextmanager
+from typing import Generator
 
 from cookiecutter.utils import rmtree
+from pytest_cookies.plugin import Result
 
 
 @contextmanager
-def inside_dir(dirpath):
+def inside_dir(dirpath) -> Generator[None, None, None]:
     """
     Execute code from inside the given directory
     :param dirpath: String, path of the directory the command is being run.
@@ -22,7 +24,7 @@ def inside_dir(dirpath):
 
 
 @contextmanager
-def bake_in_temp_dir(cookies, *args, **kwargs):
+def bake_in_temp_dir(cookies, *args, **kwargs) -> Generator[Result, None, None]:
     """
     Delete the temporal directory that is created when executing the tests
     :param cookies: pytest_cookies.Cookies,
@@ -32,17 +34,18 @@ def bake_in_temp_dir(cookies, *args, **kwargs):
     try:
         yield result
     finally:
-        rmtree(str(result.project))
+        rmtree(str(result.project_path))
 
 
-def run_inside_dir(command, dirpath):
+def run_inside_dir(command, dirpath, **kwargs) -> int:
     """
     Run a command from inside a given directory, returning the exit status
     :param command: Command that will be executed
     :param dirpath: String, path of the directory the command is being run.
+    :param kwargs: Keyword arguments to pass into subprocess.check_call
     """
     with inside_dir(dirpath):
-        return subprocess.check_call(shlex.split(command))
+        return subprocess.check_call(shlex.split(command), **kwargs)
 
 
 def check_output_inside_dir(command, dirpath):
@@ -53,26 +56,20 @@ def check_output_inside_dir(command, dirpath):
 
 def test_year_compute_in_license_file(cookies):
     with bake_in_temp_dir(cookies) as result:
-        license_file_path = result.project.join("LICENSE")
+        assert result.project_path
+        license_file_path = result.project_path / "LICENSE"
         now = datetime.datetime.now()
-        assert str(now.year) in license_file_path.read()
-
-
-def project_info(result):
-    """Get toplevel dir, project_slug, and project dir from baked cookies"""
-    project_path = str(result.project)
-    project_slug = os.path.split(project_path)[-1]
-    project_dir = os.path.join(project_path, project_slug)
-    return project_path, project_slug, project_dir
+        assert str(now.year) in license_file_path.read_text()
 
 
 def test_bake_with_defaults(cookies):
     with bake_in_temp_dir(cookies) as result:
-        assert result.project.isdir()
+        assert result.project_path
+        assert result.project_path.is_dir()
         assert result.exit_code == 0
         assert result.exception is None
 
-        found_toplevel_files = [f.basename for f in result.project.listdir()]
+        found_toplevel_files = [f.name for f in result.project_path.iterdir()]
         assert "python_boilerplate" in found_toplevel_files
         assert "pyproject.toml" in found_toplevel_files
         assert "tests" in found_toplevel_files
@@ -80,8 +77,9 @@ def test_bake_with_defaults(cookies):
 
 def test_bake_and_run_tests(cookies):
     with bake_in_temp_dir(cookies) as result:
-        assert result.project.isdir()
-        assert run_inside_dir("pytest", str(result.project)) == 0
+        assert result.project_path
+        assert result.project_path.is_dir()
+        assert run_inside_dir("pytest", str(result.project_path)) == 0
 
 
 def test_bake_withspecialchars_and_run_tests(cookies):
@@ -89,18 +87,42 @@ def test_bake_withspecialchars_and_run_tests(cookies):
     with bake_in_temp_dir(
         cookies, extra_context={"full_name": 'name "quote" name'}
     ) as result:
-        assert result.project.isdir()
-        assert run_inside_dir("pytest", str(result.project)) == 0
+        assert result.project_path
+        assert result.project_path.is_dir()
+        assert run_inside_dir("pytest", str(result.project_path)) == 0
 
 
 def test_bake_with_apostrophe_and_run_tests(cookies):
     """Ensure that a `full_name` with apostrophes does not break"""
     with bake_in_temp_dir(cookies, extra_context={"full_name": "O'connor"}) as result:
-        assert result.project.isdir()
-        assert run_inside_dir("pytest", str(result.project)) == 0
+        assert result.project_path
+        assert result.project_path.is_dir()
+        assert run_inside_dir("pytest", str(result.project_path)) == 0
 
 
 def test_bake_and_run_flake8(cookies):
     with bake_in_temp_dir(cookies) as result:
-        assert result.project.isdir()
-        assert run_inside_dir("flake8", str(result.project)) == 0
+        assert result.project_path
+        assert result.project_path.is_dir()
+        assert run_inside_dir("flake8", str(result.project_path)) == 0
+
+
+def test_bake_and_run_black(cookies):
+    with bake_in_temp_dir(cookies) as result:
+        assert result.project_path
+        assert result.project_path.is_dir()
+
+        assert result.context
+        project_slug = result.context["project_slug"]
+
+        with inside_dir(str(result.project_path)):
+            find_ps = subprocess.Popen(
+                shlex.split(f"find {project_slug}/ -name '*.py' -type f -print"),
+                stdout=subprocess.PIPE,
+            )
+        assert (
+            run_inside_dir(
+                "xargs black --check", str(result.project_path), stdin=find_ps.stdout
+            )
+            == 0
+        )
