@@ -81,7 +81,7 @@ def test_bake_with_defaults(cookies):
 def test_bake_and_run_tests(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        run_inside_dir("pytest", str(result.project)) == 0
+        assert run_inside_dir("pytest", str(result.project)) == 0
 
 
 def test_bake_withspecialchars_and_run_tests(cookies):
@@ -90,17 +90,17 @@ def test_bake_withspecialchars_and_run_tests(cookies):
         cookies, extra_context={"full_name": 'name "quote" name'}
     ) as result:
         assert result.project.isdir()
-        run_inside_dir("pytest", str(result.project)) == 0
+        assert run_inside_dir("pytest", str(result.project)) == 0
 
 
 def test_bake_with_apostrophe_and_run_tests(cookies):
     """Ensure that a `full_name` with apostrophes does not break"""
     with bake_in_temp_dir(cookies, extra_context={"full_name": "O'connor"}) as result:
         assert result.project.isdir()
-        run_inside_dir("pytest", str(result.project)) == 0
+        assert run_inside_dir("pytest", str(result.project)) == 0
 
 
 def test_bake_and_run_flake8(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        run_inside_dir("flake8", str(result.project)) == 0
+        assert run_inside_dir("flake8", str(result.project)) == 0

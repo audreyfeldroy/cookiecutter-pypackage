@@ -1,4 +1,4 @@
-name: Test cookiecutter pypackage
+name: Test {{ cookiecutter.project_slug }}
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
           cache: "pip"
           cache-dependency-path: "**/requirements_dev.txt"
 
-      - name: Install dependencies
+      - name: Install dev dependencies
         run: |
           pip install ".[dev]" -r requirements_dev.txt
 
