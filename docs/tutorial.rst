@@ -103,7 +103,7 @@ See :ref:`travis-pypi-setup` for more information.
 
 
 Step 6: Set Up Read the Docs
---------------------------
+----------------------------
 
 `Read the Docs`_ hosts documentation for the open source community. Think of it as Continuous Documentation.
 
