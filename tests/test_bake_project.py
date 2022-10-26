@@ -47,10 +47,8 @@ def bake_in_temp_dir(cookies, *args, **kwargs):
         cookie to be baked and its temporal files will be removed
     """
     result = cookies.bake(*args, **kwargs)
-    try:
-        yield result
-    finally:
-        rmtree(str(result.project))
+    assert result.exception is None
+    yield result
 
 
 def run_inside_dir(commands, dirpath):
@@ -61,7 +59,8 @@ def run_inside_dir(commands, dirpath):
     """
     with inside_dir(dirpath):
         for command in commands:
-            subprocess.check_call(shlex.split(command))
+            output = subprocess.check_output(shlex.split(command))
+            print(output)
 
 
 def check_output_inside_dir(command, dirpath):
@@ -94,7 +93,6 @@ def test_bake_with_defaults(cookies):
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert _DEPENDENCY_FILE in found_toplevel_files
         assert 'python_boilerplate' in found_toplevel_files
-        assert 'tox.ini' in found_toplevel_files
         assert 'tests' in found_toplevel_files
 
 
@@ -112,7 +110,7 @@ def test_bake_and_run_tests(cookies, extra_context):
         # Test pyproject installs pytest
         dep_file_path = result.project.join(_DEPENDENCY_FILE)
         lines = dep_file_path.readlines()
-        assert "pytest = \"*\"\n" in lines
+        assert "pytest = \">=7.2.0\"\n" in lines
         # Test contents of test file
         test_file_path = result.project.join('tests/test_python_boilerplate.py')
         lines = test_file_path.readlines()
@@ -120,40 +118,6 @@ def test_bake_and_run_tests(cookies, extra_context):
         # Run the tests
         commands = build_commands(["poetry run invoke test"])
         run_inside_dir(commands, str(result.project))
-
-
-# def test_bake_and_run_travis_pypi_setup(cookies):
-#     # given:
-#     with bake_in_temp_dir(cookies) as result:
-#         project_path = str(result.project)
-#
-#         # when:
-#         travis_setup_cmd = ('python travis_pypi_setup.py'
-#                             ' --repo audreyr/cookiecutter-pypackage'
-#                             ' --password invalidpass')
-#         run_inside_dir(travis_setup_cmd, project_path)
-#         # then:
-#         result_travis_config = yaml.load(
-#             result.project.join(".travis.yml").open()
-#         )
-#         min_size_of_encrypted_password = 50
-#         assert len(
-#             result_travis_config["deploy"]["password"]["secure"]
-#         ) > min_size_of_encrypted_password
-
-
-def test_bake_without_travis_pypi_setup(cookies):
-    with bake_in_temp_dir(
-        cookies,
-        extra_context={'use_pypi_deployment_with_travis': 'n'}
-    ) as result:
-        result_travis_config = yaml.load(
-            result.project.join(".travis.yml").open(),
-            Loader=yaml.FullLoader
-        )
-        assert "deploy" not in result_travis_config
-        assert "python" == result_travis_config["language"]
-        # found_toplevel_files = [f.basename for f in result.project.listdir()]
 
 
 def test_bake_without_author_file(cookies):
@@ -257,7 +221,7 @@ def test_not_using_google_docstrings(cookies):
 
 @pytest.mark.parametrize("args", [
     ({'command_line_interface': "No command-line interface"}, False),
-    ({'command_line_interface': 'click'}, True),
+    ({'command_line_interface': 'Click'}, True),
 ])
 def test_bake_with_no_console_script(cookies, args):
     context, is_present = args
@@ -272,7 +236,7 @@ def test_bake_with_no_console_script(cookies, args):
 
 
 def test_bake_with_console_script_cli(cookies):
-    context = {'command_line_interface': 'click'}
+    context = {'command_line_interface': 'Click'}
     result = cookies.bake(extra_context=context)
     project_path, project_slug, project_dir = project_info(result)
     module_path = os.path.join(project_dir, 'cli.py')
