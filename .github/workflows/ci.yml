@@ -59,3 +59,11 @@ jobs:
     #----------------------------------------------
     - name: Build docs
       run: poetry run invoke docs
+    #----------------------------------------------
+    #    Deploy docs (if on master)
+    #----------------------------------------------
+    - name: Deploy docs 🚀
+      if: github.ref == 'refs/heads/master'
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: docs/_build
