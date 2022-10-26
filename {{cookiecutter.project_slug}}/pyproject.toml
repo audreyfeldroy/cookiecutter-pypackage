@@ -50,7 +50,7 @@ pylint = "*"
 {% if cookiecutter.use_pytest == 'y' -%}
 pytest = ">=7.2.0"{% endif %}
 sphinx = ">=5.3.0"
-yapf = "*"
+black = "*"
 
 {% if cookiecutter.command_line_interface|lower == 'click' -%}
 [tool.poetry.scripts]
@@ -60,3 +60,6 @@ yapf = "*"
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
+
+[tool.isort]
+profile = "black"
