@@ -35,7 +35,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "*"
+python = ">=3.7,<4"
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
 click = "*"
 {%- endif %}
@@ -48,9 +48,8 @@ invoke = "*"
 isort = "*"
 pylint = "*"
 {% if cookiecutter.use_pytest == 'y' -%}
-pytest = "*"{% endif %}
-sphinx = "*"
-tox = "*"
+pytest = ">=7.2.0"{% endif %}
+sphinx = ">=5.3.0"
 yapf = "*"
 
 {% if cookiecutter.command_line_interface|lower == 'click' -%}
