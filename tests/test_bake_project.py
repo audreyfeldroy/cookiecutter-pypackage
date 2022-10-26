@@ -47,10 +47,8 @@ def bake_in_temp_dir(cookies, *args, **kwargs):
         cookie to be baked and its temporal files will be removed
     """
     result = cookies.bake(*args, **kwargs)
-    try:
-        yield result
-    finally:
-        rmtree(str(result.project))
+    assert result.exception is None
+    yield result
 
 
 def run_inside_dir(commands, dirpath):
