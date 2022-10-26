@@ -53,7 +53,7 @@ jobs:
     #    Run tests
     #----------------------------------------------
     - name: Run tests
-      run: poetry run invoke tests
+      run: poetry run invoke test
     #----------------------------------------------
     #    Build docs
     #----------------------------------------------
