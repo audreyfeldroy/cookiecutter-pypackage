@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.10"]
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
     - name: Check out repository
