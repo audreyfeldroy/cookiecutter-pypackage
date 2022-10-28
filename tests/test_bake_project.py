@@ -126,3 +126,20 @@ def test_bake_and_run_black(cookies):
             )
             == 0
         )
+
+
+def test_bake_and_run_precommit(cookies):
+    with bake_in_temp_dir(cookies) as result:
+        assert result.project_path
+        assert result.project_path.is_dir()
+
+        assert result.context
+
+        # pre-commit requires a git repo to be initialized
+        run_inside_dir("git init .", str(result.project_path))
+        # install the pre-commit hooks
+        run_inside_dir("pre-commit install-hooks", str(result.project_path))
+        # run against all files
+        assert (
+            run_inside_dir("pre-commit run --all-files", str(result.project_path)) == 0
+        )

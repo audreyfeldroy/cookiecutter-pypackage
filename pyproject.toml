@@ -17,4 +17,5 @@ dev = [
     "pytest-cookies",
     "black",
     "flake8",
+    "pre-commit"
 ]
