@@ -24,7 +24,17 @@ Create a package with
 
 ## Features
 
-Todo...
+Creates a new project with the following configurations
+
+- package configured w/ `pyproject.toml`
+- dependencies managed with `pip-tools`
+- tests using `pytest`
+- CI configuration for GitHub Actions
+- MIT License
+- `pre-commit` hooks
+  - `black`
+  - `flake8`
+  - `isort`
 
 ## Testing
 
