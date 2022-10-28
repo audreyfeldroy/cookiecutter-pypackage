@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cookiecutter_pypackage"
+version = "0.0.1"
+description = "Barebones cookiecutter for python packages"
+readme = "README.md"
+dependencies = [
+    "cookiecutter",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cookies",
+    "black",
+    "flake8",
+    "pre-commit"
+]
