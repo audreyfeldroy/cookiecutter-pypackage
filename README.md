@@ -4,13 +4,11 @@ Barebones cookiecutter for python packages
 
 ## Installation
 
-To create a new package:
-
 1. Create a virtual environment & activate
 
     `python -m venv .venv && source .venv/bin/activate`
 
-2. Install the cookiecutter package
+2. Install this package
 
     `pip install . -r requirements.txt`
 
@@ -18,9 +16,11 @@ To create a new package:
 
     `pip install -e ".[dev]" -r requirements_dev.txt`
 
-3. Create the package
+## Usage
 
-    `cookiecutter .`
+Create a package with
+
+`cookiecutter .`
 
 ## Features
 
@@ -28,7 +28,7 @@ Todo...
 
 ## Testing
 
-Install dev dependencies into virtual environment
+Make sure dev dependencies are installed
 
 `pip install -r requirements_dev.txt`
 
