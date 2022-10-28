@@ -135,8 +135,6 @@ def test_bake_and_run_precommit(cookies):
 
         assert result.context
 
-        # pre-commit requires a git repo to be initialized
-        run_inside_dir("git init .", str(result.project_path))
         # install the pre-commit hooks
         run_inside_dir("pre-commit install-hooks", str(result.project_path))
         # run against all files
