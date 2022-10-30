@@ -14,7 +14,7 @@
 
     Or with optional dev dependencies:
 
-    `pip install -r requirements_dev.txt ".[dev]"`
+    `pip install -e ".[dev]" -r requirements.txt -r requirements_dev.txt`
 
 ## Developer Notes
 

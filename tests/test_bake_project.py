@@ -4,13 +4,14 @@ import shlex
 import subprocess
 from contextlib import contextmanager
 from typing import Generator
+from unittest.mock import patch
 
 from cookiecutter.utils import rmtree
-from pytest_cookies.plugin import Result
+from pytest_cookies.plugin import Cookies, Result
 
 
 @contextmanager
-def inside_dir(dirpath) -> Generator[None, None, None]:
+def inside_dir(dirpath: str) -> Generator[None, None, None]:
     """
     Execute code from inside the given directory
     :param dirpath: String, path of the directory the command is being run.
@@ -24,7 +25,9 @@ def inside_dir(dirpath) -> Generator[None, None, None]:
 
 
 @contextmanager
-def bake_in_temp_dir(cookies, *args, **kwargs) -> Generator[Result, None, None]:
+def bake_in_temp_dir(
+    cookies: Cookies, *args, **kwargs
+) -> Generator[Result, None, None]:
     """
     Delete the temporal directory that is created when executing the tests
     :param cookies: pytest_cookies.Cookies,
@@ -37,7 +40,7 @@ def bake_in_temp_dir(cookies, *args, **kwargs) -> Generator[Result, None, None]:
         rmtree(str(result.project_path))
 
 
-def run_inside_dir(command, dirpath, **kwargs) -> int:
+def run_inside_dir(command: str, dirpath: str, **kwargs) -> int:
     """
     Run a command from inside a given directory, returning the exit status
     :param command: Command that will be executed
@@ -48,12 +51,13 @@ def run_inside_dir(command, dirpath, **kwargs) -> int:
         return subprocess.check_call(shlex.split(command), **kwargs)
 
 
-def check_output_inside_dir(command, dirpath):
+def check_output_inside_dir(command: str, dirpath: str):
     "Run a command from inside a given directory, returning the command output"
     with inside_dir(dirpath):
         return subprocess.check_output(shlex.split(command))
 
 
+@patch.dict(os.environ, {"COOKIECUTTER_SKIP_POST_GEN_HOOK": "1"})
 def test_year_compute_in_license_file(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project_path
@@ -62,6 +66,7 @@ def test_year_compute_in_license_file(cookies):
         assert str(now.year) in license_file_path.read_text()
 
 
+@patch.dict(os.environ, {"COOKIECUTTER_SKIP_POST_GEN_HOOK": "1"})
 def test_bake_with_defaults(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project_path
@@ -75,6 +80,7 @@ def test_bake_with_defaults(cookies):
         assert "tests" in found_toplevel_files
 
 
+@patch.dict(os.environ, {"COOKIECUTTER_SKIP_POST_GEN_HOOK": "1"})
 def test_bake_and_run_tests(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project_path
@@ -82,6 +88,7 @@ def test_bake_and_run_tests(cookies):
         assert run_inside_dir("pytest", str(result.project_path)) == 0
 
 
+@patch.dict(os.environ, {"COOKIECUTTER_SKIP_POST_GEN_HOOK": "1"})
 def test_bake_withspecialchars_and_run_tests(cookies):
     """Ensure that a `full_name` with double quotes does not break"""
     with bake_in_temp_dir(
@@ -92,6 +99,7 @@ def test_bake_withspecialchars_and_run_tests(cookies):
         assert run_inside_dir("pytest", str(result.project_path)) == 0
 
 
+@patch.dict(os.environ, {"COOKIECUTTER_SKIP_POST_GEN_HOOK": "1"})
 def test_bake_with_apostrophe_and_run_tests(cookies):
     """Ensure that a `full_name` with apostrophes does not break"""
     with bake_in_temp_dir(cookies, extra_context={"full_name": "O'connor"}) as result:
@@ -100,6 +108,7 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
         assert run_inside_dir("pytest", str(result.project_path)) == 0
 
 
+@patch.dict(os.environ, {"COOKIECUTTER_SKIP_POST_GEN_HOOK": "1"})
 def test_bake_and_run_flake8(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project_path
@@ -107,6 +116,7 @@ def test_bake_and_run_flake8(cookies):
         assert run_inside_dir("flake8", str(result.project_path)) == 0
 
 
+@patch.dict(os.environ, {"COOKIECUTTER_SKIP_POST_GEN_HOOK": "1"})
 def test_bake_and_run_black(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project_path
@@ -128,7 +138,9 @@ def test_bake_and_run_black(cookies):
         )
 
 
+@patch.dict(os.environ, {"COOKIECUTTER_SKIP_POST_GEN_HOOK": "1"})
 def test_bake_and_run_precommit(cookies):
+
     with bake_in_temp_dir(cookies) as result:
         assert result.project_path
         assert result.project_path.is_dir()
@@ -141,3 +153,21 @@ def test_bake_and_run_precommit(cookies):
         assert (
             run_inside_dir("pre-commit run --all-files", str(result.project_path)) == 0
         )
+
+
+@patch.dict(os.environ, {"COOKIECUTTER_SKIP_POST_GEN_HOOK": "0"})
+def test_bake_and_lock_files_created(cookies):
+
+    # * note: this test doesn't pass within vscode test runner
+    # * pip-compile not found on PATH
+
+    with bake_in_temp_dir(cookies) as result:
+        assert result.project_path
+        assert result.project_path.is_dir()
+
+        assert result.context
+
+        from pathlib import Path
+
+        assert Path.exists(Path(result.project_path) / "requirements.txt")
+        assert Path.exists(Path(result.project_path) / "requirements_dev.txt")
