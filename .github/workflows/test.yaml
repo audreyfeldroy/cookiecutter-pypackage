@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install ".[dev]" -r requirements_dev.txt
+          pip install ".[dev]" -r requirements.txt -r requirements_dev.txt
 
       - name: pytest
         run: pytest

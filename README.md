@@ -14,7 +14,7 @@ Barebones cookiecutter for python packages
 
     Or for dev mode:
 
-    `pip install -e ".[dev]" -r requirements_dev.txt`
+    `pip install -e ".[dev]" -r requirements.txt -r requirements_dev.txt`
 
 ## Usage
 
