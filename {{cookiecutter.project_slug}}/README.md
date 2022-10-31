@@ -20,13 +20,23 @@
 
 ### Manage Dependencies
 
-Dependencies are managed with [pip-tools](https://github.com/jazzband/pip-tools/).
+Dependencies are specified in `pyproject.toml` and managed with [pip-tools](https://github.com/jazzband/pip-tools/).
 
 1. Install `pip-tools` (globally with [pipx](https://github.com/pypa/pipx) or in local virtual environment with pip)
 
-2. Generate lock file:
+2. Generate lock files:
 
-    `pip-compile --extra dev -o requirements_dev.txt pyproject.toml --quiet`
+    _base_
+
+    ```sh
+    pip-compile -o requirements.txt pyproject.toml
+    ```
+
+    _dev_
+
+    ```sh
+    pip-compile --extra dev -o requirements_dev.txt pyproject.toml
+    ```
 
 To upgrade a dependency, pass the `--upgrade-package` flag along with the name of the package, or to upgrade all packages, pass the `--upgrade` flag to the command.
 
