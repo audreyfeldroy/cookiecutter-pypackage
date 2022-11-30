@@ -65,7 +65,7 @@ def test_bake_with_defaults(cookies: Cookies):
 
 
 @patch.dict(os.environ, {"COOKIECUTTER_SKIP_POST_GEN_HOOK": "1"})
-def test_bake_and_run_tests(cookies):
+def test_bake_and_run_tests(cookies: Cookies):
     result = cookies.bake()
     assert result.project_path
     assert result.project_path.is_dir()
