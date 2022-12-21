@@ -5,3 +5,4 @@
 __author__ = """{{ cookiecutter.full_name }}"""
 __email__ = '{{ cookiecutter.email }}'
 __version__ = '{{ cookiecutter.version }}'
+cookiecutter https://github.com/audreyfeldroy/cookiecutter-pypackage.git
