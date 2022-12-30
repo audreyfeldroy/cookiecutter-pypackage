@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    chef-utils (17.10.0)
+    chef-utils (18.0.185)
       concurrent-ruby
     childprocess (4.0.0)
     concurrent-ruby (1.1.10)
@@ -10,7 +10,7 @@ GEM
       rexml
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
-    mdl (0.11.0)
+    mdl (0.12.0)
       kramdown (~> 2.3)
       kramdown-parser-gfm (~> 1.1)
       mixlib-cli (~> 2.1, >= 2.1.1)
@@ -31,6 +31,7 @@ GEM
 PLATFORMS
   ruby
   x86_64-darwin-20
+  x86_64-darwin-21
   x86_64-linux
 
 DEPENDENCIES
@@ -38,4 +39,4 @@ DEPENDENCIES
   overcommit (>= 0.58.0)
 
 BUNDLED WITH
-   2.2.33
+   2.2.3

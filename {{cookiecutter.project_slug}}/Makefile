@@ -93,16 +93,16 @@ bundle_install: Gemfile.lock.installed ## Install Ruby dependencies
 lint: ## check style with flake8
 	flake8 {{ cookiecutter.package_name }} tests
 
-test-reports:
-	mkdir test-reports
-
-citest: test-reports test ## Run unit tests from CircleCI
-
 test: ## run tests quickly with the default Python
 	@pytest --cov={{cookiecutter.package_name}} tests/
 
 test-all: ## run tests on every Python version with tox
 	tox
+
+test-reports:
+	mkdir test-reports
+
+citest: test-reports test ## Run unit tests from CircleCI
 
 overcommit: ## run precommit quality checks
 	bundle exec overcommit --run

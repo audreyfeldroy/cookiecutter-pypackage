@@ -60,6 +60,7 @@ def bake_in_temp_dir(cookies, skip_fix_script=False, *args, **kwargs):
         assert result is not None, result
         assert result.exception is None, errmsg(result.exception)
         assert result.exit_code == 0
+        assert hasattr(result, 'project_path'), result
     try:
         yield result
     finally:
