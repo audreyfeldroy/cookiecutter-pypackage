@@ -60,6 +60,7 @@ def bake_in_temp_dir(cookies, skip_fix_script=False, *args, **kwargs):
         assert result is not None, result
         assert result.exception is None, errmsg(result.exception)
         assert result.exit_code == 0
+        assert hasattr(result, 'project_path'), result
     try:
         yield result
     finally:
@@ -106,7 +107,7 @@ def test_bake_and_run_build(cookies):
         assert 'fix.sh' in found_toplevel_files
 
         assert run_inside_dir('make ratchet-typecoverage', str(result.project_path)) == 0
-        assert run_inside_dir('make ratchet-coverage', str(result.project_path)) == 0
+        assert run_inside_dir('make coverage', str(result.project_path)) == 0
         assert run_inside_dir('make quality', str(result.project_path)) == 0
         # The supplied Makefile does not support win32
         if sys.platform != "win32":
@@ -199,7 +200,7 @@ def test_bake_with_no_console_script(cookies):
     with open(setup_path, 'r') as setup_file:
         assert 'entry_points' not in setup_file.read()
     assert run_inside_dir('make ratchet-typecoverage', str(result.project_path)) == 0
-    assert run_inside_dir('make ratchet-coverage', str(result.project_path)) == 0
+    assert run_inside_dir('make coverage', str(result.project_path)) == 0
     assert run_inside_dir('make quality', str(result.project_path)) == 0
     assert run_inside_dir('make docs BROWSER=echo', str(result.project_path)) == 0
 
@@ -220,5 +221,5 @@ def test_bake_with_argparse_console_script_files(cookies):
     with open(setup_path, 'r') as setup_file:
         assert 'entry_points' in setup_file.read()
     assert run_inside_dir('make ratchet-typecoverage', str(result.project_path)) == 0
-    assert run_inside_dir('make ratchet-coverage', str(result.project_path)) == 0
+    assert run_inside_dir('make coverage', str(result.project_path)) == 0
     assert run_inside_dir('make quality', str(result.project_path)) == 0

@@ -93,16 +93,16 @@ bundle_install: Gemfile.lock.installed ## Install Ruby dependencies
 lint: ## check style with flake8
 	flake8 {{ cookiecutter.package_name }} tests
 
-test-reports:
-	mkdir test-reports
-
-citest: test-reports test ## Run unit tests from CircleCI
-
 test: ## run tests quickly with the default Python
 	@pytest --cov={{cookiecutter.package_name}} tests/
 
 test-all: ## run tests on every Python version with tox
 	tox
+
+test-reports:
+	mkdir test-reports
+
+citest: test-reports test ## Run unit tests from CircleCI
 
 overcommit: ## run precommit quality checks
 	bundle exec overcommit --run
@@ -112,7 +112,7 @@ quality: overcommit ## run precommit quality checks
 clean-coverage: ## Clean out previous output of test coverage to avoid flaky results from previous runs
 	@rm -fr .coverage
 
-coverage: test report-coverage ratchet-coverage ## check code coverage and then ratchet coverage in metrics/coverage_high_water_mark
+coverage: test report-coverage ## check code coverage
 
 report-coverage: test ## Report summary of coverage to stdout, and generate HTML, XML coverage report
 	@coverage report -m
@@ -124,13 +124,7 @@ report-coverage-to-codecov: report-coverage ## use codecov.io for PR-scoped code
 	@chmod +x codecov
 	@./codecov --file coverage.xml --nonZero
 
-ratchet-coverage: report-coverage ## Adjust coverage_high_water_market file and fail if coverage dropped
-	@python setup.py coverage_ratchet
-
 cicoverage: report-coverage-to-codecov ratchet-coverage ## check code coverage, ratchet coverage, and then complain if ratchet needs to be committed
-	@echo "Looking for un-checked-in unit test coverage metrics..."
-	@git status --porcelain metrics/coverage_high_water_mark
-	@test -z "$$(git status --porcelain metrics/coverage_high_water_mark)"
 
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/{{ cookiecutter.package_name }}.rst
