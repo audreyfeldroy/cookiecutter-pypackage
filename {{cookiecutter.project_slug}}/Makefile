@@ -112,7 +112,7 @@ quality: overcommit ## run precommit quality checks
 clean-coverage: ## Clean out previous output of test coverage to avoid flaky results from previous runs
 	@rm -fr .coverage
 
-coverage: test report-coverage ratchet-coverage ## check code coverage and then ratchet coverage in metrics/coverage_high_water_mark
+coverage: test report-coverage ## check code coverage
 
 report-coverage: test ## Report summary of coverage to stdout, and generate HTML, XML coverage report
 	@coverage report -m
@@ -124,13 +124,7 @@ report-coverage-to-codecov: report-coverage ## use codecov.io for PR-scoped code
 	@chmod +x codecov
 	@./codecov --file coverage.xml --nonZero
 
-ratchet-coverage: report-coverage ## Adjust coverage_high_water_market file and fail if coverage dropped
-	@python setup.py coverage_ratchet
-
 cicoverage: report-coverage-to-codecov ratchet-coverage ## check code coverage, ratchet coverage, and then complain if ratchet needs to be committed
-	@echo "Looking for un-checked-in unit test coverage metrics..."
-	@git status --porcelain metrics/coverage_high_water_mark
-	@test -z "$$(git status --porcelain metrics/coverage_high_water_mark)"
 
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/{{ cookiecutter.package_name }}.rst
