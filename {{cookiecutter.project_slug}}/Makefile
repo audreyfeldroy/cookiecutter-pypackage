@@ -124,7 +124,7 @@ report-coverage-to-codecov: report-coverage ## use codecov.io for PR-scoped code
 	@chmod +x codecov
 	@./codecov --file coverage.xml --nonZero
 
-cicoverage: report-coverage-to-codecov ratchet-coverage ## check code coverage, ratchet coverage, and then complain if ratchet needs to be committed
+cicoverage: report-coverage-to-codecov ## check code coverage and report to codecov
 
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/{{ cookiecutter.package_name }}.rst
