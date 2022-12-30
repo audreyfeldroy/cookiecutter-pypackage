@@ -16,7 +16,7 @@ export PRINT_HELP_PYSCRIPT
 
 default: clean-coverage test coverage clean-typecoverage typecheck typecoverage quality ## run default typechecking, tests and quality
 
-typecheck: ## run type checking tools against project
+typecheck: ## validate types in code and configuration
 
 citypecheck: typecheck ## Run type check from CircleCI
 
@@ -49,8 +49,6 @@ test: ## run tests quickly
 	pytest
 
 citest: test ## Run unit tests from CircleCI
-
-typecheck: ## validate types in code and configuration
 
 overcommit: ## run precommit quality checks
 	bundle exec overcommit --run

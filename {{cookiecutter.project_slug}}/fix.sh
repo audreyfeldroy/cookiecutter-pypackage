@@ -115,7 +115,7 @@ ensure_ruby_versions() {
 
   # You can find out which feature versions are still supported / have
   # been release here: https://www.ruby-lang.org/en/downloads/
-  ruby_versions="$(latest_ruby_version 3.0)"
+  ruby_versions="$(latest_ruby_version 3.1)"
 
   echo "Latest Ruby versions: ${ruby_versions}"
 
@@ -188,7 +188,7 @@ ensure_bundle() {
   #
   # This affects nokogiri, which will try to reinstall itself in
   # Docker builds where it's already installed if this is not run.
-  for platform in x86_64-darwin-20 x86_64-linux
+  for platform in x86_64-darwin-21 x86_64-linux
   do
     grep "${platform:?}" Gemfile.lock >/dev/null 2>&1 || bundle lock --add-platform "${platform:?}"
   done
