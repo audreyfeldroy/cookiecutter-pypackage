@@ -7,24 +7,17 @@ assignees: ''
 
 ---
 
-**NetBox version**
-What version of NetBox are you currently running? 
+* Date you used Cookiecutter NetBox plugin:
+* Cookiecutter version used, if any:
+* Python version, if any:
+* Operating System:
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+### Description
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+Describe what you were trying to get done. Tell us what happened, what went wrong, and what you expected to happen.
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+### What I Did
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
-
-**Additional context**
-Add any other context about the problem here.
+```
+Paste the command(s) you ran and the output.
+```
