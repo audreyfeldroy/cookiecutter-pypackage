@@ -24,16 +24,6 @@ Basics
 
    prompts
 
-Advanced Features
------------------
-
-.. toctree::
-   :maxdepth: 2
-
-   travis_pypi_setup
-   console_script_setup
-
-
 Indices and tables
 ==================
 
