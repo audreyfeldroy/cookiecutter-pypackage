@@ -4,10 +4,6 @@ from netbox.views import generic
 from . import filtersets, forms, models, tables
 
 
-#
-# AccessList views
-#
-
 class {{ cookiecutter.__model_name }}View(generic.ObjectView):
     queryset = models.{{ cookiecutter.__model_name }}.objects.all()
 
