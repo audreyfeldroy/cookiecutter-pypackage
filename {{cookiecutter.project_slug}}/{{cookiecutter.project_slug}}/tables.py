@@ -12,4 +12,4 @@ class {{ cookiecutter.__model_name }}Table(NetBoxTable):
     class Meta(NetBoxTable.Meta):
         model = {{ cookiecutter.__model_name }}
         fields = ('pk', 'id', 'name', 'actions')
-        default_columns = ('name', 'default_action')
+        default_columns = ('name', )

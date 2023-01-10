@@ -7,11 +7,10 @@ from .models import {{ cookiecutter.__model_name }}
 
 
 class {{ cookiecutter.__model_name }}Form(NetBoxModelForm):
-    comments = CommentField()
 
     class Meta:
         model = {{ cookiecutter.__model_name }}
-        fields = ('name', 'default_action', 'comments', 'tags')
+        fields = ('name', 'tags')
 
 
 # class AccessListRuleFilterForm(NetBoxModelFilterSetForm):
