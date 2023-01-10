@@ -31,8 +31,8 @@ class {{ cookiecutter.__model_name }}Serializer(NetBoxModelSerializer):
     rule_count = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = AccessList
+        model = {{ cookiecutter.__model_name }}
         fields = (
-            'id', 'url', 'display', 'name', 'default_action', 'comments', 'tags', 'custom_fields', 'created',
-            'last_updated', 'rule_count',
+            'id', 'url', 'display', 'name', 'comments', 'tags', 'custom_fields', 'created',
+            'last_updated',
         )

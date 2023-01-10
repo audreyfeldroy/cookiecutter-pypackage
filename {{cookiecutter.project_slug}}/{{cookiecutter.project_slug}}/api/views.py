@@ -3,7 +3,7 @@ from django.db.models import Count
 from netbox.api.viewsets import NetBoxModelViewSet
 
 from .. import filtersets, models
-from .serializers import {{ cookiecutter.__model_name }}
+from .serializers import {{ cookiecutter.__model_name }}Serializer
 
 
 class {{ cookiecutter.__model_name }}ViewSet(NetBoxModelViewSet):

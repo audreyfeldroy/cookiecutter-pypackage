@@ -14,20 +14,20 @@ class {{ cookiecutter.__model_name }}Form(NetBoxModelForm):
         fields = ('name', 'default_action', 'comments', 'tags')
 
 
-class AccessListRuleFilterForm(NetBoxModelFilterSetForm):
-    model = AccessListRule
-    access_list = forms.ModelMultipleChoiceField(
-        queryset=AccessList.objects.all(),
-        required=False
-    )
-    index = forms.IntegerField(
-        required=False
-    )
-    protocol = forms.MultipleChoiceField(
-        choices=ProtocolChoices,
-        required=False
-    )
-    action = forms.MultipleChoiceField(
-        choices=ActionChoices,
-        required=False
-    )
+# class AccessListRuleFilterForm(NetBoxModelFilterSetForm):
+#     model = AccessListRule
+#     access_list = forms.ModelMultipleChoiceField(
+#         queryset=AccessList.objects.all(),
+#         required=False
+#     )
+#     index = forms.IntegerField(
+#         required=False
+#     )
+#     protocol = forms.MultipleChoiceField(
+#         choices=ProtocolChoices,
+#         required=False
+#     )
+#     action = forms.MultipleChoiceField(
+#         choices=ActionChoices,
+#         required=False
+#     )

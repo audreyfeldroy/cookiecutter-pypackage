@@ -13,7 +13,7 @@ class {{ cookiecutter.__model_name }}View(generic.ObjectView):
 
 
 class {{ cookiecutter.__model_name }}ListView(generic.ObjectListView):
-    queryset = models.{{ cookiecutter.__model_name }}
+    queryset = models.{{ cookiecutter.__model_name }}.objects.all()
     table = tables.{{ cookiecutter.__model_name }}Table
 
 
