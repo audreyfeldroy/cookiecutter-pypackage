@@ -12,8 +12,6 @@ with open('HISTORY.rst') as history_file:
 
 requirements = []
 
-test_requirements = [{%- if cookiecutter.use_pytest == 'y' %}'pytest>=3',{%- endif %} ]
-
 {%- set license_classifiers = {
     'MIT license': 'License :: OSI Approved :: MIT License',
     'BSD license': 'License :: OSI Approved :: BSD License',
@@ -49,7 +47,6 @@ setup(
     name='{{ cookiecutter.project_slug }}',
     packages=find_packages(include=['{{ cookiecutter.project_slug }}', '{{ cookiecutter.project_slug }}.*']),
     test_suite='tests',
-    tests_require=test_requirements,
     url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}',
     version='{{ cookiecutter.version }}',
     zip_safe=False,

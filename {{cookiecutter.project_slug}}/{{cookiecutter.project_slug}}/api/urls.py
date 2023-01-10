@@ -5,6 +5,6 @@ from . import views
 app_name = '{{ cookiecutter.project_slug }}'
 
 router = NetBoxRouter()
-router.register('access-lists', views.{{ cookiecutter.model_name }}ViewSet)
+router.register('access-lists', views.{{ cookiecutter._model_name }}ViewSet)
 
 urlpatterns = router.urls

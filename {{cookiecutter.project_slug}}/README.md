@@ -34,7 +34,7 @@ pip install git+https://github.com/{{ cookiecutter.github_username }}/{{ cookiec
 or by adding to your `local_requirements.txt` or `plugin_requirements.txt` (netbox-docker):
 
 ```bash
-git+{{git_url}}
+git+https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
 ```
 
 Enable the plugin in `/opt/netbox/netbox/netbox/configuration.py`,
@@ -42,11 +42,11 @@ Enable the plugin in `/opt/netbox/netbox/netbox/configuration.py`,
 
 ```python
 PLUGINS = [
-    '{{plugin_name}}}'
+    '{{ cookiecutter.plugin_name }}'
 ]
 
 PLUGINS_CONFIG = {
-    "{{plugin_name}}": {},
+    "{{ cookiecutter.plugin_name }}": {},
 }
 ```
 

@@ -2,14 +2,14 @@ from rest_framework import serializers
 
 from ipam.api.serializers import NestedPrefixSerializer
 from netbox.api.serializers import NetBoxModelSerializer, WritableNestedSerializer
-from ..models import {{ cookiecutter.model_name }}
+from ..models import {{ cookiecutter._model_name }}
 
 
 #
 # Nested serializers
 #
 
-class Nested{{ cookiecutter.model_name }}Serializer(WritableNestedSerializer):
+class Nested{{ cookiecutter._model_name }}Serializer(WritableNestedSerializer):
     url = serializers.HyperlinkedIdentityField(
         view_name='plugins-api:netbox_access_lists-api:accesslist-detail'
     )
@@ -24,7 +24,7 @@ class Nested{{ cookiecutter.model_name }}Serializer(WritableNestedSerializer):
 # Regular serializers
 #
 
-class {{ cookiecutter.model_name }}Serializer(NetBoxModelSerializer):
+class {{ cookiecutter._model_name }}Serializer(NetBoxModelSerializer):
     url = serializers.HyperlinkedIdentityField(
         view_name='plugins-api:netbox_access_lists-api:accesslist-detail'
     )

@@ -1,5 +1,5 @@
 .PHONY: clean clean-build clean-pyc clean-test coverage dist docs help install lint lint/flake8
-        {%- if cookiecutter.use_black == 'y' %} lint/black{% endif %}
+        lint/black
 .DEFAULT_GOAL := help
 
 define BROWSER_PYSCRIPT
@@ -45,23 +45,11 @@ clean-pyc: ## remove Python file artifacts
 lint/flake8: ## check style with flake8
 	flake8 {{ cookiecutter.project_slug }} tests
 
-{%- if cookiecutter.use_black == 'y' %}
 lint/black: ## check style with black
 	black --check {{ cookiecutter.project_slug }} tests
-{%- endif %}
 
-lint: lint/flake8{%- if cookiecutter.use_black == 'y' %} lint/black{%- endif %} ## check style
+lint: lint/flake8 lint/black ## check style
 
-
-coverage: ## check code coverage quickly with the default Python
-{%- if cookiecutter.use_pytest == 'y' %}
-	coverage run --source {{ cookiecutter.project_slug }} -m pytest
-{%- else %}
-	coverage run --source {{ cookiecutter.project_slug }} setup.py test
-{%- endif %}
-	coverage report -m
-	coverage html
-	$(BROWSER) htmlcov/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/{{ cookiecutter.project_slug }}.rst
