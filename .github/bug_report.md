@@ -1,4 +1,13 @@
-* Date you used Cookiecutter PyPackage:
+---
+name: Bug report
+about: Create a report to help us improve
+title: ''
+labels: bug
+assignees: ''
+
+---
+
+* Date you used Cookiecutter NetBox plugin:
 * Cookiecutter version used, if any:
 * Python version, if any:
 * Operating System:

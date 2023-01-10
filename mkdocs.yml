@@ -1,0 +1,42 @@
+site_name: Cookiecutter Pypackage
+site_url: https://github.com/netbox-community/cookiecutter-netbox-plugin
+repo_url: https://github.com/netbox-community/cookiecutter-netbox-plugin
+repo_name: waynerv/cookiecutter-pypackage
+nav:
+  - Introduction: index.md
+  - Tutorial: tutorial.md
+  - Console script: console_script_setup.md
+  - Release checklist: pypi_release_checklist.md
+  - FAQ: faq.md
+  - History: history.md
+
+theme:
+  name: material
+  language: en
+  #logo: assets/logo.png
+  palette:
+      scheme: preference
+      primary: indigo
+      accent: indigo
+  features:
+    - navigation.indexes
+    - navigation.instant
+    - navigation.tabs.sticky
+
+markdown_extensions:
+  - pymdownx.highlight:
+      linenums: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.superfences
+  - pymdownx.details
+  - admonition
+  - toc:
+      baselevel: 2
+      permalink: true
+      slugify: !!python/name:pymdownx.slugs.uslugify
+plugins:
+  - include-markdown
+  - search:
+      lang: en
