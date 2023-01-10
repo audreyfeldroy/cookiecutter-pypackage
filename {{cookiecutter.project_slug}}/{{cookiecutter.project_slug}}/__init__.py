@@ -8,7 +8,7 @@ __version__ = '{{ cookiecutter.version }}'
 from extras.plugins import PluginConfig
 
 
-class {{ cookiecutter._model_name }}Config(PluginConfig):
+class {{ cookiecutter.__model_name }}Config(PluginConfig):
     name = '{{ cookiecutter.project_slug }}'
     verbose_name = '{{ cookiecutter.project_name }}'
     description = '{{ cookiecutter.project_short_description }}'
@@ -16,4 +16,4 @@ class {{ cookiecutter._model_name }}Config(PluginConfig):
     base_url = '{{ cookiecutter.project_slug }}'
 
 
-config = {{ cookiecutter._model_name }}Config
+config = {{ cookiecutter.__model_name }}Config

@@ -3,14 +3,14 @@ from django import forms
 from ipam.models import Prefix
 from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
 from utilities.forms.fields import CommentField, DynamicModelChoiceField
-from .models import {{ cookiecutter._model_name }}
+from .models import {{ cookiecutter.__model_name }}
 
 
-class {{ cookiecutter._model_name }}Form(NetBoxModelForm):
+class {{ cookiecutter.__model_name }}Form(NetBoxModelForm):
     comments = CommentField()
 
     class Meta:
-        model = {{ cookiecutter._model_name }}
+        model = {{ cookiecutter.__model_name }}
         fields = ('name', 'default_action', 'comments', 'tags')
 
 

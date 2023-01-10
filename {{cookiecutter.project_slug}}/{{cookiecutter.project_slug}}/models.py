@@ -4,7 +4,7 @@ from django.urls import reverse
 from netbox.models import NetBoxModel
 
 
-class {{ cookiecutter._model_name }}(NetBoxModel):
+class {{ cookiecutter.__model_name }}(NetBoxModel):
     name = models.CharField(
         max_length=100
     )
@@ -16,4 +16,4 @@ class {{ cookiecutter._model_name }}(NetBoxModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('plugins:{{ cookiecutter.project_slug }}:{{ cookiecutter._model_name|lower }}', args=[self.pk])
+        return reverse('plugins:{{ cookiecutter.project_slug }}:{{ cookiecutter.__model_name|lower }}', args=[self.pk])

@@ -1,11 +1,11 @@
 from netbox.filtersets import NetBoxModelFilterSet
-from .models import {{ cookiecutter._model_name }}
+from .models import {{ cookiecutter.__model_name }}
 
 
-class {{ cookiecutter._model_name }}FilterSet(NetBoxModelFilterSet):
+class {{ cookiecutter.__model_name }}FilterSet(NetBoxModelFilterSet):
 
     class Meta:
-        model = {{ cookiecutter._model_name }}
+        model = {{ cookiecutter.__model_name }}
 
     def search(self, queryset, name, value):
         return queryset.filter(description__icontains=value)
