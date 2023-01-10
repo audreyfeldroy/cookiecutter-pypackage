@@ -1,5 +1,4 @@
-include CONTRIBUTING.rst
-include HISTORY.rst
+include CONTRIBUTING.md
 include LICENSE
 include README.md
 
