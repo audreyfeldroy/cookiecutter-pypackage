@@ -8,12 +8,12 @@ __version__ = '{{ cookiecutter.version }}'
 from extras.plugins import PluginConfig
 
 
-class NetBoxAccessListsConfig(PluginConfig):
-    name = 'netbox_access_lists'
-    verbose_name = ' NetBox Access Lists'
-    description = 'Manage simple ACLs in NetBox'
-    version = '0.1'
-    base_url = 'access-lists'
+class {{ cookiecutter.model_name }}Config(PluginConfig):
+    name = '{{ cookiecutter.project_slug }}'
+    verbose_name = '{{ cookiecutter.project_name }}'
+    description = '{{ cookiecutter.project_short_description }}'
+    version = 'version'
+    base_url = '{{ cookiecutter.project_slug }}'
 
 
-config = NetBoxAccessListsConfig
+config = {{ cookiecutter.model_name }}Config

@@ -2,9 +2,9 @@ from extras.plugins import PluginMenuButton, PluginMenuItem
 from utilities.choices import ButtonColorChoices
 
 
-accesslist_buttons = [
+plugin_buttons = [
     PluginMenuButton(
-        link='plugins:netbox_access_lists:accesslist_add',
+        link='plugins:{{ cookiecutter.project_slug }}:{{ cookiecutter.model_url_name }}_add',
         title='Add',
         icon_class='mdi mdi-plus-thick',
         color=ButtonColorChoices.GREEN
@@ -13,8 +13,8 @@ accesslist_buttons = [
 
 menu_items = (
     PluginMenuItem(
-        link='plugins:netbox_access_lists:accesslist_list',
-        link_text='Access Lists',
-        buttons=accesslist_buttons
+        link='plugins:{{ cookiecutter.project_slug }}:{{ cookiecutter.model_url_name }}_list',
+        link_text='{{ cookiecutter.plugin_name }}',
+        buttons=plugin_buttons
     ),
 )

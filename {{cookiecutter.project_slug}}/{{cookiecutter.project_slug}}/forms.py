@@ -3,34 +3,15 @@ from django import forms
 from ipam.models import Prefix
 from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
 from utilities.forms.fields import CommentField, DynamicModelChoiceField
-from .models import AccessList, AccessListRule, ActionChoices, ProtocolChoices
+from .models import {{ cookiecutter.model_name }}
 
 
-class AccessListForm(NetBoxModelForm):
+class {{ cookiecutter.model_name }}Form(NetBoxModelForm):
     comments = CommentField()
 
     class Meta:
-        model = AccessList
+        model = {{ cookiecutter.model_name }}
         fields = ('name', 'default_action', 'comments', 'tags')
-
-
-class AccessListRuleForm(NetBoxModelForm):
-    access_list = DynamicModelChoiceField(
-        queryset=AccessList.objects.all()
-    )
-    source_prefix = DynamicModelChoiceField(
-        queryset=Prefix.objects.all()
-    )
-    destination_prefix = DynamicModelChoiceField(
-        queryset=Prefix.objects.all()
-    )
-
-    class Meta:
-        model = AccessListRule
-        fields = (
-            'access_list', 'index', 'description', 'source_prefix', 'source_ports', 'destination_prefix',
-            'destination_ports', 'protocol', 'action', 'tags',
-        )
 
 
 class AccessListRuleFilterForm(NetBoxModelFilterSetForm):

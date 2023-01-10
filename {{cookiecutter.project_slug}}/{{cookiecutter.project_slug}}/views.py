@@ -8,53 +8,21 @@ from . import filtersets, forms, models, tables
 # AccessList views
 #
 
-class AccessListView(generic.ObjectView):
-    queryset = models.AccessList.objects.all()
-
-    def get_extra_context(self, request, instance):
-        table = tables.AccessListRuleTable(instance.rules.all())
-        table.configure(request)
-
-        return {
-            'rules_table': table,
-        }
+class {{ cookiecutter.model_name }}View(generic.ObjectView):
+    queryset = models.{{ cookiecutter.model_name }}.objects.all()
 
 
-class AccessListListView(generic.ObjectListView):
-    queryset = models.AccessList.objects.annotate(
-        rule_count=Count('rules')
-    )
-    table = tables.AccessListTable
+class {{ cookiecutter.model_name }}ListView(generic.ObjectListView):
+    queryset = models.{{ cookiecutter.model_name }}
+    table = tables.{{ cookiecutter.model_name }}Table
 
 
-class AccessListEditView(generic.ObjectEditView):
-    queryset = models.AccessList.objects.all()
-    form = forms.AccessListForm
+class {{ cookiecutter.model_name }}EditView(generic.ObjectEditView):
+    queryset = models.{{ cookiecutter.model_name }}.objects.all()
+    form = forms.{{ cookiecutter.model_name }}Form
 
 
-class AccessListDeleteView(generic.ObjectDeleteView):
-    queryset = models.AccessList.objects.all()
+class {{ cookiecutter.model_name }}DeleteView(generic.ObjectDeleteView):
+    queryset = models.{{ cookiecutter.model_name }}.objects.all()
 
 
-#
-# AccessListRule views
-#
-
-class AccessListRuleView(generic.ObjectView):
-    queryset = models.AccessListRule.objects.all()
-
-
-class AccessListRuleListView(generic.ObjectListView):
-    queryset = models.AccessListRule.objects.all()
-    table = tables.AccessListRuleTable
-    filterset = filtersets.AccessListRuleFilterSet
-    filterset_form = forms.AccessListRuleFilterForm
-
-
-class AccessListRuleEditView(generic.ObjectEditView):
-    queryset = models.AccessListRule.objects.all()
-    form = forms.AccessListRuleForm
-
-
-class AccessListRuleDeleteView(generic.ObjectDeleteView):
-    queryset = models.AccessListRule.objects.all()

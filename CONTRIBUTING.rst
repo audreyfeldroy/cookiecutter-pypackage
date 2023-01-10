@@ -129,24 +129,12 @@ development. Please note this documentation assumes you already have
 
 ::
 
-7. Before raising a pull request you should also run tox. This will run the
-   tests across different versions of Python:
-
-   .. code-block:: bash
-
-        $ tox
-
-   If you are missing flake8, pytest and/or tox, just `pip install` them into
-   your virtualenv.
-
-::
-
-8. If your contribution is a bug fix or new feature, you may want to add a test
+7. If your contribution is a bug fix or new feature, you may want to add a test
    to the existing test suite. See section Add a New Test below for details.
 
 ::
 
-9. Commit your changes and push your branch to GitHub:
+8. Commit your changes and push your branch to GitHub:
 
    .. code-block:: bash
 
@@ -156,7 +144,7 @@ development. Please note this documentation assumes you already have
 
 ::
 
-10. Submit a pull request through the GitHub website.
+9. Submit a pull request through the GitHub website.
 
 ::
 
