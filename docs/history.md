@@ -1,13 +1,8 @@
-# Cookiecutter NetBox Plugin
+# History
+ 
+## v0.1.0
 
-Cookiecutter template for a NetBox plugin, built with popular develop tools and
-conform to best practice.
-
-* Documentation: <https://github.com/netbox-community/cookiecutter-netbox-plugin>
-
-## Features
-
-This tool will create Python project with the following features:
+***first (Beta) release with the following features:***
 
 * [Mkdocs](https://www.mkdocs.org): Writing your docs in markdown style
 * Format with [Black](https://github.com/psf/black) and [Isort](https://github.com/PyCQA/isort)
@@ -18,19 +13,3 @@ This tool will create Python project with the following features:
     - publish documents automatically when CI success
     - extract changelog from CHANGELOG and integrate with release notes automatically
 * Host your documentation from [GitHub Pages](https://pages.github.com) with zero-config
-
-## Quickstart
-
-Install the latest Cookiecutter if you haven't installed it yet (this requires Cookiecutter 1.4.0 or higher):
-
-```
-pip install -U cookiecutter
-```
-
-Generate a Python package project:
-
-```
-cookiecutter https://github.com/netbox-community/cookiecutter-netbox-plugin.git
-```
-
-Then follow **[Tutorial](docs/tutorial.md)** to finish other configurations.

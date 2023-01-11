@@ -5,8 +5,6 @@ repo_name: {{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
 #strict: true
 nav:
   - Home: index.md
-  - Installation: installation.md
-  - Usage: usage.md
   - Contributing: contributing.md
   - Changelog: changelog.md
 theme:

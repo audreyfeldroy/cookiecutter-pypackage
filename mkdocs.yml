@@ -1,7 +1,7 @@
 site_name: Cookiecutter Pypackage
 site_url: https://github.com/netbox-community/cookiecutter-netbox-plugin
 repo_url: https://github.com/netbox-community/cookiecutter-netbox-plugin
-repo_name: waynerv/cookiecutter-pypackage
+repo_name: netbox-community/cookiecutter-netbox-plugin
 nav:
   - Introduction: index.md
   - Tutorial: tutorial.md
