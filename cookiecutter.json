@@ -7,6 +7,7 @@
   "project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
   "pypi_username": "",
   "version": "0.1.0",
+  "python_version": "3.9",
   "use_pytest": "n",
   "use_black": "y",
   "use_pypi_deployment_with_travis": "n",
