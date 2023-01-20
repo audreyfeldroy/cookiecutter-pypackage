@@ -16,18 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: ricardochaves/python-lint@v1.4.0
+      - uses: psf/black@stable
         with:
-          python-root-list: "{{ cookiecutter.project_slug }}"
-          use-pylint: false
-          use-pycodestyle: false
-          use-flake8: false
-          use-black: true
-          use-mypy: false
-          use-isort: false
-          extra-pylint-options: ""
-          extra-pycodestyle-options: ""
-          extra-flake8-options: ""
-          extra-black-options: ""
-          extra-mypy-options: ""
-          extra-isort-options: ""
+          options: "--check --verbose"
+          src: "./agents_profile_updated/src"
+          version: "~= 22.0"
