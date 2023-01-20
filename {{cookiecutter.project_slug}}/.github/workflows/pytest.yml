@@ -19,7 +19,7 @@ jobs:
   test:
 
     runs-on: ubuntu-latest
-    container: python:3.8
+    container: python:{{ cookiecutter.python_version}}
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
