@@ -100,13 +100,13 @@ development. Please note this documentation assumes you already have
 
 ::
 
-5. When you're done making changes, check that your changes pass flake8. Since,
-   this package contains mostly templates the flake should be run for tests
+5. When you're done making changes, check that your changes pass ruff. Since,
+   this package contains mostly templates the ruff should be run for tests
    directory:
 
    .. code-block:: bash
 
-        $ flake8 ./tests
+        $ ruff ./tests
 
 ::
 
@@ -136,7 +136,7 @@ development. Please note this documentation assumes you already have
 
         $ tox
 
-   If you are missing flake8, pytest and/or tox, just `pip install` them into
+   If you are missing ruff, pytest and/or tox, just `pip install` them into
    your virtualenv.
 
 ::

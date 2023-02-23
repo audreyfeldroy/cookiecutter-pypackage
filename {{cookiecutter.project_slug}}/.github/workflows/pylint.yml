@@ -5,11 +5,13 @@ on:
       - "main"
     paths:
       - '**.py'
+      - '.github/workflows/pylint.yml'
   pull_request:
     branches: 
       - "main"
     paths:
       - '**.py'
+      - '.github/workflows/pylint.yml'
 jobs:
   pylint:
     name: lint
@@ -19,5 +21,5 @@ jobs:
       - uses: psf/black@stable
         with:
           options: "--check --verbose"
-          src: "./agents_profile_updated/src"
-          version: "~= 22.0"
+          src: "./{{ cookiecutter.project_slug }}"
+          version: "~= 23.1.0"

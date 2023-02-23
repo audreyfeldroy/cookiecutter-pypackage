@@ -1,3 +1,5 @@
+default_language_version:
+    python: python3.9
 repos:
   - repo: https://github.com/timothycrosley/isort
     rev: 5.10.1
@@ -6,14 +8,20 @@ repos:
         additional_dependencies: ["toml"]
         entry: isort --profile=black
         types: [python]
-
   - repo: https://github.com/psf/black
-    rev: 22.10.0
+    rev: 23.1.0
     hooks:
       - id: black
-        exclude: |
-          (?x)(
-              ^docs/|
-              ^tests/|
-              ^setup.py
-          )
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.0.138
+    hooks:
+    -   id: ruff
+        args:
+        - --fix
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.2.2
+    hooks:
+    -   id: pyupgrade
+        args:
+        - --py3-plus
+        - --keep-runtime-typing
