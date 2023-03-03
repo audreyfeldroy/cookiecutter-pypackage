@@ -65,7 +65,7 @@ lint: lint/ruff{%- if cookiecutter.use_black == 'y' %} lint/black{%- endif %} ##
 
 test: ## run tests quickly with the default Python
 {%- if cookiecutter.use_pytest == 'y' %}
-	python -m pytest
+	pytest
 {%- else %}
 	python setup.py test
 {%- endif %}
