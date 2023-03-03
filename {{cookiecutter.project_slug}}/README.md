@@ -1,4 +1,4 @@
-![tests workflow](https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug | replace("_", "-") }}/actions/workflows/pytest.yml/badge.svg)
+![tests workflow](https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug | replace("_", "-") }}/actions/workflows/test.yml/badge.svg)
 ![lint workflow](https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug | replace("_", "-") }}/actions/workflows/pylint.yml/badge.svg)
 {% if cookiecutter.use_pre_commit == 'y' -%}
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black)

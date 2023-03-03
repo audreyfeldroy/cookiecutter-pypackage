@@ -15,4 +15,4 @@ pytest==6.2.4{% endif %}
 black~=23.1.0{% endif %}
 {% if cookiecutter.use_pre_commit == 'y' -%}
 pre-commit
-isort{% endif %}
+ruff>=0.0.252{% endif %}
