@@ -52,7 +52,8 @@ jobs:
         run: make lint
 
       - name: Run tests
-        run: make test
+        run: |
+          make coverage
 
       - name: Run doctest
         run: make doctest
