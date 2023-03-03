@@ -1,27 +1,23 @@
 default_language_version:
     python: python3.9
 repos:
-  - repo: https://github.com/timothycrosley/isort
-    rev: 5.10.1
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
     hooks:
-      - id: isort
-        additional_dependencies: ["toml"]
-        entry: isort --profile=black
-        types: [python]
+    -   id: check-added-large-files
+    -   id: check-toml
+    -   id: check-yaml
+        args:
+        -   --unsafe
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
   - repo: https://github.com/psf/black
     rev: 23.1.0
     hooks:
       - id: black
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.138
+    rev: v0.0.253
     hooks:
     -   id: ruff
         args:
         - --fix
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.2.2
-    hooks:
-    -   id: pyupgrade
-        args:
-        - --py3-plus
-        - --keep-runtime-typing
