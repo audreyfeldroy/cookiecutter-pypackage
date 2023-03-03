@@ -1,8 +1,8 @@
 """Main module."""
 import sys
+{%- if cookiecutter.command_line_interface|lower == 'typer' %}
 
-{%- if cookiecutter.command_line_interface|lower == 'typer' -%}
-from .cli import app
+from {{ cookiecutter.project_slug }}.cli import app
 
 app(prog_name="{{cookiecutter.project_slug}}")
 
