@@ -1,0 +1,15 @@
+[project]
+name = "cookiecutter-pypackage"
+description = "Cookiecutter template for a Python package"
+readme = "README.rst"
+version = "0.1.0"
+requires-python = ">=3.6"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Audrey Roy Greenfield", email = "aroy@alum.mit.edu"},
+    {name = "Manuel Martinez", email = "manmart@uchicago.edu"}
+]
+dynamic = ["dependencies", "optional-dependencies"]
+
+[project.urls]
+repository = "https://github.com/mansueto-institute/cookiecutter-pypackage"
