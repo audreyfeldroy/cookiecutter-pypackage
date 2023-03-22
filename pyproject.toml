@@ -13,3 +13,10 @@ dynamic = ["dependencies", "optional-dependencies"]
 
 [project.urls]
 repository = "https://github.com/mansueto-institute/cookiecutter-pypackage"
+
+[tool.setuptools.dynamic]
+optional-dependencies = {dev = {file = "dev-requirements.txt"}}
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
