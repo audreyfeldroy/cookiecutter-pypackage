@@ -46,6 +46,8 @@ clean-test: ## remove test and coverage artifacts
 	rm -f .coverage
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
+	rm -f .coverage-junit.xml
+	rm -f coverage.xml
 
 lint/flake8: ## check style with flake8
 	flake8 src/{{ cookiecutter.project_slug }} tests
