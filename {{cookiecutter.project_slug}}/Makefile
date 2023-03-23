@@ -48,10 +48,10 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 
 lint/flake8: ## check style with flake8
-	flake8 {{ cookiecutter.project_slug }} tests
+	flake8 src/{{ cookiecutter.project_slug }} tests
 
 lint/black: ## check style with black
-	black --check {{ cookiecutter.project_slug }} tests
+	black --check src/{{ cookiecutter.project_slug }} tests
 
 lint: lint/flake8 lint/black ## check style
 
