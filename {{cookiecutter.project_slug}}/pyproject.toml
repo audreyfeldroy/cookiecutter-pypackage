@@ -1,0 +1,110 @@
+{%- set license_classifiers = {
+    'GNU Lesser General Public License v2.1': 'License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)',
+    'MIT license': 'License :: OSI Approved :: MIT License',
+    'BSD license': 'License :: OSI Approved :: BSD License',
+    'ISC license': 'License :: OSI Approved :: ISC License (ISCL)',
+    'Apache Software License 2.0': 'License :: OSI Approved :: Apache Software License',
+    'GNU General Public License v3': 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)'
+} %}
+[project]
+name="{{ cookiecutter.project_slug }}"
+version = "{{ cookiecutter.version }}"
+description = "{{ cookiecutter.project_short_description }}"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {file = "LICENSE"}
+keywords = ["{{ cookiecutter.project_slug }}"]
+authors = [
+  {name="{{ cookiecutter.full_name.replace('\"', '\\\"') }}", email="{{ cookiecutter.email }}"},
+]
+classifiers = [
+  'Development Status :: 2 - Pre-Alpha',
+  'Intended Audience :: Developers',
+{%- if cookiecutter.open_source_license in license_classifiers %}
+  '{{ license_classifiers[cookiecutter.open_source_license] }}',
+{%- endif %}
+  'Natural Language :: English',
+  'Programming Language :: Python :: 3',
+  'Programming Language :: Python :: 3.7',
+  'Programming Language :: Python :: 3.8',
+  'Programming Language :: Python :: 3.9',
+  'Programming Language :: Python :: 3.10',
+]
+dependencies = []
+
+[project.urls]
+homepage = "https://github.com/mansueto-institute/{{ cookiecutter.project_slug }}"
+documentation = "https://{{ cookiecutter.project_slug }}.readthedocs.io/"
+repository = "https://github.com/mansueto-institute/{{ cookiecutter.project_slug }}"
+changelog = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/blob/main/CHANGELOG.md"
+
+[project.optional-dependencies]
+docs = [
+  "myst-parser==0.18.0",
+  "Sphinx==5.1.1",
+  "sphinx-rtd-theme==1.0.0",
+]
+test = [
+  "black==22.8.0",
+  "bump2version==1.0.1",
+{% if cookiecutter.command_line_interface|lower == 'click' -%}
+  "Click==8.1.3",{% endif %}
+  "coverage==6.4.4",
+  "coveralls==3.3.1",
+  "faker==14.2.1",
+  "flake8==5.0.4",
+  "pre-commit==2.20.0",
+  "pytest==7.1.3",
+  "pytest-cov==3.0.0",
+  "pytest-mock==3.8.2",
+  "tox==3.26.0",
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tools.setuptools]
+license-files = ["LICENSE"]
+
+[tools.setuptools.packages.find]
+where = ["src"]
+namespaces = false
+
+[tools.setuptools.include-package-data]
+{{ cookiecutter.project_slug }} = ["LICENSE", "README.md"]
+
+[tools.setuptools.exclude-package-data]
+{{ cookiecutter.project_slug }} = [".gitignore", "contrib", "docs", "test*"]
+
+[tool.flit.sdist]
+include = ["LICENSE", "README.md"]
+exclude = ["contrib", "docs", "pytest.ini", "tox.ini", "test*"]
+
+[tool.pytest.ini_options]
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+addopts = "--doctest-modules"
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist = py36, py37, py38, flake8
+
+[testenv:flake8]
+basepython = python
+deps = flake8
+commands = flake8 ultratenant tests
+
+[testenv]
+setenv =
+    PYTHONPATH = {toxinidir}
+deps =
+    -r{toxinidir}/requirements_dev.txt
+; If you want to make tox run the tests with the same versions, create a
+; requirements.txt with the pinned versions and uncomment the following line:
+;     -r{toxinidir}/requirements.txt
+commands =
+    pip install -U pip
+    pytest --basetemp={envtmpdir}
+
+"""

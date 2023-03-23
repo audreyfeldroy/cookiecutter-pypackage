@@ -6,6 +6,7 @@ version = "0.1.0"
 requires-python = ">=3.6"
 license = {file = "LICENSE"}
 authors = [
+    {name = "Lucas Rangel Cezimbra", email = "lucas@cezimbra.tec.br"},
     {name = "Audrey Roy Greenfield", email = "aroy@alum.mit.edu"},
     {name = "Manuel Martinez", email = "manmart@uchicago.edu"}
 ]
