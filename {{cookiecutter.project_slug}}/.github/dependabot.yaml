@@ -8,8 +8,8 @@ updates:
       interval: "weekly"
 
   # Maintain dependencies for pip
-  - target-branch: "develop"
   - package-ecosystem: "pip"
+    arget-branch: "develop"
     directory: "/"
     schedule:
       interval: "daily"
