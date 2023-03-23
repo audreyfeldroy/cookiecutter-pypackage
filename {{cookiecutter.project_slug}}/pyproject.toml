@@ -1,0 +1,98 @@
+{%- set license_classifiers = {
+    'GNU Lesser General Public License v2.1': 'License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)',
+    'MIT license': 'License :: OSI Approved :: MIT License',
+    'BSD license': 'License :: OSI Approved :: BSD License',
+    'ISC license': 'License :: OSI Approved :: ISC License (ISCL)',
+    'Apache Software License 2.0': 'License :: OSI Approved :: Apache Software License',
+    'GNU General Public License v3': 'License :: OSI Approved :: GNU General Public License v3 (GPLv3)'
+} %}
+[project]
+name="{{ cookiecutter.project_slug }}"
+version = "{{ cookiecutter.version }}"
+description = "{{ cookiecutter.project_short_description }}"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+keywords = ["{{ cookiecutter.project_slug }}"]
+authors = [
+  {name="{{ cookiecutter.full_name.replace('\"', '\\\"') }}", email="{{ cookiecutter.email }}"},
+]
+classifiers = [
+  'Development Status :: 2 - Pre-Alpha',
+  'Intended Audience :: Developers',
+{%- if cookiecutter.open_source_license in license_classifiers %}
+  '{{ license_classifiers[cookiecutter.open_source_license] }}',
+{%- endif %}
+  'Natural Language :: English',
+  'Programming Language :: Python :: 3',
+  'Programming Language :: Python :: 3.7',
+  'Programming Language :: Python :: 3.8',
+  'Programming Language :: Python :: 3.9',
+  'Programming Language :: Python :: 3.10',
+]
+dependencies = []
+
+[project.urls]
+homepage = "https://github.com/mansueto-institute/{{ cookiecutter.project_slug }}"
+documentation = "https://{{ cookiecutter.project_slug }}.readthedocs.io/"
+repository = "https://github.com/mansueto-institute/{{ cookiecutter.project_slug }}"
+changelog = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/blob/main/CHANGELOG.md"
+
+[project.optional-dependencies]
+docs = [
+  "myst-parser==0.18.0",
+  "Sphinx==5.1.1",
+  "sphinx-rtd-theme==1.0.0",
+]
+dev = [
+  "black",
+  "bump2version",
+{% if cookiecutter.command_line_interface|lower == 'click' -%}
+  "Click",{% endif %}
+  "flake8",
+  "mypy",
+  "pylint",
+  "pytest",
+  "pytest-cov",
+  "pytest-mock",
+]
+
+[project.scripts]
+geopull = "{{ cookiecutter.project_slug }}.cli:main"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tools.setuptools]
+license-files = ["LICENSE"]
+
+[tools.setuptools.packages.find]
+where = ["src"]
+namespaces = false
+
+[tools.setuptools.include-package-data]
+{{ cookiecutter.project_slug }} = ["LICENSE", "README.md"]
+
+[tools.setuptools.exclude-package-data]
+{{ cookiecutter.project_slug }} = [".gitignore", "contrib", "docs", "test*"]
+
+[tool.black]
+line-length = 79
+
+[tool.mypy]
+packages = ["src"]
+
+
+[tool.pytest.ini_options]
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+addopts = [
+    "--doctest-modules",
+    "--cov-config=.coveragerc",
+    "--cov={{ cookiecutter.project_slug}}",
+    "--cov-branch",
+    "--cov-report=term-missing",
+    "--cov-report=xml:coverage.xml",
+    "--junitxml=coverage-junit.xml",
+    "--durations=5"
+]

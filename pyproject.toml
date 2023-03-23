@@ -1,0 +1,23 @@
+[project]
+name = "cookiecutter-pypackage"
+description = "Cookiecutter template for a Python package"
+readme = "README.rst"
+version = "0.1.0"
+requires-python = ">=3.6"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Lucas Rangel Cezimbra", email = "lucas@cezimbra.tec.br"},
+    {name = "Audrey Roy Greenfield", email = "aroy@alum.mit.edu"},
+    {name = "Manuel Martinez", email = "manmart@uchicago.edu"}
+]
+dynamic = ["dependencies", "optional-dependencies"]
+
+[project.urls]
+repository = "https://github.com/mansueto-institute/cookiecutter-pypackage"
+
+[tool.setuptools.dynamic]
+optional-dependencies = {dev = {file = "dev-requirements.txt"}}
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
