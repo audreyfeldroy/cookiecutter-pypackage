@@ -55,8 +55,13 @@ lint/black: ## check style with black
 
 lint: lint/flake8 lint/black ## check style
 
-test: ## run tests quickly with the default Python
+test/mypy:
+	mypy
+
+test/pytest:
 	pytest
+
+test: test/mypy test/pytest
 
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/{{ cookiecutter.project_slug }}.rst

@@ -45,18 +45,20 @@ docs = [
   "sphinx-rtd-theme==1.0.0",
 ]
 dev = [
-  "black==22.8.0",
-  "bump2version==1.0.1",
+  "black",
+  "bump2version",
 {% if cookiecutter.command_line_interface|lower == 'click' -%}
-  "Click==8.1.3",{% endif %}
-  "coverage==6.4.4",
-  "flake8==5.0.4",
+  "Click",{% endif %}
+  "flake8",
   "mypy",
   "pylint",
-  "pytest==7.1.3",
-  "pytest-cov==3.0.0",
-  "pytest-mock==3.8.2",
+  "pytest",
+  "pytest-cov",
+  "pytest-mock",
 ]
+
+[project.scripts]
+geopull = "{{ cookiecutter.project_slug }}.cli:main"
 
 [build-system]
 requires = ["setuptools"]
@@ -77,6 +79,10 @@ namespaces = false
 
 [tool.black]
 line-length = 79
+
+[tool.mypy]
+packages = ["src"]
+
 
 [tool.pytest.ini_options]
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
