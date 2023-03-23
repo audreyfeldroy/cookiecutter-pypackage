@@ -9,7 +9,7 @@ updates:
 
   # Maintain dependencies for pip
   - package-ecosystem: "pip"
-    arget-branch: "develop"
+    target-branch: "develop"
     directory: "/"
     schedule:
       interval: "daily"
