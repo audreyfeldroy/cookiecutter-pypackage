@@ -11,7 +11,7 @@ if not re.match(MODULE_REGEX, module_name):
         (
             "ERROR: The project slug (%s) is not a valid Python module name. "
             "Please do not use a - and use _ instead"
-        ),
+        )
         % module_name
     )
 
