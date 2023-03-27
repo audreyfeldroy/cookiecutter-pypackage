@@ -55,15 +55,15 @@ lint/flake8: ## check style with flake8
 lint/black: ## check style with black
 	black --check src/{{ cookiecutter.project_slug }} tests
 
-lint: lint/flake8 lint/black ## check style
+lint: lint/flake8 lint/black ## check style with flake8 and black
 
-test/mypy:
+test/mypy: ## tests with mypy
 	mypy
 
-test/pytest:
+test/pytest: ## tests with pytest
 	pytest
 
-test: test/mypy test/pytest
+test: test/mypy test/pytest ## runs mypy and pytest
 
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/{{ cookiecutter.project_slug }}.rst
@@ -83,5 +83,11 @@ dist: clean ## builds source and wheel package
 	python -m build
 	ls -l dist
 
-install: clean ## install the package to the active Python's site-packages
-	pip install .
+install-dev: clean ## installs the package's dev dependencies
+	pip install -e .[dev]
+
+install-docs: clean ## installs the docs dependencies
+	pip install -e .[docs]
+
+install: clean ## install the package with the -e flag
+	pip install -e .
