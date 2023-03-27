@@ -30,7 +30,10 @@ classifiers = [
   'Programming Language :: Python :: 3.9',
   'Programming Language :: Python :: 3.10',
 ]
-dependencies = []
+dependencies = [
+  {% if cookiecutter.command_line_interface|lower == 'click' -%}
+  "Click",{% endif %}
+]
 
 [project.urls]
 homepage = "https://github.com/mansueto-institute/{{ cookiecutter.project_slug }}"
@@ -46,9 +49,8 @@ docs = [
 ]
 dev = [
   "black",
+  "build",
   "bump2version",
-{% if cookiecutter.command_line_interface|lower == 'click' -%}
-  "Click",{% endif %}
   "flake8",
   "mypy",
   "pylint",
