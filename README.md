@@ -22,6 +22,8 @@ So let's say that you want to get started with a new project. The first thing yo
 After you created your empty repository and you are located within the root of the repository locally, you will need to install `cookiecutter`:
 
 ```bash
+mkdir myproject
+cd myproject
 pip install -U cookiecutter
 ```
 
