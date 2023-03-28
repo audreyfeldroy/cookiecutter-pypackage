@@ -60,7 +60,7 @@ dev = [
 ]
 
 [project.scripts]
-geopull = "{{ cookiecutter.project_slug }}.cli:main"
+{{ cookiecutter.project_slug }} = "{{ cookiecutter.project_slug }}.cli:main"
 
 [build-system]
 requires = ["setuptools"]
