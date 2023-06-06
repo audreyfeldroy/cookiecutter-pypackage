@@ -1,3 +1,4 @@
+{% raw %}
 name: test
 
 on:
@@ -57,3 +58,4 @@ jobs:
 
       - name: Run doctest
         run: make doctest
+{% endraw %}
