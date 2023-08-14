@@ -77,6 +77,10 @@ You will find one folder named after the ``[project_slug]``. Move into this fold
     git remote add origin git@github.com:myusername/mypackage.git
     git push -u origin main
 
+    .. note::
+
+       GitHub has changed the default branch name from 'master' to 'main'. If you are using another Git repository hosting service that uses the Git branch naming defaults, you might need to use 'master' instead of 'main'.
+
 Where ``myusername`` and ``mypackage`` are adjusted for your username and package name.
 
 You'll need a ssh key to push the repo. You can `Generate`_ a key or `Add`_ an existing one.
