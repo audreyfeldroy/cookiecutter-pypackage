@@ -11,6 +11,27 @@ webbrowser.open("file://" + pathname2url(os.path.abspath(sys.argv[1])))
 endef
 export BROWSER_PYSCRIPT
 
+define CLEAN_ALL_TRASH
+import os
+import shutil
+ROOT = os.getcwd()
+ignore_dirs = ['venv', '.venv', 'env', '.env', 'ENV']
+exclude_files = ['.egg', '.pyc', '*~', '.pyo', '.coverage']
+exclude_dirs = ['.egg-info', '__pycache__', '.tox', 'htmlcov', '.pytest_cache']
+for root, dirs, files in os.walk(ROOT, topdown=True):
+    dirs[:] = [d for d in dirs if d not in ignore_dirs]
+    for dir_ in dirs:
+        for i in exclude_dirs:
+            if dir_.endswith(i):
+                print(os.path.join(root, dir_))
+                shutil.rmtree(os.path.join(root, dir_))
+    files = [file for file in files if os.path.splitext(file)[1] in exclude_files]
+    for file in files:
+        print(os.path.join(root, file))
+        os.remove(os.path.join(root, file))
+endef
+export CLEAN_ALL_TRASH
+
 define PRINT_HELP_PYSCRIPT
 import re, sys
 
@@ -27,26 +48,11 @@ BROWSER := python -c "$$BROWSER_PYSCRIPT"
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
-
-clean-build: ## remove build artifacts
+clean: ## remove all artifacts
 	rm -fr build/
 	rm -fr dist/
 	rm -fr .eggs/
-	find . -name '*.egg-info' -exec rm -fr {} +
-	find . -name '*.egg' -exec rm -f {} +
-
-clean-pyc: ## remove Python file artifacts
-	find . -name '*.pyc' -exec rm -f {} +
-	find . -name '*.pyo' -exec rm -f {} +
-	find . -name '*~' -exec rm -f {} +
-	find . -name '__pycache__' -exec rm -fr {} +
-
-clean-test: ## remove test and coverage artifacts
-	rm -fr .tox/
-	rm -f .coverage
-	rm -fr htmlcov/
-	rm -fr .pytest_cache
+	@python -c "$$CLEAN_ALL_TRASH"
 
 lint/flake8: ## check style with flake8
 	flake8 {{ cookiecutter.project_slug }} tests
