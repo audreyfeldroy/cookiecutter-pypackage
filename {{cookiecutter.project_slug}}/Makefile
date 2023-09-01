@@ -78,6 +78,9 @@ coverage: ## check code coverage quickly with the default Python
 	coverage html
 	$(BROWSER) htmlcov/index.html
 
+freeze: lint ## prepare for a possible release by creating frozen_requirements.txt to compare against requirements.txt
+	pip freeze > frozen_requirements.txt
+
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/{{ cookiecutter.project_slug }}.rst
 	rm -f docs/modules.rst
