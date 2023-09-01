@@ -88,7 +88,7 @@ def test_bake_with_defaults(cookies):
 def test_bake_and_run_tests(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        run_inside_dir('python setup.py test', str(result.project)) == 0
+        assert run_inside_dir('python setup.py test', str(result.project)) == 0
         print("test_bake_and_run_tests path", str(result.project))
 
 
@@ -99,7 +99,7 @@ def test_bake_withspecialchars_and_run_tests(cookies):
         extra_context={'full_name': 'name "quote" name'}
     ) as result:
         assert result.project.isdir()
-        run_inside_dir('python setup.py test', str(result.project)) == 0
+        assert run_inside_dir('python setup.py test', str(result.project)) == 0
 
 
 def test_bake_with_apostrophe_and_run_tests(cookies):
@@ -109,7 +109,7 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
         extra_context={'full_name': "O'connor"}
     ) as result:
         assert result.project.isdir()
-        run_inside_dir('python setup.py test', str(result.project)) == 0
+        assert run_inside_dir('python setup.py test', str(result.project)) == 0
 
 
 # def test_bake_and_run_travis_pypi_setup(cookies):
@@ -221,7 +221,7 @@ def test_using_pytest(cookies):
         lines = test_file_path.readlines()
         assert "import pytest" in ''.join(lines)
         # Test the new pytest target
-        run_inside_dir('pytest', str(result.project)) == 0
+        assert run_inside_dir('pytest', str(result.project)) == 0
 
 
 def test_not_using_pytest(cookies):
