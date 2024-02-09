@@ -1,15 +1,33 @@
-* {{ cookiecutter.project_name }} version:
-* Python version:
-* Operating System:
+---
+name: Bug report
+about: Create a report to help us improve
+title: ""
+labels: ""
+assignees: ""
+---
 
-### Description
+**Describe the bug**
+A clear and concise description of what the bug is.
 
-Describe what you were trying to get done.
-Tell us what happened, what went wrong, and what you expected to happen.
+**To Reproduce**
+Steps to reproduce the behavior:
 
-### What I Did
+1. Go to '...'
+2. Click on '....'
+3. Scroll down to '....'
+4. See error
 
-```
-Paste the command(s) you ran and the output.
-If there was a crash, please include the traceback here.
-```
+**Expected behavior**
+A clear and concise description of what you expected to happen.
+
+**Screenshots**
+If applicable, add screenshots to help explain your problem.
+
+**Desktop (please complete the following information):**
+
+-   OS: [e.g. Windows]
+-   {{ cookiecutter.project_name }} version:
+-   Python version:
+
+**Additional context**
+Add any other context about the problem here.
