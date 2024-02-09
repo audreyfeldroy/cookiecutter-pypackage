@@ -1,5 +1,4 @@
-.PHONY: clean clean-build clean-pyc clean-test coverage dist docs help install lint lint/flake8
-        {%- if cookiecutter.use_black == 'y' %} lint/black{% endif %}
+.PHONY: clean clean-build clean-pyc clean-test coverage dist docs help install lint lint/ruff lint/mypy lint/bandit format format/ruff
 .DEFAULT_GOAL := help
 
 define BROWSER_PYSCRIPT
@@ -43,37 +42,35 @@ clean-pyc: ## remove Python file artifacts
 	find . -name '__pycache__' -exec rm -fr {} +
 
 clean-test: ## remove test and coverage artifacts
-	rm -fr .tox/
+	rm -fr .nox/
 	rm -f .coverage
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
-lint/flake8: ## check style with flake8
-	flake8 {{ cookiecutter.project_slug }} tests
+lint/ruff: ## check style with ruff
+	ruff check src/algorithms tests
 
-{%- if cookiecutter.use_black == 'y' %}
-lint/black: ## check style with black
-	black --check {{ cookiecutter.project_slug }} tests
-{%- endif %}
+lint/mypy: ## check style with mypy
+	mypy src/algorithms
 
-lint: lint/flake8{%- if cookiecutter.use_black == 'y' %} lint/black{%- endif %} ## check style
+lint/bandit: ## check style with bandit
+	bandit -c pyproject.toml -r src/algorithms
+
+lint: lint/ruff lint/mypy lint/bandit ## check style
+
+format/ruff: ## check style with ruff
+	ruff format src/algorithms tests
+
+format: format/ruff ## fix style
 
 test: ## run tests quickly with the default Python
-{%- if cookiecutter.use_pytest == 'y' %}
 	pytest
-{%- else %}
-	python setup.py test
-{%- endif %}
 
 test-all: ## run tests on every Python version with tox
-	tox
+	nox
 
 coverage: ## check code coverage quickly with the default Python
-{%- if cookiecutter.use_pytest == 'y' %}
 	coverage run --source {{ cookiecutter.project_slug }} -m pytest
-{%- else %}
-	coverage run --source {{ cookiecutter.project_slug }} setup.py test
-{%- endif %}
 	coverage report -m
 	coverage html
 	$(BROWSER) htmlcov/index.html
@@ -84,6 +81,7 @@ docs: ## generate Sphinx HTML documentation, including API docs
 	sphinx-apidoc -o docs/ {{ cookiecutter.project_slug }}
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
+	$(MAKE) -C docs doctest
 	$(BROWSER) docs/_build/html/index.html
 
 servedocs: docs ## compile the docs watching for changes

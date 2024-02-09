@@ -1,0 +1,152 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+dependencies = ["rich==13.7.0", 
+{%- if cookiecutter.command_line_interface|lower == 'click' %}
+'click>=8.1.7'
+{%- endif %}
+]
+classifiers = [
+    'Development Status :: 2 - Pre-Alpha',
+    'Intended Audience :: Developers',
+    'Natural Language :: English',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    {%- if cookiecutter.open_source_license|lower == 'MIT license' %}
+    'License :: OSI Approved :: MIT License',
+    {%- endif %}
+    {%- if cookiecutter.open_source_license|lower == 'BSD-3-Clause' %}
+    'License :: OSI Approved :: BSD License',
+    {%- endif %}
+    {%- if cookiecutter.open_source_license|lower == 'ISC' %}
+    'License :: OSI Approved :: ISC License (ISCL)',
+    {%- endif %}
+    {%- if cookiecutter.open_source_license|lower == 'Apache-2.0' %}
+    'License :: OSI Approved :: Apache Software License',
+    {%- endif %}
+    {%- if cookiecutter.open_source_license|lower == 'GPL-3.0-only' %}
+    'License :: OSI Approved :: GNU General Public License v3 (GPLv3)'
+    {%- endif %} 
+]
+name = "{{ cookiecutter.project_slug }}"
+dynamic = ["version"]
+{%- if cookiecutter.open_source_license != 'Not open source' %}
+license = { text = "{{ cookiecutter.open_source_license }}" }
+{%- endif %}
+readme = "README.rst"
+requires-python = ">=3.8"
+description = "{{ cookiecutter.project_short_description }}"
+keywords = ['{{ cookiecutter.project_slug }}']
+url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}',
+authors=[
+    "{{ cookiecutter.full_name.replace('\"', '\\\"') }} <{{ cookiecutter.email }}>"
+]
+
+[project.optional-dependencies]
+dev = [
+    "bump-my-version==0.16.2",
+    "watchdog==3.0.0",
+    "nox==2023.4.22",
+    "coverage==7.4.0",
+    "Sphinx==7.2.6",
+    "twine==4.0.2",
+    "pytest==7.4.4",
+    "ruff==0.1.13",
+    "python-lsp-server==1.4.0",
+    "pylsp-rope==0.1.11",
+    "debugpy==1.8.0",
+    "mypy==1.8.0",
+    "bandit==1.7.6",
+]
+
+
+{%- if 'no' not in cookiecutter.command_line_interface|lower %}
+[project.scripts]
+tipseq_analysis = "{{ cookiecutter.project_slug }}.cli:main"
+{%- endif %}
+
+[tool.setuptools.dynamic]
+version = { attr = "{{ cookiecutter.project_slug }}.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"{{ cookiecutter.project_slug }}" = ["py.typed"]
+
+[tool.bumpversion]
+current_version = "0.1.0"
+commit = true
+tag = true
+
+[[tool.bumpversion.files]]
+filename = "src/{{ cookiecutter.project_slug }}/__init__.py"
+
+[tool.ruff]
+exclude = ["docs"]
+
+[tool.ruff.lint]
+extend-select = [
+  "B",   # flake8-bugbear
+  "I",   # isort
+  "D",   # pydocstyle
+  "C4",  # flake8-comprehensions
+  "ICN", # flake8-import-conventions
+  "ISC", # flake8-implicit-str-concat
+  "PGH", # pygrep-hooks
+  "PIE", # flake8-pie
+  "RUF", # Ruff-specific
+  "SIM", # flake8-simplify
+  "UP",  # pyupgrade
+  "YTT", # flake8-2020
+]
+ignore = ["D203", "D212", "ISC001"]
+
+[tool.ruff.format]
+# Like Black, use double quotes for strings.
+quote-style = "double"
+
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
+
+# Enable auto-formatting of code examples in docstrings. Markdown,
+# reStructuredText code/literal blocks and doctests are all supported.
+#
+# This is currently disabled by default, but it is planned for this
+# to be opt-out in the future.
+docstring-code-format = true
+
+# Set the line length limit used when formatting code snippets in
+# docstrings.
+#
+# This only has an effect when the `docstring-code-format` setting is
+# enabled.
+docstring-code-line-length = "dynamic"
+
+
+[tool.mypy]
+python_version = "3.11"
+files = ["src/algorithms"]
+show_error_codes = true
+pretty = true
+strict = true
+local_partial_types = true
+exclude = ["^tests/"]
+warn_unreachable = true
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
