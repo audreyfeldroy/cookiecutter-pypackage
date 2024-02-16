@@ -1,6 +1,3 @@
-{% if cookiecutter.create_author_file == 'y' -%}
-include AUTHORS.rst
-{% endif -%}
 include CONTRIBUTING.rst
 include HISTORY.rst
 include LICENSE

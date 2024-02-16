@@ -8,7 +8,6 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-env/
 build/
 develop-eggs/
 dist/
@@ -24,6 +23,7 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -37,7 +37,6 @@ pip-delete-this-directory.txt
 
 # Unit test / coverage reports
 htmlcov/
-.tox/
 .coverage
 .coverage.*
 .cache
@@ -54,6 +53,7 @@ coverage.xml
 # Django stuff:
 *.log
 local_settings.py
+db.sqlite3
 
 # Flask stuff:
 instance/
@@ -64,12 +64,14 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+docs/_autosummary
 
 # PyBuilder
 target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+*/.ipynb_checkpoints/*
 
 # pyenv
 .python-version
@@ -80,13 +82,14 @@ celerybeat-schedule
 # SageMath parsed files
 *.sage.py
 
-# dotenv
+# Environments
 .env
-
-# virtualenv
 .venv
+env/
 venv/
 ENV/
+env.bak/
+venv.bak/
 
 # Spyder project settings
 .spyderproject
@@ -101,6 +104,13 @@ ENV/
 # mypy
 .mypy_cache/
 
-# IDE settings
+# vs code
 .vscode/
 .idea/
+
+# macOS
+.DS_Store
+
+# workaround for failing test discovery in vscode
+tests/*/__init__.py
+tests/private/
