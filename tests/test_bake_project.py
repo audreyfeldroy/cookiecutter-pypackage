@@ -224,3 +224,12 @@ def test_bake_with_and_wo_packages(cookies, package, input, expected):
         docs_conf = result.project.join('docs\conf.py')
         assert (package in docs_conf.read()) is expected
 
+
+@pytest.mark.parametrize("version", ['3.10', '3.9', '3.8'])
+def test_bake_default_python_version(cookies, version):
+    with bake_in_temp_dir(
+        cookies,
+        extra_context={'default_python_version': version}
+    ) as result:
+        assert result.project.isdir()
+        run_inside_dir('pip install .', str(result.project)) == 0

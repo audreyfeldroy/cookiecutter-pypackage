@@ -15,6 +15,7 @@
   "use_scipy": "y",
   "use_pyfar": "y",
   "use_black": "n",
+  "default_python_version": "3.9",
   "use_pypi_deployment_with_ci": "y",
   "add_pyup_badge": "n",
   "command_line_interface": ["No command-line interface", "Click", "Argparse"],
