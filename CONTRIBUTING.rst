@@ -79,14 +79,14 @@ development. Please note this documentation assumes you already have
 
    .. code-block:: bash
 
-        $ virtualenv cookiecutter-pypackage-env
-        $ source cookiecutter-pypackage-env/bin/activate
+        $ conda create --name cookiecutter-pypackage python
+        $ conda activate cookiecutter-pypackage
 
    This should change the shell to look something like:
 
    .. code-block:: bash
 
-        (cookiecutter-pypackage-env) $
+        (cookiecutter-pypackage) $
 
 ::
 
@@ -116,7 +116,7 @@ development. Please note this documentation assumes you already have
 
    .. code-block:: bash
 
-        $ pip install -rrequirements_dev.txt
+        $ pip install -requirements_dev.txt
         $ pytest ./tests
 
    If you get any errors while installing cryptography package (something like
