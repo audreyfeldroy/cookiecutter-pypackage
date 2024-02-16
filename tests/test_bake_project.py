@@ -82,7 +82,7 @@ def test_bake_with_defaults(cookies):
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert 'setup.py' in found_toplevel_files
         assert 'your_python_project' in found_toplevel_files
-        assert 'tox.ini' in found_toplevel_files
+        assert 'environment.yml' in found_toplevel_files
         assert 'tests' in found_toplevel_files
 
 
@@ -216,27 +216,6 @@ def test_black(cookies, use_black, expected):
         makefile_path = result.project.join('Makefile')
         assert ("black --check" in makefile_path.read()) is expected
 
-
-@pytest.mark.parametrize("use_gitlab_ci,expected", [('y', True), ('n', False)])
-def test_bake_with_and_wo_gitlab_ci(cookies, use_gitlab_ci, expected):
-    with bake_in_temp_dir(
-        cookies,
-        extra_context={'use_gitlab_ci': use_gitlab_ci}
-    ) as result:
-        assert result.project.isdir()
-        found_toplevel_files = [f.basename for f in result.project.listdir()]
-        assert ('.gitlab-ci.yml' in found_toplevel_files) is expected
-
-
-@pytest.mark.parametrize("use_travis_ci,expected", [('y', True), ('n', False)])
-def test_bake_with_and_wo_travis_ci(cookies, use_travis_ci, expected):
-    with bake_in_temp_dir(
-        cookies,
-        extra_context={'use_travis_ci': use_travis_ci}
-    ) as result:
-        assert result.project.isdir()
-        found_toplevel_files = [f.basename for f in result.project.listdir()]
-        assert ('.travis.yml' in found_toplevel_files) is expected
 
 
 @pytest.mark.parametrize("use_circle_ci,expected", [('y', True), ('n', False)])
