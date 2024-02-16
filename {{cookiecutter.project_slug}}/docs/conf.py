@@ -104,9 +104,14 @@ highlight_language = "python3"
 
 # intersphinx mapping
 intersphinx_mapping = {
-    'numpy': ('https://numpy.org/doc/stable/', None),
-    'scipy': ('https://docs.scipy.org/doc/scipy/', None),
-    'matplotlib': ('https://matplotlib.org/stable/', None),
+{% if cookiecutter.use_numpy == 'y' -%}
+    'numpy': ('https://numpy.org/doc/stable/', None),{% endif %}
+{% if cookiecutter.use_scipy == 'y' -%}
+    'scipy': ('https://docs.scipy.org/doc/scipy/', None),{% endif %}
+{% if cookiecutter.use_matplotlib == 'y' -%}
+    'matplotlib': ('https://matplotlib.org/stable/', None),{% endif %}
+{% if cookiecutter.use_pyfar == 'y' -%}
+    'matplotlib': ('https://pyfar.readthedocs.io/en/stable/', None),{% endif %}
     }
 
 # -- Options for HTML output -------------------------------------------

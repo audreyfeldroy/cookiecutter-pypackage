@@ -207,3 +207,20 @@ def test_bake_with_and_wo_circle_ci(cookies, use_circle_ci, expected):
         # assert result.project.isdir()
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert ('.circleci' in found_toplevel_files) is expected
+
+
+@pytest.mark.parametrize("package", ['numpy', 'matplotlib', 'scipy', 'pyfar'])
+@pytest.mark.parametrize("input,expected", [('y', True), ('n', False)])
+def test_bake_with_and_wo_packages(cookies, package, input, expected):
+    with bake_in_temp_dir(
+        cookies,
+        extra_context={f'use_{package}': input}
+    ) as result:
+        assert result.project.isdir()
+        requirements_path = result.project.join('requirements_dev.txt')
+        assert (package in requirements_path.read()) is expected
+        environment_path = result.project.join('environment.yml')
+        assert (package in environment_path.read()) is expected
+        docs_conf = result.project.join('docs\conf.py')
+        assert (package in docs_conf.read()) is expected
+

@@ -14,5 +14,12 @@ pytest-runner
 pytest-cov{% endif %}
 {% if cookiecutter.use_black == 'y' -%}
 black{% endif %}
-numpy
-scipy
+{% if cookiecutter.use_numpy == 'y' -%}
+numpy{% endif %}
+{% if cookiecutter.use_scipy == 'y' -%}
+scipy{% endif %}
+{% if cookiecutter.use_matplotlib == 'y' -%}
+matplotlib{% endif %}
+{% if cookiecutter.use_pyfar == 'y' -%}
+pyfar{% endif %}
+

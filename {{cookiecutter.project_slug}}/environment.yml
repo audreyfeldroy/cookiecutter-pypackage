@@ -5,8 +5,12 @@ channels:
 dependencies:
   - python=3.10
   - pip
-  - numpy
-  - matplotlib
-  - scipy
+{% if cookiecutter.use_numpy == 'y' -%}
+  - numpy{% endif %}
+{% if cookiecutter.use_matplotlib == 'y' -%}
+  - matplotlib{% endif %}
+{% if cookiecutter.use_scipy == 'y' -%}
+  - scipy{% endif %}
   - pip:
-    - pyfar
+{% if cookiecutter.use_pyfar == 'y' -%}
+    - pyfar{% endif %}

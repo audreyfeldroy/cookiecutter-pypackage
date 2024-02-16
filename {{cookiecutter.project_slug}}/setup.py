@@ -12,9 +12,14 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'numpy',
-    'scipy',
-    'matplotlib',
+{% if cookiecutter.use_numpy == 'y' -%}
+    'numpy',{% endif %}
+{% if cookiecutter.use_scipy == 'y' -%}
+    'scipy',{% endif %}
+{% if cookiecutter.use_matplotlib == 'y' -%}
+    'matplotlib',{% endif %}
+{% if cookiecutter.use_pyfar == 'y' -%}
+    'pyfar',{% endif %}
 ]
 
 setup_requirements = [
