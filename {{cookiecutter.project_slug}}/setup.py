@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 """The setup script."""
 
@@ -10,9 +11,30 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = [{%- if cookiecutter.command_line_interface|lower == 'click' %}'Click>=7.0',{%- endif %} ]
+requirements = [
+    'numpy>=1.23.0',
+    'scipy>=1.5.0',
+    'matplotlib<=3.7',
+    'sofar>=0.1.2',
+    'urllib3',
+    'deepdiff',
+    'soundfile>=0.11.0',
+]
 
-test_requirements = [{%- if cookiecutter.use_pytest == 'y' %}'pytest>=3',{%- endif %} ]
+setup_requirements = [
+    'pytest-runner',
+]
+
+test_requirements = [
+    'pytest',
+    'bump2version',
+    'wheel',
+    'watchdog',
+    'flake8',
+    'coverage',
+    'Sphinx',
+    'twine'
+]
 
 {%- set license_classifiers = {
     'MIT license': 'License :: OSI Approved :: MIT License',
@@ -25,10 +47,9 @@ test_requirements = [{%- if cookiecutter.use_pytest == 'y' %}'pytest>=3',{%- end
 setup(
     author="{{ cookiecutter.full_name.replace('\"', '\\\"') }}",
     author_email='{{ cookiecutter.email }}',
-    python_requires='>=3.6',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
-        'Intended Audience :: Scientists',
+        'Intended Audience :: Science/Research',
 {%- if cookiecutter.open_source_license in license_classifiers %}
         '{{ license_classifiers[cookiecutter.open_source_license] }}',
 {%- endif %}
@@ -37,27 +58,29 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
     ],
     description="{{ cookiecutter.project_short_description }}",
-    {%- if 'no' not in cookiecutter.command_line_interface|lower %}
-    entry_points={
-        'console_scripts': [
-            '{{ cookiecutter.project_slug }}={{ cookiecutter.project_slug }}.cli:main',
-        ],
-    },
-    {%- endif %}
     install_requires=requirements,
 {%- if cookiecutter.open_source_license in license_classifiers %}
     license="{{ cookiecutter.open_source_license }}",
 {%- endif %}
-    long_description=readme + '\n\n' + history,
+    long_description=readme,
     include_package_data=True,
     keywords='{{ cookiecutter.project_slug }}',
     name='{{ cookiecutter.project_slug }}',
-    packages=find_packages(include=['{{ cookiecutter.project_slug }}', '{{ cookiecutter.project_slug }}.*']),
+    packages=find_packages(),
+    setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
-    url='{{ cookiecutter.git_service }}/{{ cookiecutter.git_username }}/{{ cookiecutter.project_slug }}',
+    url="https://pyfar.org/",
+    download_url="https://pypi.org/project/{{ cookiecutter.project_slug }}/",
+    project_urls={
+        "Bug Tracker": "https://github.com/{{ cookiecutter.git_username }}/{{ cookiecutter.project_slug }}/issues",
+        "Documentation": "https://{{ cookiecutter.project_slug }}.readthedocs.io/",
+        "Source Code": "https://github.com/{{ cookiecutter.git_username }}/{{ cookiecutter.project_slug }}",
+    },
     version='{{ cookiecutter.version }}',
     zip_safe=False,
+    python_requires='>=3.8'
 )
