@@ -66,32 +66,34 @@ jobs:
           pip-dependency-file: requirements_dev.txt
       - run:
           name: Flake8
-          command: flake8 {{ cookiecutter.project_slug }}
+          command: flake8 {{ cookiecutter.project_slug }} tests
 
-#   test_examples:
-#     parameters:
-#       version:
-#         description: "version tag"
-#         default: "latest"
-#         type: string
-#     executor:
-#       name: python-docker
-#       version: <<parameters.version>>
 
-#     steps:
-#       - checkout
-#     #   - run:
-#     #       name: Install System Dependencies
-#     #       command: sudo apt-get update && sudo apt-get install -y libsndfile1
-#       - python/install-packages:
-#           pkg-manager: pip
-#           # app-dir: ~/project/package-directory/  # If you're requirements.txt isn't in the root directory.
-#           pip-dependency-file: requirements_dev.txt
-#       - run:
-#           name: Examples
-#           command: |
-#             pip install -e .
-#             pytest --nbmake examples/*.ipynb
+  test_documentation_build:
+    parameters:
+      version:
+        description: "version tag"
+        default: "latest"
+        type: string
+    executor:
+      name: python-docker
+      version: <<parameters.version>>
+
+    steps:
+      - checkout
+   #    - run:
+   #        name: Install System Dependencies
+   #        command: sudo apt-get update && sudo apt-get install -y libsndfile1 texlive-latex-extra dvipng
+      - python/install-packages:
+          pkg-manager: pip
+          # app-dir: ~/project/package-directory/  # If you're requirements.txt isn't in the root directory.
+          pip-dependency-file: requirements_dev.txt
+      - run:
+          name: Sphinx
+          command: |
+            pip install -e .
+            cd docs/
+            make html SPHINXOPTS="-W"
 
   test_pypi_publish:
     parameters:
@@ -128,10 +130,10 @@ workflows:
           matrix:
             parameters:
               version:
-                - "3.7"
                 - "3.8"
                 - "3.9"
                 - "3.10"
+                - "3.11"
       - flake:
           matrix:
             parameters:
@@ -140,13 +142,14 @@ workflows:
           requires:
             - build_and_test
 
-    #   - test_examples:
-    #       matrix:
-    #         parameters:
-    #           version:
-    #             - "3.9"
-    #       requires:
-    #         - build_and_test
+
+      - test_documentation_build:
+          matrix:
+            parameters:
+              version:
+                - "3.9"
+          requires:
+            - build_and_test
 
 
 {% if cookiecutter.use_pypi_deployment_with_ci == 'y' -%}
@@ -158,10 +161,10 @@ workflows:
           matrix:
             parameters:
               version:
-                - "3.7"
                 - "3.8"
                 - "3.9"
                 - "3.10"
+                - "3.11"
           filters:
             branches:
               ignore: /.*/
@@ -183,19 +186,19 @@ workflows:
             tags:
               only: /^v[0-9]+(\.[0-9]+)*$/
 
-    #   - test_examples:
-    #       matrix:
-    #         parameters:
-    #           version:
-    #             - "3.9"
-    #       requires:
-    #         - build_and_test
-    #       filters:
-    #         branches:
-    #           ignore: /.*/
-    #         # only act on version tags
-    #         tags:
-    #           only: /^v[0-9]+(\.[0-9]+)*$/
+      - test_documentation_build:
+          matrix:
+            parameters:
+              version:
+                - "3.9"
+          requires:
+            - build_and_test
+          filters:
+            branches:
+              ignore: /.*/
+            # only act on version tags
+            tags:
+              only: /^v[0-9]+(\.[0-9]+)*$/
 
       - test_pypi_publish:
           matrix:
@@ -205,7 +208,7 @@ workflows:
           requires:
             - build_and_test
             - flake
-            # - test_examples
+            - test_documentation_build
           filters:
             branches:
               ignore: /.*/
