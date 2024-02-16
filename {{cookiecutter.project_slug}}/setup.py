@@ -12,13 +12,9 @@ with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
 requirements = [
-    'numpy>=1.23.0',
-    'scipy>=1.5.0',
-    'matplotlib<=3.7',
-    'sofar>=0.1.2',
-    'urllib3',
-    'deepdiff',
-    'soundfile>=0.11.0',
+    'numpy',
+    'scipy',
+    'matplotlib',
 ]
 
 setup_requirements = [
