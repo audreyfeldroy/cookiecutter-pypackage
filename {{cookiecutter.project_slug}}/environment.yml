@@ -1,4 +1,4 @@
-name: pyfar
+name: {{ cookiecutter.project_slug }}
 channels:
   - defaults
   - conda-forge

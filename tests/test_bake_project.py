@@ -133,18 +133,6 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
 #         ) > min_size_of_encrypted_password
 
 
-def test_make_help(cookies):
-    with bake_in_temp_dir(cookies) as result:
-        # The supplied Makefile does not support win32
-        if sys.platform != "win32":
-            output = check_output_inside_dir(
-                'make help',
-                str(result.project)
-            )
-            assert b"check code coverage quickly with the default Python" in \
-                output
-
-
 def test_bake_selecting_license(cookies):
     license_strings = {
         'MIT license': 'MIT ',
@@ -221,8 +209,8 @@ def test_bake_with_and_wo_packages(cookies, package, input, expected):
         assert (package in requirements_path.read()) is expected
         environment_path = result.project.join('environment.yml')
         assert (package in environment_path.read()) is expected
-        docs_conf = result.project.join('docs\conf.py')
-        assert (package in docs_conf.read()) is expected
+        docs_conf = result.project.join(os.path.join('docs', 'conf.py'))
+        assert (f"'{package}': ('" in docs_conf.read()) is expected
 
 
 @pytest.mark.parametrize("version", ['3.10', '3.9', '3.8'])

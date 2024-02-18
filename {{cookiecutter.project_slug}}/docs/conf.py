@@ -111,7 +111,7 @@ intersphinx_mapping = {
 {% if cookiecutter.use_matplotlib == 'y' -%}
     'matplotlib': ('https://matplotlib.org/stable/', None),{% endif %}
 {% if cookiecutter.use_pyfar == 'y' -%}
-    'matplotlib': ('https://pyfar.readthedocs.io/en/stable/', None),{% endif %}
+    'pyfar': ('https://pyfar.readthedocs.io/en/stable/', None),{% endif %}
     }
 
 # -- Options for HTML output -------------------------------------------
