@@ -116,7 +116,7 @@ development. Please note this documentation assumes you already have
 
    .. code-block:: bash
 
-        $ pip install -requirements_dev.txt
+        $ pip install -r requirements_dev.txt
         $ pytest ./tests
 
    If you get any errors while installing cryptography package (something like
