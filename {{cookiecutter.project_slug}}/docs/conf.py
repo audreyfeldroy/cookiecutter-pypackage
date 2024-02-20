@@ -194,11 +194,3 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
-
-# -- pyfar specifics -----------------------------------------------------
-
-# write shortcuts to sphinx readable format
-_, shortcuts = {{ cookiecutter.project_slug }}.plot.shortcuts(show=False, report=True, layout="sphinx")
-shortcuts_path = os.path.join("concepts", "resources", "plot_shortcuts.rst")
-with open(shortcuts_path, "w") as f_id:
-    f_id.writelines(shortcuts)
