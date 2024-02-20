@@ -5,12 +5,12 @@ channels:
 dependencies:
   - python={{ cookiecutter.default_python_version }}
   - pip
-{% if cookiecutter.use_numpy == 'y' -%}
+  {% if cookiecutter.use_numpy == 'y' -%}
   - numpy{% endif %}
-{% if cookiecutter.use_matplotlib == 'y' -%}
+  {% if cookiecutter.use_matplotlib == 'y' -%}
   - matplotlib{% endif %}
-{% if cookiecutter.use_scipy == 'y' -%}
+  {% if cookiecutter.use_scipy == 'y' -%}
   - scipy{% endif %}
   - pip:
-{% if cookiecutter.use_pyfar == 'y' -%}
+    {% if cookiecutter.use_pyfar == 'y' -%}
     - pyfar{% endif %}
