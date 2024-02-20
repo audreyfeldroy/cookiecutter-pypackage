@@ -43,7 +43,7 @@ Use pip to install {{ cookiecutter.project_slug }}
 
     $ pip install {{ cookiecutter.project_slug }}
 
-(Requires Python 3.8 or higher)
+(Requires Python {{ cookiecutter.minimum_python_version }} or higher)
 
 Contributing
 ============

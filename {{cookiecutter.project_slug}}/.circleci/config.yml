@@ -130,10 +130,9 @@ workflows:
           matrix:
             parameters:
               version:
-                - "3.8"
-                - "3.9"
-                - "3.10"
-                - "3.11"
+              {% for extension, details in cookiecutter._valid_versions|dictsort %}{% if extension == cookiecutter.minimum_python_version -%}{% for app in details.version_list -%}
+                - "{{ app }}"
+              {% endfor -%}{% endif %}{% endfor %}
       - flake:
           matrix:
             parameters:
@@ -161,10 +160,9 @@ workflows:
           matrix:
             parameters:
               version:
-                - "3.8"
-                - "3.9"
-                - "3.10"
-                - "3.11"
+              {% for extension, details in cookiecutter._valid_versions|dictsort %}{% if extension == cookiecutter.minimum_python_version -%}{% for app in details.version_list -%}
+                - "{{ app }}"
+              {% endfor -%}{% endif %}{% endfor %}
           filters:
             branches:
               ignore: /.*/

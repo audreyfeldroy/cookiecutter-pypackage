@@ -6,6 +6,8 @@ import subprocess
 import yaml
 import datetime
 import pytest
+import re
+from packaging import version
 from cookiecutter.utils import rmtree
 
 from click.testing import CliRunner
@@ -89,7 +91,7 @@ def test_bake_with_defaults(cookies):
 def test_bake_and_run_tests(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        run_inside_dir('pip install .', str(result.project)) == 0
+        run_inside_dir('pytest', str(result.project)) == 0
         print("test_bake_and_run_tests path", str(result.project))
 
 
@@ -100,7 +102,7 @@ def test_bake_withspecialchars_and_run_tests(cookies):
         extra_context={'full_name': 'name "quote" name'}
     ) as result:
         assert result.project.isdir()
-        run_inside_dir('pip install .', str(result.project)) == 0
+        run_inside_dir('pytest', str(result.project)) == 0
 
 
 def test_bake_with_apostrophe_and_run_tests(cookies):
@@ -110,7 +112,7 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
         extra_context={'full_name': "O'connor"}
     ) as result:
         assert result.project.isdir()
-        run_inside_dir('pip install .', str(result.project)) == 0
+        run_inside_dir('pytest', str(result.project)) == 0
 
 
 # def test_bake_and_run_travis_pypi_setup(cookies):
@@ -213,11 +215,43 @@ def test_bake_with_and_wo_packages(cookies, package, input, expected):
         assert (f"'{package}': ('" in docs_conf.read()) is expected
 
 
-@pytest.mark.parametrize("version", ['3.10', '3.9', '3.8'])
+@pytest.mark.parametrize("version", [
+    '3.12', '3.11', '3.10', '3.9', '3.8', '3.7', '3.6'])
 def test_bake_default_python_version(cookies, version):
     with bake_in_temp_dir(
         cookies,
-        extra_context={'default_python_version': version}
+        extra_context={'default_python_version': version,
+                       'minimum_python_version': '3.6'}
     ) as result:
         assert result.project.isdir()
-        run_inside_dir('pip install .', str(result.project)) == 0
+        config = result.project.join(os.path.join('.circleci', 'config.yml'))
+        assert len(re.findall(version, config.read())) == 7
+
+        run_inside_dir('pytest', str(result.project)) == 0
+
+
+@pytest.mark.parametrize("min_version", [
+    '3.12', '3.11', '3.10', '3.9', '3.8', '3.7', '3.6'])
+def test_bake_minimum_python_version(cookies, min_version):
+    with bake_in_temp_dir(
+        cookies,
+        extra_context={'minimum_python_version': min_version,
+                       'default_python_version': min_version}
+    ) as result:
+        assert result.project.isdir()
+
+        config = result.project.join(os.path.join('.circleci', 'config.yml'))
+        assert len(re.findall(min_version, config.read())) >= 2
+        next_version = min_version
+        while True:
+            next_version = f'{version.parse(next_version).release[0]}.{version.parse(next_version).release[1]+1}'
+            print(next_version)
+            if version.parse(next_version) > version.parse('3.12'):
+                break
+            assert len(re.findall(next_version, config.read())) >= 2
+
+        config = result.project.join('README.rst')
+        assert len(re.findall(min_version, config.read())) == 1
+
+
+        run_inside_dir('pytest', str(result.project)) == 0

@@ -56,10 +56,9 @@ setup(
 {%- endif %}
         'Natural Language :: English',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
-        'Programming Language :: Python :: 3.10',
-        'Programming Language :: Python :: 3.11',
+        {% for extension, details in cookiecutter._valid_versions|dictsort %}{% if extension == cookiecutter.minimum_python_version -%}{% for app in details.version_list -%}
+        'Programming Language :: Python :: {{ app }}',
+        {% endfor -%}{% endif %}{% endfor %}
     ],
     description="{{ cookiecutter.project_short_description }}",
     install_requires=requirements,
@@ -83,5 +82,5 @@ setup(
     },
     version='{{ cookiecutter.version }}',
     zip_safe=False,
-    python_requires='>=3.8'
+    python_requires='>={{ cookiecutter.minimum_python_version }}',
 )

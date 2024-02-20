@@ -3,7 +3,7 @@ channels:
   - defaults
   - conda-forge
 dependencies:
-  - python=3.10
+  - python={{ cookiecutter.default_python_version }}
   - pip
 {% if cookiecutter.use_numpy == 'y' -%}
   - numpy{% endif %}
