@@ -22,4 +22,6 @@ scipy{% endif %}
 matplotlib{% endif %}
 {% if cookiecutter.use_pyfar == 'y' -%}
 pyfar{% endif %}
+autodocsumm
+insipid-sphinx-theme
 
