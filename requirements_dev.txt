@@ -4,3 +4,4 @@ pytest-cookies
 alabaster
 watchdog
 flake8
+sphinx
