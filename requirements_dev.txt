@@ -3,3 +3,4 @@ cookiecutter
 pytest-cookies
 alabaster
 watchdog
+flake8

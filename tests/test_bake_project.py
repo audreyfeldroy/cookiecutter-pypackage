@@ -1,18 +1,11 @@
 from contextlib import contextmanager
 import shlex
 import os
-import sys
 import subprocess
-import yaml
 import datetime
 import pytest
 import re
 from packaging import version
-from cookiecutter.utils import rmtree
-
-from click.testing import CliRunner
-
-import importlib
 
 
 @contextmanager
@@ -244,7 +237,8 @@ def test_bake_minimum_python_version(cookies, min_version):
         assert len(re.findall(min_version, config.read())) >= 2
         next_version = min_version
         while True:
-            next_version = f'{version.parse(next_version).release[0]}.{version.parse(next_version).release[1]+1}'
+            next_version = f'{version.parse(next_version).release[0]}'
+            next_version += f'.{version.parse(next_version).release[1]+1}'
             print(next_version)
             if version.parse(next_version) > version.parse('3.12'):
                 break
@@ -252,6 +246,5 @@ def test_bake_minimum_python_version(cookies, min_version):
 
         config = result.project.join('README.rst')
         assert len(re.findall(min_version, config.read())) == 1
-
 
         run_inside_dir('pytest', str(result.project)) == 0

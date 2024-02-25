@@ -66,7 +66,7 @@ jobs:
           pip-dependency-file: requirements_dev.txt
       - run:
           name: Flake8
-          command: flake8 cookiecutter-pypackage tests
+          command: flake8 tests
 
 
   test_documentation_build:
