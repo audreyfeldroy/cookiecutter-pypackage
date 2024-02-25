@@ -10,6 +10,9 @@ insert_final_newline = true
 charset = utf-8
 end_of_line = lf
 
+[*.yml]
+indent_size = 2
+
 [*.bat]
 indent_style = tab
 end_of_line = crlf
@@ -19,6 +22,3 @@ insert_final_newline = false
 
 [Makefile]
 indent_style = tab
-
-[*.{diff,patch}]
-trim_trailing_whitespace = false

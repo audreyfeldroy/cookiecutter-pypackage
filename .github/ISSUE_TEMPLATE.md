@@ -1,6 +1,6 @@
 ## General
 
-* {{ cookiecutter.project_name }} version:
+* cookiecutter-pypackage version:
 * Python version:
 * Operating System:
 * Did you install pyfar via pip:

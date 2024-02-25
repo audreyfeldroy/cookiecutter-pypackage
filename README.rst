@@ -46,10 +46,8 @@ Then:
 * Add the repo to your Circleci_ account.
 * Install the dev requirements into a virtualenv. (``pip install -r requirements_dev.txt``)
 * Register_ your project with PyPI.
-* Run the Travis CLI command ``travis encrypt --add deploy.password`` to encrypt your PyPI password in Travis config
-  and activate automated deployment on PyPI when you push a new tag to master branch.
-* Add the repo to your `Read the Docs`_ account + turn on the Read the Docs service hook.
-* Release your package by pushing a new tag to master.
+* Add the repo to your `Read the Docs`_ account + turn on the Read the Docs service hook and activate it for pull requests.
+* Release your package using bump2version (see Contributing).
 * Add a ``requirements.txt`` file that specifies the packages you will need for
   your project and their versions. For more info see the `pip docs for requirements files`_.
 * Activate your project on `pyup.io`_.
@@ -77,7 +75,6 @@ be a fork.
 
 
 .. _Circleci: https://circleci.com/
-.. _Tox: http://testrun.org/tox/
 .. _Sphinx: http://sphinx-doc.org/
 .. _Read the Docs: https://readthedocs.io/
 .. _`pyup.io`: https://pyup.io/
