@@ -24,4 +24,3 @@ formats:
 python:
   install:
     - requirements: requirements_dev.txt
-
