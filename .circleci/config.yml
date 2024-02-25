@@ -95,31 +95,6 @@ jobs:
             cd docs/
             make html SPHINXOPTS="-W"
 
-  test_pypi_publish:
-    parameters:
-      version:
-        description: "version tag"
-        default: "latest"
-        type: string
-    executor:
-      name: python-docker
-      version: <<parameters.version>>
-
-    steps:
-      - checkout
-    #   - run:
-    #       name: Install System Dependencies
-    #       command: sudo apt-get update && sudo apt-get install -y libsndfile1
-      - python/install-packages:
-          pkg-manager: pip
-          # app-dir: ~/project/package-directory/  # If you're requirements.txt isn't in the root directory.
-          pip-dependency-file: requirements_dev.txt
-      - run:
-          name: deploy
-          command: |  # create whl, install twine and publish to Test PyPI
-            python setup.py sdist bdist_wheel
-            twine upload dist/*
-
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -134,6 +109,7 @@ workflows:
                 - "3.9"
                 - "3.10"
                 - "3.11"
+                - "3.12"
       - flake:
           matrix:
             parameters:
