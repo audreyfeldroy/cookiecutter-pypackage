@@ -15,7 +15,7 @@ email
     Your email address.
 
 git_service
-    Your git service username, Github (default), oder gitlab from RWTH Aachen University.
+    Your git service username, Github (default), or gitlab from RWTH Aachen University.
 
 github_username
     Your git service username.
