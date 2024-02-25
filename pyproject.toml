@@ -1,0 +1,116 @@
+{% set license_classifiers = {
+    "MIT license": "License :: OSI Approved :: MIT License",
+    "BSD license": "License :: OSI Approved :: BSD License",
+    "ISC license": "License :: OSI Approved :: ISC License (ISCL)",
+    "Apache Software License 2.0": "License :: OSI Approved :: Apache Software License",
+    "GNU General Public License v3": "License :: OSI Approved :: GNU General Public License v3 (GPLv3)"
+} -%}
+
+[project]
+name = "{{ cookiecutter.project_slug }}"
+version = "{{ cookiecutter.version }}"
+description = "{{ cookiecutter.project_short_description }}"
+authors = [
+    { name = "{{ cookiecutter.full_name.replace("\"", "\\\"") }}", email = "{{ cookiecutter.email }}" },
+]
+readme = "README.rst"
+{% if cookiecutter.open_source_license in license_classifiers -%}
+license = {text = "{{ cookiecutter.open_source_license }}"}
+{%- endif %}
+requires-python = ">=3.6"
+dependencies = [
+    {%- if cookiecutter.command_line_interface|lower == 'click' -%}
+    "Click>=7.0",
+    {%- endif %}
+]
+[project.optional-dependencies]
+dev = [
+    "pip==19.2.3",
+    "bumpmyversion==0.6",
+    "wheel==0.33.6",
+    "watchdog==0.9.0",
+    "flake8==3.7.8",
+    "tox==3.14.0",
+    "coverage==4.5.4",
+    "Sphinx==1.8.5",
+    "twine==1.14.0",
+    {% if cookiecutter.command_line_interface|lower == 'click' -%}
+    "Click==7.1.2",
+    {%- endif %}
+    {% if cookiecutter.use_pytest == 'y' -%}
+    "pytest==6.2.4",
+    {%- endif %}
+    {% if cookiecutter.use_black == 'y' -%}
+    "black==21.7b0"
+    {-% endif %}
+]
+keywords = ["{{ cookiecutter.project_slug }}"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    {% if cookiecutter.open_source_license in license_classifiers -%}
+        "{{ license_classifiers[cookiecutter.open_source_license] }}",
+    {%- endif %}
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+]
+
+[project.urls]
+Homepage = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}"
+
+{% if "no" not in cookiecutter.command_line_interface|lower -%}
+[project.scripts]
+{{ cookiecutter.project_slug }} = "{{ cookiecutter.project_slug }}.cli:main"
+{%- endif %}
+
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+
+[tool.setuptools]
+package-data = [
+    {{ cookiecutter.project_slug }} = ["py.typed"]
+]
+
+
+{% if cookiecutter.use_pytest == 'y' %-}
+[tool.tox]
+legacy_tox_ini = """
+    [tox]
+    min_version = 4.13
+    env_list = py312
+
+    [testenv]
+    description = run unit tests
+    deps =
+        pytest>=3
+        pytest-sugar
+    commands =
+        pytest {posargs:tests}
+"""
+{%- endif %}
+
+
+[tool.bumpversion]
+current_version = "{{ cookiecutter.version }}"
+commit = True
+tag = True
+
+[[tool.bumpversion.files]]
+filename = "setup.py"
+search = "version='{current_version}'"
+replace = "version='{new_version}'"
+
+[[tool.bumpversion:files]]
+filename = "{{ cookiecutter.project_slug }}/__init__.py"
+search = "__version__ = '{current_version}'"
+replace = "__version__ = '{new_version}'"
+
+
+{% if cookiecutter.use_pytest == 'y' -%}
+[tool.pytest.ini_options]
+addopts = "--ignore=setup.py"
+testpaths = ["tests"]
+{%- endif %}
