@@ -237,8 +237,8 @@ def test_bake_minimum_python_version(cookies, min_version):
         assert len(re.findall(min_version, config.read())) >= 2
         next_version = min_version
         while True:
-            next_version = f'{version.parse(next_version).release[0]}'
-            next_version += f'.{version.parse(next_version).release[1]+1}'
+            next_version = f'{version.parse(next_version).release[0]}' \
+                f'.{version.parse(next_version).release[1]+1}'
             print(next_version)
             if version.parse(next_version) > version.parse('3.12'):
                 break
