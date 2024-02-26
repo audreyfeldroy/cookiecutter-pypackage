@@ -10,19 +10,39 @@
 name = "{{ cookiecutter.project_slug }}"
 version = "{{ cookiecutter.version }}"
 description = "{{ cookiecutter.project_short_description }}"
-authors = [
-    { name = "{{ cookiecutter.full_name.replace("\"", "\\\"") }}", email = "{{ cookiecutter.email }}" },
-]
 readme = "README.rst"
 {% if cookiecutter.open_source_license in license_classifiers -%}
 license = {text = "{{ cookiecutter.open_source_license }}"}
 {%- endif %}
 requires-python = ">=3.6"
+authors = [
+    { name = "{{ cookiecutter.full_name.replace("\"", "\\\"") }}", email = "{{ cookiecutter.email }}" },
+]
+keywords = ["{{ cookiecutter.project_slug }}"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    {% if cookiecutter.open_source_license in license_classifiers -%}
+        "{{ license_classifiers[cookiecutter.open_source_license] }}",
+    {%- endif %}
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+]
+
+[project.urls]
+Homepage = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}"
+
+{% if "no" not in cookiecutter.command_line_interface|lower -%}
+[project.scripts]
+{{ cookiecutter.project_slug }} = "{{ cookiecutter.project_slug }}.cli:main"
+{%- endif %}
+
 dependencies = [
     {%- if cookiecutter.command_line_interface|lower == 'click' -%}
     "Click>=7.0",
     {%- endif %}
 ]
+
 [project.optional-dependencies]
 dev = [
     "pip==19.2.3",
@@ -44,24 +64,6 @@ dev = [
     "black==21.7b0"
     {-% endif %}
 ]
-keywords = ["{{ cookiecutter.project_slug }}"]
-classifiers = [
-    "Development Status :: 2 - Pre-Alpha",
-    "Intended Audience :: Developers",
-    {% if cookiecutter.open_source_license in license_classifiers -%}
-        "{{ license_classifiers[cookiecutter.open_source_license] }}",
-    {%- endif %}
-    "Natural Language :: English",
-    "Programming Language :: Python :: 3",
-]
-
-[project.urls]
-Homepage = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}"
-
-{% if "no" not in cookiecutter.command_line_interface|lower -%}
-[project.scripts]
-{{ cookiecutter.project_slug }} = "{{ cookiecutter.project_slug }}.cli:main"
-{%- endif %}
 
 
 [build-system]
@@ -81,6 +83,13 @@ legacy_tox_ini = """
     [tox]
     min_version = 4.13
     env_list = py312
+    envlist = py36, py37, py38, flake8
+
+    [travis]
+    python =
+        3.8: py38
+        3.7: py37
+        3.6: py36
 
     [testenv]
     description = run unit tests
@@ -89,6 +98,28 @@ legacy_tox_ini = """
         pytest-sugar
     commands =
         pytest {posargs:tests}
+
+    [testenv]
+    setenv =
+        PYTHONPATH = {toxinidir}
+    {% if cookiecutter.use_pytest == 'y' -%}
+    deps =
+        -r{toxinidir}/requirements_dev.txt
+    ; If you want to make tox run the tests with the same versions, create a
+    ; requirements.txt with the pinned versions and uncomment the following line:
+    ;     -r{toxinidir}/requirements.txt
+    commands =
+        pip install -U pip
+        pytest --basetemp={envtmpdir}
+    {% else %}
+    commands = python setup.py test
+    {%- endif %}
+
+    [testenv:flake8]
+    basepython = python
+    deps = flake8
+    commands = flake8 {{ cookiecutter.project_slug }} tests
+
 """
 {%- endif %}
 
