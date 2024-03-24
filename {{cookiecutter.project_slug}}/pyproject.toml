@@ -12,7 +12,7 @@ name="{{ cookiecutter.project_slug }}"
 dynamic = ['version']
 description="{{ cookiecutter.project_short_description }}"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 keywords = ["{{ cookiecutter.project_slug }}"]
 authors = [
   {email = "{{ cookiecutter.email }}"},
@@ -22,9 +22,9 @@ classifiers=[
   "Development Status :: 2 - Pre-Alpha",
   "Natural Language :: English",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
   {%- if cookiecutter.command_line_interface|lower == 'click' %}
