@@ -1,9 +1,7 @@
 [build-system]
 requires = [
-  "setuptools >= 48",
-  "setuptools_scm[toml] >= 6.2",
-  "setuptools_scm_git_archive",
-  "wheel >= 0.29.0",
+  "setuptools >= 61",
+  "setuptools_scm[toml] >= 8",
 ]
 build-backend = 'setuptools.build_meta'
 
@@ -33,10 +31,13 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+dev = [
+  "build > 0.6",
+]
 test = [
   {%- if cookiecutter.use_pytest == 'y' %}
-  "pytest < 5.0.0",
-  "pytest-cov[all]",
+  "pytest > 7.0",
+  "pytest-cov[all] >= 3.0",
   {%- endif %}
 ]
 
