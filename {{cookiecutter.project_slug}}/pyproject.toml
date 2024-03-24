@@ -50,7 +50,7 @@ repository = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecut
 {%- endif %}
 
 [tool.black]
-line-length = 79
+line-length = 88
 
 [tool.setuptools.packages.find]
 include = ['{{ cookiecutter.project_slug }}', '{{ cookiecutter.project_slug }}.*']
@@ -62,3 +62,9 @@ git_describe_command = "git describe --dirty --tags --long --match 'v*' --first-
 
 [tool.pytest]
 collect_ignore = ['setup.py']
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.pydocstyle]
+convention = "numpy"
