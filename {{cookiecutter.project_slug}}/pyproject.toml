@@ -57,7 +57,7 @@ include = ['{{ cookiecutter.project_slug }}', '{{ cookiecutter.project_slug }}.*
 namespaces = false
 
 [tool.setuptools_scm]
-write_to = "{{ cookiecutter.project_slug }}/version.py"
+version_file = "{{ cookiecutter.project_slug }}/_version.py"
 git_describe_command = "git describe --dirty --tags --long --match 'v*' --first-parent"
 
 [tool.pytest]
