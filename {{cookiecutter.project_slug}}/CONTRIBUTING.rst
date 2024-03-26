@@ -61,7 +61,7 @@ Ready to contribute? Here's how to set up `{{ cookiecutter.project_slug }}` for 
     $ flake8 {{ cookiecutter.project_slug }} tests
     $ pytest
 
-   flake8 test must pass without any warnings for `./{{ cookiecutter.project_slug }}` and `./tests` using the default or a stricter configuration. Flake8 ignores `E123/E133, E226` and `E241/E242` by default. If necessary adjust the your flake8 and linting configuration in your IDE accordingly.
+   flake8 test must pass without any warnings for `./{{ cookiecutter.project_slug }}` and `./tests` using the default or a stricter configuration. Flake8 ignores `E123/E133, E226` and `E241/E242` by default. If necessary adjust your flake8 and linting configuration in your IDE accordingly.
 
 6. Commit your changes and push your branch to {% if rwth %}GitLab{% elif github %}GitHub{% endif %}::
 
