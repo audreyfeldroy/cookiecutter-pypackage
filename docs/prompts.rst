@@ -55,7 +55,7 @@ use_matplotlib
 use_scipy
     Whether to use `SciPy <https://www.scipy.org/>`_.
 
-use_pyfarm
+use_pyfar
     Whether to use `Pyfar <https://www.pyfar.org/>`_.
 
 use_black
