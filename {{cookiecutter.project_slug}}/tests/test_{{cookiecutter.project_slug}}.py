@@ -11,7 +11,7 @@ import unittest
 from click.testing import CliRunner
 {%- endif %}
 
-from {{ cookiecutter.project_slug }} import {{ cookiecutter.project_slug }}
+from {{ cookiecutter.project_slug }} import {{ cookiecutter.project_slug }}  # noqa: F401
 {%- if cookiecutter.command_line_interface|lower == 'click' %}
 from {{ cookiecutter.project_slug }} import cli
 {%- endif %}
@@ -26,7 +26,7 @@ def response():
     See more at: http://doc.pytest.org/en/latest/fixture.html
     """
     # import requests
-    # return requests.get('https://github.com/mberz/cookiecutter-pypackage')
+    # return requests.get('https://github.com/pyfar/cookiecutter-pypackage')
 
 
 def test_content(response):

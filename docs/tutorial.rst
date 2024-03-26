@@ -75,7 +75,7 @@ You will find one folder named after the ``[project_slug]``. Move into this fold
     git add .
     git commit -m "Initial skeleton."
     git remote add origin git@github.com:myusername/mypackage.git
-    git push -u origin master
+    git push -u origin main
 
 Where ``myusername`` and ``mypackage`` are adjusted for your username and package name.
 
@@ -123,7 +123,7 @@ See :ref:`travis-pypi-setup` for more information.
 
 
 Step 6: Set Up Read the Docs
---------------------------
+----------------------------
 
 `Read the Docs`_ hosts documentation for the open source community. Think of it as Continuous Documentation.
 

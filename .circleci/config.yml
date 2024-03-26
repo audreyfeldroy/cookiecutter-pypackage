@@ -66,7 +66,7 @@ jobs:
           pip-dependency-file: requirements_dev.txt
       - run:
           name: Flake8
-          command: flake8 {{ cookiecutter.project_slug }} tests
+          command: flake8 tests
 
 
   test_documentation_build:
@@ -95,31 +95,6 @@ jobs:
             cd docs/
             make html SPHINXOPTS="-W"
 
-  test_pypi_publish:
-    parameters:
-      version:
-        description: "version tag"
-        default: "latest"
-        type: string
-    executor:
-      name: python-docker
-      version: <<parameters.version>>
-
-    steps:
-      - checkout
-    #   - run:
-    #       name: Install System Dependencies
-    #       command: sudo apt-get update && sudo apt-get install -y libsndfile1
-      - python/install-packages:
-          pkg-manager: pip
-          # app-dir: ~/project/package-directory/  # If you're requirements.txt isn't in the root directory.
-          pip-dependency-file: requirements_dev.txt
-      - run:
-          name: deploy
-          command: |  # create whl, install twine and publish to Test PyPI
-            python setup.py sdist bdist_wheel
-            twine upload dist/*
-
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -130,14 +105,16 @@ workflows:
           matrix:
             parameters:
               version:
-              {% for extension, details in cookiecutter._valid_versions|dictsort %}{% if extension == cookiecutter.minimum_python_version -%}{% for app in details.version_list -%}
-                - "{{ app }}"
-              {% endfor -%}{% endif %}{% endfor %}
+                - "3.8"
+                - "3.9"
+                - "3.10"
+                - "3.11"
+                - "3.12"
       - flake:
           matrix:
             parameters:
               version:
-                - "{{ cookiecutter.default_python_version }}"
+                - "3.10"
           requires:
             - build_and_test
 
@@ -146,71 +123,6 @@ workflows:
           matrix:
             parameters:
               version:
-                - "{{ cookiecutter.default_python_version }}"
+                - "3.10"
           requires:
             - build_and_test
-
-
-{% if cookiecutter.use_pypi_deployment_with_ci == 'y' -%}
-  test_and_publish:
-    # Test and publish on new git version tags
-    # This requires its own workflow to successfully trigger the test and build
-    jobs:
-      - build_and_test:
-          matrix:
-            parameters:
-              version:
-              {% for extension, details in cookiecutter._valid_versions|dictsort %}{% if extension == cookiecutter.minimum_python_version -%}{% for app in details.version_list -%}
-                - "{{ app }}"
-              {% endfor -%}{% endif %}{% endfor %}
-          filters:
-            branches:
-              ignore: /.*/
-            # only act on version tags
-            tags:
-              only: /^v[0-9]+(\.[0-9]+)*$/
-
-      - flake:
-          matrix:
-            parameters:
-              version:
-                - "{{ cookiecutter.default_python_version }}"
-          requires:
-            - build_and_test
-          filters:
-            branches:
-              ignore: /.*/
-            # only act on version tags
-            tags:
-              only: /^v[0-9]+(\.[0-9]+)*$/
-
-      - test_documentation_build:
-          matrix:
-            parameters:
-              version:
-                - "{{ cookiecutter.default_python_version }}"
-          requires:
-            - build_and_test
-          filters:
-            branches:
-              ignore: /.*/
-            # only act on version tags
-            tags:
-              only: /^v[0-9]+(\.[0-9]+)*$/
-
-      - test_pypi_publish:
-          matrix:
-            parameters:
-              version:
-                - "{{ cookiecutter.default_python_version }}"
-          requires:
-            - build_and_test
-            - flake
-            - test_documentation_build
-          filters:
-            branches:
-              ignore: /.*/
-            # only act on version tags
-            tags:
-              only: /^v[0-9]+(\.[0-9]+)*$/
-{%- endif %}

@@ -28,8 +28,29 @@
 * Free software: {{ cookiecutter.open_source_license }}
 {% endif %}
 
-Features
---------
+Getting Started
+===============
 
-* TODO: List the features here...
+Check out `read the docs`_ for the complete documentation. Packages
+related to pyfar are listed at `pyfar.org`_.
 
+Installation
+============
+
+Use pip to install {{ cookiecutter.project_slug }}
+
+.. code-block:: console
+
+    $ pip install {{ cookiecutter.project_slug }}
+
+(Requires Python {{ cookiecutter.minimum_python_version }} or higher)
+
+Contributing
+============
+
+Refer to the `contribution guidelines`_ for more information.
+
+
+.. _contribution guidelines: https://github.com/{{ cookiecutter.git_username }}/{{ cookiecutter.project_slug }}/blob/develop/CONTRIBUTING.rst
+.. _pyfar.org: https://pyfar.org
+.. _read the docs: https://{{ cookiecutter.project_slug }}.readthedocs.io/en/latest

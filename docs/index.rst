@@ -32,6 +32,7 @@ Advanced Features
 
    travis_pypi_setup
    console_script_setup
+   troubleshooting
 
 
 Indices and tables

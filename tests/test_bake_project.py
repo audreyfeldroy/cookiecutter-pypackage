@@ -1,16 +1,11 @@
 from contextlib import contextmanager
 import shlex
 import os
-import sys
 import subprocess
-import yaml
 import datetime
 import pytest
-from cookiecutter.utils import rmtree
-
-from click.testing import CliRunner
-
-import importlib
+import re
+from packaging import version
 
 
 @contextmanager
@@ -82,14 +77,14 @@ def test_bake_with_defaults(cookies):
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert 'setup.py' in found_toplevel_files
         assert 'your_python_project' in found_toplevel_files
-        assert 'tox.ini' in found_toplevel_files
+        assert 'environment.yml' in found_toplevel_files
         assert 'tests' in found_toplevel_files
 
 
 def test_bake_and_run_tests(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        run_inside_dir('python setup.py test', str(result.project)) == 0
+        run_inside_dir('pytest', str(result.project)) == 0
         print("test_bake_and_run_tests path", str(result.project))
 
 
@@ -100,7 +95,7 @@ def test_bake_withspecialchars_and_run_tests(cookies):
         extra_context={'full_name': 'name "quote" name'}
     ) as result:
         assert result.project.isdir()
-        run_inside_dir('python setup.py test', str(result.project)) == 0
+        run_inside_dir('pytest', str(result.project)) == 0
 
 
 def test_bake_with_apostrophe_and_run_tests(cookies):
@@ -110,7 +105,7 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
         extra_context={'full_name': "O'connor"}
     ) as result:
         assert result.project.isdir()
-        run_inside_dir('python setup.py test', str(result.project)) == 0
+        run_inside_dir('pytest', str(result.project)) == 0
 
 
 # def test_bake_and_run_travis_pypi_setup(cookies):
@@ -131,56 +126,6 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
 #         assert len(
 #             result_travis_config["deploy"]["password"]["secure"]
 #         ) > min_size_of_encrypted_password
-
-
-def test_bake_without_travis_pypi_setup(cookies):
-    with bake_in_temp_dir(
-        cookies,
-        extra_context={
-            'use_pypi_deployment_with_ci': 'n',
-            'use_travis_ci': 'y'
-            }
-    ) as result:
-        result_travis_config = yaml.load(
-            result.project.join(".travis.yml").open(),
-            Loader=yaml.FullLoader
-        )
-        assert "deploy" not in result_travis_config
-        assert "python" == result_travis_config["language"]
-        # found_toplevel_files = [f.basename for f in result.project.listdir()]
-
-
-def test_bake_without_author_file(cookies):
-    with bake_in_temp_dir(
-        cookies,
-        extra_context={'create_author_file': 'n'}
-    ) as result:
-        found_toplevel_files = [f.basename for f in result.project.listdir()]
-        assert 'AUTHORS.rst' not in found_toplevel_files
-        doc_files = [f.basename for f in result.project.join('docs').listdir()]
-        assert 'authors.rst' not in doc_files
-
-        # Assert there are no spaces in the toc tree
-        docs_index_path = result.project.join('docs/index.rst')
-        with open(str(docs_index_path)) as index_file:
-            assert 'contributing\n   history' in index_file.read()
-
-        # Check that
-        manifest_path = result.project.join('MANIFEST.in')
-        with open(str(manifest_path)) as manifest_file:
-            assert 'AUTHORS.rst' not in manifest_file.read()
-
-
-def test_make_help(cookies):
-    with bake_in_temp_dir(cookies) as result:
-        # The supplied Makefile does not support win32
-        if sys.platform != "win32":
-            output = check_output_inside_dir(
-                'make help',
-                str(result.project)
-            )
-            assert b"check code coverage quickly with the default Python" in \
-                output
 
 
 def test_bake_selecting_license(cookies):
@@ -234,30 +179,6 @@ def test_black(cookies, use_black, expected):
         assert result.project.isdir()
         requirements_path = result.project.join('requirements_dev.txt')
         assert ("black" in requirements_path.read()) is expected
-        makefile_path = result.project.join('Makefile')
-        assert ("black --check" in makefile_path.read()) is expected
-
-
-@pytest.mark.parametrize("use_gitlab_ci,expected", [('y', True), ('n', False)])
-def test_bake_with_and_wo_gitlab_ci(cookies, use_gitlab_ci, expected):
-    with bake_in_temp_dir(
-        cookies,
-        extra_context={'use_gitlab_ci': use_gitlab_ci}
-    ) as result:
-        assert result.project.isdir()
-        found_toplevel_files = [f.basename for f in result.project.listdir()]
-        assert ('.gitlab-ci.yml' in found_toplevel_files) is expected
-
-
-@pytest.mark.parametrize("use_travis_ci,expected", [('y', True), ('n', False)])
-def test_bake_with_and_wo_travis_ci(cookies, use_travis_ci, expected):
-    with bake_in_temp_dir(
-        cookies,
-        extra_context={'use_travis_ci': use_travis_ci}
-    ) as result:
-        assert result.project.isdir()
-        found_toplevel_files = [f.basename for f in result.project.listdir()]
-        assert ('.travis.yml' in found_toplevel_files) is expected
 
 
 @pytest.mark.parametrize("use_circle_ci,expected", [('y', True), ('n', False)])
@@ -269,3 +190,61 @@ def test_bake_with_and_wo_circle_ci(cookies, use_circle_ci, expected):
         # assert result.project.isdir()
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert ('.circleci' in found_toplevel_files) is expected
+
+
+@pytest.mark.parametrize("package", ['numpy', 'matplotlib', 'scipy', 'pyfar'])
+@pytest.mark.parametrize("input,expected", [('y', True), ('n', False)])
+def test_bake_with_and_wo_packages(cookies, package, input, expected):
+    with bake_in_temp_dir(
+        cookies,
+        extra_context={f'use_{package}': input}
+    ) as result:
+        assert result.project.isdir()
+        requirements_path = result.project.join('requirements_dev.txt')
+        assert (package in requirements_path.read()) is expected
+        environment_path = result.project.join('environment.yml')
+        assert (package in environment_path.read()) is expected
+        docs_conf = result.project.join(os.path.join('docs', 'conf.py'))
+        assert (f"'{package}': ('" in docs_conf.read()) is expected
+
+
+@pytest.mark.parametrize("version", [
+    '3.12', '3.11', '3.10', '3.9', '3.8', '3.7', '3.6'])
+def test_bake_default_python_version(cookies, version):
+    with bake_in_temp_dir(
+        cookies,
+        extra_context={'default_python_version': version,
+                       'minimum_python_version': '3.6'}
+    ) as result:
+        assert result.project.isdir()
+        config = result.project.join(os.path.join('.circleci', 'config.yml'))
+        assert len(re.findall(version, config.read())) == 7
+
+        run_inside_dir('pytest', str(result.project)) == 0
+
+
+@pytest.mark.parametrize("min_version", [
+    '3.12', '3.11', '3.10', '3.9', '3.8', '3.7', '3.6'])
+def test_bake_minimum_python_version(cookies, min_version):
+    with bake_in_temp_dir(
+        cookies,
+        extra_context={'minimum_python_version': min_version,
+                       'default_python_version': min_version}
+    ) as result:
+        assert result.project.isdir()
+
+        config = result.project.join(os.path.join('.circleci', 'config.yml'))
+        assert len(re.findall(min_version, config.read())) >= 2
+        next_version = min_version
+        while True:
+            next_version = f'{version.parse(next_version).release[0]}' \
+                f'.{version.parse(next_version).release[1]+1}'
+            print(next_version)
+            if version.parse(next_version) > version.parse('3.12'):
+                break
+            assert len(re.findall(next_version, config.read())) >= 2
+
+        config = result.project.join('README.rst')
+        assert len(re.findall(min_version, config.read())) == 1
+
+        run_inside_dir('pytest', str(result.project)) == 0

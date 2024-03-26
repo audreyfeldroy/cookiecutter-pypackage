@@ -1,22 +1,82 @@
 {
-  "full_name": "The Developer",
-  "email": "developer@example.com",
+  "full_name": "The pyfar developers",
+  "email": "",
   "git_service": ["https://github.com", "https://git.rwth-aachen.de"],
-  "git_username": "developer",
+  "git_username": "pyfar",
   "project_name": "Your Python Project",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
   "project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
-  "use_gitlab_ci": "n",
-  "use_travis_ci": "n",
-  "use_circle_ci": "y",
   "pypi_username": "{{ cookiecutter.git_username }}",
   "version": "0.1.0",
+  "use_circle_ci": "y",
   "use_pytest": "y",
+  "use_numpy": "y",
+  "use_matplotlib": "y",
+  "use_scipy": "y",
+  "use_pyfar": "y",
   "use_black": "n",
   "use_pypi_deployment_with_ci": "y",
-  "travis_username": "{{ cookiecutter.git_username }}",
   "add_pyup_badge": "n",
+  "minimum_python_version": "3.8",
+  "default_python_version": "3.9",
   "command_line_interface": ["No command-line interface", "Click", "Argparse"],
-  "create_author_file": "y",
-  "open_source_license": ["MIT license", "BSD license", "ISC license", "Apache Software License 2.0", "GNU General Public License v3", "Not open source"]
+  "open_source_license": ["MIT license", "BSD license", "ISC license", "Apache Software License 2.0", "GNU General Public License v3", "Not open source"],
+  "_valid_versions": {
+    "3.6": {
+        "version_list": [
+            "3.6",
+            "3.7",
+            "3.8",
+            "3.9",
+            "3.10",
+            "3.11",
+            "3.12"
+        ]
+    },
+    "3.7": {
+        "version_list": [
+            "3.7",
+            "3.8",
+            "3.9",
+            "3.10",
+            "3.11",
+            "3.12"
+        ]
+    },
+    "3.8": {
+        "version_list": [
+            "3.8",
+            "3.9",
+            "3.10",
+            "3.11",
+            "3.12"
+        ]
+    },
+    "3.9": {
+        "version_list": [
+            "3.9",
+            "3.10",
+            "3.11",
+            "3.12"
+        ]
+    },
+    "3.10": {
+        "version_list": [
+            "3.10",
+            "3.11",
+            "3.12"
+        ]
+    },
+    "3.11": {
+        "version_list": [
+            "3.11",
+            "3.12"
+        ]
+    },
+    "3.12": {
+        "version_list": [
+            "3.12"
+        ]
+    }
+  }
 }
