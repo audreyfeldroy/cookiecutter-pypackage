@@ -175,7 +175,7 @@ It requires a little more effort to implement stubs of the {{ cookiecutter.proje
 
 - Note: the stub utilities are not meant to be imported to test files directly or used for other purposes than testing. They solely provide functionality to create fixtures.
 - The utilities simplify and harmonize testing within the {{ cookiecutter.project_slug }} package and improve the readability and reliability.
-- The implementation as the private submodule ``{{ cookiecutter.project_slug }}.testing.stub_utils``  further allows the use of similar stubs in related packages with {{ cookiecutter.project_slug }} dependency (e.g. other packages from the pyfar} family).
+- The implementation as the private submodule ``{{ cookiecutter.project_slug }}.testing.stub_utils``  further allows the use of similar stubs in related packages with {{ cookiecutter.project_slug }} dependency (e.g. other packages from the pyfar family).
 
 **Mocks**
 
@@ -209,7 +209,7 @@ Here are a few tips to make things run smoothly
 - Use ``[#]_`` and ``.. [#]`` to get automatically numbered footnotes.
 - Do not use footnotes in the short summary. Only use footnotes in the extended summary if there is a short summary. Otherwise, it messes with the auto-footnotes.
 - If a method or class takes or returns pyfar objects for example write ``parameter_name : Signal``. This will create a link to the ``pyfar.Signal`` class.
-- Plots can be included in by using the prefix ``.. plot::`` followed by an empty line and an indented block containing the code for the plot. See `pyfar.plot.line.time.py` for examples.
+- Plots can be included in the documentation by using the prefix ``.. plot::`` followed by an empty line and an indented block containing the code for the plot. See `pyfar.plot.line.time.py` for examples.
 
 See the `Sphinx homepage <https://www.sphinx-doc.org>`_ for more information.
 
@@ -245,6 +245,7 @@ Deploying
 A reminder for the maintainers on how to deploy.
 
 - Commit all changes to develop
+- Check if gallery needs to be updated
 - Update HISTORY.rst in develop
 - Merge develop into main
 
