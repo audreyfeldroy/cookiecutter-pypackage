@@ -24,3 +24,6 @@ matplotlib{% endif %}
 pyfar{% endif %}
 autodocsumm
 pydata_sphinx_theme
+sphinx-design
+sphinx-favicon
+sphinx-reredirects
