@@ -245,7 +245,6 @@ Deploying
 A reminder for the maintainers on how to deploy.
 
 - Commit all changes to develop
-- Check if gallery needs to be updated
 - Update HISTORY.rst in develop
 - Merge develop into main
 
