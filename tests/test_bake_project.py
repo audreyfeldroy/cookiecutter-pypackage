@@ -248,3 +248,19 @@ def test_bake_minimum_python_version(cookies, min_version):
         assert len(re.findall(min_version, config.read())) == 1
 
         run_inside_dir('pytest', str(result.project)) == 0
+
+
+def test_bake_incident_with_logic(cookies):
+    with bake_in_temp_dir(cookies) as result:
+        assert result.project.isdir()
+        assert result.exit_code == 0
+        assert result.exception is None
+
+        # test for incident in setup.py
+        setup = result.project.join('setup.py')
+        assert len(re.findall("\n    \'pyfar\',\n", setup.read())) == 1
+        assert len(re.findall("\n    \'numpy\',\n", setup.read())) == 1
+
+        # test for incident in docs/conf.py
+        setup = result.project.join('docs', 'conf.py')
+        assert len(re.findall("\n    \'numpy\': ", setup.read())) == 1
