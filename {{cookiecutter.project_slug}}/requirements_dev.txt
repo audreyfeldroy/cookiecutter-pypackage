@@ -23,7 +23,7 @@ matplotlib{% endif %}
 {% if cookiecutter.use_pyfar == 'y' -%}
 pyfar{% endif %}
 autodocsumm
-pydata_sphinx_theme
+pydata-sphinx-theme
 sphinx-design
 sphinx-favicon
 sphinx-reredirects
