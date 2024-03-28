@@ -12,7 +12,7 @@ import urllib3
 import shutil
 sys.path.insert(0, os.path.abspath('..'))
 
-import {{ cookiecutter.project_slug }}
+import {{ cookiecutter.project_slug }}  # noqa
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
