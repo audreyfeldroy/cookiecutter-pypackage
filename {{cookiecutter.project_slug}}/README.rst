@@ -5,12 +5,12 @@
 
 {% if is_open_source %}
 .. image:: https://badge.fury.io/py/{{ cookiecutter.project_slug }}.svg
-        :target: https://badge.fury.io/py/{{ cookiecutter.project_slug }}
+    :target: https://badge.fury.io/py/{{ cookiecutter.project_slug }}
 .. image:: https://readthedocs.org/projects/{{ cookiecutter.project_slug | replace("_", "-") }}//badge/?version=latest
-    :target: https://{ cookiecutter.project_slug }}.readthedocs.io/en/latest/?badge=latest
+    :target: https://{{ cookiecutter.project_slug }}.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
-.. image:: https://circleci.com/gh/{ cookiecutter.git_username }}/{{ cookiecutter.project_slug | replace("_", "-") }}/.svg?style=shield
-    :target: https://circleci.com/gh/{ cookiecutter.git_username }}/{{ cookiecutter.project_slug | replace("_", "-") }}/
+.. image:: https://circleci.com/gh/{{ cookiecutter.git_username }}/{{ cookiecutter.project_slug | replace("_", "-") }}/.svg?style=shield
+    :target: https://circleci.com/gh/{{ cookiecutter.git_username }}/{{ cookiecutter.project_slug | replace("_", "-") }}/
 {%- endif %}
 
 {% if cookiecutter.add_pyup_badge == 'y' %}
