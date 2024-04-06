@@ -1,5 +1,5 @@
 pip==19.2.3
-bump2version==0.5.11
+bump2version==1.0.1
 wheel==0.33.6
 watchdog==0.9.0
 flake8==3.7.8
