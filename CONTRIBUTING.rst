@@ -73,7 +73,7 @@ development. Please note this documentation assumes you already have
 
 ::
 
-3. Assuming you have virtualenv installed (If you have Python3.5 this should
+3. Assuming you have virtualenv installed (If you have Python 3.6 this should
    already be there), you can create a new environment for your local
    development by typing:
 
@@ -112,11 +112,11 @@ development. Please note this documentation assumes you already have
 
 6. The next step would be to run the test cases. `cookiecutter-pypackage` uses
    pytest, you can run PyTest. Before you run pytest you should ensure all
-   dependancies are installed:
+   dependencies are installed:
 
    .. code-block:: bash
 
-        $ pip install -rrequirements_dev.txt
+        $ pip install -r requirements_dev.txt
         $ pytest ./tests
 
    If you get any errors while installing cryptography package (something like
@@ -171,7 +171,7 @@ Before you submit a pull request, check that it meets these guidelines:
    new functionality into a function with a docstring, and add the feature to
    the list in README.rst.
 
-3. The pull request should work for Python 3.5, 3.6 and 3.7, 3.8 and for PyPy. Check
+3. The pull request should work for Python 3.6 and 3.7, 3.8 and for PyPy. Check
    https://travis-ci.org/audreyr/cookiecutter-pypackage/pull_requests and
    make sure that the tests pass for all supported Python versions.
 

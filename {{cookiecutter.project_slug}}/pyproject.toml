@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "{{cookiecutter.project_slug}}"
+version = "{{cookiecutter.version}}"
+description = "{{cookiecutter.project_short_description}}"
+readme = "README.rst"
+authors = [
+  {name = "{{cookiecutter.full_name}}", email = "{{cookiecutter.email}}"}
+]
+maintainers = [
+  {name = "{{cookiecutter.full_name}}", email = "{{cookiecutter.email}}"}
+]
+classifiers = [
+
+]
+license = {text = "{{cookiecutter.open_source_license}}"}
+dependencies = [
+  {% if cookiecutter.command_line_interface.lower() == "typer" -%}
+  "typer"
+{%- endif %}
+]
+
+[project.optional-dependencies]
+dev = [
+    "coverage",  # testing
+    "mypy",  # linting
+    "pytest",  # testing
+    "ruff"  # linting
+]
+
+[project.urls]
+
+bugs = "https://github.com/{{cookiecutter.__gh_slug}}/issues"
+changelog = "https://github.com/{{cookiecutter.__gh_slug}}/blob/master/changelog.md"
+homepage = "https://github.com/{{cookiecutter.__gh_slug}}"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.package-data]
+"*" = ["*.*"]
+
+{% if cookiecutter.command_line_interface == 'Yes' %}
+[project.scripts]
+{{cookiecutter.slug}} = "{{cookiecutter.slug}}.cli:app"
+{% endif %}
+
+
+# Mypy
+# ----
+
+[tool.mypy]
+files = "."
+
+# Use strict defaults
+strict = true
+warn_unreachable = true
+warn_no_return = true
+
+[[tool.mypy.overrides]]
+# Don't require test functions to include types
+module = "tests.*"
+allow_untyped_defs = true
+disable_error_code = "attr-defined"
+
