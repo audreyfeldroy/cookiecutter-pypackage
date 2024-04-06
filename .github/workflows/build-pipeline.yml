@@ -1,5 +1,5 @@
 # GitHub CI build pipeline
-name: Cookie Cutter CI build
+name: Cookiecutter PyPackage CI build
 
 on:
   push:
