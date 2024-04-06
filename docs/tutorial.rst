@@ -55,8 +55,8 @@ Use cookiecutter, pointing it at the cookiecutter-pypackage repo:
 
     cookiecutter https://github.com/audreyfeldroy/cookiecutter-pypackage.git
 
-You'll be asked to enter a bunch of values to set the package up.
-If you don't know what to enter, stick with the defaults.
+You'll be asked to enter various values to set the package up.
+If you don't know what to enter, press Enter to stick with the defaults.
 
 
 Step 3: Create a GitHub Repo
@@ -76,10 +76,6 @@ You will find one folder named after the ``[project_slug]``. Move into this fold
     git commit -m "Initial skeleton."
     git remote add origin git@github.com:myusername/mypackage.git
     git push -u origin main
-
-    .. note::
-
-       GitHub has changed the default branch name from 'master' to 'main'. If you are using another Git repository hosting service that uses the Git branch naming defaults, you might need to use 'master' instead of 'main'.
 
 Where ``myusername`` and ``mypackage`` are adjusted for your username and package name.
 
