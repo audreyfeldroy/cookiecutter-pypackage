@@ -18,7 +18,7 @@ classifiers = [
 ]
 license = {text = "{{cookiecutter.open_source_license}}"}
 dependencies = [
-  {% if cookiecutter.command_line_interface.lower() == "yes" -%}"rich",
+  {% if cookiecutter.command_line_interface.lower() == "typer" -%}
   "typer"
 {%- endif %}
 ]
@@ -39,6 +39,9 @@ homepage = "https://github.com/{{cookiecutter.__gh_slug}}"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
+
+[tool.setuptools.package-data]
+"*" = ["*.*"]
 
 {% if cookiecutter.command_line_interface == 'Yes' %}
 [project.scripts]
