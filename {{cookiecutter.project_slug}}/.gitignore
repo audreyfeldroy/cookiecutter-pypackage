@@ -71,6 +71,9 @@ target/
 # Jupyter Notebook
 .ipynb_checkpoints
 
+# Dask worker cache
+dask-worker-space/
+
 # pyenv
 .python-version
 
@@ -104,3 +107,4 @@ ENV/
 # IDE settings
 .vscode/
 .idea/
+
