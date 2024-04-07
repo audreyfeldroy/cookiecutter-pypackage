@@ -5,7 +5,7 @@ watchdog==0.9.0
 tox==3.14.0
 coverage==4.5.4
 Sphinx==1.8.5
-twine==1.14.0
+twine==5.0.0
 ruff==0.3.5
 {% if cookiecutter.command_line_interface|lower == 'click' -%}
 Click==7.1.2{% endif %}
