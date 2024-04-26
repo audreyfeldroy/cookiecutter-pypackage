@@ -246,6 +246,7 @@ A reminder for the maintainers on how to deploy.
 
 - Commit all changes to develop
 - Update HISTORY.rst in develop
+- Check if gallery needs to be updated
 - Merge develop into main
 
 Switch to main and run::
@@ -256,3 +257,6 @@ $ git push --follow-tags
 The testing platform will then deploy to PyPI if tests pass.
 
 - merge main back into develop
+- check gallery in `binder`_
+
+.. _binder: https://mybinder.org/v2/gh/pyfar/gallery/main?filepath=docs/gallery
