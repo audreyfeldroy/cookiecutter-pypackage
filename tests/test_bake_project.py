@@ -264,3 +264,16 @@ def test_bake_incident_with_logic(cookies):
         # test for incident in docs/conf.py
         setup = result.project.join('docs', 'conf.py')
         assert len(re.findall("\n    \'numpy\': ", setup.read())) == 1
+
+
+def test_bake_gitignore(cookies):
+    with bake_in_temp_dir(cookies) as result:
+        assert result.project.isdir()
+        assert result.exit_code == 0
+        assert result.exception is None
+
+        # test for incident in setup.py
+        file = result.project.join('.gitignore')
+        assert len(re.findall("\ndocs/resources/logos/pyfar_logos_fixed_size_your_python_project\n", file.read())) == 1
+
+

@@ -134,7 +134,7 @@ html_context = {
 
 # redirect index to pyfar.html
 redirects = {
-     "index": "{{ cookiecutter.project_slug }}.html"
+     "index": f"{project}.html"
 }
 
 # -- download navbar and style files from gallery -----------------------------
