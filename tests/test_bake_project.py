@@ -264,3 +264,17 @@ def test_bake_incident_with_logic(cookies):
         # test for incident in docs/conf.py
         setup = result.project.join('docs', 'conf.py')
         assert len(re.findall("\n    \'numpy\': ", setup.read())) == 1
+
+
+def test_bake_workflow_issue(cookies):
+    with bake_in_temp_dir(cookies) as result:
+        assert result.project.isdir()
+        assert result.exit_code == 0
+        assert result.exception is None
+
+        # test for incident in setup.py
+        setup = result.project.join(
+            '.github\workflows\create_issue_if_cookiecutter.yml')
+        assert len(re.findall(
+            "if: github.event.label.name == 'cookiecutter'",
+            setup.read())) == 1
