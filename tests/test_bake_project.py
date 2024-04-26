@@ -273,8 +273,8 @@ def test_bake_workflow_issue(cookies):
         assert result.exception is None
 
         # test for incident in setup.py
-        setup = result.project.join(
-            '.github\workflows\create_issue_if_cookiecutter.yml')
+        setup = result.project.join(os.path.join(
+            '.github', 'workflows', 'create_issue_if_cookiecutter.yml'))
         assert len(re.findall(
             "if: github.event.label.name == 'cookiecutter'",
             setup.read())) == 1
