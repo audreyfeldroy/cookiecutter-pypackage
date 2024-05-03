@@ -18,6 +18,8 @@
      :target: https://pyup.io/repos/github/{{ cookiecutter.git_username }}/{{ cookiecutter.project_slug }}/
      :alt: Updates
 {% endif %}
+.. image:: https://mybinder.org/badge_logo.svg
+    :target: https://mybinder.org/v2/gh/pyfar/gallery/main?filepath=docs/gallery
 
 
 {{ cookiecutter.project_short_description }}
@@ -29,8 +31,9 @@
 Getting Started
 ===============
 
-Check out `read the docs`_ for the complete documentation. Packages
-related to pyfar are listed at `pyfar.org`_.
+Check out `pyfar.org`_ for a tour through the pyfar
+universe, including complete documentation of this package and
+the other packages.
 
 Installation
 ============
