@@ -55,14 +55,13 @@ Ready to contribute? Here's how to set up `{{ cookiecutter.project_slug }}` for 
 
    Now you can make your changes locally.
 
-5. When you're done making changes, check that your changes pass flake8 and the
+5. When you're done making changes, check that your changes pass ruff and the
    tests::
 
-    $ flake8 {{ cookiecutter.project_slug }} tests
+    $ ruff pyfar tests
     $ pytest
 
-   flake8 test must pass without any warnings for `./{{ cookiecutter.project_slug }}` and `./tests` using the default or a stricter configuration. Flake8 ignores `E123/E133, E226` and `E241/E242` by default. If necessary adjust your flake8 and linting configuration in your IDE accordingly.
-
+   ruff must pass without any warnings for `./{{ cookiecutter.project_slug }}` and `./tests` using the default or a stricter configuration. Ruff ignores a couple of PEP Errors (see `./pyproject.toml`). If necessary, adjust your linting configuration in your IDE accordingly.
 6. Commit your changes and push your branch to {% if rwth %}GitLab{% elif github %}GitHub{% endif %}::
 
     $ git add .

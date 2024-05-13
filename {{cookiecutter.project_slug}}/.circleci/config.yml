@@ -48,7 +48,7 @@ jobs:
           name: Run tests
           command: pytest
 
-  flake:
+  ruff:
     parameters:
       version:
         description: "version tag"
@@ -65,8 +65,8 @@ jobs:
           # app-dir: ~/project/package-directory/  # If you're requirements.txt isn't in the root directory.
           pip-dependency-file: requirements_dev.txt
       - run:
-          name: Flake8
-          command: flake8 {{ cookiecutter.project_slug }} tests
+          name: Ruff
+          command: ruff {{ cookiecutter.project_slug }} tests
 
 
   test_documentation_build:
@@ -133,7 +133,7 @@ workflows:
               {% for extension, details in cookiecutter._valid_versions|dictsort %}{% if extension == cookiecutter.minimum_python_version -%}{% for app in details.version_list -%}
                 - "{{ app }}"
               {% endfor -%}{% endif %}{% endfor %}
-      - flake:
+      - ruff:
           matrix:
             parameters:
               version:
@@ -170,7 +170,7 @@ workflows:
             tags:
               only: /^v[0-9]+(\.[0-9]+)*$/
 
-      - flake:
+      - ruff:
           matrix:
             parameters:
               version:
@@ -205,7 +205,7 @@ workflows:
                 - "{{ cookiecutter.default_python_version }}"
           requires:
             - build_and_test
-            - flake
+            - ruff
             - test_documentation_build
           filters:
             branches:
