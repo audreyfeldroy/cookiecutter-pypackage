@@ -17,7 +17,7 @@ Features
 --------
 
 * Testing setup with ``unittest`` and ``python setup.py test`` or ``pytest``
-* Circleci_: Ready for Circleci Continuous Integration testing, flake8 and deployment
+* Circleci_: Ready for Circleci Continuous Integration testing, ruff and deployment
 * Sphinx_ docs: Documentation ready for generation with, for example, `Read the Docs`_
 * bump2version_: Pre-configured version bumping with a single command
 * Auto-release to PyPI_ when you push a new tag to master (optional)
