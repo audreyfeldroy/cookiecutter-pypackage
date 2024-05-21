@@ -6,6 +6,7 @@
   "project_name": "Your Python Project",
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
   "project_short_description": "Python Boilerplate contains all the boilerplate you need to create a Python package.",
+  "logo_path_gallery": "resources/logos/pyfar_logos_fixed_size_{{ cookiecutter.project_slug }}.png",
   "pypi_username": "{{ cookiecutter.git_username }}",
   "version": "0.1.0",
   "use_circle_ci": "y",

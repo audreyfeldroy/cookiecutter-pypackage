@@ -114,3 +114,10 @@ venv.bak/
 # workaround for failing test discovery in vscode
 tests/*/__init__.py
 tests/private/
+
+# ignore downloads from pyfar gallery
+docs/header.rst
+docs/_static/favicon.ico
+docs/_static/header.rst
+docs/_static/css/custom.css
+docs/{{ cookiecutter.logo_path_gallery }}

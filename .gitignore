@@ -100,3 +100,10 @@ cookiecutter-pypackage-env/
 
 # IDE settings
 .vscode/
+
+# ignore downloads from pyfar gallery
+docs/header.rst
+docs/_static/favicon.ico
+docs/_static/header.rst
+docs/_static/css/custom.css
+docs/{{cookiecutter.logo_path_gallery}}
