@@ -1,0 +1,11 @@
+[tool.ruff]
+exclude = [
+    ".git",
+    "docs",
+]
+ignore = []
+select = [
+    "E",
+    "F",
+    "W",
+]

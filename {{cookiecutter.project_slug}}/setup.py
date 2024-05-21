@@ -27,7 +27,7 @@ test_requirements = [
     'bump2version',
     'wheel',
     'watchdog',
-    'flake8',
+    'ruff',
     'coverage',
     'Sphinx',
     'twine',
