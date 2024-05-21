@@ -55,7 +55,8 @@ def check_output_inside_dir(command, dirpath):
 
 def test_year_compute_in_license_file(cookies):
     with bake_in_temp_dir(cookies) as result:
-        license_file_path = open(os.path.join(result.project_path, 'LICENSE'), 'r')
+        license_file_path = open(os.path.join(
+            result.project_path, 'LICENSE'), 'r')
         now = datetime.datetime.now()
         assert str(now.year) in license_file_path.read()
 
@@ -181,7 +182,8 @@ def test_black(cookies, use_black, expected):
         extra_context={'use_black': use_black}
     ) as result:
         assert os.path.isdir(result.project_path)
-        requirements_path = os.path.join(result.project_path, 'requirements_dev.txt')
+        requirements_path = os.path.join(
+            result.project_path, 'requirements_dev.txt')
         assert ("black" in open(requirements_path, 'r').read()) is expected
 
 
