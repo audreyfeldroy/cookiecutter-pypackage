@@ -4,4 +4,4 @@ cookiecutter>=2.6.0
 pytest-cookies==0.7.0
 alabaster==0.7.16
 watchdog==4.0.0
-ruff==0.3.5
+ruff==0.4.7
