@@ -79,5 +79,8 @@
             "3.12"
         ]
     }
-  }
+  },
+  "_copy_without_render": [
+        "*/workflows/*.yml"
+    ]
 }

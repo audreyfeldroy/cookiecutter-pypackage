@@ -6,6 +6,8 @@ import datetime
 import pytest
 import re
 from packaging import version
+import urllib3
+import numpy.testing as npt
 
 
 @contextmanager
@@ -282,12 +284,13 @@ def test_bake_incident_with_logic(cookies):
 
 def test_bake_gitignore_with_paths(cookies):
     with bake_in_temp_dir(cookies) as result:
-        assert result.project.isdir()
+        assert os.path.isdir(result.project_path)
         assert result.exit_code == 0
         assert result.exception is None
 
         # test for incident in setup.py
-        file = result.project.join('.gitignore')
+        file = open(os.path.join(
+            result.project_path, '.gitignore'), 'r')
         assert len(re.findall(
             "\ndocs/resources/logos/"
             "pyfar_logos_fixed_size_your_python_project.png\n",
@@ -296,27 +299,76 @@ def test_bake_gitignore_with_paths(cookies):
 
 def test_bake_doc_settings(cookies):
     with bake_in_temp_dir(cookies) as result:
-        assert result.project.isdir()
+        assert os.path.isdir(result.project_path)
         assert result.exit_code == 0
         assert result.exception is None
 
         # test for incident in docs/your_python_project.rst
-        file = result.project.join('docs/your_python_project.rst')
+        file = open(os.path.join(
+            result.project_path, 'docs', 'your_python_project.rst'), 'r')
         assert len(re.findall(
             "\n   :caption: Getting Started\n",
             file.read())) == 1
 
         # test for incident in index.rst
-        file = result.project.join('docs/index.rst')
+        file = open(os.path.join(
+            result.project_path, 'docs', 'index.rst'), 'r')
         assert len(re.findall(
             "\n.. include:: header.rst\n",
             file.read())) == 1
 
         # test for conf.py
-        file = result.project.join('docs/conf.py')
+        file = open(os.path.join(
+            result.project_path, 'docs', 'conf.py'), 'r')
+        file_contend = file.read()
         assert len(re.findall(
             "\n    'sphinx_reredirects',\n",
-            file.read())) == 1
+            file_contend)) == 1
         assert len(re.findall(
             "resources/logos/pyfar_logos_fixed_size_your_python_project.png",
-            file.read())) == 2
+            file_contend)) == 2
+
+
+def test_bake_workflow_issue(cookies):
+    with bake_in_temp_dir(cookies) as result:
+        assert os.path.isdir(result.project_path)
+        assert result.exit_code == 0
+        assert result.exception is None
+
+        # test for incident in setup.py
+        setup = open(os.path.join(
+            result.project_path, '.github', 'workflows',
+            'create_issue_if_cookiecutter.yml'), 'r')
+        assert len(re.findall(
+            "if: github.event.label.name == 'cookiecutter'",
+            setup.read())) == 1
+
+
+@pytest.mark.parametrize("file", [
+    '.github/workflows/create_issue_if_cookiecutter.yml',
+    '.github/ISSUE_TEMPLATE.md',
+    '.github/PULL_REQUEST_TEMPLATE.md',
+    ])
+def test_vs_pyfar_development(cookies, file):
+    with bake_in_temp_dir(
+            cookies,
+            extra_context={
+                'project_name': 'pyfar',
+                'project_short_description': 'The python package for acoustics research (pyfar) offers classes to store audio data, filters, coordinates, and orientations. It also contains common functions for digital audio signal processing.'}) as result:
+        assert os.path.isdir(result.project_path)
+        assert result.exit_code == 0
+        assert result.exception is None
+
+        # get file from pyfar repo
+        branch = 'develop'
+        link = f'https://raw.githubusercontent.com/pyfar/pyfar/{branch}/'
+        http = urllib3.PoolManager()
+
+        url = link + file
+        pyfar_file = http.request("GET", url).data
+
+        # test for incident in docs/your_python_project.rst
+        file = open(os.path.join(
+            result.project_path, file), 'r')
+        # compare
+        npt.assert_string_equal(file.read(), pyfar_file.decode('UTF-8'))

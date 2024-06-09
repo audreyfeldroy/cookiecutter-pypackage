@@ -106,7 +106,7 @@ development. Please note this documentation assumes you already have
 
    .. code-block:: bash
 
-        $ ruff ./tests
+        $ ruff check
 
 ::
 
