@@ -1,0 +1,22 @@
+[tool.ruff]
+exclude = [
+    ".git",
+    "docs",
+    "hooks",
+    "setup.py",
+    "*cookiecutter.project_slug*",
+    "setup.cfg",
+    "setup.py",
+]
+include = [
+    "README.md",
+    "pyproject.toml",
+    "tests",
+]
+line-length = 79
+lint.ignore = []
+lint.select = [
+    "E",
+    "F",
+    "W",
+]
