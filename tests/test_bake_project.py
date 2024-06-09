@@ -36,7 +36,7 @@ def bake_in_temp_dir(cookies, *args, **kwargs):
         yield result
     finally:
         pass
-        # rmtree(str(result.project))
+        # rmtree(result.project_path)
 
 
 def run_inside_dir(command, dirpath):
@@ -57,14 +57,15 @@ def check_output_inside_dir(command, dirpath):
 
 def test_year_compute_in_license_file(cookies):
     with bake_in_temp_dir(cookies) as result:
-        license_file_path = result.project.join('LICENSE')
+        license_file_path = open(os.path.join(
+            result.project_path, 'LICENSE'), 'r')
         now = datetime.datetime.now()
         assert str(now.year) in license_file_path.read()
 
 
 def project_info(result):
     """Get toplevel dir, project_slug, and project dir from baked cookies"""
-    project_path = str(result.project)
+    project_path = result.project_path
     project_slug = os.path.split(project_path)[-1]
     project_dir = os.path.join(project_path, project_slug)
     return project_path, project_slug, project_dir
@@ -72,11 +73,12 @@ def project_info(result):
 
 def test_bake_with_defaults(cookies):
     with bake_in_temp_dir(cookies) as result:
-        assert result.project.isdir()
+        assert os.path.isdir(result.project_path)
         assert result.exit_code == 0
         assert result.exception is None
 
-        found_toplevel_files = [f.basename for f in result.project.listdir()]
+        found_toplevel_files = [
+            f for f in os.listdir(result.project_path)]
         assert 'setup.py' in found_toplevel_files
         assert 'your_python_project' in found_toplevel_files
         assert 'environment.yml' in found_toplevel_files
@@ -85,9 +87,9 @@ def test_bake_with_defaults(cookies):
 
 def test_bake_and_run_tests(cookies):
     with bake_in_temp_dir(cookies) as result:
-        assert result.project.isdir()
-        run_inside_dir('pytest', str(result.project)) == 0
-        print("test_bake_and_run_tests path", str(result.project))
+        assert os.path.isdir(result.project_path)
+        run_inside_dir('pytest', result.project_path) == 0
+        print("test_bake_and_run_tests path", result.project_path)
 
 
 def test_bake_withspecialchars_and_run_tests(cookies):
@@ -96,8 +98,8 @@ def test_bake_withspecialchars_and_run_tests(cookies):
         cookies,
         extra_context={'full_name': 'name "quote" name'}
     ) as result:
-        assert result.project.isdir()
-        run_inside_dir('pytest', str(result.project)) == 0
+        assert os.path.isdir(result.project_path)
+        run_inside_dir('pytest', result.project_path) == 0
 
 
 def test_bake_with_apostrophe_and_run_tests(cookies):
@@ -106,14 +108,14 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
         cookies,
         extra_context={'full_name': "O'connor"}
     ) as result:
-        assert result.project.isdir()
-        run_inside_dir('pytest', str(result.project)) == 0
+        assert os.path.isdir(result.project_path)
+        run_inside_dir('pytest', result.project_path) == 0
 
 
 # def test_bake_and_run_travis_pypi_setup(cookies):
 #     # given:
 #     with bake_in_temp_dir(cookies) as result:
-#         project_path = str(result.project)
+#         project_path = result.project_path
 #
 #         # when:
 #         travis_setup_cmd = ('python travis_pypi_setup.py'
@@ -122,7 +124,7 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
 #         run_inside_dir(travis_setup_cmd, project_path)
 #         # then:
 #         result_travis_config = yaml.load(
-#             result.project.join(".travis.yml").open()
+#             open(os.path.join(result.project_path, ".travis.yml"), 'r')
 #         )
 #         min_size_of_encrypted_password = 50
 #         assert len(
@@ -145,8 +147,10 @@ def test_bake_selecting_license(cookies):
             cookies,
             extra_context={'open_source_license': license}
         ) as result:
-            assert target_string in result.project.join('LICENSE').read()
-            assert license in result.project.join('setup.py').read()
+            assert target_string in open(os.path.join(
+                result.project_path, 'LICENSE'), 'r').read()
+            assert license in open(os.path.join(
+                result.project_path, 'setup.py'), 'r').read()
 
 
 def test_bake_not_open_source(cookies):
@@ -154,10 +158,11 @@ def test_bake_not_open_source(cookies):
         cookies,
         extra_context={'open_source_license': 'Not open source'}
     ) as result:
-        found_toplevel_files = [f.basename for f in result.project.listdir()]
+        found_toplevel_files = [f for f in os.listdir(result.project_path)]
         assert 'setup.py' in found_toplevel_files
         assert 'LICENSE' not in found_toplevel_files
-        assert 'License' not in result.project.join('README.rst').read()
+        assert 'License' not in open(os.path.join(
+            result.project_path, 'README.rst'), 'r').read()
 
 
 def test_bake_with_no_console_script(cookies):
@@ -178,9 +183,10 @@ def test_black(cookies, use_black, expected):
         cookies,
         extra_context={'use_black': use_black}
     ) as result:
-        assert result.project.isdir()
-        requirements_path = result.project.join('requirements_dev.txt')
-        assert ("black" in requirements_path.read()) is expected
+        assert os.path.isdir(result.project_path)
+        requirements_path = os.path.join(
+            result.project_path, 'requirements_dev.txt')
+        assert ("black" in open(requirements_path, 'r').read()) is expected
 
 
 @pytest.mark.parametrize("use_circle_ci,expected", [('y', True), ('n', False)])
@@ -189,8 +195,8 @@ def test_bake_with_and_wo_circle_ci(cookies, use_circle_ci, expected):
         cookies,
         extra_context={'use_circle_ci': use_circle_ci}
     ) as result:
-        # assert result.project.isdir()
-        found_toplevel_files = [f.basename for f in result.project.listdir()]
+        # assert os.path.isdir(result.project_path)
+        found_toplevel_files = [f for f in os.listdir(result.project_path)]
         assert ('.circleci' in found_toplevel_files) is expected
 
 
@@ -201,12 +207,15 @@ def test_bake_with_and_wo_packages(cookies, package, input, expected):
         cookies,
         extra_context={f'use_{package}': input}
     ) as result:
-        assert result.project.isdir()
-        requirements_path = result.project.join('requirements_dev.txt')
+        assert os.path.isdir(result.project_path)
+        requirements_path = open(os.path.join(
+            result.project_path, 'requirements_dev.txt'), 'r')
         assert (package in requirements_path.read()) is expected
-        environment_path = result.project.join('environment.yml')
+        environment_path = open(os.path.join(
+            result.project_path, 'environment.yml'), 'r')
         assert (package in environment_path.read()) is expected
-        docs_conf = result.project.join(os.path.join('docs', 'conf.py'))
+        docs_conf = open(os.path.join(
+            result.project_path, os.path.join('docs', 'conf.py')), 'r')
         assert (f"'{package}': ('" in docs_conf.read()) is expected
 
 
@@ -218,11 +227,12 @@ def test_bake_default_python_version(cookies, version):
         extra_context={'default_python_version': version,
                        'minimum_python_version': '3.6'}
     ) as result:
-        assert result.project.isdir()
-        config = result.project.join(os.path.join('.circleci', 'config.yml'))
+        assert os.path.isdir(result.project_path)
+        config = open(os.path.join(
+            result.project_path, os.path.join('.circleci', 'config.yml')), 'r')
         assert len(re.findall(version, config.read())) == 7
 
-        run_inside_dir('pytest', str(result.project)) == 0
+        run_inside_dir('pytest', result.project_path) == 0
 
 
 @pytest.mark.parametrize("min_version", [
@@ -233,10 +243,13 @@ def test_bake_minimum_python_version(cookies, min_version):
         extra_context={'minimum_python_version': min_version,
                        'default_python_version': min_version}
     ) as result:
-        assert result.project.isdir()
+        assert os.path.isdir(result.project_path)
 
-        config = result.project.join(os.path.join('.circleci', 'config.yml'))
-        assert len(re.findall(min_version, config.read())) >= 2
+        config = open(os.path.join(
+            result.project_path, os.path.join('.circleci', 'config.yml')), 'r')
+
+        config_content = config.read()
+        assert len(re.findall(min_version, config_content)) >= 2
         next_version = min_version
         while True:
             next_version = f'{version.parse(next_version).release[0]}' \
@@ -244,25 +257,68 @@ def test_bake_minimum_python_version(cookies, min_version):
             print(next_version)
             if version.parse(next_version) > version.parse('3.12'):
                 break
-            assert len(re.findall(next_version, config.read())) >= 2
+            assert len(re.findall(next_version, config_content)) >= 2
 
-        config = result.project.join('README.rst')
+        config = open(os.path.join(result.project_path, 'README.rst'), 'r')
         assert len(re.findall(min_version, config.read())) == 1
 
-        run_inside_dir('pytest', str(result.project)) == 0
+        run_inside_dir('pytest', result.project_path) == 0
 
 
 def test_bake_incident_with_logic(cookies):
+    with bake_in_temp_dir(cookies) as result:
+        assert os.path.isdir(result.project_path)
+        assert result.exit_code == 0
+        assert result.exception is None
+
+        # test for incident in setup.py
+        setup = open(os.path.join(result.project_path, 'setup.py'), 'r')
+        setup_content = setup.read()
+        assert len(re.findall("\n    \'pyfar\',\n", setup_content)) == 1
+        assert len(re.findall("\n    \'numpy\',\n", setup_content)) == 1
+
+        # test for incident in docs/conf.py
+        setup = open(os.path.join(result.project_path, 'docs', 'conf.py'), 'r')
+        assert len(re.findall("\n    \'numpy\': ", setup.read())) == 1
+
+
+def test_bake_gitignore_with_paths(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
         assert result.exit_code == 0
         assert result.exception is None
 
         # test for incident in setup.py
-        setup = result.project.join('setup.py')
-        assert len(re.findall("\n    \'pyfar\',\n", setup.read())) == 1
-        assert len(re.findall("\n    \'numpy\',\n", setup.read())) == 1
+        file = result.project.join('.gitignore')
+        assert len(re.findall(
+            "\ndocs/resources/logos/"
+            "pyfar_logos_fixed_size_your_python_project.png\n",
+            file.read())) == 1
 
-        # test for incident in docs/conf.py
-        setup = result.project.join('docs', 'conf.py')
-        assert len(re.findall("\n    \'numpy\': ", setup.read())) == 1
+
+def test_bake_doc_settings(cookies):
+    with bake_in_temp_dir(cookies) as result:
+        assert result.project.isdir()
+        assert result.exit_code == 0
+        assert result.exception is None
+
+        # test for incident in docs/your_python_project.rst
+        file = result.project.join('docs/your_python_project.rst')
+        assert len(re.findall(
+            "\n   :caption: Getting Started\n",
+            file.read())) == 1
+
+        # test for incident in index.rst
+        file = result.project.join('docs/index.rst')
+        assert len(re.findall(
+            "\n.. include:: header.rst\n",
+            file.read())) == 1
+
+        # test for conf.py
+        file = result.project.join('docs/conf.py')
+        assert len(re.findall(
+            "\n    'sphinx_reredirects',\n",
+            file.read())) == 1
+        assert len(re.findall(
+            "resources/logos/pyfar_logos_fixed_size_your_python_project.png",
+            file.read())) == 2

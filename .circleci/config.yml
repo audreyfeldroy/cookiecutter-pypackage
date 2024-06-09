@@ -48,7 +48,7 @@ jobs:
           name: Run tests
           command: pytest
 
-  flake:
+  ruff:
     parameters:
       version:
         description: "version tag"
@@ -65,8 +65,8 @@ jobs:
           # app-dir: ~/project/package-directory/  # If you're requirements.txt isn't in the root directory.
           pip-dependency-file: requirements_dev.txt
       - run:
-          name: Flake8
-          command: flake8 tests
+          name: Ruff
+          command: ruff tests
 
 
   test_documentation_build:
@@ -110,7 +110,7 @@ workflows:
                 - "3.10"
                 - "3.11"
                 - "3.12"
-      - flake:
+      - ruff:
           matrix:
             parameters:
               version:
