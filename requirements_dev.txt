@@ -5,3 +5,4 @@ alabaster
 watchdog
 ruff
 sphinx
+numpy
