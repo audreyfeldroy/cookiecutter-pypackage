@@ -2,9 +2,12 @@
 exclude = [
     ".git",
     "docs",
+    "setup.py",
 ]
 ignore = []
-select = [
+line-length = 79
+lint.ignore = []
+lint.select = [
     "E",
     "F",
     "W",
