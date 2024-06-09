@@ -348,13 +348,14 @@ def test_bake_workflow_issue(cookies):
     '.github/workflows/create_issue_if_cookiecutter.yml',
     '.github/ISSUE_TEMPLATE.md',
     '.github/PULL_REQUEST_TEMPLATE.md',
+    'CONTRIBUTING.rst',
     ])
 def test_vs_pyfar_development(cookies, file):
     with bake_in_temp_dir(
             cookies,
             extra_context={
                 'project_name': 'pyfar',
-                'project_short_description': 'The python package for acoustics research (pyfar) offers classes to store audio data, filters, coordinates, and orientations. It also contains common functions for digital audio signal processing.'}) as result:
+                'project_short_description': 'The python package for acoustics research (pyfar) offers classes to store audio data, filters, coordinates, and orientations. It also contains common functions for digital audio signal processing and plotting audio signals..'}) as result:
         assert os.path.isdir(result.project_path)
         assert result.exit_code == 0
         assert result.exception is None
@@ -372,3 +373,28 @@ def test_vs_pyfar_development(cookies, file):
             result.project_path, file), 'r')
         # compare
         npt.assert_string_equal(file.read(), pyfar_file.decode('UTF-8'))
+
+
+
+@pytest.mark.parametrize("file", [
+    'README.rst',
+    ])
+def test_vs_reference_filet(cookies, file):
+    with bake_in_temp_dir(
+            cookies,
+            extra_context={
+                'project_name': 'pyfar',
+                'project_short_description': 'The python package for acoustics research (pyfar) offers classes to store audio data, filters, coordinates, and orientations. It also contains common functions for digital audio signal processing.'}) as result:
+        assert os.path.isdir(result.project_path)
+        assert result.exit_code == 0
+        assert result.exception is None
+
+        reference_file = open(os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            'reference', file), 'r')
+
+        # test for incident in docs/your_python_project.rst
+        file_handle = open(os.path.join(
+            result.project_path, file), 'r')
+        # compare
+        npt.assert_string_equal(file_handle.read(), reference_file.read())
