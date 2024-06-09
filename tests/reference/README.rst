@@ -1,26 +1,20 @@
-{% set is_open_source = cookiecutter.open_source_license != 'Not open source' -%}
-{% for _ in cookiecutter.project_name %}={% endfor %}
-{{ cookiecutter.project_name }}
-{% for _ in cookiecutter.project_name %}={% endfor %}
-{% if is_open_source %}
-.. image:: https://badge.fury.io/py/{{ cookiecutter.project_slug }}.svg
-    :target: https://badge.fury.io/py/{{ cookiecutter.project_slug }}
-.. image:: https://readthedocs.org/projects/{{ cookiecutter.project_slug | replace("_", "-") }}/badge/?version=latest
-    :target: https://{{ cookiecutter.project_slug }}.readthedocs.io/en/latest/?badge=latest
-    :alt: Documentation Status
-.. image:: https://circleci.com/gh/{{ cookiecutter.git_username }}/{{ cookiecutter.project_slug | replace("_", "-") }}.svg?style=shield
-    :target: https://circleci.com/gh/{{ cookiecutter.git_username }}/{{ cookiecutter.project_slug | replace("_", "-") }}
-{%- endif %}
+=====
+pyfar
+=====
 
-{% if cookiecutter.add_pyup_badge == 'y' %}
-.. image:: https://pyup.io/repos/github/{{ cookiecutter.git_username }}/{{ cookiecutter.project_slug }}/shield.svg
-     :target: https://pyup.io/repos/github/{{ cookiecutter.git_username }}/{{ cookiecutter.project_slug }}/
-     :alt: Updates
-{% endif %}
+.. image:: https://badge.fury.io/py/pyfar.svg
+    :target: https://badge.fury.io/py/pyfar
+.. image:: https://readthedocs.org/projects/pyfar/badge/?version=latest
+    :target: https://pyfar.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+.. image:: https://circleci.com/gh/pyfar/pyfar.svg?style=shield
+    :target: https://circleci.com/gh/pyfar/pyfar
+
+
 .. image:: https://mybinder.org/badge_logo.svg
     :target: https://mybinder.org/v2/gh/pyfar/gallery/main?labpath=docs/gallery/interactive/pyfar_introduction.ipynb
 
-{{ cookiecutter.project_short_description }}
+The python package for acoustics research (pyfar) offers classes to store audio data, filters, coordinates, and orientations. It also contains common functions for digital audio signal processing and plotting audio signals.
 
 Getting Started
 ===============
@@ -36,13 +30,13 @@ these information are available from `pyfar.org`_.
 Installation
 ============
 
-Use pip to install {{ cookiecutter.project_slug }}
+Use pip to install pyfar
 
 .. code-block:: console
 
-    $ pip install {{ cookiecutter.project_slug }}
+    $ pip install pyfar
 
-(Requires Python {{ cookiecutter.minimum_python_version }} or higher)
+(Requires Python 3.8 or higher)
 
 If the installation fails, please check out the `help section`_.
 
