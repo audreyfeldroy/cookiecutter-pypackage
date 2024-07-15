@@ -8,7 +8,7 @@ Contributing
 
 Contributions are welcome, and they are greatly appreciated! Every little bit
 helps, and credit will always be given. The following helps you to start
-contributing specifically to pyfar. Please also consider the
+contributing specifically to {{ cookiecutter.project_slug }}. Please also consider the
 `general contributing guidelines`_ for example regarding the style
 of code and documentation and some helpful hints.
 
