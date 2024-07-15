@@ -2,13 +2,53 @@
 exclude = [
     ".git",
     "docs",
-    "setup.py",
 ]
 ignore = []
 line-length = 79
-lint.ignore = []
+lint.ignore = [
+    "PT018", # Assertion should be broken down into multiple parts
+    "PT019", # Fixture `_` without value is injected as parameter
+]
 lint.select = [
-    "E",
-    "F",
+    "A",    # Avoid builtin function and type shadowing.
+    "ARG",  # Remove unused function/method arguments.
+    "B",    # flake8-bugbear extension
+    "COM",  # trailing comma rules. Can be very helpful to avoid accidental tuple creation and other problems.
+    "C4",   # unnessesary init stuff
+    "C90",  # removes unnecessary nestes expressions
+    "D100", # Missing docstring in public module
+    "D101", # Missing docstring in public class
+    "D102", # Missing docstring in public method
+    "D103", # Missing docstring in public function
+    "D104", # Missing docstring in public package
+    "D105", # Missing docstring in magic method
+    "D106", # Missing docstring in public nested class
+    "D206", # Docstring should be indented with spaces, not tabs
+    "D207", # Docstring is under-indented
+    "D208", # Docstring is over-indented
+    "D407", # Missing section underline
+    "D408", # Section underline should be in the line following the section's name
+    "D409", # Section underline should match the length of its name
+    "D410", # Missing blank line after section
+    "D411", # Missing blank line before section
+    "D412", # No blank lines allowed between a section and its content
+    "D414", # Section has no content
+    "D419", # Docstring is empty
+    "E",    # pycodestyle
+    "ERA",  # No commented out code
+    "NPY",  # Check all numpy related deprecations
+    "F",    # Pyflakes
+    "FIX",  # Code should not contain FIXME, TODO, etc.
+    "PT",   # Pytest style
+    "TID252", # Use absolute over relative imports.
     "W",
+]
+
+# Ignore missing docstrings in tests
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = [
+    "D100",
+    "D101",
+    "D103",
+    "D104",
 ]
