@@ -375,9 +375,9 @@ def test_vs_pyfar_development(cookies, file):
         npt.assert_string_equal(file.read(), pyfar_file.decode('UTF-8'))
 
 
-
 @pytest.mark.parametrize("file", [
     'README.rst',
+    '.circleci/config.yml',
     ])
 def test_vs_reference_filet(cookies, file):
     with bake_in_temp_dir(
@@ -397,4 +397,8 @@ def test_vs_reference_filet(cookies, file):
         file_handle = open(os.path.join(
             result.project_path, file), 'r')
         # compare
-        npt.assert_string_equal(file_handle.read(), reference_file.read())
+        text = re.sub(
+            r'\n *\n', '\n\n', file_handle.read(), flags=re.MULTILINE)
+        text_ref = re.sub(
+            r'\n *\n', '\n\n', reference_file.read(), flags=re.MULTILINE)
+        npt.assert_string_equal(text, text_ref)

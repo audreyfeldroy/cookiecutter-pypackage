@@ -130,14 +130,17 @@ workflows:
           matrix:
             parameters:
               version:
-              {% for extension, details in cookiecutter._valid_versions|dictsort %}{% if extension == cookiecutter.minimum_python_version -%}{% for app in details.version_list -%}
-                - "{{ app }}"
-              {% endfor -%}{% endif %}{% endfor %}
+              - "3.8"
+              - "3.9"
+              - "3.10"
+              - "3.11"
+              - "3.12"
+
       - ruff:
           matrix:
             parameters:
               version:
-                - "{{ cookiecutter.default_python_version }}"
+                - "3.9"
           requires:
             - build_and_test
 
@@ -146,13 +149,12 @@ workflows:
           matrix:
             parameters:
               version:
-                - "{{ cookiecutter.default_python_version }}"
+                - "3.9"
           requires:
             - build_and_test
 
 
-{% if cookiecutter.use_pypi_deployment_with_ci == 'y' -%}
-  test_and_publish:
+test_and_publish:
     # Test and publish on new git version tags
     # This requires its own workflow to successfully trigger the test and build
     jobs:
@@ -160,9 +162,12 @@ workflows:
           matrix:
             parameters:
               version:
-              {% for extension, details in cookiecutter._valid_versions|dictsort %}{% if extension == cookiecutter.minimum_python_version -%}{% for app in details.version_list -%}
-                - "{{ app }}"
-              {% endfor -%}{% endif %}{% endfor %}
+              - "3.8"
+              - "3.9"
+              - "3.10"
+              - "3.11"
+              - "3.12"
+              
           filters:
             branches:
               ignore: /.*/
@@ -174,7 +179,7 @@ workflows:
           matrix:
             parameters:
               version:
-                - "{{ cookiecutter.default_python_version }}"
+                - "3.9"
           requires:
             - build_and_test
           filters:
@@ -188,7 +193,7 @@ workflows:
           matrix:
             parameters:
               version:
-                - "{{ cookiecutter.default_python_version }}"
+                - "3.9"
           requires:
             - build_and_test
           filters:
@@ -202,7 +207,7 @@ workflows:
           matrix:
             parameters:
               version:
-                - "{{ cookiecutter.default_python_version }}"
+                - "3.9"
           requires:
             - build_and_test
             - ruff
@@ -213,4 +218,3 @@ workflows:
             # only act on version tags
             tags:
               only: /^v[0-9]+(\.[0-9]+)*$/
-{%- endif %}
