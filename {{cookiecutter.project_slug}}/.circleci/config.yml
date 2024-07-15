@@ -95,6 +95,29 @@ jobs:
             cd docs/
             make html SPHINXOPTS="-W"
 
+  test_deprecation_warnings:
+    parameters:
+      version:
+        description: "version tag"
+        default: "latest"
+        type: string
+    executor:
+      name: python-docker
+      version: <<parameters.version>>
+
+    steps:
+      - checkout
+   #    - run:
+   #        name: Install System Dependencies
+   #        command: sudo apt-get update && sudo apt-get install -y libsndfile1 texlive-latex-extra dvipng
+      - python/install-packages:
+          pkg-manager: pip
+          # app-dir: ~/project/package-directory/  # If you're requirements.txt isn't in the root directory.
+          pip-dependency-file: requirements_dev.txt
+      - run:
+          name: Run tests
+          command: pytest tests -W error::DeprecationWarning
+
   test_pypi_publish:
     parameters:
       version:
@@ -130,9 +153,9 @@ workflows:
           matrix:
             parameters:
               version:
-              {% for extension, details in cookiecutter._valid_versions|dictsort %}{% if extension == cookiecutter.minimum_python_version -%}{% for app in details.version_list -%}
+                {% for extension, details in cookiecutter._valid_versions|dictsort %}{% if extension == cookiecutter.minimum_python_version -%}{% for app in details.version_list -%}
                 - "{{ app }}"
-              {% endfor -%}{% endif %}{% endfor %}
+                {% endfor -%}{% endif %}{% endfor %}
       - ruff:
           matrix:
             parameters:
@@ -147,6 +170,14 @@ workflows:
             parameters:
               version:
                 - "{{ cookiecutter.default_python_version }}"
+          requires:
+            - build_and_test
+
+      - test_deprecation_warnings:
+          matrix:
+            parameters:
+              version:
+                - "latest"
           requires:
             - build_and_test
 
@@ -160,9 +191,9 @@ workflows:
           matrix:
             parameters:
               version:
-              {% for extension, details in cookiecutter._valid_versions|dictsort %}{% if extension == cookiecutter.minimum_python_version -%}{% for app in details.version_list -%}
+                {% for extension, details in cookiecutter._valid_versions|dictsort %}{% if extension == cookiecutter.minimum_python_version -%}{% for app in details.version_list -%}
                 - "{{ app }}"
-              {% endfor -%}{% endif %}{% endfor %}
+                {% endfor -%}{% endif %}{% endfor %}
           filters:
             branches:
               ignore: /.*/
@@ -189,6 +220,20 @@ workflows:
             parameters:
               version:
                 - "{{ cookiecutter.default_python_version }}"
+          requires:
+            - build_and_test
+          filters:
+            branches:
+              ignore: /.*/
+            # only act on version tags
+            tags:
+              only: /^v[0-9]+(\.[0-9]+)*$/
+
+      - test_deprecation_warnings:
+          matrix:
+            parameters:
+              version:
+                - "latest"
           requires:
             - build_and_test
           filters:
