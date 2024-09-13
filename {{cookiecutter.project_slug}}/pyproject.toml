@@ -15,6 +15,7 @@ lint.ignore = [
     "D404", # First word of the docstring should not be "This"
 ]
 lint.select = [
+    "A",
     "ARG",
     "B",
     "C4",
@@ -26,6 +27,7 @@ lint.select = [
     "FIX",
     "I002",
     "NPY",
+    "PT",
     "TID252",
     "W",
 ]
