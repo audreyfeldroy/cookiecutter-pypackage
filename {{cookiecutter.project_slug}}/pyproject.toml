@@ -6,30 +6,49 @@ exclude = [
 ]
 line-length = 79
 lint.ignore = [
-    "B006", # Do not use mutable data structures for argument defaults
-    "B008", # Do not perform calls in argument defaults
-    "D200", # One-line docstring should fit on one line with quotes
-    "D202", # No blank lines allowed after function docstring
-    "D205", # 1 blank line required between summary line and description
-    "D401", # First line should be in imperative mood
-    "D404", # First word of the docstring should not be "This"
+    "B006",   # Do not use mutable data structures for argument defaults
+    "B008",   # Do not perform calls in argument defaults
+    "D200",   # One-line docstring should fit on one line with quotes
+    "D202",   # No blank lines allowed after function docstring
+    "D205",   # 1 blank line required between summary line and description
+    "D401",   # First line should be in imperative mood
+    "D404",   # First word of the docstring should not be "This"
 ]
 lint.select = [
-    "A",
-    "ARG",
-    "B",
-    "C4",
-    "COM",
-    "D",
-    "E",
-    "ERA",
-    "F",
-    "FIX",
-    "I002",
-    "NPY",
-    "PT",
-    "TID252",
-    "W",
+    "A",      # Avoid builtin function and type shadowing
+    "ARG",    # Remove unused function/method arguments
+    "B",      # bugbear extension
+    "C4",     # Check for common security issues
+    "COM",    # trailing comma rules
+    "D100",   # Missing docstring in public module
+    "D101",   # Missing docstring in public class
+    "D102",   # Missing docstring in public method
+    "D103",   # Missing docstring in public function
+    "D104",   # Missing docstring in public package
+    "D105",   # Missing docstring in magic method
+    "D106",   # Missing docstring in public nested class
+    "D206",   # Docstring should be indented with spaces, not tabs
+    "D207",   # Docstring is under-indented
+    "D208",   # Docstring is over-indented
+    "D407",   # Missing section underline
+    "D408",   # Section underline should be in the line following the section's name
+    "D409",   # Section underline should match the length of its name
+    "D410",   # Missing blank line after section
+    "D411",   # Missing blank line before section
+    "D412",   # No blank lines allowed between a section and its content
+    "D414",   # Section has no content
+    "D419",   # Docstring is empty
+    "D415",   # First line should end with a period
+    "D417",   # Missing argument descriptions in the docstring
+    "E",      # PEP8 errors
+    "ERA",    # No commented out code
+    "F",      # Pyflakes
+    "FIX",    # Code should not contain FIXME, TODO, etc
+    "I002",   # missing required import
+    "NPY",    # Check all numpy related deprecations
+    "PT",     # pytest guidelines
+    "TID252", # Use absolute over relative imports
+    "W",      # PEP8 warnings
 ]
 
 # Ignore missing docstrings in tests
