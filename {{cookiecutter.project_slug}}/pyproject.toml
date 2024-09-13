@@ -6,6 +6,8 @@ exclude = [
 ]
 line-length = 79
 lint.ignore = [
+    "B006", # Do not use mutable data structures for argument defaults
+    "B008", # Do not perform calls in argument defaults
     "D200", # One-line docstring should fit on one line with quotes
     "D202", # No blank lines allowed after function docstring
     "D205", # 1 blank line required between summary line and description
@@ -13,16 +15,19 @@ lint.ignore = [
     "D404", # First word of the docstring should not be "This"
 ]
 lint.select = [
-    "E",
-    "F",
-    "W",
-    "D",
-    "ERA",
-    "NPY",
+    "ARG",
+    "B",
+    "C4",
     "COM",
-    "I002",
-    "TID252",
+    "D",
+    "E",
+    "ERA",
+    "F",
     "FIX",
+    "I002",
+    "NPY",
+    "TID252",
+    "W",
 ]
 
 # Ignore missing docstrings in tests
