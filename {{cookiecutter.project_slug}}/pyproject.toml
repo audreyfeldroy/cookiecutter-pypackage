@@ -20,26 +20,8 @@ lint.select = [
     "B",      # bugbear extension
     "C4",     # Check for common security issues
     "COM",    # trailing comma rules
-    "D100",   # Missing docstring in public module
-    "D101",   # Missing docstring in public class
-    "D102",   # Missing docstring in public method
-    "D103",   # Missing docstring in public function
-    "D104",   # Missing docstring in public package
-    "D105",   # Missing docstring in magic method
-    "D106",   # Missing docstring in public nested class
-    "D206",   # Docstring should be indented with spaces, not tabs
-    "D207",   # Docstring is under-indented
-    "D208",   # Docstring is over-indented
-    "D407",   # Missing section underline
-    "D408",   # Section underline should be in the line following the section's name
-    "D409",   # Section underline should match the length of its name
-    "D410",   # Missing blank line after section
-    "D411",   # Missing blank line before section
-    "D412",   # No blank lines allowed between a section and its content
-    "D414",   # Section has no content
-    "D419",   # Docstring is empty
-    "D415",   # First line should end with a period
-    "D417",   # Missing argument descriptions in the docstring
+    "D417", # Missing argument descriptions in the docstring
+    "D",
     "E",      # PEP8 errors
     "ERA",    # No commented out code
     "F",      # Pyflakes
