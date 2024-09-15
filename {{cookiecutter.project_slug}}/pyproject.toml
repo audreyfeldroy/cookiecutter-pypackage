@@ -20,8 +20,8 @@ lint.select = [
     "B",      # bugbear extension
     "C4",     # Check for common security issues
     "COM",    # trailing comma rules
-    "D417", # Missing argument descriptions in the docstring
-    "D",
+    "D417",   # Missing argument descriptions in the docstring
+    "D",      # Docstring guidelines
     "E",      # PEP8 errors
     "ERA",    # No commented out code
     "F",      # Pyflakes
