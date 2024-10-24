@@ -6,31 +6,34 @@ exclude = [
 ]
 line-length = 79
 lint.ignore = [
-    "B006",   # Do not use mutable data structures for argument defaults
-    "B008",   # Do not perform calls in argument defaults
     "D200",   # One-line docstring should fit on one line with quotes
     "D202",   # No blank lines allowed after function docstring
     "D205",   # 1 blank line required between summary line and description
     "D401",   # First line should be in imperative mood
     "D404",   # First word of the docstring should not be "This"
+    "B006",   # Do not use mutable data structures for argument defaults
+    "B008",   # Do not perform calls in argument defaults
+    "PT018",  # Assertion should be broken down into multiple parts
+    "PT019",  # Fixture `_` without value is injected as parameter
 ]
 lint.select = [
-    "A",      # Avoid builtin function and type shadowing
-    "ARG",    # Remove unused function/method arguments
     "B",      # bugbear extension
+    "ARG",    # Remove unused function/method arguments
     "C4",     # Check for common security issues
-    "COM",    # trailing comma rules
-    "D417",   # Missing argument descriptions in the docstring
-    "D",      # Docstring guidelines
     "E",      # PEP8 errors
-    "ERA",    # No commented out code
     "F",      # Pyflakes
-    "FIX",    # Code should not contain FIXME, TODO, etc
-    "I002",   # missing required import
-    "NPY",    # Check all numpy related deprecations
-    "PT",     # pytest guidelines
-    "TID252", # Use absolute over relative imports
     "W",      # PEP8 warnings
+    "D",      # Docstring guidelines
+    "NPY",    # Check all numpy related deprecations
+    "D417",   # Missing argument descriptions in the docstring
+    "PT",     # Pytest style
+    "A",      # Avoid builtin function and type shadowing
+    "ERA",    # No commented out code
+    "NPY",    # Check all numpy related deprecations
+    "COM",    # trailing comma rules
+    "I002",   # missing required import
+    "TID252", # Use absolute over relative imports
+    "FIX",    # Code should not contain FIXME, TODO, etc
 ]
 
 # Ignore missing docstrings in tests
