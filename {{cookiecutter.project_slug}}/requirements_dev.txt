@@ -6,7 +6,7 @@ tox==3.14.0
 coverage==4.5.4
 Sphinx==7.2.6
 twine==5.0.0
-ruff==0.3.5
+ruff==0.7.3
 {% if cookiecutter.command_line_interface|lower == 'click' -%}
 Click==7.1.2{% endif %}
 {% if cookiecutter.use_pytest == 'y' -%}
