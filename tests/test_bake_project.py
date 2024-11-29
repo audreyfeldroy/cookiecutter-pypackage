@@ -384,7 +384,11 @@ def test_vs_reference_filet(cookies, file):
             cookies,
             extra_context={
                 'project_name': 'pyfar',
-                'project_short_description': 'The python package for acoustics research (pyfar) offers classes to store audio data, filters, coordinates, and orientations. It also contains common functions for digital audio signal processing and plotting audio signals.'}) as result:
+                'project_short_description': 'The python package for '
+                'acoustics research (pyfar) offers classes to store audio '
+                'data, filters, coordinates, and orientations. It also '
+                'contains common functions for digital audio signal processing'
+                ' and plotting audio signals.'}) as result:
         assert os.path.isdir(result.project_path)
         assert result.exit_code == 0
         assert result.exception is None
