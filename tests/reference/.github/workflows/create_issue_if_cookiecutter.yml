@@ -1,0 +1,25 @@
+on:
+  pull_request:
+    types: [ labeled ]
+name: Create issue if pr gets a cookiecutter label
+jobs:
+  stuff:
+    permissions:
+      contents: read
+      issues: write
+    name: create issue
+    environment: test
+    if: github.event.label.name == 'cookiecutter'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: 'pyfar/cookiecutter-pypackage'
+      - uses: dacbd/create-issue-action@v2
+        with:
+          title: ${{ github.event.pull_request.title  }}
+          token: ${{ secrets.cookiecutter_PAT }}
+          owner: pyfar
+          repo: cookiecutter-pypackage
+          body: |
+            apply changes from https://github.com/${{ github.repository }}/pull/${{ github.event.number }}

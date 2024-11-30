@@ -373,6 +373,8 @@ def test_vs_pyfar_development(cookies, file):
     'README.md',
     '.circleci/config.yml',
     'pyproject.toml',
+    '.github/workflows/has_version_label.yml',
+    '.github/workflows/create_issue_if_cookiecutter.yml',
     ])
 def test_vs_reference_filet(cookies, file):
     with bake_in_temp_dir(

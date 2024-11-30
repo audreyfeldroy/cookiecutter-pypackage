@@ -1,0 +1,29 @@
+name: PR Check Label for version Label
+
+on:
+  pull_request:
+    types:
+      - opened
+      - labeled
+      - unlabeled
+      - synchronize
+
+jobs:
+  check-labels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for version label
+        run: |
+          echo "Checking for version label on pull request..."
+          PR_DATA=$(gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }})
+          LABEL_NAMES=$(echo "$PR_DATA" | jq -r '.labels[].name')
+          echo "Labels: $LABEL_NAMES"
+
+          REGEX="^v[0-9]+\.[0-9]+\.[0-9]+$"
+          MATCHES=$(echo "$LABEL_NAMES" | grep -E "$REGEX")
+          if [ -z "$MATCHES" ]; then
+            echo "Error: No version label found on this pull request. Please add a label in the format vX.Y.Z."
+            exit 1
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

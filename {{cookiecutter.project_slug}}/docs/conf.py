@@ -163,7 +163,7 @@ for file in folders_in:
     with c.request('GET', url, preload_content=False) as res, open(filename, 'wb') as out_file:
         shutil.copyfileobj(res, out_file)
 
-# replace pyfar hard link to internal link
+# replace {{ cookiecutter.project_slug }} hard link to internal link
 with open("_static/header.rst", "rt") as fin:
     with open("header.rst", "wt") as fout:
         for line in fin:

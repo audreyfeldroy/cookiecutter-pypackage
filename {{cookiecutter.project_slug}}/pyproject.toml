@@ -4,7 +4,7 @@ version = "{{ cookiecutter.version }}"
 description = "Project for data formats in acoustics."
 readme = "README.md"
 license = {file = "LICENSE"}
-requires-python = ">=3.9"
+requires-python = ">={{ cookiecutter.minimum_python_version }}"
 authors = [
     { name = "The pyfar developers", email = "info@pyfar.org" },
 ]
@@ -66,7 +66,7 @@ dev = ["{{ cookiecutter.project_slug }}[deploy,tests,docs]"]
 
 [project.urls]
 Tracker = "https://github.com/{{ cookiecutter.git_username }}/{{ cookiecutter.project_slug }}/issues"
-Documentation = "https://pyfar.readthedocs.io/"
+Documentation = "https://{{ cookiecutter.project_slug }}.readthedocs.io/"
 Download = "https://pypi.org/project/{{ cookiecutter.project_slug }}/"
 Homepage = "https://pyfar.org/"
 Source = "https://github.com/{{ cookiecutter.git_username }}/{{ cookiecutter.project_slug }}"
