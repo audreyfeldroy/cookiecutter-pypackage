@@ -79,9 +79,8 @@ def test_bake_with_defaults(cookies):
 
         found_toplevel_files = [
             f for f in os.listdir(result.project_path)]
-        assert 'setup.py' in found_toplevel_files
+        assert 'pyproject.toml' in found_toplevel_files
         assert 'your_python_project' in found_toplevel_files
-        assert 'environment.yml' in found_toplevel_files
         assert 'tests' in found_toplevel_files
 
 
@@ -162,7 +161,7 @@ def test_bake_not_open_source(cookies):
         assert 'setup.py' in found_toplevel_files
         assert 'LICENSE' not in found_toplevel_files
         assert 'License' not in open(os.path.join(
-            result.project_path, 'README.rst'), 'r').read()
+            result.project_path, 'README.md'), 'r').read()
 
 
 def test_bake_with_no_console_script(cookies):
@@ -259,7 +258,7 @@ def test_bake_minimum_python_version(cookies, min_version):
                 break
             assert len(re.findall(next_version, config_content)) >= 2
 
-        config = open(os.path.join(result.project_path, 'README.rst'), 'r')
+        config = open(os.path.join(result.project_path, 'README.md'), 'r')
         assert len(re.findall(min_version, config.read())) == 1
 
         run_inside_dir('pytest', result.project_path) == 0
@@ -272,7 +271,7 @@ def test_bake_incident_with_logic(cookies):
         assert result.exception is None
 
         # test for incident in setup.py
-        setup = open(os.path.join(result.project_path, 'setup.py'), 'r')
+        setup = open(os.path.join(result.project_path, 'pyproject.toml'), 'r')
         setup_content = setup.read()
         assert len(re.findall("\n    \'pyfar\',\n", setup_content)) == 1
         assert len(re.findall("\n    \'numpy\',\n", setup_content)) == 1
@@ -376,7 +375,7 @@ def test_vs_pyfar_development(cookies, file):
 
 
 @pytest.mark.parametrize("file", [
-    'README.rst',
+    'README.md',
     '.circleci/config.yml',
     ])
 def test_vs_reference_filet(cookies, file):
