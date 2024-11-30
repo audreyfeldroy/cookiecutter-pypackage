@@ -18,12 +18,13 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
     "Programming Language :: Python :: 3",
-    'Programming Language :: Python :: 3.8',
-    'Programming Language :: Python :: 3.9',
-    'Programming Language :: Python :: 3.10',
-    'Programming Language :: Python :: 3.11',
-    'Programming Language :: Python :: 3.12',
-    'Programming Language :: Python :: 3.13',
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+
 ]
 dependencies = [
     'numpy',
@@ -73,13 +74,11 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages]
 find = {}  # Scan the project directory with the default parameters
 
+
 [tool.ruff]
 exclude = [
     ".git",
     "docs",
-    "setup.py",
-    "pyfar/dsp/filter/_audiofilter.py",
-    "pyfar/samplings/external",
 ]
 line-length = 79
 lint.ignore = [
@@ -92,7 +91,6 @@ lint.ignore = [
     "B008",   # Do not perform calls in argument defaults
     "PT018",  # Assertion should be broken down into multiple parts
     "PT019",  # Fixture `_` without value is injected as parameter
-
 ]
 lint.select = [
     "B",      # bugbear extension
@@ -113,6 +111,7 @@ lint.select = [
     "TID252", # Use absolute over relative imports
     "FIX",    # Code should not contain FIXME, TODO, etc
 ]
+
 # Ignore missing docstrings in tests
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = [
@@ -121,11 +120,13 @@ lint.select = [
     "D103",
     "D104",
 ]
+
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
 
+
 [tool.bumpversion]
-current_version = "0.7.0"
+current_version = "0.1.0"
 parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)"
 serialize = ["{major}.{minor}.{patch}"]
 search = "{current_version}"
