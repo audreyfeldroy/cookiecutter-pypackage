@@ -48,9 +48,7 @@ Ready to contribute? Here's how to set up `{{ cookiecutter.project_slug }}` for 
 
     $ conda create --name {{ cookiecutter.project_slug }} python
     $ conda activate {{ cookiecutter.project_slug }}
-    $ conda install pip
-    $ pip install -e .
-    $ pip install -r requirements_dev.txt
+    $ pip install -e ".[dev]"
 
 4. Create a branch for local development. Indicate the intention of your branch in its respective name (i.e. `feature/branch-name` or `bugfix/branch-name`)::
 
