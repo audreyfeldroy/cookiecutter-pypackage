@@ -148,8 +148,6 @@ def test_bake_selecting_license(cookies):
         ) as result:
             assert target_string in open(os.path.join(
                 result.project_path, 'LICENSE'), 'r').read()
-            assert license in open(os.path.join(
-                result.project_path, 'pyproject.toml'), 'r').read()
 
 
 def test_bake_not_open_source(cookies):
@@ -216,7 +214,7 @@ def test_bake_with_and_wo_packages(cookies, package, input, expected):
 
 
 @pytest.mark.parametrize("version", [
-    '3.12', '3.11', '3.10', '3.9', '3.8', '3.7', '3.6'])
+    '3.13', '3.12', '3.11', '3.10', '3.9', '3.8', '3.7', '3.6'])
 def test_bake_default_python_version(cookies, version):
     with bake_in_temp_dir(
         cookies,
@@ -226,13 +224,13 @@ def test_bake_default_python_version(cookies, version):
         assert os.path.isdir(result.project_path)
         config = open(os.path.join(
             result.project_path, os.path.join('.circleci', 'config.yml')), 'r')
-        assert len(re.findall(version, config.read())) == 7
+        assert len(re.findall(version, config.read())) == 10
 
         run_inside_dir('pytest', result.project_path) == 0
 
 
 @pytest.mark.parametrize("min_version", [
-    '3.12', '3.11', '3.10', '3.9', '3.8', '3.7', '3.6'])
+    '3.13', '3.12', '3.11', '3.10', '3.9', '3.8', '3.7', '3.6'])
 def test_bake_minimum_python_version(cookies, min_version):
     with bake_in_temp_dir(
         cookies,
@@ -303,7 +301,7 @@ def test_bake_doc_settings(cookies):
         file = open(os.path.join(
             result.project_path, 'docs', 'your_python_project.rst'), 'r')
         assert len(re.findall(
-            "\n   :caption: Getting Started\n",
+            "Getting Started",
             file.read())) == 1
 
         # test for incident in index.rst

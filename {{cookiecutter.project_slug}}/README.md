@@ -32,9 +32,7 @@ Installation
 
 Use pip to install {{ cookiecutter.project_slug }}
 
-.. code-block:: console
-
-    $ pip install {{ cookiecutter.project_slug }}
+    pip install {{ cookiecutter.project_slug }}
 
 (Requires Python {{ cookiecutter.minimum_python_version }} or higher)
 

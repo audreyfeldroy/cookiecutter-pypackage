@@ -17,7 +17,7 @@
   "use_pyfar": "y",
   "use_black": "n",
   "use_pypi_deployment_with_ci": "y",
-  "add_pyup_badge": "n",
+  "add_pyup_badge": "y",
   "minimum_python_version": "3.8",
   "default_python_version": "3.9",
   "command_line_interface": ["No command-line interface", "Click", "Argparse"],

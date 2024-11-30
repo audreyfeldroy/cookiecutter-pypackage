@@ -118,7 +118,7 @@ jobs:
       name: python-docker
       version: <<parameters.version>>
     steps:
-    #  - checkout
+      - checkout
     #  - run:
     #      name: Install System Dependencies
     #      command: sudo apt-get update && sudo apt-get install -y libsndfile1
@@ -188,7 +188,7 @@ workflows:
           matrix:
             parameters:
               version:
-                - "3.13"
+                - "{{ cookiecutter.default_python_version }}"
           requires:
             - build_and_test
 
@@ -196,13 +196,11 @@ workflows:
           matrix:
             parameters:
               version:
-                - "3.12"
+                - "{{ cookiecutter.default_python_version }}"
           requires:
             - build_and_test
 
-
-
-{% if cookiecutter.use_pypi_deployment_with_ci == 'y' -%}
+  {% if cookiecutter.use_pypi_deployment_with_ci == 'y' -%}
   test_and_publish:
     # Test and publish on new git version tags
     # This requires its own workflow to successfully trigger the test and build
@@ -253,7 +251,7 @@ workflows:
           matrix:
             parameters:
               version:
-                - "3.13"
+                - "{{ cookiecutter.default_python_version }}"
           requires:
             - build_and_test
           filters:
@@ -279,4 +277,4 @@ workflows:
             # only act on version tags
             tags:
               only: /^v[0-9]+(\.[0-9]+)*$/
-{%- endif %}
+  {%- endif %}
