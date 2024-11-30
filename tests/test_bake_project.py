@@ -92,7 +92,7 @@ def test_bake_and_run_tests(cookies):
 
 
 def test_bake_withspecialchars_and_run_tests(cookies):
-    """Ensure that a `full_name` with double quotes does not break setup.py"""
+    """Ensure that a `full_name` with double quotes does not break pyproject.toml"""
     with bake_in_temp_dir(
         cookies,
         extra_context={'full_name': 'name "quote" name'}
@@ -102,7 +102,7 @@ def test_bake_withspecialchars_and_run_tests(cookies):
 
 
 def test_bake_with_apostrophe_and_run_tests(cookies):
-    """Ensure that a `full_name` with apostrophes does not break setup.py"""
+    """Ensure that a `full_name` with apostrophes does not break pyproject.toml"""
     with bake_in_temp_dir(
         cookies,
         extra_context={'full_name': "O'connor"}
@@ -117,7 +117,7 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
 #         project_path = result.project_path
 #
 #         # when:
-#         travis_setup_cmd = ('python travis_pypi_setup.py'
+#         travis_setup_cmd = ('python travis_pypi_pyproject.toml'
 #                             ' --repo audreyr/cookiecutter-pypackage'
 #                             ' --password invalidpass')
 #         run_inside_dir(travis_setup_cmd, project_path)
@@ -149,7 +149,7 @@ def test_bake_selecting_license(cookies):
             assert target_string in open(os.path.join(
                 result.project_path, 'LICENSE'), 'r').read()
             assert license in open(os.path.join(
-                result.project_path, 'setup.py'), 'r').read()
+                result.project_path, 'pyproject.toml'), 'r').read()
 
 
 def test_bake_not_open_source(cookies):
@@ -158,7 +158,7 @@ def test_bake_not_open_source(cookies):
         extra_context={'open_source_license': 'Not open source'}
     ) as result:
         found_toplevel_files = [f for f in os.listdir(result.project_path)]
-        assert 'setup.py' in found_toplevel_files
+        assert 'pyproject.toml' in found_toplevel_files
         assert 'LICENSE' not in found_toplevel_files
         assert 'License' not in open(os.path.join(
             result.project_path, 'README.md'), 'r').read()
@@ -171,7 +171,7 @@ def test_bake_with_no_console_script(cookies):
     found_project_files = os.listdir(project_dir)
     assert "cli.py" not in found_project_files
 
-    setup_path = os.path.join(project_path, 'setup.py')
+    setup_path = os.path.join(project_path, 'pyproject.toml')
     with open(setup_path, 'r') as setup_file:
         assert 'entry_points' not in setup_file.read()
 
@@ -208,11 +208,8 @@ def test_bake_with_and_wo_packages(cookies, package, input, expected):
     ) as result:
         assert os.path.isdir(result.project_path)
         requirements_path = open(os.path.join(
-            result.project_path, 'requirements_dev.txt'), 'r')
-        assert (package in requirements_path.read()) is expected
-        environment_path = open(os.path.join(
-            result.project_path, 'environment.yml'), 'r')
-        assert (package in environment_path.read()) is expected
+            result.project_path, 'pyproject.toml'), 'r')
+        assert (f"'{package}'" in requirements_path.read()) is expected
         docs_conf = open(os.path.join(
             result.project_path, os.path.join('docs', 'conf.py')), 'r')
         assert (f"'{package}': ('" in docs_conf.read()) is expected
@@ -270,7 +267,7 @@ def test_bake_incident_with_logic(cookies):
         assert result.exit_code == 0
         assert result.exception is None
 
-        # test for incident in setup.py
+        # test for incident in pyproject.toml
         setup = open(os.path.join(result.project_path, 'pyproject.toml'), 'r')
         setup_content = setup.read()
         assert len(re.findall("\n    \'pyfar\',\n", setup_content)) == 1
@@ -287,7 +284,7 @@ def test_bake_gitignore_with_paths(cookies):
         assert result.exit_code == 0
         assert result.exception is None
 
-        # test for incident in setup.py
+        # test for incident in pyproject.toml
         file = open(os.path.join(
             result.project_path, '.gitignore'), 'r')
         assert len(re.findall(
@@ -334,7 +331,7 @@ def test_bake_workflow_issue(cookies):
         assert result.exit_code == 0
         assert result.exception is None
 
-        # test for incident in setup.py
+        # test for incident in pyproject.toml
         setup = open(os.path.join(
             result.project_path, '.github', 'workflows',
             'create_issue_if_cookiecutter.yml'), 'r')
@@ -377,6 +374,7 @@ def test_vs_pyfar_development(cookies, file):
 @pytest.mark.parametrize("file", [
     'README.md',
     '.circleci/config.yml',
+    'pyproject.toml',
     ])
 def test_vs_reference_filet(cookies, file):
     with bake_in_temp_dir(

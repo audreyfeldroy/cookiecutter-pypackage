@@ -1,6 +1,6 @@
 [project]
-name = "{{ cookiecutter.project_slug }}"
-version = "{{ cookiecutter.version }}"
+name = "pyfar"
+version = "0.1.0"
 description = "Project for data formats in acoustics."
 readme = "README.md"
 license = {file = "LICENSE"}
@@ -12,30 +12,24 @@ keywords = [
     "acoustics",
     "pyfar",
 ]
-{%- set license_classifiers = {
-    'MIT license': "License :: OSI Approved :: MIT License",
-    'BSD license': "License :: OSI Approved :: BSD License",
-    'ISC license': "License :: OSI Approved :: ISC License (ISCL)",
-    'Apache Software License 2.0': "License :: OSI Approved :: Apache Software License",
-    'GNU General Public License v3': "License :: OSI Approved :: GNU General Public License v3 (GPLv3)"
-} %}
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
-{%- if cookiecutter.open_source_license in license_classifiers %}
-    "{{ license_classifiers[cookiecutter.open_source_license] }}",
-{%- endif %}
+    "License :: OSI Approved :: MIT License",
     "Natural Language :: English",
     "Programming Language :: Python :: 3",
-    {% for extension, details in cookiecutter._valid_versions|dictsort %}{% if extension == cookiecutter.minimum_python_version -%}{% for app in details.version_list -%}
-    "Programming Language :: Python :: {{ app }}",
-    {% endfor -%}{% endif %}{% endfor %}
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
 ]
 dependencies = [
-    {% if cookiecutter.use_numpy == 'y' -%}    'numpy',{% endif %}
-    {% if cookiecutter.use_scipy == 'y' -%}    'scipy',{% endif %}
-    {% if cookiecutter.use_matplotlib == 'y' -%}    'matplotlib',{% endif %}
-    {% if cookiecutter.use_pyfar == 'y' -%}    'pyfar',{% endif %}
+    'numpy',
+    'scipy',
+    'matplotlib',
+    'pyfar',
 ]
 
 [project.optional-dependencies]
@@ -62,15 +56,15 @@ docs = [
     "sphinx-favicon",
     "sphinx-reredirects",
 ]
-dev = ["{{ cookiecutter.project_slug }}[deploy,tests,docs]"]
+dev = ["pyfar[deploy,tests,docs]"]
 
 [project.urls]
-Tracker = "https://github.com/{{ cookiecutter.git_username }}/{{ cookiecutter.project_slug }}/issues"
+Tracker = "https://github.com/pyfar/pyfar/issues"
 Documentation = "https://pyfar.readthedocs.io/"
-Download = "https://pypi.org/project/{{ cookiecutter.project_slug }}/"
+Download = "https://pypi.org/project/pyfar/"
 Homepage = "https://pyfar.org/"
-Source = "https://github.com/{{ cookiecutter.git_username }}/{{ cookiecutter.project_slug }}"
-Changelog = "https://github.com/{{ cookiecutter.git_username }}/{{ cookiecutter.project_slug }}/blob/main/HISTORY.rst"
+Source = "https://github.com/pyfar/pyfar"
+Changelog = "https://github.com/pyfar/pyfar/blob/main/HISTORY.rst"
 
 [build-system]
 requires = ["setuptools>=61.0", "wheel"]
@@ -79,11 +73,13 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages]
 find = {}  # Scan the project directory with the default parameters
 
-
 [tool.ruff]
 exclude = [
     ".git",
     "docs",
+    "setup.py",
+    "pyfar/dsp/filter/_audiofilter.py",
+    "pyfar/samplings/external",
 ]
 line-length = 79
 lint.ignore = [
@@ -96,6 +92,7 @@ lint.ignore = [
     "B008",   # Do not perform calls in argument defaults
     "PT018",  # Assertion should be broken down into multiple parts
     "PT019",  # Fixture `_` without value is injected as parameter
+
 ]
 lint.select = [
     "B",      # bugbear extension
@@ -116,7 +113,6 @@ lint.select = [
     "TID252", # Use absolute over relative imports
     "FIX",    # Code should not contain FIXME, TODO, etc
 ]
-
 # Ignore missing docstrings in tests
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = [
@@ -125,13 +121,11 @@ lint.select = [
     "D103",
     "D104",
 ]
-
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
 
-
 [tool.bumpversion]
-current_version = "{{ cookiecutter.version }}"
+current_version = "0.7.0"
 parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)"
 serialize = ["{major}.{minor}.{patch}"]
 search = "{current_version}"
@@ -157,6 +151,6 @@ search = '\nversion = "{current_version}"'
 replace = '\nversion = "{new_version}"'
 
 [[tool.bumpversion.files]]
-filename = "{{ cookiecutter.project_slug }}/__init__.py"
+filename = "pyfar/__init__.py"
 search = "__version__ = '{current_version}'"
 replace = "__version__ = '{new_version}'"
