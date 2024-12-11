@@ -29,6 +29,7 @@ extensions = [
     'sphinx_design',
     'sphinx_favicon',
     'sphinx_reredirects',
+    'sphinx_mdinclude',
 ]
 
 # show tocs for classes and functions of modules using the autodocsumm
@@ -44,7 +45,10 @@ templates_path = ['_templates']
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
-source_suffix = '.rst'
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md': 'markdown',
+}
 
 # The master toctree document.
 master_doc = 'index'
@@ -108,6 +112,9 @@ html_favicon = '_static/favicon.ico'
 
 # -- HTML theme options
 # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/layout.html
+html_sidebars = {
+  "{{ cookiecutter.project_slug }}": []
+}
 
 html_theme_options = {
     "navbar_start": ["navbar-logo"],
@@ -126,6 +133,8 @@ html_theme_options = {
     "show_toc_level": 3,  # Show all subsections of notebooks
     "secondary_sidebar_items": ["page-toc"],  # Omit 'show source' link that that shows notebook in json format
     "navigation_with_keys": True,
+    # Configure navigation depth for section navigation
+    "navigation_depth": 1,
 }
 
 html_context = {
@@ -134,7 +143,7 @@ html_context = {
 
 # redirect index to pyfar.html
 redirects = {
-     "index": f"{project}.html"
+     "index": "{{ cookiecutter.project_slug }}.html"
 }
 
 # -- download navbar and style files from gallery -----------------------------
@@ -154,7 +163,7 @@ for file in folders_in:
     with c.request('GET', url, preload_content=False) as res, open(filename, 'wb') as out_file:
         shutil.copyfileobj(res, out_file)
 
-# replace pyfar hard link to internal link
+# replace {{ cookiecutter.project_slug }} hard link to internal link
 with open("_static/header.rst", "rt") as fin:
     with open("header.rst", "wt") as fout:
         for line in fin:
