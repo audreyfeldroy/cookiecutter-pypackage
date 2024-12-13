@@ -182,7 +182,7 @@ def test_black(cookies, use_black, expected):
     ) as result:
         assert os.path.isdir(result.project_path)
         requirements_path = os.path.join(
-            result.project_path, 'requirements_dev.txt')
+            result.project_path, 'pyproject.toml')
         assert ("black" in open(requirements_path, 'r').read()) is expected
 
 
