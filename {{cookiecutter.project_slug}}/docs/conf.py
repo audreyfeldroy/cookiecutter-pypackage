@@ -166,5 +166,11 @@ for file in folders_in:
 # replace {{ cookiecutter.project_slug }} hard link to internal link
 with open("_static/header.rst", "rt") as fin:
     with open("header.rst", "wt") as fout:
-        for line in fin:
-            fout.write(line.replace(f'https://{project}.readthedocs.io', project))
+        lines = [line.replace(f'https://{project}.readthedocs.io', project) for line in fin]
+        contains_project = any(project in line for line in lines)
+
+        fout.writelines(lines)
+
+        # add project to the list of projects if not in header
+        if not contains_project:
+            fout.write(f'   {project} <{project}>\n')
