@@ -376,7 +376,7 @@ def test_vs_pyfar_development(cookies, file):
     '.github/workflows/has_version_label.yml',
     '.github/workflows/create_issue_if_cookiecutter.yml',
     ])
-def test_vs_reference_filet(cookies, file):
+def test_vs_reference_file(cookies, file):
     with bake_in_temp_dir(
             cookies,
             extra_context={
@@ -397,6 +397,7 @@ def test_vs_reference_filet(cookies, file):
         # test for incident in docs/your_python_project.rst
         file_handle = open(os.path.join(
             result.project_path, file), 'r')
+        print(result.project_path)
         # compare
         text = re.sub(
             r'\n *\n', '\n\n', file_handle.read(), flags=re.MULTILINE)
