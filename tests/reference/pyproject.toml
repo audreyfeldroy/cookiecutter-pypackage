@@ -47,6 +47,7 @@ tests = [
     "watchdog",
     "ruff==0.8.3",
     "coverage",
+
 ]
 docs = [
     "sphinx",
