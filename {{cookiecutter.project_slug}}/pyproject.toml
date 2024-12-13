@@ -50,8 +50,9 @@ tests = [
     "pytest",
     "pytest-cov",
     "watchdog",
-    "ruff==0.4.1",
+    "ruff==0.8.3",
     "coverage",
+    {% if cookiecutter.use_black == 'y' -%}    'black',{% endif %}
 ]
 docs = [
     "sphinx",
