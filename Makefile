@@ -18,5 +18,6 @@ replay: BAKE_OPTIONS=--replay
 replay: watch
 	;
 
+# Uses pytest-cookies; `$ pip install pytest-cookies`
 test:
 	pytest
