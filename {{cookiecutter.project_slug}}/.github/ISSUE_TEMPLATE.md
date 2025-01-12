@@ -1,9 +1,9 @@
 ## General
 
-* {{ cookiecutter.project_name }} version:
+* {{cookiecutter.project_slug}} version:
 * Python version:
 * Operating System:
-* Did you install pyfar via pip:
+* Did you install {{cookiecutter.project_slug}} via pip:
 
 ## Description
 
