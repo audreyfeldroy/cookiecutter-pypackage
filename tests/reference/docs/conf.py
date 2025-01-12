@@ -12,7 +12,7 @@ import urllib3
 import shutil
 sys.path.insert(0, os.path.abspath('..'))
 
-import {{ cookiecutter.project_slug }}  # noqa
+import imkar  # noqa
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -54,18 +54,18 @@ source_suffix = {
 master_doc = 'index'
 
 # General information about the project.
-project = '{{ cookiecutter.project_name }}'
-copyright = "{% now 'local', '%Y' %}, {{ cookiecutter.full_name }}"
-author = "{{ cookiecutter.full_name }}"
+project = 'imkar'
+copyright = "2024, The pyfar developers"
+author = "The pyfar developers"
 
 # The version info for the project you're documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
 # the built documents.
 #
 # The short X.Y version.
-version = {{ cookiecutter.project_slug }}.__version__
+version = imkar.__version__
 # The full version, including alpha/beta/rc tags.
-release = {{ cookiecutter.project_slug }}.__version__
+release = imkar.__version__
 
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
@@ -91,13 +91,10 @@ highlight_language = "python3"
 
 # intersphinx mapping
 intersphinx_mapping = {
-    {% if cookiecutter.use_numpy == 'y' -%}'numpy': ('https://numpy.org/doc/stable/', None),{% endif %}
-    {% if cookiecutter.use_scipy == 'y' -%}
-    'scipy': ('https://docs.scipy.org/doc/scipy/', None),{% endif %}
-    {% if cookiecutter.use_matplotlib == 'y' -%}
-    'matplotlib': ('https://matplotlib.org/stable/', None),{% endif %}
-    {% if cookiecutter.use_pyfar == 'y' -%}
-    'pyfar': ('https://pyfar.readthedocs.io/en/stable/', None),{% endif %}
+    'numpy': ('https://numpy.org/doc/stable/', None),
+    'scipy': ('https://docs.scipy.org/doc/scipy/', None),
+    'matplotlib': ('https://matplotlib.org/stable/', None),
+    'pyfar': ('https://pyfar.readthedocs.io/en/stable/', None),
     }
 
 # -- Options for HTML output -------------------------------------------------
@@ -106,14 +103,14 @@ intersphinx_mapping = {
 html_theme = 'pydata_sphinx_theme'
 html_static_path = ['_static']
 html_css_files = ['css/custom.css']
-html_logo = '{{ cookiecutter.logo_path_gallery }}'
-html_title = "{{ cookiecutter.project_slug }}"
+html_logo = 'resources/logos/pyfar_logos_fixed_size_imkar.png'
+html_title = "imkar"
 html_favicon = '_static/favicon.ico'
 
 # -- HTML theme options
 # https://pydata-sphinx-theme.readthedocs.io/en/stable/user_guide/layout.html
 html_sidebars = {
-  "{{ cookiecutter.project_slug }}": []
+  "imkar": []
 }
 
 html_theme_options = {
@@ -143,7 +140,7 @@ html_context = {
 
 # redirect index to pyfar.html
 redirects = {
-     "index": "{{ cookiecutter.project_slug }}.html"
+     "index": "imkar.html"
 }
 
 # -- download navbar and style files from gallery -----------------------------
@@ -153,7 +150,7 @@ folders_in = [
     '_static/css/custom.css',
     '_static/favicon.ico',
     '_static/header.rst',
-    '{{ cookiecutter.logo_path_gallery }}',
+    'resources/logos/pyfar_logos_fixed_size_imkar.png',
     ]
 
 def download_files_from_gallery(link, folders_in):
@@ -175,7 +172,7 @@ if not os.path.exists(html_logo):
     shutil.copyfile(
         'resources/logos/pyfar_logos_fixed_size_pyfar.png', html_logo)
 
-# replace {{ cookiecutter.project_slug }} hard link to internal link
+# replace imkar hard link to internal link
 with open("_static/header.rst", "rt") as fin:
     with open("header.rst", "wt") as fout:
         for line in fin:

@@ -397,6 +397,36 @@ def test_vs_reference_file(cookies, file):
         # test for incident in docs/your_python_project.rst
         file_handle = open(os.path.join(
             result.project_path, file), 'r')
+        # compare
+        text = re.sub(
+            r'\n *\n', '\n\n', file_handle.read(), flags=re.MULTILINE)
+        text_ref = re.sub(
+            r'\n *\n', '\n\n', reference_file.read(), flags=re.MULTILINE)
+        npt.assert_string_equal(text, text_ref)
+
+
+
+@pytest.mark.parametrize("file", [
+    'docs/conf.py',
+    ])
+def test_doc_conf_vs_reference_file(cookies, file):
+    with bake_in_temp_dir(
+            cookies,
+            extra_context={
+                'project_name': 'imkar',
+                }) as result:
+        assert os.path.isdir(result.project_path)
+        assert result.exit_code == 0
+        assert result.exception is None
+
+        reference_file = open(os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            'reference', file), 'r')
+        print(result.project_path)
+
+        # test for incident in docs/your_python_project.rst
+        file_handle = open(os.path.join(
+            result.project_path, file), 'r')
         print(result.project_path)
         # compare
         text = re.sub(
