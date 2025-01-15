@@ -14,7 +14,7 @@ def main():
     console.print("Replace this message by putting your code into "
                "{{cookiecutter.project_slug}}.cli.main")
     console.print("See Typer documentation at https://typer.tiangolo.com/")
-    
+
 
 
 if __name__ == "__main__":
