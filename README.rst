@@ -1,5 +1,5 @@
 ======================
-Cookiecutter PyPackage
+Cookiecutter PyPackage Fork
 ======================
 
 .. image:: https://pyup.io/repos/github/audreyfeldroy/cookiecutter-pypackage/shield.svg
