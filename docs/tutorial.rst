@@ -65,7 +65,7 @@ If you don't know what to enter, press Enter to stick with the defaults.
 Step 3: Create a GitHub Repo
 ----------------------------
 
-Go to your GitHub account and create a new repo named ``mypackage``, where ``mypackage`` matches the ``[project_slug]`` from your answers to running cookiecutter. This is so that Travis CI and pyup.io can find it when we get to Step 5.
+Go to your GitHub account and create a new repo named ``mypackage``, where ``mypackage`` matches the ``[project_slug]`` from your answers to running cookiecutter. This is so that pyup.io can find it when we get to Step 7.
 
 You will find one folder named after the ``[project_slug]``. Move into this folder, and then setup git to use your GitHub repo and upload the code:
 
@@ -98,29 +98,14 @@ Your virtualenv should still be activated. If it isn't, activate it now. Install
     pip install -r requirements_dev.txt
 
 
-Step 5: Set Up Travis CI
-------------------------
+Step 5: Set Up GitHub Actions CI
+--------------------------------
 
-`Travis CI com`_ is a continuous integration tool used to prevent integration problems. Every commit to the master branch will trigger automated builds of the application.
+`GitHub Actions`_ is a continuous integration tool used to prevent integration problems. Every pull request or commit to the master branch will trigger a workflow that runs automated tests.
 
-Login using your Github credentials. It may take a few minutes for Travis CI to load up a list of all your GitHub repos. They will be listed with boxes to the left of the repo name, where the boxes have an ``X`` in them, meaning it is not connected to Travis CI.
+Files describing the workflow are stored in the ``.github/workflows`` directory. See the documentation link at the top of the workflow file for more information.
 
-Add the public repo to your Travis CI account by clicking the ``X`` to switch it "on" in the box next to the ``mypackage`` repo. Do not try to follow the other instructions, that will be taken care of next.
-
-In your terminal, your virtualenv should still be activated. If it isn't, activate it now. Run the Travis CLI tool to do your Travis CI setup:
-
-.. code-block:: bash
-
-    travis encrypt --add deploy.password
-
-This will:
-
-* Encrypt your PyPI password in your Travis config.
-* Activate automated deployment on PyPI when you push a new tag to master branch.
-
-See :ref:`travis-pypi-setup` for more information.
-
-.. _`Travis CI com`: https://travis-ci.com/
+.. _`GitHub Actions`: https://docs.github.com/en/actions
 
 
 Step 6: Set Up Read the Docs
