@@ -1,0 +1,29 @@
+name: pull_request version milestone
+
+on:
+  pull_request:
+    types:
+      - opened
+      - labeled
+      - unlabeled
+      - synchronize
+
+jobs:
+  check-labels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: pull_request version milestone
+        run: |
+          echo "Checking for version milestone on pull request..."
+          PR_DATA=$(gh api repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }})
+          MILESTONE_NAME=$(echo "$PR_DATA" | jq -r '.milestone.title')
+          echo "Milestone: $MILESTONE_NAME"
+
+          REGEX="^v[0-9]+\.[0-9]+\.[0-9]+$"
+          MATCHES=$(echo "$MILESTONE_NAME" | grep -E "$REGEX")
+          if [ -z "$MATCHES" ]; then
+            echo "Error: No version milestone found on this pull request. Please add a milestone in the format vX.Y.Z."
+            exit 1
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
