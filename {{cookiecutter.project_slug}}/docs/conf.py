@@ -121,7 +121,7 @@ html_theme_options = {
     "navbar_start": ["navbar-logo"],
     "navbar_end": ["navbar-icon-links", "theme-switcher"],
     "navbar_align": "content",
-    "header_links_before_dropdown": 99,  # will be automatically set later based on headers.rst
+    "header_links_before_dropdown": None,  # will be automatically set later based on headers.rst
     "header_dropdown_text": "Packages",  # Change dropdown name from "More" to "Packages"
     "icon_links": [
         {
