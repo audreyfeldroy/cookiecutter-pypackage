@@ -10,6 +10,7 @@ import os
 import sys
 import urllib3
 import shutil
+import numpy as np
 sys.path.insert(0, os.path.abspath('..'))
 
 import {{ cookiecutter.project_slug }}  # noqa
@@ -120,7 +121,8 @@ html_theme_options = {
     "navbar_start": ["navbar-logo"],
     "navbar_end": ["navbar-icon-links", "theme-switcher"],
     "navbar_align": "content",
-    "header_links_before_dropdown": 8,
+    "header_links_before_dropdown": None,  # will be automatically set later based on headers.rst
+    "header_dropdown_text": "Packages",  # Change dropdown name from "More" to "Packages"
     "icon_links": [
         {
           "name": "GitHub",
@@ -186,3 +188,13 @@ with open("_static/header.rst", "rt") as fin:
         # add project to the list of projects if not in header
         if not contains_project:
             fout.write(f'   {project} <{project}>\n')
+        
+        # count the number of gallery headings
+        count_gallery_headings = np.sum(
+            ['https://pyfar-gallery.readthedocs.io' in line for line in lines])
+
+
+# set dropdown header after gallery headings
+html_theme_options['header_links_before_dropdown'] = count_gallery_headings+1
+
+
