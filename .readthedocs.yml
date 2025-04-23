@@ -9,8 +9,10 @@ build:
   os: ubuntu-22.04
   tools:
     python: "3.10"
-  # apt_packages:
-  #   - libsndfile1
+{% if cookiecutter.install_libsndfile1 == 'y' -%}
+  apt_packages:
+    - libsndfile1
+{%- endif %}
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:

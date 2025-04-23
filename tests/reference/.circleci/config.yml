@@ -36,9 +36,9 @@ jobs:
       version: <<parameters.version>>
     steps:
       - checkout
-    #   - run:
-    #       name: Install System Dependencies
-    #       command: sudo apt-get update && sudo apt-get install -y libsndfile1
+      - run:
+          name: Install System Dependencies
+          command: sudo apt-get update && sudo apt-get install -y libsndfile1
       - run:
           name: install dependencies
           command: pip install ".[tests]"
@@ -75,9 +75,9 @@ jobs:
       version: <<parameters.version>>
     steps:
       - checkout
-   #    - run:
-   #        name: Install System Dependencies
-   #        command: sudo apt-get update && sudo apt-get install -y libsndfile1 texlive-latex-extra dvipng
+      - run:
+          name: Install System Dependencies
+          command: sudo apt-get update && sudo apt-get install -y libsndfile1 texlive-latex-extra dvipng
       - run:
           name: Sphinx
           command: |
@@ -96,9 +96,9 @@ jobs:
       version: <<parameters.version>>
     steps:
       - checkout
-   #    - run:
-   #        name: Install System Dependencies
-   #        command: sudo apt-get update && sudo apt-get install -y libsndfile1 texlive-latex-extra dvipng
+      - run:
+          name: Install System Dependencies
+          command: sudo apt-get update && sudo apt-get install -y libsndfile1 texlive-latex-extra dvipng
       - run:
           name: install dependencies
           command: pip install ".[tests]"
@@ -119,9 +119,9 @@ jobs:
       version: <<parameters.version>>
     steps:
       - checkout
-    #  - run:
-    #      name: Install System Dependencies
-    #      command: sudo apt-get update && sudo apt-get install -y libsndfile1
+      - run:
+          name: Install System Dependencies
+          command: sudo apt-get update && sudo apt-get install -y libsndfile1
       - run:
           name: install dependencies
           command: pip install ".[deploy]"
@@ -171,7 +171,7 @@ workflows:
                 - "3.11"
                 - "3.12"
                 - "3.13"
-
+                
       - ruff:
           matrix:
             parameters:
@@ -218,7 +218,7 @@ workflows:
                 - "3.11"
                 - "3.12"
                 - "3.13"
-
+                
           filters:
             branches:
               ignore: /.*/

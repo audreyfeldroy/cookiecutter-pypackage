@@ -36,9 +36,11 @@ jobs:
       version: <<parameters.version>>
     steps:
       - checkout
-    #   - run:
-    #       name: Install System Dependencies
-    #       command: sudo apt-get update && sudo apt-get install -y libsndfile1
+      {% if cookiecutter.install_libsndfile1 == 'y' -%}
+      - run:
+          name: Install System Dependencies
+          command: sudo apt-get update && sudo apt-get install -y libsndfile1
+{%- endif %}
       - run:
           name: install dependencies
           command: pip install ".[tests]"
@@ -75,9 +77,11 @@ jobs:
       version: <<parameters.version>>
     steps:
       - checkout
-   #    - run:
-   #        name: Install System Dependencies
-   #        command: sudo apt-get update && sudo apt-get install -y libsndfile1 texlive-latex-extra dvipng
+      {% if cookiecutter.install_libsndfile1 == 'y' -%}
+      - run:
+          name: Install System Dependencies
+          command: sudo apt-get update && sudo apt-get install -y libsndfile1 texlive-latex-extra dvipng
+{%- endif %}
       - run:
           name: Sphinx
           command: |
@@ -96,9 +100,11 @@ jobs:
       version: <<parameters.version>>
     steps:
       - checkout
-   #    - run:
-   #        name: Install System Dependencies
-   #        command: sudo apt-get update && sudo apt-get install -y libsndfile1 texlive-latex-extra dvipng
+      {% if cookiecutter.install_libsndfile1 == 'y' -%}
+      - run:
+          name: Install System Dependencies
+          command: sudo apt-get update && sudo apt-get install -y libsndfile1 texlive-latex-extra dvipng
+{%- endif %}
       - run:
           name: install dependencies
           command: pip install ".[tests]"
@@ -119,9 +125,11 @@ jobs:
       version: <<parameters.version>>
     steps:
       - checkout
-    #  - run:
-    #      name: Install System Dependencies
-    #      command: sudo apt-get update && sudo apt-get install -y libsndfile1
+      {% if cookiecutter.install_libsndfile1 == 'y' -%}
+      - run:
+          name: Install System Dependencies
+          command: sudo apt-get update && sudo apt-get install -y libsndfile1
+{%- endif %}
       - run:
           name: install dependencies
           command: pip install ".[deploy]"
@@ -142,9 +150,11 @@ jobs:
       version: <<parameters.version>>
     steps:
       - checkout
+      {% if cookiecutter.install_libsndfile1 == 'y' -%}
       - run:
           name: Install System Dependencies
           command: sudo apt-get update && sudo apt-get install -y libsndfile1
+{%- endif %}
       - run:
           name: install dependencies
           command: pip install ".[deploy]"

@@ -382,6 +382,7 @@ def test_vs_reference_file(cookies, file):
             cookies,
             extra_context={
                 'project_name': 'pyfar',
+                'install_libsndfile1': 'y',
                 'project_short_description': 'The python package for '
                 'acoustics research (pyfar) offers classes to store audio '
                 'data, filters, coordinates, and orientations. It also '
@@ -405,6 +406,33 @@ def test_vs_reference_file(cookies, file):
             r'\n *\n', '\n\n', reference_file.read(), flags=re.MULTILINE)
         npt.assert_string_equal(text, text_ref)
 
+
+@pytest.mark.parametrize("install_libsndfile1", [
+    'y', 'n',
+    ])
+def test_install_libsndfile1(cookies, install_libsndfile1):
+    with bake_in_temp_dir(
+            cookies,
+            extra_context={
+                'project_name': 'imkar',
+                'install_libsndfile1': install_libsndfile1,
+                }) as result:
+        assert os.path.isdir(result.project_path)
+        assert result.exit_code == 0
+        assert result.exception is None
+
+        # test for incident in docs/your_python_project.rst
+        file_handle = open(os.path.join(
+            result.project_path, '.circleci/config.yml'), 'r')
+
+        # compare
+        text = re.sub(
+            r'\n *\n', '\n\n', file_handle.read(), flags=re.MULTILINE)
+        expected = '          command: sudo apt-get update && sudo apt-get install -y libsndfile1'
+        if install_libsndfile1 == 'y':
+            assert expected in text
+        else:
+            assert expected not in text
 
 
 @pytest.mark.parametrize("file", [
@@ -435,3 +463,4 @@ def test_doc_conf_vs_reference_file(cookies, file):
         text_ref = re.sub(
             r'\n *\n', '\n\n', reference_file.read(), flags=re.MULTILINE)
         npt.assert_string_equal(text, text_ref)
+
