@@ -88,6 +88,8 @@ Similar Cookiecutter Templates
 
 * `waynerv/cookiecutter-pypackage`_: A fork using Poetry_, Mkdocs_, Pre-commit_, Black_ and Mypy_. Run test, staging and release workflows with GitHub Actions, automatically generate release notes from CHANGELOG.
 
+* `x-pt/template`_: A CookieCutter-based template designed to serve as a robust starting point for most startup projects hosted on GitHub, supporting `Python`, `C++/CUDA`, `Rust`, `Golang`, `TypeScript`.
+
 * Also see the `network`_ and `family tree`_ for this repo. (If you find
   anything that should be listed here, please add it and send a pull request!)
 
@@ -132,6 +134,7 @@ make my own packaging experience better.
 .. _`veit/cookiecutter-namespace-template`: https://github.com/veit/cookiecutter-namespace-template
 .. _`zillionare/cookiecutter-pypackage`: https://zillionare.github.io/cookiecutter-pypackage/
 .. _`waynerv/cookiecutter-pypackage`: https://waynerv.github.io/cookiecutter-pypackage/
+.. _`x-pt/template`: https://github.com/x-pt/template
 .. _github comparison view: https://github.com/tony/cookiecutter-pypackage-pythonic/compare/audreyr:master...master
 .. _`network`: https://github.com/audreyr/cookiecutter-pypackage/network
 .. _`family tree`: https://github.com/audreyr/cookiecutter-pypackage/network/members
