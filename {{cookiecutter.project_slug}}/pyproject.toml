@@ -4,7 +4,6 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "{{cookiecutter.project_slug}}"
-version = "{{cookiecutter.version}}"
 description = "{{cookiecutter.project_short_description}}"
 readme = "README.rst"
 authors = [
@@ -22,6 +21,8 @@ dependencies = [
   "typer"
 {%- endif %}
 ]
+
+dynamic = ["version"]
 
 [project.optional-dependencies]
 dev = [
@@ -48,6 +49,8 @@ package-dir = {"" = "src"}
 {{cookiecutter.project_slug}} = "{{cookiecutter.project_slug}}.cli:app"
 {% endif %}
 
+[tool.setuptools.dynamic]
+version = {attr = "{{cookiecutter.slug}}.__version__"}
 
 # Mypy
 # ----
