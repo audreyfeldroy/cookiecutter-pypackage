@@ -43,9 +43,9 @@ package-dir = {"" = "src"}
 [tool.setuptools.package-data]
 "*" = ["*.*"]
 
-{% if cookiecutter.command_line_interface == 'Yes' %}
+{% if cookiecutter.command_line_interface.lower() in ['typer', 'argparse'] %}
 [project.scripts]
-{{cookiecutter.slug}} = "{{cookiecutter.slug}}.cli:app"
+{{cookiecutter.project_slug}} = "{{cookiecutter.project_slug}}.cli:app"
 {% endif %}
 
 
