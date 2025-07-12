@@ -69,3 +69,15 @@ module = "tests.*"
 allow_untyped_defs = true
 disable_error_code = "attr-defined"
 
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # Pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+]
