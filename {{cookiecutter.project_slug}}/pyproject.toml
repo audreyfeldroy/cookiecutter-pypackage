@@ -29,7 +29,8 @@ dev = [
     "coverage",  # testing
     "mypy",  # linting
     "pytest",  # testing
-    "ruff"  # linting
+    "ruff",  # linting
+    "tox", # testing
 ]
 
 [project.urls]
@@ -81,3 +82,32 @@ select = [
     "B",   # flake8-bugbear
     "UP",  # pyupgrade
 ]
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+min_version = 4.0
+env_list = py39, py310, py311, py312, py313, ruff
+isolated_build = true
+
+[gh]
+python =
+    3.13 = py313
+    3.12 = py312
+    3.11 = py311
+    3.10 = py310
+    3.9 = py39
+    3.8 = py38
+
+[testenv]
+deps =
+    -r{toxinidir}/requirements_dev.txt
+commands =
+    pytest --basetemp={envtmpdir}
+
+[testenv:ruff]
+deps =
+    ruff
+commands =
+    ruff check .
+"""
