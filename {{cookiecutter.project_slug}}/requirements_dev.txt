@@ -4,7 +4,6 @@ wheel==0.45.1
 watchdog==6.0.0
 tox==4.27.0
 coverage==7.9.2
-Sphinx==8.2.3
 twine==6.1.0
 ruff==0.12.3
 pytest==8.4.1
