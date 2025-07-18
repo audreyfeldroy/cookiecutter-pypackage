@@ -13,7 +13,7 @@ Types of Contributions
 Report Bugs
 ~~~~~~~~~~~
 
-Report bugs at https://github.com/audreyr/cookiecutter-pypackage/issues
+Report bugs at https://github.com/audreyfeldroy/cookiecutter-pypackage/issues
 
 If you are reporting a bug, please include:
 
@@ -79,14 +79,14 @@ development. Please note this documentation assumes you already have
 
    .. code-block:: bash
 
-        $ virtualenv cookiecutter-pypackage-env
-        $ source cookiecutter-pypackage-env/bin/activate
+        $ uv venv
+        $ source .venv/bin/activate
 
    This should change the shell to look something like:
 
    .. code-block:: bash
 
-        (cookiecutter-pypackage-env) $
+        (cookiecutter-pypackage) $
 
 ::
 
@@ -100,13 +100,13 @@ development. Please note this documentation assumes you already have
 
 ::
 
-5. When you're done making changes, check that your changes pass flake8. Since,
-   this package contains mostly templates the flake should be run for tests
+5. When you're done making changes, check that your changes pass ruff. Since
+   this package contains mostly templates, ruff should be run for the tests
    directory:
 
    .. code-block:: bash
 
-        $ flake8 ./tests
+        $ ruff ./tests
 
 ::
 
@@ -116,7 +116,7 @@ development. Please note this documentation assumes you already have
 
    .. code-block:: bash
 
-        $ pip install -r requirements_dev.txt
+        $ uv pip install -r requirements_dev.txt
         $ pytest ./tests
 
    If you get any errors while installing cryptography package (something like
@@ -125,18 +125,18 @@ development. Please note this documentation assumes you already have
    .. code-block:: bash
 
         # Update pip
-        $ pip install -U pip
+        $ uv pip install -U pip
 
 ::
 
-7. Before raising a pull request you should also run tox. This will run the
+7. Before raising a pull request you should also run nox. This will run the
    tests across different versions of Python:
 
    .. code-block:: bash
 
-        $ tox
+        $ nox
 
-   If you are missing flake8, pytest and/or tox, just `pip install` them into
+   If you are missing nox, just `uv pip install` it into
    your virtualenv.
 
 ::
@@ -207,12 +207,12 @@ To write and run your new test, follow these steps:
 
 ::
 
-4. (Optional) Run the tests with tox to ensure that the code changes work with
+4. (Optional) Run the tests with nox to ensure that the code changes work with
    different Python versions:
 
    .. code-block:: bash
 
-        $ tox
+        $ nox
 
 ::
 
@@ -229,7 +229,7 @@ To write and run your new test, follow these steps:
 6. Rerun your test and confirm that your test passes. If it passes,
    congratulations!
 
-.. cookiecutter: https://github.com/audreyr/cookiecutter-pypackage
+.. cookiecutter: https://github.com/audreyfeldroy/cookiecutter-pypackage
 .. virtualenv: https://virtualenv.pypa.io/en/stable/installation
 .. git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
