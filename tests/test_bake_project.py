@@ -1,4 +1,5 @@
 from contextlib import contextmanager
+import importlib
 import shlex
 import os
 import sys
@@ -8,9 +9,6 @@ import datetime
 import pytest
 from cookiecutter.utils import rmtree
 
-from click.testing import CliRunner
-
-import importlib
 
 
 @contextmanager
@@ -193,67 +191,9 @@ def test_using_pytest(cookies):
         # Test the new pytest target
         run_inside_dir('pytest', str(result.project)) == 0
 
-
-def test_not_using_pytest(cookies):
-    with bake_in_temp_dir(cookies) as result:
-        assert result.project.isdir()
-        test_file_path = result.project.join(
-            'tests/test_python_boilerplate.py'
-        )
-        lines = test_file_path.readlines()
-        assert "import unittest" in ''.join(lines)
-        assert "import pytest" not in ''.join(lines)
-
-
 # def test_project_with_hyphen_in_module_name(cookies):
 #     result = cookies.bake(
 #         extra_context={'project_name': 'something-with-a-dash'}
 #     )
 #     assert result.project is not None
 #     project_path = str(result.project)
-
-
-def test_bake_with_no_console_script(cookies):
-    context = {'command_line_interface': "No command-line interface"}
-    result = cookies.bake(extra_context=context)
-    project_path, project_slug, project_dir = project_info(result)
-    found_project_files = os.listdir(project_dir)
-    assert "cli.py" not in found_project_files
-
-    setup_path = os.path.join(project_path, 'setup.py')
-    with open(setup_path, 'r') as setup_file:
-        assert 'entry_points' not in setup_file.read()
-
-
-def test_bake_with_console_script_files(cookies):
-    context = {'command_line_interface': 'Click'}
-    result = cookies.bake(extra_context=context)
-    project_path, project_slug, project_dir = project_info(result)
-    found_project_files = os.listdir(project_dir)
-    assert "cli.py" in found_project_files
-
-    setup_path = os.path.join(project_path, 'setup.py')
-    with open(setup_path, 'r') as setup_file:
-        assert 'entry_points' in setup_file.read()
-
-
-def test_bake_with_console_script_cli(cookies):
-    context = {'command_line_interface': 'Click'}
-    result = cookies.bake(extra_context=context)
-    project_path, project_slug, project_dir = project_info(result)
-    module_path = os.path.join(project_dir, 'cli.py')
-    module_name = '.'.join([project_slug, 'cli'])
-    spec = importlib.util.spec_from_file_location(module_name, module_path)
-    cli = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(cli)
-    runner = CliRunner()
-    noarg_result = runner.invoke(cli.main)
-    assert noarg_result.exit_code == 0
-    noarg_output = ' '.join([
-        'Replace this message by putting your code into',
-        project_slug])
-    assert noarg_output in noarg_result.output
-    help_result = runner.invoke(cli.main, ['--help'])
-    assert help_result.exit_code == 0
-    assert 'Show this message' in help_result.output
-

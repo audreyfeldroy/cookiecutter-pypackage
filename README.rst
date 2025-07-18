@@ -24,7 +24,7 @@ Features
 * GitHub Actions testing: Setup to easily test for Python 3.12 and 3.13
 * bump2version_: Pre-configured version bumping with a single command
 * Auto-release to PyPI_ when you push a new tag to master (optional)
-* Command line interface using Click (optional)
+* Command line interface using Typer
 
 .. _Cookiecutter: https://github.com/cookiecutter/cookiecutter
 

@@ -17,9 +17,7 @@ classifiers = [
 ]
 license = {text = "{{cookiecutter.open_source_license}}"}
 dependencies = [
-{% if cookiecutter.command_line_interface.lower() == "typer" -%}
   "typer"
-{%- endif %}
 ]
 
 dynamic = ["version"]
@@ -45,10 +43,8 @@ package-dir = {"" = "src"}
 [tool.setuptools.package-data]
 "*" = ["*.*"]
 
-{% if cookiecutter.command_line_interface.lower() in ['typer', 'argparse'] %}
 [project.scripts]
 {{cookiecutter.project_slug}} = "{{cookiecutter.project_slug}}.cli:app"
-{% endif %}
 
 [tool.setuptools.dynamic]
 version = {attr = "{{cookiecutter.project_slug}}.__version__"}
