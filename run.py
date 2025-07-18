@@ -1,18 +1,20 @@
-from cookiecutter.main import cookiecutter
-import time
-from watchdog.observers import Observer
-from watchdog.events import FileSystemEventHandler
 import shutil
+import time
 from pathlib import Path
+
+from cookiecutter.main import cookiecutter
+from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
+
 
 class ChangeHandler(FileSystemEventHandler):
     def __init__(self):
         self.last_run = 0
-        self.debounce_period = 2 # seconds
+        self.debounce_period = 2  # seconds
 
     def on_any_event(self, event):
         # Ignore changes to run.py itself
-        if Path(event.src_path).name == 'run.py':
+        if Path(event.src_path).name == "run.py":
             return
         if event.is_directory:
             return
@@ -29,7 +31,7 @@ class ChangeHandler(FileSystemEventHandler):
                     shutil.rmtree(output_dir)
 
                 # The template is the current directory, output to parent
-                cookiecutter('.', no_input=True, output_dir='..')
+                cookiecutter(".", no_input=True, output_dir="..")
                 print("Cookiecutter finished successfully.")
             except Exception as e:
                 print(f"Error running cookiecutter: {e}")
