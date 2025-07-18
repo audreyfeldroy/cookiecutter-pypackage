@@ -26,14 +26,17 @@ classifiers = [
 ]
 dependencies = [
     "cookiecutter>=2.6.0",
-    "typer>=0.16.0",
+    "ruff>=0.12.4",
+    "pytest>=8.4.1",
+    "pytest-cookies>=0.7.0",    
+    "typer>=0.16.0",    
 ]
 
 [project.urls]
 homepage = "https://github.com/audreyfeldroy/cookiecutter-pypackage"
 
-[dependency-groups]
-dev = [
-    "pytest>=8.4.1",
-    "pytest-cookies>=0.7.0",
-]
+[tool.ruff]
+exclude = [
+	"*cookiecutter.project_slug*"
+	]
+
