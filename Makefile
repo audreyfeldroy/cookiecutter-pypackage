@@ -46,3 +46,9 @@ tag:  ## Tag the current version in git and put to github
 	echo "Tagging version $(VERSION)"
 	git tag -a $(VERSION) -m "Creating version $(VERSION)"
 	git push origin $(VERSION)	
+
+clean:  ## Run all the formatting, linting, and testing commands
+	ruff format .
+	ruff check . --fix
+	ruff check --select I --fix .
+	pytest
