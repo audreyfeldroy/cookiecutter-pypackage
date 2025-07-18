@@ -1,9 +1,0 @@
-pip==25.1.1
-bump2version==1.0.1
-wheel==0.45.1
-watchdog==6.0.0
-tox==4.27.0
-coverage==7.9.2
-twine==6.1.0
-ruff==0.12.3
-pytest==8.4.1

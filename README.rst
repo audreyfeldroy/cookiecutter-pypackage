@@ -44,15 +44,11 @@ Generate a Python package project::
 Then:
 
 * Create a repo and put it there.
-* Install the dev requirements into a virtualenv. (``pip install -r requirements_dev.txt``)
+
 * Register_ your project with PyPI.
 * Add the repo to your `Read the Docs`_ account + turn on the Read the Docs service hook.
 * Release your package by pushing a new tag to master.
-* Add a ``requirements.txt`` file that specifies the packages you will need for
-  your project and their versions. For more info see the `pip docs for requirements files`_.
-* Activate your project on `pyup.io`_.
 
-.. _`pip docs for requirements files`: https://pip.pypa.io/en/stable/user_guide/#requirements-files
 .. _Register: https://packaging.python.org/tutorials/packaging-projects/#uploading-the-distribution-archives
 
 For more details, see the `cookiecutter-pypackage tutorial`_.

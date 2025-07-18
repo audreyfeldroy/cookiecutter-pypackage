@@ -116,7 +116,7 @@ development. Please note this documentation assumes you already have
 
    .. code-block:: bash
 
-        $ uv pip install -r requirements_dev.txt
+        $ uv pip install -e .[dev]
         $ pytest ./tests
 
    If you get any errors while installing cryptography package (something like
