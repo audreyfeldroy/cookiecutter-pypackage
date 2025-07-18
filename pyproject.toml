@@ -1,0 +1,16 @@
+[project]
+name = "cookiecutter-pypackage"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "cookiecutter>=2.6.0",
+    "typer>=0.16.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.1",
+    "pytest-cookies>=0.7.0",
+]

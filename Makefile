@@ -18,6 +18,13 @@ replay: BAKE_OPTIONS=--replay
 replay: watch
 	;
 
-# Uses pytest-cookies; `$ pip install pytest-cookies`
-test:
-	pytest
+
+MAKECMDGOALS ?= .    
+
+test:  ## Run all the tests, but allow for arguments to be passed
+    @echo "Running with arg: $(filter-out $@,$(MAKECMDGOALS))"
+    pytest $(filter-out $@,$(MAKECMDGOALS))
+
+pdb:  ## Run all the tests, but on failure, drop into the debugger
+    @echo "Running with arg: $(filter-out $@,$(MAKECMDGOALS))"
+    pytest --pdb --maxfail=10 --pdbcls=IPython.terminal.debugger:TerminalPdb $(filter-out $@,$(MAKECMDGOALS))
