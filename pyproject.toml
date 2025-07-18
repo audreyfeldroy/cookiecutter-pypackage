@@ -43,3 +43,8 @@ exclude = [
 	"*cookiecutter.project_slug*"
 	]
 
+[tool.pytest.ini_options]
+testpaths = [
+    "tests",
+]
+
