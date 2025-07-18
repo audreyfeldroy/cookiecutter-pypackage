@@ -27,10 +27,10 @@ dynamic = ["version"]
 [project.optional-dependencies]
 dev = [
     "coverage",  # testing
-    "mypy",  # linting
     "pytest",  # testing
     "ruff",  # linting
     "tox", # testing
+    "ty", # checking types
 ]
 
 [project.urls]
