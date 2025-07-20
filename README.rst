@@ -2,13 +2,10 @@
 Cookiecutter PyPackage
 ======================
 
-.. image:: https://pyup.io/repos/github/audreyfeldroy/cookiecutter-pypackage/shield.svg
-    :target: https://pyup.io/repos/github/audreyfeldroy/cookiecutter-pypackage/
-    :alt: Updates
-
-.. image:: https://readthedocs.org/projects/cookiecutter-pypackage/badge/?version=latest
-    :target: https://cookiecutter-pypackage.readthedocs.io/en/latest/?badge=latest
-    :alt: Documentation Status
+.. image:: https://img.shields.io/pypi/v/cookiecutter-pypackage.svg
+        :target: https://pypi.python.org/pypi/cookiecutter-pypackage
+.. image:: https://img.shields.io/pypi/dm/cookiecutter-pypackage.svg
+        :target: https://pypi.python.org/pypi/cookiecutter-pypackage
 
 Cookiecutter_ template for a Python package.
 
@@ -111,7 +108,7 @@ make my own packaging experience better.
 .. _Tox: https://tox.wiki/en/latest/
 .. _Sphinx: http://sphinx-doc.org/
 .. _Read the Docs: https://readthedocs.io/
-.. _`pyup.io`: https://pyup.io/
+
 .. _bump2version: https://github.com/c4urself/bump2version
 .. _Punch: https://github.com/lgiordani/punch
 .. _Poetry: https://python-poetry.org/

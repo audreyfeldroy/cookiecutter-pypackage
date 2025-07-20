@@ -8,7 +8,6 @@
   "pypi_username": "{{ cookiecutter.github_username }}",
   "version": "0.1.0",
   "use_pytest": "n",
-  "add_pyup_badge": "n",
 
   "create_author_file": "y",
   "open_source_license": ["MIT license", "BSD license", "ISC license", "Apache Software License 2.0", "GNU General Public License v3", "GNU Affero General Public License", "Not open source"],
