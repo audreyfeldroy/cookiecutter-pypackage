@@ -49,22 +49,16 @@ package-dir = {"" = "src"}
 [tool.setuptools.dynamic]
 version = {attr = "{{cookiecutter.project_slug}}.__version__"}
 
-# Mypy
-# ----
+[tool.ty]
+# All rules are enabled as "error" by default; no need to specify unless overriding.
+# Example override: relax a rule for the entire project (uncomment if needed).
+# rules.TY015 = "warn"  # For invalid-argument-type, warn instead of error.
 
-[tool.mypy]
-files = "."
-
-# Use strict defaults
-strict = true
-warn_unreachable = true
-warn_no_return = true
-
-[[tool.mypy.overrides]]
-# Don't require test functions to include types
-module = "tests.*"
-allow_untyped_defs = true
-disable_error_code = "attr-defined"
+# Optional: Per-directory overrides for flexibility in boilerplates with tests or examples.
+[[tool.ty.overrides]]
+match = ["tests/**.py"]
+rules.TY016 = "ignore"  # Ignore invalid-assignment in tests, e.g., for dynamic fixtures.
+rules.TY029 = "ignore"  # Ignore invalid-return-type in tests.
 
 [tool.ruff]
 line-length = 120
