@@ -37,11 +37,6 @@ Options
 
 The following package configuration options set up different features for your project.
 
-use_pytest
-    Whether to use `pytest <https://docs.pytest.org/en/latest/>`_
-
-
-    
 create_author_file
     Whether to create an authors file
     

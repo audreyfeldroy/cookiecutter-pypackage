@@ -43,8 +43,4 @@ jobs:
         pip install .
     - name: Run tests
       run: |
-{% if cookiecutter.use_pytest == 'y' -%}
         pytest
-{% else %}
-        python -m unittest
-{%- endif %}
