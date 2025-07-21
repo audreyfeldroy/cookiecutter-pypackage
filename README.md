@@ -53,7 +53,7 @@ be a fork.
 
 ### Similar Cookiecutter Templates
 
-Explore other forks to get ideas. See the [network](https://github.com/audreyr/cookiecutter-pypackage/network) and [family tree](https://github.com/audreyr/cookiecutter-pypackage/network/members) for this repo.
+Explore other forks to get ideas. See the [network](https://github.com/audreyfeldroy/cookiecutter-pypackage/network) and [family tree](https://github.com/audreyfeldroy/cookiecutter-pypackage/network/members) for this repo.
 
 ### Or Submit a Pull Request
 

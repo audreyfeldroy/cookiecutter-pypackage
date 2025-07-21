@@ -30,7 +30,7 @@ Cookiecutter PyPackage could always use more documentation, whether as part of t
 
 ### Submit Feedback
 
-The best way to send feedback is to file an issue at https://github.com/audreyr/cookiecutter-pypackage/issues.
+The best way to send feedback is to file an issue at https://github.com/audreyfeldroy/cookiecutter-pypackage/issues.
 
 If you are proposing a new feature:
 
