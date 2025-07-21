@@ -13,7 +13,6 @@
 
 *   Testing setup with pytest
 *   GitHub Actions testing: Setup to easily test for Python 3.10, 3.11, 3.12, and 3.13
-*   [bump2version](https://github.com/c4urself/bump2version): Pre-configured version bumping with a single command
 *   Auto-release to [PyPI](https://pypi.python.org/pypi) when you push a new tag to master (optional)
 *   Command line interface using Typer
 
@@ -37,8 +36,6 @@ Then:
 *   [Register](https://packaging.python.org/tutorials/packaging-projects/#uploading-the-distribution-archives) your project with PyPI.
 *   Add the repo to your [Read the Docs](https://readthedocs.io/) account + turn on the Read the Docs service hook.
 *   Release your package by pushing a new tag to master.
-
-For more details, see the [cookiecutter-pypackage tutorial](https://cookiecutter-pypackage.readthedocs.io/en/latest/tutorial.html).
 
 ## Not Exactly What You Want?
 
