@@ -6,7 +6,6 @@
 [Cookiecutter](https://github.com/cookiecutter/cookiecutter) template for a Python package.
 
 *   GitHub repo: [https://github.com/audreyfeldroy/cookiecutter-pypackage/](https://github.com/audreyfeldroy/cookiecutter-pypackage/)
-*   Documentation: [https://cookiecutter-pypackage.readthedocs.io/](https://cookiecutter-pypackage.readthedocs.io/)
 *   Free software: BSD license
 *   Discord: [https://discord.gg/PWXJr3upUE](https://discord.gg/PWXJr3upUE)
 
