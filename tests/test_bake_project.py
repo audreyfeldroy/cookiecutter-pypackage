@@ -105,66 +105,12 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
         run_inside_dir("pytest", str(result.project)) == 0
 
 
-def test_bake_without_author_file(cookies):
-    with bake_in_temp_dir(cookies, extra_context={"create_author_file": "n"}) as result:
-        found_toplevel_files = [f.basename for f in result.project.listdir()]
-        assert "AUTHORS.md" not in found_toplevel_files
-        doc_files = [f.basename for f in result.project.join("docs").listdir()]
-        assert "authors.md" not in doc_files
-
-        # Assert there are no spaces in the toc tree
-        docs_index_path = result.project.join("docs/index.md")
-        with open(str(docs_index_path)) as index_file:
-            assert "contributing\n   history" in index_file.read()
-
-        # Check that
-        manifest_path = result.project.join("MANIFEST.in")
-        with open(str(manifest_path)) as manifest_file:
-            assert "AUTHORS.md" not in manifest_file.read()
-
-
 def test_make_help(cookies):
     with bake_in_temp_dir(cookies) as result:
         # The supplied Makefile does not support win32
         if sys.platform != "win32":
             output = check_output_inside_dir("make help", str(result.project))
             assert b"check code coverage quickly with the default Python" in output
-
-
-def test_bake_selecting_license(cookies):
-    license_strings = {
-        "MIT license": "MIT ",
-        "BSD license": "Redistributions of source code must retain the "
-        + "above copyright notice, this",
-        "ISC license": "ISC License",
-        "Apache Software License 2.0": "Licensed under the Apache License, Version 2.0",
-        "GNU General Public License v3": "GNU GENERAL PUBLIC LICENSE",
-        "GNU Affero General Public License": "GNU AFFERO GENERAL PUBLIC LICENSE",
-    }
-    for license, target_string in license_strings.items():
-        with bake_in_temp_dir(
-        ) as result:
-            assert target_string in result.project.join("LICENSE").read()
-            assert license in result.project.join("pyproject.toml").read()
-
-
-def test_bake_not_open_source(cookies):
-    with bake_in_temp_dir(
-    ) as result:
-        found_toplevel_files = [f.basename for f in result.project.listdir()]
-        assert "pyproject.toml" in found_toplevel_files
-        assert "LICENSE" not in found_toplevel_files
-        assert "License" not in result.project.join("README.md").read()
-
-
-def test_using_pytest(cookies):
-    with bake_in_temp_dir(cookies, extra_context={"use_pytest": "y"}) as result:
-        assert result.project.isdir()
-        test_file_path = result.project.join("tests/test_python_boilerplate.py")
-        lines = test_file_path.readlines()
-        assert "import pytest" in "".join(lines)
-        # Test the new pytest target
-        run_inside_dir("pytest", str(result.project)) == 0
 
 
 # def test_project_with_hyphen_in_module_name(cookies):

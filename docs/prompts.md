@@ -14,9 +14,3 @@ The following appear in various parts of your generated project:
 - **project_short_description**: A 1-sentence description of what your Python package does.
 - **pypi_username**: Your Python Package Index account username.
 - **version**: The starting version number of the package.
-
-## Options
-
-The following package configuration options set up different features for your project:
-
-- **create_author_file**: Whether to create an authors file
