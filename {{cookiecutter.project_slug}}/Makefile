@@ -48,17 +48,17 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
-lint/flake8: ## check style with flake8
-	flake8 {{ cookiecutter.project_slug }} tests
-
-
-lint: lint/flake8 ## check style
+ruff: ## check style
+	ruff check
 
 test: ## run tests quickly with the default Python
 	pytest
 
-test-all: ## run tests on every Python version with tox
-	tox
+test-all: ## run tests on every Python version with uv
+	uv run --python=3.10 --extra test pytest
+	uv run --python=3.11 --extra test pytest
+	uv run --python=3.12 --extra test pytest
+	uv run --python=3.13 --extra test pytest
 
 coverage: ## check code coverage quickly with the default Python
 	coverage run --source {{ cookiecutter.project_slug }} -m pytest

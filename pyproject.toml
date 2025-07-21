@@ -30,7 +30,6 @@ dependencies = [
     "pytest>=8.4.1",
     "pytest-cookies>=0.7.0",
     "typer>=0.16.0",
-    "nox>=2025.5.1",
     "alabaster>=1.0.0",
     "watchdog>=6.0.0",
 ]
