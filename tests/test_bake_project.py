@@ -143,7 +143,6 @@ def test_bake_selecting_license(cookies):
     }
     for license, target_string in license_strings.items():
         with bake_in_temp_dir(
-            cookies, extra_context={"open_source_license": license}
         ) as result:
             assert target_string in result.project.join("LICENSE").read()
             assert license in result.project.join("pyproject.toml").read()
@@ -151,7 +150,6 @@ def test_bake_selecting_license(cookies):
 
 def test_bake_not_open_source(cookies):
     with bake_in_temp_dir(
-        cookies, extra_context={"open_source_license": "Not open source"}
     ) as result:
         found_toplevel_files = [f.basename for f in result.project.listdir()]
         assert "pyproject.toml" in found_toplevel_files

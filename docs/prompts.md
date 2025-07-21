@@ -20,4 +20,3 @@ The following appear in various parts of your generated project:
 The following package configuration options set up different features for your project:
 
 - **create_author_file**: Whether to create an authors file
-- **open_source_license**: Choose a [license](https://choosealicense.com/). Options: [1. MIT License, 2. BSD license, 3. ISC license, 4. Apache Software License 2.0, 5. GNU General Public License v3, 6. Not open source]

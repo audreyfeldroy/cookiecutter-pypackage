@@ -1,5 +1,5 @@
 {
-  "full_name": "Audrey Roy Greenfeld",
+  "full_name": "Audrey M. Roy Greenfeld",
   "email": "audreyfeldroy@example.com",
   "github_username": "audreyfeldroy",
   "project_name": "Python Boilerplate",
@@ -8,6 +8,5 @@
   "pypi_username": "{{ cookiecutter.github_username }}",
   "version": "0.1.0",
   "create_author_file": "y",
-  "open_source_license": ["MIT license", "BSD license", "ISC license", "Apache Software License 2.0", "GNU General Public License v3", "GNU Affero General Public License", "Not open source"],
   "__gh_slug": "{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}"
 }
