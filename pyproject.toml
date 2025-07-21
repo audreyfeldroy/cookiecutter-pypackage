@@ -4,7 +4,7 @@ version = "0.2.0"
 description = "Cookiecutter template for a Python package"
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "BSD" }
+license = { text = "MIT" }
 authors = [
     { name = "Audrey M. Roy Greenfeld", email = "audrey@feldroy.com" }
 ]
@@ -14,7 +14,7 @@ classifiers = [
     "Environment :: Console",
     "Intended Audience :: Developers",
     "Natural Language :: English",
-    "License :: OSI Approved :: BSD License",
+    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
@@ -40,8 +40,8 @@ homepage = "https://github.com/audreyfeldroy/cookiecutter-pypackage"
 
 [tool.ruff]
 exclude = [
-	"*cookiecutter.project_slug*"
-	]
+    "*cookiecutter.project_slug*"
+    ]
 
 [tool.pytest.ini_options]
 testpaths = [
