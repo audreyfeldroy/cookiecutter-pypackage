@@ -12,18 +12,18 @@
 
 ## For Every Release
 
-1. Update `HISTORY.rst`
+1. Update `HISTORY.md`
 2. Commit the changes:
 
     ```bash
-    git add HISTORY.rst
+    git add HISTORY.md
     git commit -m "Changelog for upcoming release 0.1.1."
     ```
 
-3. Update version number (can also be patch or major):
+3. Update version number (can also be minor or major):
 
     ```bash
-    bump2version minor
+    uv version --bump patch
     ```
 
 4. Install the package again for local development, but with the new version number:
@@ -51,4 +51,4 @@
     ```
 
 8. Check the PyPI listing page to make sure that the README, release notes, and roadmap display properly. If not, try one of these:
-    - Copy and paste the RestructuredText into http://rst.ninjs.org/ to find out what broke the formatting.
+    - Copy and paste the Markdown into a Markdown previewer (such as https://dillinger.io/) to find out what broke the formatting.
