@@ -78,7 +78,7 @@ servedocs: docs ## compile the docs watching for changes
 	watchmedo shell-command -p '*.md' -c '$(MAKE) -C docs html' -R -D .
 
 release: dist ## package and upload a release
-	twine upload dist/*
+	uv release -t $(UV_PUBLISH_TOKEN)
 
 build: clean ## builds source and wheel package
 	rm -rf build dist
