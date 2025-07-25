@@ -72,3 +72,6 @@ select = [
     "B",   # flake8-bugbear
     "UP",  # pyupgrade
 ]
+
+[tool.uv]
+package = true
