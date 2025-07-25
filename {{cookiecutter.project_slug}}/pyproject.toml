@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "{{cookiecutter.project_name.lower().replace(' ', '-')}}"
+version = "{{ cookiecutter.version }}"
 description = "{{cookiecutter.project_short_description}}"
 readme = "README.md"
 authors = [
@@ -20,8 +21,6 @@ dependencies = [
   "typer"
 ]
 requires-python = ">= 3.10"
-
-dynamic = ["version"]
 
 [project.optional-dependencies]
 test = [
