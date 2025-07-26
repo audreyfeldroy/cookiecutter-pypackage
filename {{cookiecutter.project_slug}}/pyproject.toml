@@ -1,7 +1,3 @@
-[build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "{{cookiecutter.project_name.lower().replace(' ', '-')}}"
 version = "{{ cookiecutter.version }}"
@@ -44,9 +40,6 @@ package-dir = {"" = "src"}
 
 [project.scripts]
 {{cookiecutter.project_slug}} = "{{cookiecutter.project_slug}}.cli:app"
-
-[tool.setuptools.dynamic]
-version = {attr = "{{cookiecutter.project_slug}}.__version__"}
 
 [tool.ty]
 # All rules are enabled as "error" by default; no need to specify unless overriding.
