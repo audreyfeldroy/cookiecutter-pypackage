@@ -24,6 +24,7 @@ test = [
     "pytest",  # testing
     "ruff",  # linting
     "ty", # checking types
+    "ipdb"    
 ]
 
 [project.urls]
