@@ -48,8 +48,11 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
-ruff: ## check style
-	ruff check
+qa: ## fix style, sort imports, check types
+	uv run --extra test ruff check . --fix
+	uv run --extra test ruff check --select I --fix .
+	uv run --extra test ruff format .
+	uv run --extra test ty check .
 
 MAKECMDGOALS ?= .	
 
