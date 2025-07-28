@@ -1,6 +1,6 @@
 [project]
 name = "{{cookiecutter.project_name.lower().replace(' ', '-')}}"
-version = "{{ cookiecutter.version }}"
+version = "{{ cookiecutter.first_version }}"
 description = "{{cookiecutter.project_short_description}}"
 readme = "README.md"
 authors = [
