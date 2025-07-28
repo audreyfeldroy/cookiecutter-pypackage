@@ -115,7 +115,7 @@ def test_make_help(cookies):
 
 # def test_project_with_hyphen_in_module_name(cookies):
 #     result = cookies.bake(
-#         extra_context={'project_name': 'something-with-a-dash'}
+#         extra_context={'_name': 'something-with-a-dash'}
 #     )
 #     assert result.project is not None
 #     project_path = str(result.project)

@@ -5,16 +5,18 @@
 To install {{ cookiecutter.project_name }}, run this command in your terminal:
 
 ```sh
-pip install {{ cookiecutter.project_slug }}
+uv add {{ cookiecutter.pypi_package_name }}
 ```
 
-This is the preferred method to install {{ cookiecutter.project_name }}, as it will always install the most recent stable release.
+Or if you prefer to use `pip`:
 
-If you don't have [pip](https://pip.pypa.io) installed, this [Python installation guide](http://docs.python-guide.org/en/latest/starting/installation/) can guide you through the process.
+```sh
+pip install {{ cookiecutter.pypi_package_name }}
+```
 
-## From sources
+## From source
 
-The sources for {{ cookiecutter.project_name }} can be downloaded from the [Github repo](https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}).
+The source files for {{ cookiecutter.project_name }} can be downloaded from the [Github repo](https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}).
 
 You can either clone the public repository:
 
@@ -31,5 +33,6 @@ curl -OJL https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.
 Once you have a copy of the source, you can install it with:
 
 ```sh
-python setup.py install
+cd {{ cookiecutter.project_slug }}
+uv pip install .
 ```

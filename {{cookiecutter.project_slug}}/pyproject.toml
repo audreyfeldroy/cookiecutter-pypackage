@@ -1,5 +1,5 @@
 [project]
-name = "{{cookiecutter.project_name.lower().replace(' ', '-')}}"
+name = "{{cookiecutter.pypi_package_name}}"
 version = "{{ cookiecutter.first_version }}"
 description = "{{cookiecutter.project_short_description}}"
 readme = "README.md"
