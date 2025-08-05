@@ -1,7 +1,7 @@
 
 # Generate project using defaults
 bake BAKE_OPTIONS="--no-input":  
-	cookiecutter {{BAKE_OPTIONS}} . --overwrite-if-exists
+    cookiecutter {{BAKE_OPTIONS}} . --overwrite-if-exists
 
 # Watch for changes
 watch BAKE_OPTIONS="--no-input": bake
@@ -14,6 +14,10 @@ watch BAKE_OPTIONS="--no-input": bake
 # replay: watch
 # 	;
 
+
+# Show available commands
+help:
+    just --list
 
 # Run all the tests, but allow for arguments to be passed
 test *ARGS:
@@ -29,9 +33,9 @@ pdb *ARGS:
 
 # Build the project, useful for checking that packaging is correct
 build:
-	rm -rf build
-	rm -rf dist
-	uv build
+    rm -rf build
+    rm -rf dist
+    uv build
 
 VERSION := `grep -m1 '^version' pyproject.toml | sed -E 's/version = "(.*)"/\1/'`
 
@@ -47,7 +51,7 @@ tag:
 
 # Run all the formatting, linting, and testing commands
 clean:  
-	ruff format .
-	ruff check . --fix
-	ruff check --select I --fix .
-	pytest
+    ruff format .
+    ruff check . --fix
+    ruff check --select I --fix .
+    pytest
