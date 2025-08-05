@@ -32,7 +32,6 @@ dependencies = [
     "typer>=0.16.0",
     "alabaster>=1.0.0",
     "watchdog>=6.0.0",
-    "rust-just>=1.42.4",
 ]
 
 [project.urls]
@@ -40,7 +39,7 @@ homepage = "https://github.com/audreyfeldroy/cookiecutter-pypackage"
 
 [tool.ruff]
 exclude = [
-    "*cookiecutter.project_slug*"
+    "*cookiecutter.pypi_package_name*"
     ]
 
 [tool.pytest.ini_options]
