@@ -40,12 +40,6 @@ homepage = "https://github.com/{{cookiecutter.__gh_slug}}"
 # Example override: relax a rule for the entire project (uncomment if needed).
 # rules.TY015 = "warn"  # For invalid-argument-type, warn instead of error.
 
-# Optional: Per-directory overrides for flexibility in boilerplates with tests or examples.
-[[tool.ty.overrides]]
-match = ["tests/**.py"]
-rules.TY016 = "ignore"  # Ignore invalid-assignment in tests, e.g., for dynamic fixtures.
-rules.TY029 = "ignore"  # Ignore invalid-return-type in tests.
-
 [tool.ruff]
 line-length = 120
 
