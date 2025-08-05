@@ -26,12 +26,19 @@ classifiers = [
 ]
 dependencies = [
     "cookiecutter>=2.6.0",
-    "ruff>=0.12.4",
-    "pytest>=8.4.1",
-    "pytest-cookies>=0.7.0",
     "typer>=0.16.0",
     "alabaster>=1.0.0",
     "watchdog>=6.0.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "coverage",  # testing
+    "pytest",  # testing
+    "pytest-cookies",  # testing
+    "ruff",  # linting
+    "ty", # checking types
+    "ipdb"
 ]
 
 [project.urls]
@@ -47,3 +54,7 @@ testpaths = [
     "tests",
 ]
 
+[dependency-groups]
+dev = [
+    "rust-just>=1.42.4",
+]
