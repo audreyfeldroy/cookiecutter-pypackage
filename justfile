@@ -19,18 +19,6 @@ watch BAKE_OPTIONS="--no-input": bake
 help:
     just --list
 
-# Run all the tests, but allow for arguments to be passed
-test *ARGS:
-    @echo "Running with arg: {{ARGS}}"
-    uv run --python=3.13 --extra dev pytest {{ARGS}}
-
-# Run all the tests, but on failure, drop into the debugger
-pdb *ARGS:
-    @echo "Running with arg: {{ARGS}}"
-    uv run --python=3.13 --with pytest --with httpx pytest --pdb --maxfail=10 --pdbcls=IPython.terminal.debugger:TerminalPdb {{ARGS}}
-
-
-
 # Build the project, useful for checking that packaging is correct
 build:
     rm -rf build
@@ -49,9 +37,49 @@ tag:
     git tag -a v{{VERSION}} -m "Creating version v{{VERSION}}"
     git push origin v{{VERSION}}
 
-# Run all the formatting, linting, and testing commands
-clean:  
-    ruff format .
-    ruff check . --fix
-    ruff check --select I --fix .
-    pytest
+# Run all the tests, but allow for arguments to be passed
+test *ARGS:
+    @echo "Running with arg: {{ARGS}}"
+    uv run --python=3.13 --extra dev pytest {{ARGS}}
+
+# Run all the tests, but on failure, drop into the debugger
+pdb *ARGS:
+    @echo "Running with arg: {{ARGS}}"
+    uv run --python=3.13 --with pytest --with httpx pytest --pdb --maxfail=10 --pdbcls=IPython.terminal.debugger:TerminalPdb {{ARGS}}
+
+# Run all the formatting, linting, type checking, and testing commands
+qa:
+    uv run --python=3.13 --extra test ruff format .
+    uv run --python=3.13 --extra test ruff check . --fix
+    uv run --python=3.13 --extra test ruff check --select I --fix .
+    uv run --python=3.13 --extra test ty check .
+    uv run --python=3.13 --extra test pytest .
+
+# Run all the checks for CI
+ci:
+    uv run --python=3.13 --extra test ruff format --check .
+    uv run --python=3.13 --extra test ruff check .
+    uv run --python=3.13 --extra test ruff check --select I .
+    uv run --python=3.13 --extra test ty check .
+    uv run --python=3.13 --extra test pytest .
+
+# Run all the tests for all the supported Python versions
+testall:
+    uv run --python=3.10 --extra test pytest
+    uv run --python=3.11 --extra test pytest
+    uv run --python=3.12 --extra test pytest
+    uv run --python=3.13 --extra test pytest
+
+# Run coverage, and build to HTML
+coverage:
+    uv run --python=3.13 --extra test coverage run -m pytest .
+    uv run --python=3.13 --extra test coverage report -m
+    uv run --python=3.13 --extra test coverage html
+
+# Serve docs locally
+doc:
+    uv run --extra docs mkdocs serve -a localhost:3000
+
+# Build and deploy docs
+doc-build:
+    uv run --extra docs mkdocs gh-deploy --force
