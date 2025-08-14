@@ -10,7 +10,7 @@ maintainers = [
   {name = "{{cookiecutter.full_name}}", email = "{{cookiecutter.email}}"}
 ]
 classifiers = [
-
+    # TODO
 ]
 license = {text = "MIT"}
 dependencies = [
@@ -24,7 +24,7 @@ test = [
     "pytest",  # testing
     "ruff",  # linting
     "ty", # checking types
-    "ipdb"    
+    "ipdb", # debugging
 ]
 
 [project.urls]
