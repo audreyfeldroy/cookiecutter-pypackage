@@ -1,3 +1,6 @@
+# Show available commands
+list:
+    @just --list
 
 # Generate project using defaults
 bake BAKE_OPTIONS="--no-input":  
