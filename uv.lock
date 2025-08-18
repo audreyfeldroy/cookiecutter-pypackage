@@ -184,6 +184,7 @@ test = [
     { name = "coverage" },
     { name = "ipdb" },
     { name = "pytest" },
+    { name = "pytest-cookies" },
     { name = "ruff" },
     { name = "ty" },
 ]
@@ -200,6 +201,7 @@ requires-dist = [
     { name = "coverage", marker = "extra == 'test'" },
     { name = "ipdb", marker = "extra == 'test'" },
     { name = "pytest", marker = "extra == 'test'" },
+    { name = "pytest-cookies", marker = "extra == 'test'" },
     { name = "ruff", marker = "extra == 'test'" },
     { name = "ty", marker = "extra == 'test'" },
     { name = "typer", specifier = ">=0.16.0" },
@@ -629,6 +631,19 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/08/ba/45911d754e8eba3d5a841a5ce61a65a685ff1798421ac054f85aa8747dfb/pytest-8.4.1.tar.gz", hash = "sha256:7c67fd69174877359ed9371ec3af8a3d2b04741818c51e5e99cc1742251fa93c", size = 1517714, upload-time = "2025-06-18T05:48:06.109Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/29/16/c8a903f4c4dffe7a12843191437d7cd8e32751d5de349d45d3fe69544e87/pytest-8.4.1-py3-none-any.whl", hash = "sha256:539c70ba6fcead8e78eebbf1115e8b589e7565830d7d006a8723f19ac8a0afb7", size = 365474, upload-time = "2025-06-18T05:48:03.955Z" },
+]
+
+[[package]]
+name = "pytest-cookies"
+version = "0.7.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "cookiecutter" },
+    { name = "pytest" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/18/2e/11a3e1abb4bbf10e0af3f194ba4c55600de3fe52417ef3594c18d28ecdbe/pytest-cookies-0.7.0.tar.gz", hash = "sha256:1aaa6b4def8238d0d1709d3d773b423351bfb671c1e3438664d824e0859d6308", size = 8840, upload-time = "2023-03-22T11:07:29.595Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5f/f7/438af2f3a6c58f81d22c126707ee5d079f653a76961f4fb7d995e526a9c4/pytest_cookies-0.7.0-py3-none-any.whl", hash = "sha256:52770f090d77b16428f6a24a208e6be76addb2e33458035714087b4de49389ea", size = 6386, upload-time = "2023-03-22T11:07:28.068Z" },
 ]
 
 [[package]]
