@@ -105,12 +105,12 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
         run_inside_dir("pytest", str(result.project)) == 0
 
 
-def test_make_help(cookies):
+def test_just_list(cookies):
     with bake_in_temp_dir(cookies) as result:
-        # The supplied Makefile does not support win32
+        # The supplied justfile does not support win32
         if sys.platform != "win32":
-            output = check_output_inside_dir("make help", str(result.project))
-            assert b"check code coverage quickly with the default Python" in output
+            output = check_output_inside_dir("just list", str(result.project))
+            assert b"Show available commands" in output
 
 
 # def test_project_with_hyphen_in_module_name(cookies):
