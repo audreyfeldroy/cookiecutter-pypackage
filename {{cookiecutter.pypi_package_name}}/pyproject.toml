@@ -18,15 +18,16 @@ dependencies = [
 ]
 requires-python = ">= 3.10"
 
-[project.optional-dependencies]
-test = [
-    "coverage",  # testing
-    "pytest",  # testing
-    "ruff",  # linting
-    "ty", # checking types
+[dependency-groups]
+dev = [
+    "coverage", # testing
+    "pytest", # testing
+    "ruff", # linting
+    "mypy", # checking types
     "ipdb", # debugging
+    "nox", # orchestrating tests
+    "pre-commit", # enforce standards
 ]
-
 [project.urls]
 bugs = "https://github.com/{{cookiecutter.__gh_slug}}/issues"
 changelog = "https://github.com/{{cookiecutter.__gh_slug}}/blob/master/changelog.md"
