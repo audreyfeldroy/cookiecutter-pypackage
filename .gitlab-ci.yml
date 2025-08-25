@@ -35,9 +35,8 @@ test:
     - just --version || true
   script:
     - mkdir -p reports
-    # ✅ Run pytest and explicitly point at tests directory
-    - pytest ./tests -v \
-        --disable-warnings \
+    # ✅ Run pytest in a single line (no backslashes)
+    - pytest ./tests -v --disable-warnings \
         --junitxml=reports/junit.xml \
         --cov=./ \
         --cov-report=xml:reports/coverage.xml \
