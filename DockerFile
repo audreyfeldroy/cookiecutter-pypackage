@@ -1,0 +1,17 @@
+# Use official Python image
+FROM python:3.11-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy project files into container
+COPY . .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Run tests (optional - useful for CI/CD)
+RUN pytest || true
+
+# Set entrypoint (replace "your_package" with your actual package folder name)
+ENTRYPOINT ["python", "-m", "your_package"]
