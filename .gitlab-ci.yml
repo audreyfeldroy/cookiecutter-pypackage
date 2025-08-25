@@ -15,8 +15,6 @@ build:
   artifacts:
     paths:
       - .venv/
-  tags:
-    - docker
 
 # 2. Test Job
 test:
@@ -33,8 +31,6 @@ test:
       junit: reports/junit.xml
     paths:
       - reports/
-  tags:
-    - docker
 
 # 3. Package Job
 package:
@@ -48,8 +44,7 @@ package:
   artifacts:
     paths:
       - dist/
-  tags:
-    - docker
+
 
 # 4. Deploy Job
 deploy:
@@ -58,5 +53,3 @@ deploy:
   script:
     - echo " Simulating deployment..."
     - echo "Deploy step completed"
-  tags:
-    - docker
