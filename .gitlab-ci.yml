@@ -20,26 +20,26 @@ build:
 # 2. Test Job
 test:
   stage: test
-  image: debian:bullseye
+  image: python:3.11
   before_script:
-    # Install dependencies
-    - apt-get update && apt-get install -y python3 python3-pip curl unzip
-    - python3 -m pip install --upgrade pip
+    - apt-get update && apt-get install -y curl unzip
+    - python -m pip install --upgrade pip
     - pip install pytest pytest-cov
     - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    # Install just (manual, latest release)
+    # Install "just"
     - curl -sL https://github.com/casey/just/releases/download/1.25.2/just-1.25.2-x86_64-unknown-linux-musl.tar.gz -o just.tar.gz
     - tar -xzf just.tar.gz
     - mv just /usr/local/bin/just
     - chmod +x /usr/local/bin/just
-    - just --version || echo "⚠️ just not available"
+    - just --version || true
   script:
     - mkdir -p reports
-    - pytest tests \
-        --maxfail=1 --disable-warnings -q \
+    # ✅ Run pytest and explicitly point at tests directory
+    - pytest ./tests -v \
+        --disable-warnings \
         --junitxml=reports/junit.xml \
-        --cov=. \
+        --cov=./ \
         --cov-report=xml:reports/coverage.xml \
         --cov-report=html:reports/html
   artifacts:
