@@ -24,7 +24,8 @@ test:
   before_script:
     - apt-get update && apt-get install -y curl unzip
     - python -m pip install --upgrade pip
-    - pip install pytest pytest-cov
+    # ✅ Install dependencies explicitly
+    - pip install pytest pytest-cov cookiecutter
     - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     # Install "just"
@@ -36,8 +37,11 @@ test:
 
   script:
     - mkdir -p reports
-    # ✅ All pytest args in ONE line
-    - pytest ./tests -v --disable-warnings --junitxml=reports/junit.xml --cov=. --cov-report=xml:reports/coverage.xml --cov-report=html:reports/html
+    - pytest ./tests -v --disable-warnings \
+        --junitxml=reports/junit.xml \
+        --cov=. \
+        --cov-report=xml:reports/coverage.xml \
+        --cov-report=html:reports/html
 
   artifacts:
     when: always
@@ -56,6 +60,8 @@ package:
   script:
     - python -m pip install --upgrade pip
     - pip install build
+    # ✅ Remove non-package dirs to avoid setuptools error
+    - rm -rf reports hooks
     - python -m build
     - echo "📦 Packaging complete"
   artifacts:
