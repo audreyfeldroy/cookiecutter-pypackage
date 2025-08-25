@@ -1,4 +1,4 @@
-stages: [lint, test, build]
+stages: [lint, test, build, deploy]
 
 workflow:
   rules:
@@ -6,7 +6,7 @@ workflow:
     - if: $CI_COMMIT_BRANCH =~ /^feature\/.*/
     - if: $CI_COMMIT_BRANCH == "main"
 
-# ✅ variables moved to top-level (not inside default)
+# Global variables
 variables:
   PIP_CACHE_DIR: ".cache/pip"
   PIP_DISABLE_PIP_VERSION_CHECK: "1"
@@ -47,7 +47,10 @@ test:
   image: "python:${PY_VER}"
   before_script:
     - python -m pip install --upgrade pip
-    - apt-get update && apt-get install -y --no-install-recommends just && rm -rf /var/lib/apt/lists/*
+    # ✅ Ensure `just` command is available for test_just_list
+    - apt-get update && apt-get install -y curl
+    - curl -sL https://github.com/casey/just/releases/download/1.24.0/just-1.24.0-x86_64-unknown-linux-musl.tar.gz | tar xz
+    - mv just /usr/local/bin/
   script:
     - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - pip install pytest pytest-cookies cookiecutter pytest-cov
@@ -85,3 +88,17 @@ build:
     expire_in: 1 week
     paths:
       - dist/
+
+# --------------------
+# Deploy Stage (TestPyPI)
+# --------------------
+deploy:
+  stage: deploy
+  image: python:3.11
+  needs: ["build"]
+  script:
+    - pip install twine
+    # Upload to TestPyPI (safe for assignments)
+    - twine upload --repository-url https://test.pypi.org/legacy/ -u __token__ -p $TEST_PYPI_TOKEN dist/*
+  only:
+    - main
