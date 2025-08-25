@@ -34,9 +34,12 @@ test:
   artifacts:
     reports:
       junit: reports/junit.xml
-      cobertura: reports/coverage.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: reports/coverage.xml
     paths:
       - reports/
+
 
 # 3. Package Job
 package:
