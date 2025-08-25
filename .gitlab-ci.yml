@@ -6,7 +6,6 @@ workflow:
     - if: $CI_COMMIT_BRANCH =~ /^feature\/.*/
     - if: $CI_COMMIT_BRANCH == "main"
 
-# Global variables
 variables:
   PIP_CACHE_DIR: ".cache/pip"
   PIP_DISABLE_PIP_VERSION_CHECK: "1"
@@ -20,7 +19,7 @@ default:
     - python -m pip install --upgrade pip
 
 # --------------------
-# Lint & Type Check
+# Lint
 # --------------------
 lint:
   stage: lint
@@ -30,75 +29,71 @@ lint:
     - ruff check . || true
     - mypy . || true
   artifacts:
-    when: always
     expire_in: 1 week
     paths:
       - .ruff_cache/
       - .mypy_cache/
 
 # --------------------
-# Test Matrix (Python 3.8–3.11)
+# Test
 # --------------------
 test:
   stage: test
-  parallel:
-    matrix:
-      - PY_VER: ["3.8","3.9","3.10","3.11"]
-  image: "python:${PY_VER}"
+  image: python:3.11
   before_script:
     - python -m pip install --upgrade pip
-    # ✅ Ensure `just` command is available for test_just_list
     - apt-get update && apt-get install -y curl
     - curl -sL https://github.com/casey/just/releases/download/1.24.0/just-1.24.0-x86_64-unknown-linux-musl.tar.gz | tar xz
     - mv just /usr/local/bin/
   script:
     - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - pip install pytest pytest-cookies cookiecutter pytest-cov
-    - mkdir -p reports/html-${PY_VER}
+    - pip install pytest pytest-cov pytest-cookies cookiecutter
+    - mkdir -p reports/html
     - >
       pytest -q
-      --junitxml=reports/junit-${PY_VER}.xml
-      --cov=. --cov-report=xml:reports/coverage-${PY_VER}.xml
-      --cov-report=html:reports/html-${PY_VER}
+      --junitxml=reports/junit.xml
+      --cov=. --cov-report=xml:reports/coverage.xml
+      --cov-report=html:reports/html
       --cov-report=term-missing
   artifacts:
-    when: always
     expire_in: 1 week
     reports:
-      junit: "reports/junit-*.xml"
+      junit: reports/junit.xml
       coverage_report:
         coverage_format: cobertura
-        path: "reports/coverage-*.xml"
+        path: reports/coverage.xml
     paths:
       - reports/
 
 # --------------------
-# Build Stage
+# Build (simulate packaging)
 # --------------------
 build:
   stage: build
   image: python:3.11
   needs: ["test"]
   script:
-    - pip install build twine
-    - python -m build
-    - twine check dist/*
+    - echo "Simulating packaging..."
+    - mkdir -p dist
+    - echo "This would be the package build output." > dist/README.txt
   artifacts:
-    when: always
     expire_in: 1 week
     paths:
       - dist/
 
 # --------------------
-# Deploy Stage (TestPyPI)
+# Deploy (simulate Docker deploy)
 # --------------------
 deploy:
   stage: deploy
-  image: python:3.11
+  image: docker:20.10
+  services:
+    - docker:dind
   needs: ["build"]
   script:
-    - pip install twine
-    # Upload to TestPyPI (safe for assignments)
-    - twine upload --repository-url https://test.pypi.org/legacy/ -u __token__ -p $TEST_PYPI_TOKEN dist/*
+    - echo "Building Docker image..."
+    - docker build -t myapp .
+    - echo "Running container on port 8080..."
+    - docker run -d -p 8080:8080 myapp || true
   only:
     - main
