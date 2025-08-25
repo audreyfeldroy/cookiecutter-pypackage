@@ -22,25 +22,23 @@ test:
   stage: test
   image: debian:bullseye
   before_script:
-    # System dependencies
     - apt-get update && apt-get install -y python3 python3-pip curl unzip
     - python3 -m pip install --upgrade pip
     - pip install pytest pytest-cov
     - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-
-    # ✅ Proper way to install just (prebuilt binary release)
+    # install just
     - curl -sL https://github.com/casey/just/releases/download/1.25.2/just-1.25.2-x86_64-unknown-linux-musl.tar.gz -o just.tar.gz
     - tar -xzf just.tar.gz
     - mv just /usr/local/bin/
     - chmod +x /usr/local/bin/just
-    - just --version || echo "⚠️ just not available"
-
   script:
     - mkdir -p reports
-    - pytest --junitxml=reports/junit.xml \
-             --cov=. \
-             --cov-report=xml:reports/coverage.xml \
-             --cov-report=html:reports/html || true
+    - pytest tests \
+        --maxfail=1 --disable-warnings -q \
+        --junitxml=reports/junit.xml \
+        --cov=. \
+        --cov-report=xml:reports/coverage.xml \
+        --cov-report=html:reports/html
   artifacts:
     when: always
     reports:
