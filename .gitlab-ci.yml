@@ -19,14 +19,20 @@ build:
 # 2. Test Job
 test:
   stage: test
-  image: debian:bullseye
+  image: python:3.11
   before_script:
-    # Install Python & just
-    - apt-get update && apt-get install -y python3 python3-pip python3-venv just
-    - python3 -m pip install --upgrade pip
+    # Install dependencies
+    - python -m pip install --upgrade pip
     - pip install pytest pytest-cov
     - pip install -r requirements.txt || true
+    # Install "just" manually
+    - apt-get update && apt-get install -y curl
+    - curl -sL https://github.com/casey/just/releases/download/1.25.2/just-1.25.2-x86_64-unknown-linux-musl.tar.gz \
+      | tar xz -C /usr/local/bin
+    - chmod +x /usr/local/bin/just
+    - just --version || true
   script:
+    - mkdir -p reports
     - pytest --junitxml=reports/junit.xml \
              --cov=. \
              --cov-report=xml:reports/coverage.xml \
@@ -39,7 +45,6 @@ test:
         path: reports/coverage.xml
     paths:
       - reports/
-
 
 # 3. Package Job
 package:
