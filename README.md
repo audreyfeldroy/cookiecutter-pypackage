@@ -11,7 +11,7 @@
 
 ## Features
 
-We use unittest for testing.
+We use unittest for testing. This project uses pytest for testing.. 
 
 *   Testing setup with pytest
 *   GitHub Actions testing: Setup to easily test for Python 3.10, 3.11, 3.12, and 3.13
