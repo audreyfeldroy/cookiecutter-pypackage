@@ -11,7 +11,7 @@ build:
   script:
     - python -m pip install --upgrade pip
     - pip install -r requirements.txt || true
-    - echo "Build step completed, dependencies installed"
+    - echo "✅ Build step completed, dependencies installed"
   artifacts:
     paths:
       - .venv/
@@ -19,16 +19,22 @@ build:
 # 2. Test Job
 test:
   stage: test
-  image: python:3.11
-  script:
-    - python -m pip install --upgrade pip
+  image: debian:bullseye
+  before_script:
+    # Install Python & just
+    - apt-get update && apt-get install -y python3 python3-pip python3-venv just
+    - python3 -m pip install --upgrade pip
     - pip install pytest pytest-cov
     - pip install -r requirements.txt || true
-    - apt-get update && apt-get install -y just || true
-    - pytest --junitxml=reports/junit.xml --cov=. --cov-report=xml:reports/coverage.xml --cov-report=html:reports/html
+  script:
+    - pytest --junitxml=reports/junit.xml \
+             --cov=. \
+             --cov-report=xml:reports/coverage.xml \
+             --cov-report=html:reports/html
   artifacts:
     reports:
       junit: reports/junit.xml
+      cobertura: reports/coverage.xml
     paths:
       - reports/
 
@@ -40,16 +46,15 @@ package:
     - python -m pip install --upgrade pip
     - pip install build
     - python -m build
-    - echo "Packaging complete"
+    - echo "📦 Packaging complete"
   artifacts:
     paths:
       - dist/
-
 
 # 4. Deploy Job
 deploy:
   stage: deploy
   image: alpine:latest
   script:
-    - echo " Simulating deployment..."
-    - echo "Deploy step completed"
+    - echo "🚀 Simulating deployment..."
+    - echo "Deployment step completed successfully"
