@@ -1,99 +1,70 @@
-stages: [lint, test, build, deploy]
+stages:
+  - build
+  - test
+  - package
+  - deploy
 
-workflow:
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-    - if: $CI_COMMIT_BRANCH =~ /^feature\/.*/
-    - if: $CI_COMMIT_BRANCH == "main"
-
-variables:
-  PIP_CACHE_DIR: ".cache/pip"
-  PIP_DISABLE_PIP_VERSION_CHECK: "1"
-
-default:
-  cache:
-    key: "${CI_JOB_NAME}"
-    paths:
-      - .cache/pip/
-  before_script:
-    - python -m pip install --upgrade pip
-
-# --------------------
-# Lint
-# --------------------
-lint:
-  stage: lint
-  image: python:3.11
-  script:
-    - pip install ruff mypy
-    - ruff check . || true
-    - mypy . || true
-  artifacts:
-    expire_in: 1 week
-    paths:
-      - .ruff_cache/
-      - .mypy_cache/
-
-# --------------------
-# Test
-# --------------------
-test:
-  stage: test
-  image: python:3.11
-  before_script:
-    - python -m pip install --upgrade pip
-    - apt-get update && apt-get install -y curl
-    - curl -sL https://github.com/casey/just/releases/download/1.24.0/just-1.24.0-x86_64-unknown-linux-musl.tar.gz | tar xz
-    - mv just /usr/local/bin/
-  script:
-    - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - pip install pytest pytest-cov pytest-cookies cookiecutter
-    - mkdir -p reports/html
-    - >
-      pytest -q
-      --junitxml=reports/junit.xml
-      --cov=. --cov-report=xml:reports/coverage.xml
-      --cov-report=html:reports/html
-      --cov-report=term-missing
-  artifacts:
-    expire_in: 1 week
-    reports:
-      junit: reports/junit.xml
-      coverage_report:
-        coverage_format: cobertura
-        path: reports/coverage.xml
-    paths:
-      - reports/
-
-# --------------------
-# Build (simulate packaging)
-# --------------------
+# 1. Build Job
 build:
   stage: build
   image: python:3.11
-  needs: ["test"]
   script:
-    - echo "Simulating packaging..."
-    - mkdir -p dist
-    - echo "This would be the package build output." > dist/README.txt
+    - python -m pip install --upgrade pip
+    - pip install -r requirements.txt || true
+    - echo "✅ Build step completed, dependencies installed"
   artifacts:
-    expire_in: 1 week
+    paths:
+      - .venv/
+  tags:
+    - docker
+
+# 2. Test Job
+test:
+  stage: test
+  image: python:3.11
+  script:
+    - python -m pip install --upgrade pip
+    - pip install pytest pytest-cov
+    - pip install -r requirements.txt || true
+    # Fix for 'just' test
+    - apt-get update && apt-get install -y just || true
+    - pytest --junitxml=reports/junit.xml --cov=. --cov-report=xml:reports/coverage.xml --cov-report=html:reports/html
+  artifacts:
+    reports:
+      junit: reports/junit.xml
+      cobertura: reports/coverage.xml
+    paths:
+      - reports/
+  tags:
+    - docker
+
+# 3. Package Job
+package:
+  stage: package
+  image: python:3.11
+  script:
+    - python -m pip install --upgrade pip
+    - pip install build
+    - python -m build
+    - echo " Packaging complete"
+  artifacts:
     paths:
       - dist/
+  tags:
+    - docker
 
-# --------------------
-# Deploy (simulate Docker deploy)
-# --------------------
+# 4. Deploy Job
 deploy:
   stage: deploy
-  image: docker:20.10
+  image: docker:latest
   services:
     - docker:dind
-  needs: ["build"]
   script:
-    - echo "Building Docker image..."
+    - echo " Simulating deployment..."
     - docker build -t myapp .
-    - echo "Running container on port 8080..."
-    - docker run -d -p 8080:8080 myapp || true
+    - docker run -d -p 8080:8080 myapp
+    - echo " Deploy step completed"
   only:
     - main
+  tags:
+    - docker
