@@ -24,7 +24,6 @@ test:
   before_script:
     - apt-get update && apt-get install -y curl unzip
     - python -m pip install --upgrade pip
-    # ✅ Install dependencies explicitly
     - pip install pytest pytest-cov cookiecutter
     - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
@@ -37,11 +36,8 @@ test:
 
   script:
     - mkdir -p reports
-    - pytest ./tests -v --disable-warnings \
-        --junitxml=reports/junit.xml \
-        --cov=. \
-        --cov-report=xml:reports/coverage.xml \
-        --cov-report=html:reports/html
+    # ✅ All options in ONE line (no `\`)
+    - pytest ./tests -v --disable-warnings --junitxml=reports/junit.xml --cov=. --cov-report=xml:reports/coverage.xml --cov-report=html:reports/html
 
   artifacts:
     when: always
@@ -52,6 +48,7 @@ test:
         path: reports/coverage.xml
     paths:
       - reports/
+
 
 # 3. Package Job
 package:
