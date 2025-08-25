@@ -33,14 +33,12 @@ test:
     - mv just /usr/local/bin/just
     - chmod +x /usr/local/bin/just
     - just --version || true
+
   script:
     - mkdir -p reports
-    # ✅ Run pytest in a single line (no backslashes)
-    - pytest ./tests -v --disable-warnings \
-        --junitxml=reports/junit.xml \
-        --cov=./ \
-        --cov-report=xml:reports/coverage.xml \
-        --cov-report=html:reports/html
+    # ✅ All pytest args in ONE line
+    - pytest ./tests -v --disable-warnings --junitxml=reports/junit.xml --cov=. --cov-report=xml:reports/coverage.xml --cov-report=html:reports/html
+
   artifacts:
     when: always
     reports:
