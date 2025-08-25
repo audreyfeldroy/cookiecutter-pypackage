@@ -22,15 +22,18 @@ test:
   stage: test
   image: debian:bullseye
   before_script:
+    # Install dependencies
     - apt-get update && apt-get install -y python3 python3-pip curl unzip
     - python3 -m pip install --upgrade pip
     - pip install pytest pytest-cov
     - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    # install just
+
+    # Install just (manual, latest release)
     - curl -sL https://github.com/casey/just/releases/download/1.25.2/just-1.25.2-x86_64-unknown-linux-musl.tar.gz -o just.tar.gz
     - tar -xzf just.tar.gz
-    - mv just /usr/local/bin/
+    - mv just /usr/local/bin/just
     - chmod +x /usr/local/bin/just
+    - just --version || echo "⚠️ just not available"
   script:
     - mkdir -p reports
     - pytest tests \
@@ -56,15 +59,11 @@ package:
   script:
     - python -m pip install --upgrade pip
     - pip install build
-    # ✅ Ensure only source dir is packaged (replace "src" with your actual package dir)
-    - mkdir -p dist
-    - rm -rf reports hooks
     - python -m build
     - echo "📦 Packaging complete"
   artifacts:
     paths:
       - dist/
-
 
 # 4. Deploy Job
 deploy:
