@@ -1,0 +1,71 @@
+stages: [lint, test, build]
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH =~ /^feature\/.*/
+    - if: $CI_COMMIT_BRANCH == "main"
+
+default:
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths: [ .cache/pip/ ]
+  variables:
+    PIP_CACHE_DIR: ".cache/pip"
+    PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  before_script:
+    - python -m pip install --upgrade pip
+
+lint:
+  stage: lint
+  image: python:3.11
+  script:
+    - pip install ruff mypy
+    - ruff check . || true
+    - mypy . || true
+  artifacts:
+    when: always
+    expire_in: 1 week
+    paths: [ .ruff_cache/, .mypy_cache/ ]
+
+test:
+  stage: test
+  parallel:
+    matrix:
+      - PY_VER: ["3.8","3.9","3.10","3.11"]
+  image: "python:${PY_VER}"
+  before_script:
+    - python -m pip install --upgrade pip
+    - apt-get update && apt-get install -y --no-install-recommends just && rm -rf /var/lib/apt/lists/*
+  script:
+    - if exist requirements.txt pip install -r requirements.txt
+    - pip install pytest pytest-cookies cookiecutter pytest-cov
+    - mkdir reports && mkdir reports\html-%PY_VER%
+    - pytest -q ^
+      --junitxml=reports/junit-%PY_VER%.xml ^
+      --cov=. --cov-report=xml:reports/coverage-%PY_VER%.xml ^
+      --cov-report=html:reports/html-%PY_VER% ^
+      --cov-report=term-missing
+  artifacts:
+    when: always
+    expire_in: 1 week
+    reports:
+      junit: "reports/junit-*.xml"
+      coverage_report:
+        coverage_format: cobertura
+        path: "reports/coverage-*.xml"
+    paths:
+      - reports/
+
+build:
+  stage: build
+  image: python:3.11
+  needs: ["test"]
+  script:
+    - pip install build twine
+    - python -m build
+    - twine check dist/*
+  artifacts:
+    when: always
+    expire_in: 1 week
+    paths: [ dist/ ]
