@@ -29,6 +29,7 @@ dependencies = [
     "typer>=0.16.0",
     "alabaster>=1.0.0",
     "watchdog>=6.0.0",
+    "requests>=2.31.0",   # added by Nivika
 ]
 
 [project.optional-dependencies]

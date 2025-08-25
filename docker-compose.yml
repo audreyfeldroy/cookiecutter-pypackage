@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: mypackage_app
+    command: python -m your_package
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
