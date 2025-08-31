@@ -1,0 +1,59 @@
+[project]
+name = "mypackage"
+version = "0.1.0"
+description = "Python package for Software Construction and Configuration assignment"
+readme = "README.md"
+authors = [
+  {name = "Kim Bei Er", email = "kimbeier03@gmail.com"}
+]
+maintainers = [
+  {name = "Kim Bei Er", email = "kimbeier03@gmail.com"}
+]
+classifiers = [
+    # TODO
+]
+license = {text = "MIT"}
+dependencies = [
+  "typer",
+  "fastapi",
+  "uvicorn[standard]"
+]
+requires-python = ">= 3.10"
+
+[project.optional-dependencies]
+test = [
+    "coverage",  # testing
+    "pytest",  # testing
+    "ruff",  # linting
+    "ty", # checking types
+    "ipdb", # debugging
+]
+
+[project.urls]
+bugs = "https://github.com/beier17/MyPackage/issues"
+changelog = "https://github.com/beier17/MyPackage/blob/master/changelog.md"
+homepage = "https://github.com/beier17/MyPackage"
+
+[project.scripts]
+MyPackage = "MyPackage.cli:app"
+
+[tool.ty]
+# All rules are enabled as "error" by default; no need to specify unless overriding.
+# Example override: relax a rule for the entire project (uncomment if needed).
+# rules.TY015 = "warn"  # For invalid-argument-type, warn instead of error.
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # Pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+]
+
+[tool.uv]
+package = true

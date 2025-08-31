@@ -1,0 +1,9 @@
+services:
+  app:
+    build: .
+    container_name: mypackage_app
+    command: uvicorn mypackage.app:app --host 0.0.0.0 --port 8000
+    volumes:
+      - ./src:/app/src 
+    ports:
+      - "8001:8000"
