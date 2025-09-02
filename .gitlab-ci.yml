@@ -36,17 +36,16 @@ test:
   image: "python:${PY_VER}"
   before_script:
     - python -m pip install --upgrade pip
-    - apt-get update && apt-get install -y --no-install-recommends just curl unzip && rm -rf /var/lib/apt/lists/*
+    - apt-get update && apt-get install -y --no-install-recommends curl unzip && rm -rf /var/lib/apt/lists/*
   script:
-  - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-  - pip install pytest pytest-cov cookiecutter pytest-cookies
-  - mkdir -p reports/html-${PY_VER}
-  - pytest tests \
-      --junitxml=reports/junit-${PY_VER}.xml \
-      --cov=. --cov-report=xml:reports/coverage-${PY_VER}.xml \
-      --cov-report=html:reports/html-${PY_VER} \
-      --cov-report=term-missing || true
-
+    - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - pip install pytest pytest-cov cookiecutter pytest-cookies
+    - mkdir -p reports/html-${PY_VER}
+    - pytest tests \
+        --junitxml=reports/junit-${PY_VER}.xml \
+        --cov=. --cov-report=xml:reports/coverage-${PY_VER}.xml \
+        --cov-report=html:reports/html-${PY_VER} \
+        --cov-report=term-missing || true
   artifacts:
     when: always
     expire_in: 1 week
@@ -61,8 +60,9 @@ package:
   stage: package
   needs: ["test"]
   script:
-    - pip install build
+    - pip install build twine
     - python -m build
+    - twine check dist/*
     - echo "Packaging complete."
   artifacts:
     when: always
@@ -71,7 +71,14 @@ package:
 
 deploy:
   stage: deploy
-  image: alpine:latest
+  image: python:3.11
   needs: ["package"]
   script:
-    - echo "Simulated deploy step completed."
+    - python -m pip install --upgrade pip
+    - pip install twine
+    - twine check dist/*
+    - echo "Deploy stage: validated package with Twine"
+  artifacts:
+    when: always
+    expire_in: 1 week
+    paths: [ dist/ ]
