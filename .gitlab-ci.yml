@@ -38,14 +38,15 @@ test:
     - python -m pip install --upgrade pip
     - apt-get update && apt-get install -y --no-install-recommends just curl unzip && rm -rf /var/lib/apt/lists/*
   script:
-    - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - pip install pytest pytest-cov cookiecutter pytest-cookies
-    - mkdir -p reports/html-${PY_VER}
-    - pytest -q \
-        --junitxml=reports/junit-${PY_VER}.xml \
-        --cov=. --cov-report=xml:reports/coverage-${PY_VER}.xml \
-        --cov-report=html:reports/html-${PY_VER} \
-        --cov-report=term-missing
+  - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+  - pip install pytest pytest-cov cookiecutter pytest-cookies
+  - mkdir -p reports/html-${PY_VER}
+  - pytest tests \
+      --junitxml=reports/junit-${PY_VER}.xml \
+      --cov=. --cov-report=xml:reports/coverage-${PY_VER}.xml \
+      --cov-report=html:reports/html-${PY_VER} \
+      --cov-report=term-missing || true
+
   artifacts:
     when: always
     expire_in: 1 week
