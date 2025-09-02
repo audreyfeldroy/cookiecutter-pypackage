@@ -77,7 +77,7 @@ deploy:
     - python -m pip install --upgrade pip
     - pip install twine
     - twine check dist/*
-    - echo "Deploy stage: validated package with Twine"
+    - echo "Deploy stage: validated package with Twine!!!!"
   artifacts:
     when: always
     expire_in: 1 week
