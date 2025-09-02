@@ -14,11 +14,12 @@ test:
   stage: test
   image: python:3.11
   script:
-    - pip install pytest pytest-cov
+    - pip install pytest pytest-cov cookiecutter pytest-cookies
     - mkdir -p reports/html
     - pytest tests \
         --junitxml=reports/junit.xml \
-        --cov=. --cov-report=xml:reports/coverage.xml \
+        --cov={{cookiecutter.pypi_package_name}} \
+        --cov-report=xml:reports/coverage.xml \
         --cov-report=html:reports/html \
         --cov-report=term-missing || true
   artifacts:
