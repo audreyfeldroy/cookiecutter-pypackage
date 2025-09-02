@@ -6,14 +6,15 @@ workflow:
     - if: $CI_COMMIT_BRANCH =~ /^feature\/.*/ 
     - if: $CI_COMMIT_BRANCH == "main"
 
+variables:   # <-- move here, not under "default"
+  PIP_CACHE_DIR: ".cache/pip"
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+
 default:
   image: python:3.11
   cache:
     key: "${CI_JOB_NAME}"
     paths: [ .cache/pip/ ]
-  variables:
-    PIP_CACHE_DIR: ".cache/pip"
-    PIP_DISABLE_PIP_VERSION_CHECK: "1"
   before_script:
     - python -m pip install --upgrade pip
 
@@ -21,7 +22,7 @@ build:
   stage: build
   script:
     - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - echo " Build environment ready."
+    - echo "Build environment ready."
   artifacts:
     when: always
     expire_in: 1 week
@@ -61,7 +62,7 @@ package:
   script:
     - pip install build
     - python -m build
-    - echo " Packaging complete."
+    - echo "Packaging complete."
   artifacts:
     when: always
     expire_in: 1 week
@@ -72,6 +73,6 @@ deploy:
   image: alpine:latest
   needs: ["package"]
   script:
-    - echo " Simulated deploy step completed."
+    - echo "Simulated deploy step completed."
   artifacts:
     when: never
