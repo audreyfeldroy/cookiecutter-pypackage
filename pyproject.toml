@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "cookiecutter-pypackage"
 version = "0.2.0"
@@ -33,28 +37,27 @@ dependencies = [
 
 [project.optional-dependencies]
 test = [
-    "coverage",  # testing
-    "pytest",  # testing
-    "pytest-cookies",  # testing
-    "ruff",  # linting
-    "ty", # checking types
+    "coverage",
+    "pytest",
+    "pytest-cookies",
+    "ruff",
+    "mypy",  # fixed
     "ipdb"
+]
+dev = [
+    "rust-just>=1.42.4",
 ]
 
 [project.urls]
 homepage = "https://github.com/audreyfeldroy/cookiecutter-pypackage"
 
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["cookiecutter_pypackage*"]
+exclude = ["tests*", "hooks*", "reports*", "docs*"]
+
 [tool.ruff]
-exclude = [
-    "*cookiecutter.pypi_package_name*"
-    ]
+exclude = ["{{cookiecutter_pypi_package_name}}"]
 
 [tool.pytest.ini_options]
-testpaths = [
-    "tests",
-]
-
-[dependency-groups]
-dev = [
-    "rust-just>=1.42.4",
-]
+testpaths = ["tests"]
