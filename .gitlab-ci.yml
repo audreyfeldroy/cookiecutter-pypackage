@@ -1,77 +1,77 @@
-stages:
-  - build
-  - test
-  - package
-  - deploy
+stages: [build, test, package, deploy]
 
-# 1. Build Job
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH =~ /^feature\/.*/ 
+    - if: $CI_COMMIT_BRANCH == "main"
+
+default:
+  image: python:3.11
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths: [ .cache/pip/ ]
+  variables:
+    PIP_CACHE_DIR: ".cache/pip"
+    PIP_DISABLE_PIP_VERSION_CHECK: "1"
+  before_script:
+    - python -m pip install --upgrade pip
+
 build:
   stage: build
-  image: python:3.11
   script:
-    - python -m pip install --upgrade pip
-    # Only install if file exists
     - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - echo "✅ Build step completed, dependencies installed"
-  artifacts:
-    paths:
-      - .venv/
-
-# 2. Test Job
-test:
-  stage: test
-  image: python:3.11
-  before_script:
-    - apt-get update && apt-get install -y curl unzip
-    - python -m pip install --upgrade pip
-    - pip install pytest pytest-cov cookiecutter
-    - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-
-    # Install "just"
-    - curl -sL https://github.com/casey/just/releases/download/1.25.2/just-1.25.2-x86_64-unknown-linux-musl.tar.gz -o just.tar.gz
-    - tar -xzf just.tar.gz
-    - mv just /usr/local/bin/just
-    - chmod +x /usr/local/bin/just
-    - just --version || true
-
-  script:
-    - mkdir -p reports
-    - pytest ./tests -v --disable-warnings \
-        --junitxml=reports/junit.xml \
-        --cov=. \
-        --cov-report=xml:reports/coverage.xml \
-        --cov-report=html:reports/html || true
-
+    - echo " Build environment ready."
   artifacts:
     when: always
+    expire_in: 1 week
+    paths: [ .venv/ ]
+
+test:
+  stage: test
+  parallel:
+    matrix:
+      - PY_VER: ["3.8","3.9","3.10","3.11"]
+  image: "python:${PY_VER}"
+  before_script:
+    - python -m pip install --upgrade pip
+    - apt-get update && apt-get install -y --no-install-recommends just curl unzip && rm -rf /var/lib/apt/lists/*
+  script:
+    - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - pip install pytest pytest-cov cookiecutter pytest-cookies
+    - mkdir -p reports/html-${PY_VER}
+    - pytest -q \
+        --junitxml=reports/junit-${PY_VER}.xml \
+        --cov=. --cov-report=xml:reports/coverage-${PY_VER}.xml \
+        --cov-report=html:reports/html-${PY_VER} \
+        --cov-report=term-missing
+  artifacts:
+    when: always
+    expire_in: 1 week
     reports:
-      junit: reports/junit.xml
+      junit: "reports/junit-*.xml"
       coverage_report:
         coverage_format: cobertura
-        path: reports/coverage.xml
-    paths:
-      - reports/
+        path: "reports/coverage-*.xml"
+    paths: [ reports/ ]
 
-
-# 3. Package Job
 package:
   stage: package
-  image: python:3.11
+  needs: ["test"]
   script:
-    - python -m pip install --upgrade pip
     - pip install build
-    # ✅ Remove non-package dirs to avoid setuptools error
-    - rm -rf reports hooks
     - python -m build
-    - echo "📦 Packaging complete"
+    - echo " Packaging complete."
   artifacts:
-    paths:
-      - dist/
+    when: always
+    expire_in: 1 week
+    paths: [ dist/ ]
 
-# 4. Deploy Job
 deploy:
   stage: deploy
   image: alpine:latest
+  needs: ["package"]
   script:
-    - echo "🚀 Simulating deployment..."
-    - echo "Deployment step completed successfully"
+    - echo " Simulated deploy step completed."
+  artifacts:
+    when: never
