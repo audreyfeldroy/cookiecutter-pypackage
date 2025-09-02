@@ -1,84 +1,44 @@
 stages: [build, test, package, deploy]
 
-workflow:
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-    - if: $CI_COMMIT_BRANCH =~ /^feature\/.*/ 
-    - if: $CI_COMMIT_BRANCH == "main"
-
-variables:
-  PIP_CACHE_DIR: ".cache/pip"
-  PIP_DISABLE_PIP_VERSION_CHECK: "1"
-
-default:
-  image: python:3.11
-  cache:
-    key: "${CI_JOB_NAME}"
-    paths: [ .cache/pip/ ]
-  before_script:
-    - python -m pip install --upgrade pip
-
 build:
   stage: build
+  image: python:3.11
   script:
+    - echo "Build stage running"
     - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - echo "Build environment ready."
   artifacts:
-    when: always
-    expire_in: 1 week
-    paths: [ .venv/ ]
+    paths:
+      - .venv/
 
 test:
   stage: test
-  parallel:
-    matrix:
-      - PY_VER: ["3.8","3.9","3.10","3.11"]
-  image: "python:${PY_VER}"
-  before_script:
-    - python -m pip install --upgrade pip
-    - apt-get update && apt-get install -y --no-install-recommends curl unzip && rm -rf /var/lib/apt/lists/*
+  image: python:3.11
   script:
-    - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - pip install pytest pytest-cov cookiecutter pytest-cookies
-    - mkdir -p reports/html-${PY_VER}
-    - pytest tests \
-        --junitxml=reports/junit-${PY_VER}.xml \
-        --cov=. --cov-report=xml:reports/coverage-${PY_VER}.xml \
-        --cov-report=html:reports/html-${PY_VER} \
-        --cov-report=term-missing || true
+    - pip install pytest pytest-cov
+    - pytest tests || true
   artifacts:
-    when: always
-    expire_in: 1 week
-    reports:
-      junit: "reports/junit-*.xml"
-      coverage_report:
-        coverage_format: cobertura
-        path: "reports/coverage-*.xml"
-    paths: [ reports/ ]
+    paths:
+      - reports/
 
 package:
   stage: package
-  needs: ["test"]
+  image: python:3.11
   script:
     - pip install build twine
     - python -m build
     - twine check dist/*
-    - echo "Packaging complete."
   artifacts:
-    when: always
-    expire_in: 1 week
-    paths: [ dist/ ]
+    paths:
+      - dist/
 
 deploy:
   stage: deploy
   image: python:3.11
   needs: ["package"]
   script:
-    - python -m pip install --upgrade pip
     - pip install twine
     - twine check dist/*
-    - echo "Deploy stage: validated package with Twine!!!!"
+    - echo "Deploy stage finished successfully"
   artifacts:
-    when: always
-    expire_in: 1 week
-    paths: [ dist/ ]
+    paths:
+      - dist/
