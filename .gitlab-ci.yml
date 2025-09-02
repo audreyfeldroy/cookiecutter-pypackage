@@ -17,8 +17,9 @@ test:
     - pip install pytest pytest-cov cookiecutter pytest-cookies
     - mkdir -p reports/html
     - pytest tests \
+        --disable-warnings -q \
         --junitxml=reports/junit.xml \
-        --cov={{cookiecutter.pypi_package_name}} \
+        --cov=. \
         --cov-report=xml:reports/coverage.xml \
         --cov-report=html:reports/html \
         --cov-report=term-missing || true
