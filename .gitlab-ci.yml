@@ -6,7 +6,7 @@ workflow:
     - if: $CI_COMMIT_BRANCH =~ /^feature\/.*/ 
     - if: $CI_COMMIT_BRANCH == "main"
 
-variables:   # <-- move here, not under "default"
+variables:
   PIP_CACHE_DIR: ".cache/pip"
   PIP_DISABLE_PIP_VERSION_CHECK: "1"
 
@@ -74,5 +74,3 @@ deploy:
   needs: ["package"]
   script:
     - echo "Simulated deploy step completed."
-  artifacts:
-    when: never
