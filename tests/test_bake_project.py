@@ -53,7 +53,7 @@ def check_output_inside_dir(command, dirpath):
         return subprocess.check_output(shlex.split(command))
 
 
-def test_year_compute_in_license_file(cookies):
+def test_year_compute_in_license_file_case(cookies):
     with bake_in_temp_dir(cookies) as result:
         license_file_path = result.project.join("LICENSE")
         now = datetime.datetime.now()
@@ -71,7 +71,7 @@ def project_info(result):
     return project_path, project_slug, project_dir
 
 
-def test_bake_with_defaults(cookies):
+def test_bake_with_defaults_case(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
         assert result.exit_code == 0
@@ -81,7 +81,7 @@ def test_bake_with_defaults(cookies):
         assert "tests" in found_toplevel_files
 
 
-def test_bake_and_run_tests(cookies):
+def test_bake_and_run_tests_case(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
         run_inside_dir("pytest", str(result.project)) == 0
@@ -89,7 +89,7 @@ def test_bake_and_run_tests(cookies):
 
 
 @pytest.mark.skip(reason="A rare edge case, probably Cookiecutter's fault")
-def test_bake_withspecialchars_and_run_tests(cookies):
+def test_bake_withspecialchars_and_run_tests_case(cookies):
     """Ensure that a `full_name` with double quotes does not break pytest"""
     with bake_in_temp_dir(
         cookies, extra_context={"full_name": 'name "quote" name'}
@@ -98,14 +98,14 @@ def test_bake_withspecialchars_and_run_tests(cookies):
         run_inside_dir("pytest", str(result.project)) == 0
 
 
-def test_bake_with_apostrophe_and_run_tests(cookies):
+def test_bake_with_apostrophe_and_run_tests_case(cookies):
     """Ensure that a `full_name` with apostrophes does not break setup.py"""
     with bake_in_temp_dir(cookies, extra_context={"full_name": "O'connor"}) as result:
         assert result.project.isdir()
         run_inside_dir("pytest", str(result.project)) == 0
 
 
-def test_just_list(cookies):
+def test_just_list_cmd(cookies):
     with bake_in_temp_dir(cookies) as result:
         # The supplied justfile does not support win32
         if sys.platform != "win32":
