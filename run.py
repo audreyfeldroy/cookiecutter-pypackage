@@ -25,7 +25,7 @@ from watchdog.observers import Observer
 class ChangeHandler(FileSystemEventHandler):
     def __init__(self):
         self.last_run = 0
-        self.wait_time = 2  # seconds
+        self.waittime = 2  # seconds
 
     def on_any_event(self, event):
         # Ignore changes to run.py itself
@@ -35,7 +35,7 @@ class ChangeHandler(FileSystemEventHandler):
             return
 
         current_time = time.time()
-        if current_time - self.last_run > self.wait_time:
+        if current_time - self.last_run > self.waittime:
             self.last_run = current_time
             print(f"Detected change in {event.src_path}. Running cookiecutter...")
             try:
