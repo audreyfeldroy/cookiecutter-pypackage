@@ -14,7 +14,8 @@ classifiers = [
 ]
 license = {text = "MIT"}
 dependencies = [
-  "typer"
+  "typer",
+  "rich",
 ]
 requires-python = ">= 3.10"
 
