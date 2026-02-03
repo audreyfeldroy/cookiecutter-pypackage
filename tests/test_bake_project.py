@@ -105,6 +105,18 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
         run_inside_dir("pytest", str(result.project)) == 0
 
 
+def test_bake_with_quotes_in_description(cookies):
+    """Ensure that double quotes in project_short_description produce valid TOML."""
+    with bake_in_temp_dir(
+        cookies, extra_context={"project_short_description": 'A "quoted" description'}
+    ) as result:
+        assert result.project.isdir()
+        assert result.exit_code == 0
+        pyproject_path = result.project.join("pyproject.toml")
+        content = pyproject_path.read()
+        assert 'description = "A \\"quoted\\" description"' in content
+
+
 def test_just_list(cookies):
     with bake_in_temp_dir(cookies) as result:
         # The supplied justfile does not support win32
