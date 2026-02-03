@@ -1,6 +1,10 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "cookiecutter-pypackage"
-version = "0.2.0"
+version = "0.3.0"
 description = "Cookiecutter template for a Python package"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -41,6 +45,9 @@ test = [
     "ipdb"
 ]
 
+[project.scripts]
+cookiecutter-pypackage = "cookiecutter_pypackage.cli:app"
+
 [project.urls]
 homepage = "https://github.com/audreyfeldroy/cookiecutter-pypackage"
 
@@ -58,3 +65,19 @@ testpaths = [
 dev = [
     "rust-just>=1.42.4",
 ]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/",
+    "cookiecutter.json",
+    "hooks/",
+    "{{cookiecutter.pypi_package_name}}/",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cookiecutter_pypackage"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"cookiecutter.json" = "cookiecutter_pypackage/template/cookiecutter.json"
+"hooks" = "cookiecutter_pypackage/template/hooks"
+"{{cookiecutter.pypi_package_name}}" = "cookiecutter_pypackage/template/{{cookiecutter.pypi_package_name}}"
