@@ -107,12 +107,12 @@ pytest tests.test_{{ cookiecutter.project_slug }}
 A reminder for the maintainers on how to deploy. Make sure all your changes are committed (including an entry in HISTORY.md). Then run:
 
 ```sh
-bump2version patch # possible: major / minor / patch
-git push
-git push --tags
+uv version patch  # or: minor, major
+git commit -am "Release X.Y.Z"
+just tag
 ```
 
-You can set up a [GitHub Actions workflow](https://docs.github.com/en/actions/use-cases-and-examples/building-and-testing/building-and-testing-python#publishing-to-pypi) to automatically deploy your package to PyPI when you push a new tag.
+GitHub Actions will automatically publish to PyPI when the tag is pushed. See `.github/workflows/publish.yml` for details.
 
 ## Code of Conduct
 

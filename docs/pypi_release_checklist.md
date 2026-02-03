@@ -1,54 +1,55 @@
 # PyPI Release Checklist
 
-## Before Your First Release
+## First-Time Setup (One-Time)
 
-1. Register the package on PyPI:
+1. Create a PyPI account at [pypi.org](https://pypi.org) if you don't have one.
 
-    ```bash
-    python setup.py register
-    ```
+2. Go to your PyPI account > Publishing > Add a new pending publisher.
 
-2. Visit PyPI to make sure it registered.
+3. Fill in the form:
+   - **PyPI Project Name:** Your package name (e.g., `my-package`)
+   - **Owner:** Your GitHub username or organization
+   - **Repository name:** Your repo name
+   - **Workflow name:** `publish.yml`
+   - **Environment name:** Leave blank
 
-## For Every Release
+4. Push your first tag to trigger the publish (see below).
 
-1. Update `HISTORY.md`
-2. Commit the changes:
+## Every Release
 
-    ```bash
-    git add HISTORY.md
-    git commit -m "Changelog for upcoming release 0.1.1."
-    ```
+1. Update `HISTORY.md` with your changes.
 
-3. Update version number (can also be minor or major):
-
-    ```bash
-    uv version --bump patch
-    ```
-
-4. Install the package again for local development, but with the new version number:
+2. Bump version:
 
     ```bash
-    python setup.py develop
+    uv version patch  # or: minor, major
     ```
 
-5. Run the tests:
+3. Commit:
 
     ```bash
-    tox
+    git commit -am "Release X.Y.Z"
     ```
 
-6. Push the commit:
+4. Tag and push:
 
     ```bash
-    git push
+    just tag
     ```
 
-7. Push the tags, creating the new release on both GitHub and PyPI:
+    Or manually:
 
     ```bash
-    git push --tags
+    git tag vX.Y.Z
+    git push origin vX.Y.Z
     ```
 
-8. Check the PyPI listing page to make sure that the README, release notes, and roadmap display properly. If not, try one of these:
-    - Copy and paste the Markdown into a Markdown previewer (such as https://dillinger.io/) to find out what broke the formatting.
+5. GitHub Actions publishes to PyPI automatically.
+
+## Troubleshooting
+
+If the publish fails:
+
+- Check that your PyPI trusted publisher settings match your workflow exactly
+- Verify the tag format matches what PyPI expects (e.g., `v1.0.0`)
+- Look at the GitHub Actions logs for detailed error messages

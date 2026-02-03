@@ -79,3 +79,8 @@ clean-test:
 	rm -f .coverage
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
+
+# Publish to PyPI (manual alternative to GitHub Actions)
+publish:
+    uv build
+    uv publish
