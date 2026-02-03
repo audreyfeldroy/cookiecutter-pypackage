@@ -88,13 +88,13 @@ def test_bake_and_run_tests(cookies):
         print("test_bake_and_run_tests path", str(result.project))
 
 
-@pytest.mark.skip(reason="A rare edge case, probably Cookiecutter's fault")
 def test_bake_withspecialchars_and_run_tests(cookies):
-    """Ensure that a `full_name` with double quotes does not break pytest"""
+    """Ensure that a `full_name` with double quotes does not break pyproject.toml"""
     with bake_in_temp_dir(
         cookies, extra_context={"full_name": 'name "quote" name'}
     ) as result:
         assert result.project.isdir()
+        assert result.exit_code == 0
         run_inside_dir("uv run --extra test pytest", str(result.project)) == 0
 
 

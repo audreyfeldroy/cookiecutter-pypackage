@@ -4,10 +4,10 @@ version = "{{ cookiecutter.first_version }}"
 description = "{{ cookiecutter.project_short_description | replace('\\', '\\\\') | replace('\"', '\\\"') }}"
 readme = "README.md"
 authors = [
-  {name = "{{cookiecutter.full_name}}", email = "{{cookiecutter.email}}"}
+  {name = "{{ cookiecutter.full_name | replace('\\', '\\\\') | replace('\"', '\\\"') }}", email = "{{cookiecutter.email}}"}
 ]
 maintainers = [
-  {name = "{{cookiecutter.full_name}}", email = "{{cookiecutter.email}}"}
+  {name = "{{ cookiecutter.full_name | replace('\\', '\\\\') | replace('\"', '\\\"') }}", email = "{{cookiecutter.email}}"}
 ]
 classifiers = [
     # TODO
