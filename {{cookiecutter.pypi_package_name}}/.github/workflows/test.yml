@@ -24,23 +24,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python {% raw %}${{ matrix.python-version }}{% endraw %}
-      uses: actions/setup-python@v5
+    - name: Set up uv
+      uses: astral-sh/setup-uv@v5
       with:
         python-version: {% raw %}${{ matrix.python-version }}{% endraw %}
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements_dev.txt
     - name: Lint with ruff
       run: |
         # stop the build if there are Python syntax errors or undefined names
-        ruff check --select=E9,F63,F7,F82
+        uv run ruff check --select=E9,F63,F7,F82
         # exit-zero treats all errors as warnings
-        ruff check --exit-zero --statistics
-    - name: Install project
-      run: |
-        pip install .
+        uv run ruff check --exit-zero --statistics
     - name: Run tests
       run: |
-        pytest
+        uv run pytest
