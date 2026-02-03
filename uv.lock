@@ -198,8 +198,8 @@ wheels = [
 
 [[package]]
 name = "cookiecutter-pypackage"
-version = "0.2.0"
-source = { virtual = "." }
+version = "0.3.0"
+source = { editable = "." }
 dependencies = [
     { name = "alabaster" },
     { name = "cookiecutter" },
