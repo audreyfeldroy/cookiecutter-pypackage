@@ -11,31 +11,52 @@
 
 ## Features
 
-*   Testing setup with pytest
-*   GitHub Actions testing: Setup to easily test for Python 3.10, 3.11, 3.12, and 3.13
-*   Auto-release to [PyPI](https://pypi.python.org/pypi) when you push a new tag to main (optional)
-*   Command line interface using Typer
+*   Modern tooling: [uv](https://docs.astral.sh/uv/) for dependency management, [justfile](https://github.com/casey/just) for task running
+*   Testing with pytest, GitHub Actions for Python 3.10, 3.11, 3.12, 3.13, and 3.14
+*   Auto-release to [PyPI](https://pypi.python.org/pypi) via Trusted Publishers when you push a tag
+*   Command line interface using [Typer](https://typer.tiangolo.com/)
 
 ## Quickstart
 
-Install the latest Cookiecutter if you haven't installed it yet:
+First, install [uv](https://docs.astral.sh/uv/getting-started/installation/) if you haven't already.
+
+Generate a new Python package:
 
 ```bash
-pip install -U cookiecutter
+uvx cookiecutter-pypackage
 ```
 
-Generate a Python package project:
+You'll be prompted for some values:
+
+```
+[1/9] full_name (Audrey M. Roy Greenfeld): Your Name
+[2/9] email (audreyfeldroy@example.com): you@example.com
+[3/9] github_username (audreyfeldroy): your-github-username
+[4/9] pypi_package_name (python-boilerplate): my-package
+[5/9] project_name (Python Boilerplate): My Package
+[6/9] project_slug (my_package):
+[7/9] project_short_description (...): A short description of your package.
+[8/9] pypi_username (your-github-username):
+[9/9] first_version (0.1.0):
+```
+
+<details>
+<summary>Traditional way (without uvx)</summary>
 
 ```bash
-cookiecutter https://github.com/audreyfeldroy/cookiecutter-pypackage.git
+uv venv
+source .venv/bin/activate
+uv pip install cookiecutter
+cookiecutter gh:audreyfeldroy/cookiecutter-pypackage
 ```
+
+</details>
 
 Then:
 
-*   Create a repo and put it there.
-*   [Register](https://packaging.python.org/tutorials/packaging-projects/#uploading-the-distribution-archives) your project with PyPI.
-*   Add the repo to your [Read the Docs](https://readthedocs.io/) account + turn on the Read the Docs service hook.
-*   Release your package by pushing a new tag to main.
+*   Create a GitHub repo and push your code
+*   Set up [PyPI Trusted Publishing](https://docs.pypi.org/trusted-publishers/) for your repo
+*   Release your package by pushing a tag: `git tag v0.1.0 && git push --tags`
 
 ## Not Exactly What You Want?
 
