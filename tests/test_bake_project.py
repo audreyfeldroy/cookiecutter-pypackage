@@ -84,7 +84,7 @@ def test_bake_with_defaults(cookies):
 def test_bake_and_run_tests(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
-        run_inside_dir("uv run --extra test pytest", str(result.project)) == 0
+        run_inside_dir("uv run --extra test pytest", str(result.project))
         print("test_bake_and_run_tests path", str(result.project))
 
 
@@ -95,14 +95,14 @@ def test_bake_withspecialchars_and_run_tests(cookies):
     ) as result:
         assert result.project.isdir()
         assert result.exit_code == 0
-        run_inside_dir("uv run --extra test pytest", str(result.project)) == 0
+        run_inside_dir("uv run --extra test pytest", str(result.project))
 
 
 def test_bake_with_apostrophe_and_run_tests(cookies):
     """Ensure that a `full_name` with apostrophes does not break pyproject.toml"""
     with bake_in_temp_dir(cookies, extra_context={"full_name": "O'connor"}) as result:
         assert result.project.isdir()
-        run_inside_dir("uv run --extra test pytest", str(result.project)) == 0
+        run_inside_dir("uv run --extra test pytest", str(result.project))
 
 
 def test_bake_with_quotes_in_description(cookies):
