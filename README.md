@@ -13,7 +13,7 @@
 
 *   Testing setup with pytest
 *   GitHub Actions testing: Setup to easily test for Python 3.10, 3.11, 3.12, and 3.13
-*   Auto-release to [PyPI](https://pypi.python.org/pypi) when you push a new tag to master (optional)
+*   Auto-release to [PyPI](https://pypi.python.org/pypi) when you push a new tag to main (optional)
 *   Command line interface using Typer
 
 ## Quickstart
@@ -35,7 +35,7 @@ Then:
 *   Create a repo and put it there.
 *   [Register](https://packaging.python.org/tutorials/packaging-projects/#uploading-the-distribution-archives) your project with PyPI.
 *   Add the repo to your [Read the Docs](https://readthedocs.io/) account + turn on the Read the Docs service hook.
-*   Release your package by pushing a new tag to master.
+*   Release your package by pushing a new tag to main.
 
 ## Not Exactly What You Want?
 
