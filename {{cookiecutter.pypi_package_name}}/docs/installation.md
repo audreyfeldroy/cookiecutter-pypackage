@@ -24,10 +24,10 @@ You can either clone the public repository:
 git clone git://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}
 ```
 
-Or download the [tarball](https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/tarball/master):
+Or download the [tarball](https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/tarball/main):
 
 ```sh
-curl -OJL https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/tarball/master
+curl -OJL https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/tarball/main
 ```
 
 Once you have a copy of the source, you can install it with:
