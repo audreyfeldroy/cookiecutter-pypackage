@@ -19,13 +19,19 @@ dependencies = [
 ]
 requires-python = ">= 3.10"
 
-[project.optional-dependencies]
+[dependency-groups]
+dev = [
+    { include-group = "lint" },
+    { include-group = "test" },
+]
+lint = [
+    "ruff",
+]
 test = [
-    "coverage",  # testing
-    "pytest",  # testing
-    "ruff",  # linting
-    "ty", # checking types
-    "ipdb", # debugging
+    "coverage",
+    "pytest",
+    "ty",
+    "ipdb",
 ]
 
 [project.urls]
@@ -56,3 +62,4 @@ select = [
 
 [tool.uv]
 package = true
+default-groups = ["dev"]
