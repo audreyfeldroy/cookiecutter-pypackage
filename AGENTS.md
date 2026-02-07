@@ -1,5 +1,9 @@
 # Agent Instructions
 
+## Pace
+
+- Slow down. Draft changes and show them before applying. Rushing leads to mistakes that take longer to fix than doing it right the first time.
+
 ## Keep the outer repo in sync with the generated project
 
 This repo has two layers: the outer repo (the cookiecutter template project itself) and the generated project (inside `{{cookiecutter.pypi_package_name}}/`). They share similar patterns for pyproject.toml, justfile, CI workflows, etc.
@@ -15,7 +19,8 @@ When you fix or change something in the generated project template, check whethe
 
 ## Commits
 
-Keep commits small and atomic. One logical change per commit. Don't bundle unrelated changes.
+- Keep commits small and atomic. One logical change per commit. Don't bundle unrelated changes.
+- Never push directly to main. Always use a PR branch and get human approval before merging.
 
 ## Read the actual files
 
