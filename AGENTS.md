@@ -5,3 +5,7 @@
 This repo has two layers: the outer repo (the cookiecutter template project itself) and the generated project (inside `{{cookiecutter.pypi_package_name}}/`). They share similar patterns for pyproject.toml, justfile, CI workflows, etc.
 
 When you fix or change something in the generated project template, check whether the same fix applies to the outer repo. If it does, make both changes together. Don't leave the outer repo behind.
+
+## Merging community PRs
+
+When merging a PR from an external contributor, leave a comment thanking them after the merge is complete. Not before.
