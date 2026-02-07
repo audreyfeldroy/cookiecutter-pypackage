@@ -43,7 +43,7 @@ tag:
 # Run all the tests, but allow for arguments to be passed
 test *ARGS:
     @echo "Running with arg: {{ARGS}}"
-    uv run --python=3.13 --extra dev pytest {{ARGS}}
+    uv run --python=3.13 pytest {{ARGS}}
 
 # Run all the tests, but on failure, drop into the debugger
 pdb *ARGS:
@@ -52,32 +52,32 @@ pdb *ARGS:
 
 # Run all the formatting, linting, type checking, and testing commands
 qa:
-    uv run --python=3.13 --extra test ruff format .
-    uv run --python=3.13 --extra test ruff check . --fix
-    uv run --python=3.13 --extra test ruff check --select I --fix .
-    uv run --python=3.13 --extra test ty check .
-    uv run --python=3.13 --extra test pytest .
+    uv run --python=3.13 ruff format .
+    uv run --python=3.13 ruff check . --fix
+    uv run --python=3.13 ruff check --select I --fix .
+    uv run --python=3.13 ty check .
+    uv run --python=3.13 pytest .
 
 # Run all the checks for CI
 ci:
-    uv run --python=3.13 --extra test ruff format --check .
-    uv run --python=3.13 --extra test ruff check .
-    uv run --python=3.13 --extra test ruff check --select I .
-    uv run --python=3.13 --extra test ty check .
-    uv run --python=3.13 --extra test pytest .
+    uv run --python=3.13 ruff format --check .
+    uv run --python=3.13 ruff check .
+    uv run --python=3.13 ruff check --select I .
+    uv run --python=3.13 ty check .
+    uv run --python=3.13 pytest .
 
 # Run all the tests for all the supported Python versions
 testall:
-    uv run --python=3.10 --extra test pytest
-    uv run --python=3.11 --extra test pytest
-    uv run --python=3.12 --extra test pytest
-    uv run --python=3.13 --extra test pytest
+    uv run --python=3.10 pytest
+    uv run --python=3.11 pytest
+    uv run --python=3.12 pytest
+    uv run --python=3.13 pytest
 
 # Run coverage, and build to HTML
 coverage:
-    uv run --python=3.13 --extra test coverage run -m pytest .
-    uv run --python=3.13 --extra test coverage report -m
-    uv run --python=3.13 --extra test coverage html
+    uv run --python=3.13 coverage run -m pytest .
+    uv run --python=3.13 coverage report -m
+    uv run --python=3.13 coverage html
 
 # Serve docs locally
 doc:
