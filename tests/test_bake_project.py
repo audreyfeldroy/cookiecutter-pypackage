@@ -39,7 +39,7 @@ def bake_in_temp_dir(cookies, *args, **kwargs):
 
 def run_inside_dir(command, dirpath):
     """
-    Run a command from inside a given directory, returning the exit status
+    Run a command from inside a given directory, raising on non-zero exit.
     :param command: Command that will be executed
     :param dirpath: String, path of the directory the command is being run.
     """
