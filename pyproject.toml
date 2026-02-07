@@ -35,15 +35,6 @@ dependencies = [
     "watchdog>=6.0.0",
 ]
 
-[project.optional-dependencies]
-test = [
-    "coverage",  # testing
-    "pytest",  # testing
-    "pytest-cookies",  # testing
-    "ruff",  # linting
-    "ty", # checking types
-    "ipdb"
-]
 
 [project.scripts]
 cookiecutter-pypackage = "cookiecutter_pypackage.cli:app"
@@ -63,6 +54,21 @@ testpaths = [
 
 [dependency-groups]
 dev = [
+    { include-group = "lint" },
+    { include-group = "test" },
+    { include-group = "tools" },
+]
+lint = [
+    "ruff",
+]
+test = [
+    "coverage",
+    "pytest",
+    "pytest-cookies",
+    "ty",
+    "ipdb",
+]
+tools = [
     "rust-just>=1.42.4",
 ]
 
