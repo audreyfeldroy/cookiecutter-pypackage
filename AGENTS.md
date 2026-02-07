@@ -15,7 +15,8 @@ When you fix or change something in the generated project template, check whethe
 
 ## Commits
 
-Keep commits small and atomic. One logical change per commit. Don't bundle unrelated changes.
+- Keep commits small and atomic. One logical change per commit. Don't bundle unrelated changes.
+- Never push directly to main. Always use a PR branch and get human approval before merging.
 
 ## Read the actual files
 
