@@ -207,18 +207,27 @@ dependencies = [
     { name = "watchdog" },
 ]
 
-[package.optional-dependencies]
-test = [
+[package.dev-dependencies]
+dev = [
     { name = "coverage" },
     { name = "ipdb" },
     { name = "pytest" },
     { name = "pytest-cookies" },
     { name = "ruff" },
+    { name = "rust-just" },
     { name = "ty" },
 ]
-
-[package.dev-dependencies]
-dev = [
+lint = [
+    { name = "ruff" },
+]
+test = [
+    { name = "coverage" },
+    { name = "ipdb" },
+    { name = "pytest" },
+    { name = "pytest-cookies" },
+    { name = "ty" },
+]
+tools = [
     { name = "rust-just" },
 ]
 
@@ -226,19 +235,29 @@ dev = [
 requires-dist = [
     { name = "alabaster", specifier = ">=1.0.0" },
     { name = "cookiecutter", specifier = ">=2.6.0" },
-    { name = "coverage", marker = "extra == 'test'" },
-    { name = "ipdb", marker = "extra == 'test'" },
-    { name = "pytest", marker = "extra == 'test'" },
-    { name = "pytest-cookies", marker = "extra == 'test'" },
-    { name = "ruff", marker = "extra == 'test'" },
-    { name = "ty", marker = "extra == 'test'" },
     { name = "typer", specifier = ">=0.16.0" },
     { name = "watchdog", specifier = ">=6.0.0" },
 ]
-provides-extras = ["test"]
 
 [package.metadata.requires-dev]
-dev = [{ name = "rust-just", specifier = ">=1.42.4" }]
+dev = [
+    { name = "coverage" },
+    { name = "ipdb" },
+    { name = "pytest" },
+    { name = "pytest-cookies" },
+    { name = "ruff" },
+    { name = "rust-just", specifier = ">=1.42.4" },
+    { name = "ty" },
+]
+lint = [{ name = "ruff" }]
+test = [
+    { name = "coverage" },
+    { name = "ipdb" },
+    { name = "pytest" },
+    { name = "pytest-cookies" },
+    { name = "ty" },
+]
+tools = [{ name = "rust-just", specifier = ">=1.42.4" }]
 
 [[package]]
 name = "coverage"
