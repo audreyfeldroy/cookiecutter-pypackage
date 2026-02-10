@@ -13,6 +13,33 @@
 
 * TODO
 
+## Development
+
+To set up for local development:
+
+```bash
+# Clone your fork
+git clone git@github.com:your_username/{{ cookiecutter.pypi_package_name }}.git
+cd {{ cookiecutter.pypi_package_name }}
+
+# Install in editable mode with live updates
+uv tool install --editable .
+```
+
+This installs the CLI globally but with live updates - any changes you make to the source code are immediately available when you run `{{ cookiecutter.project_slug }}`.
+
+Run tests:
+
+```bash
+uv run pytest
+```
+
+Run quality checks (format, lint, type check, test):
+
+```bash
+just qa
+```
+
 ## Credits
 
 This package was created with [Cookiecutter](https://github.com/audreyfeldroy/cookiecutter) and the [audreyfeldroy/cookiecutter-pypackage](https://github.com/audreyfeldroy/cookiecutter-pypackage) project template.
