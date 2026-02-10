@@ -7,4 +7,4 @@ recursive-include tests *
 recursive-exclude * __pycache__
 recursive-exclude * *.py[co]
 
-recursive-include docs *.md Makefile *.jpg *.png *.gif
+recursive-include docs *.md *.jpg *.png *.gif
