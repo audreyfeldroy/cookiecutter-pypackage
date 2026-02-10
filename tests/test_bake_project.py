@@ -85,7 +85,6 @@ def test_bake_and_run_tests(cookies):
     with bake_in_temp_dir(cookies) as result:
         assert result.project.isdir()
         run_inside_dir("uv run pytest", str(result.project))
-        print("test_bake_and_run_tests path", str(result.project))
 
 
 def test_bake_withspecialchars_and_run_tests(cookies):
@@ -123,11 +122,3 @@ def test_just_list(cookies):
         if sys.platform != "win32":
             output = check_output_inside_dir("just list", str(result.project))
             assert b"Show available commands" in output
-
-
-# def test_project_with_hyphen_in_module_name(cookies):
-#     result = cookies.bake(
-#         extra_context={'_name': 'something-with-a-dash'}
-#     )
-#     assert result.project is not None
-#     project_path = str(result.project)
