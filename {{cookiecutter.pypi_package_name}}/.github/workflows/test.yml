@@ -34,6 +34,9 @@ jobs:
         uv run ruff check --select=E9,F63,F7,F82
         # exit-zero treats all errors as warnings
         uv run ruff check --exit-zero --statistics
+    - name: Type check with ty
+      run: |
+        uv run ty check .
     - name: Run tests
       run: |
         uv run pytest
