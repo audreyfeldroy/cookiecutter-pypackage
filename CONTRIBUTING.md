@@ -40,4 +40,62 @@ If you are proposing a new feature:
 
 ## Get Started!
 
-Ready to contribute? Here's how to set up `cookiecutter-pypackage` for local development. Please note this documentation assumes you already have ...
+Ready to contribute? Here's how to set up `cookiecutter-pypackage` for local development. Please note this documentation assumes you already have [uv](https://docs.astral.sh/uv/) and [just](https://github.com/casey/just) installed.
+
+1. Fork the `cookiecutter-pypackage` repo on GitHub.
+2. Clone your fork locally:
+
+   ```sh
+   git clone git@github.com:your_name_here/cookiecutter-pypackage.git
+   ```
+
+3. Install dependencies:
+
+   ```sh
+   cd cookiecutter-pypackage/
+   uv sync
+   ```
+
+4. Create a branch for local development:
+
+   ```sh
+   git checkout -b name-of-your-bugfix-or-feature
+   ```
+
+   Now you can make your changes locally.
+
+5. The tests use [pytest-cookies](https://pypi.org/project/pytest-cookies/) to "bake" the template (generate a project from it) and verify the output. Run them with:
+
+   ```sh
+   just test
+   ```
+
+   Or directly:
+
+   ```sh
+   uv run pytest tests/
+   ```
+
+6. For faster iteration on template changes, use the development watcher. It watches the `{{cookiecutter.pypi_package_name}}/` directory and regenerates the output whenever you save a file:
+
+   ```sh
+   uv run python run.py
+   ```
+
+7. Commit your changes and push your branch to GitHub:
+
+   ```sh
+   git add .
+   git commit -m "Your detailed description of your changes."
+   git push origin name-of-your-bugfix-or-feature
+   ```
+
+8. Submit a pull request through the GitHub website.
+
+## Pull Request Guidelines
+
+Before you submit a pull request, check that it meets these guidelines:
+
+1. The pull request should include tests if applicable.
+2. If the pull request changes the generated template, make sure `pytest tests/` still passes.
+3. Keep commits small and atomic. One logical change per commit.
