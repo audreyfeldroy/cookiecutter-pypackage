@@ -4,6 +4,7 @@ import shlex
 import subprocess
 import sys
 from contextlib import contextmanager
+from pathlib import Path
 
 import pytest
 from cookiecutter.utils import rmtree
@@ -15,7 +16,7 @@ def inside_dir(dirpath):
     Execute code from inside the given directory
     :param dirpath: String, path of the directory the command is being run.
     """
-    old_path = os.getcwd()
+    old_path = Path.cwd()
     try:
         os.chdir(dirpath)
         yield
@@ -65,10 +66,10 @@ def project_info(result):
     assert result.exception is None
     assert result.project.isdir()
 
-    project_path = str(result.project)
-    project_slug = os.path.split(project_path)[-1]
-    project_dir = os.path.join(project_path, project_slug)
-    return project_path, project_slug, project_dir
+    project_path = Path(result.project)
+    project_slug = project_path.name
+    project_dir = project_path / project_slug
+    return str(project_path), project_slug, str(project_dir)
 
 
 def test_bake_with_defaults(cookies):
