@@ -2,7 +2,6 @@
 
 ## Getting Started
 
-- [Readme](readme.md)
 - [Tutorial](tutorial.md)
 - [PyPI Release Checklist](pypi_release_checklist.md)
 
@@ -13,9 +12,3 @@
 ## Advanced Features
 
 - [Console Script Setup](console_script_setup.md)
-
-## Indices and Tables
-
-- [General Index](#)
-- [Module Index](#)
-- [Search](#)
