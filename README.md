@@ -29,15 +29,16 @@ uvx cookiecutter-pypackage
 You'll be prompted for some values:
 
 ```
-[1/9] full_name (Audrey M. Roy Greenfeld): Your Name
-[2/9] email (audreyfeldroy@example.com): you@example.com
-[3/9] github_username (audreyfeldroy): your-github-username
-[4/9] pypi_package_name (python-boilerplate): my-package
-[5/9] project_name (Python Boilerplate): My Package
-[6/9] project_slug (my_package):
-[7/9] project_short_description (...): A short description of your package.
-[8/9] pypi_username (your-github-username):
-[9/9] first_version (0.1.0):
+[1/10] full_name (Audrey M. Roy Greenfeld): Your Name
+[2/10] email (audreyfeldroy@example.com): you@example.com
+[3/10] github_username (audreyfeldroy): your-github-username
+[4/10] pypi_package_name (python-boilerplate): my-package
+[5/10] project_name (Python Boilerplate): My Package
+[6/10] project_slug (my_package):
+[7/10] project_short_description (...): A short description of your package.
+[8/10] pypi_username (your-github-username):
+[9/10] author_website ():
+[10/10] first_version (0.1.0):
 ```
 
 <details>

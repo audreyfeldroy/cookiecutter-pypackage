@@ -4,6 +4,7 @@
 
 {{ cookiecutter.project_short_description }}
 
+* Created by: [{{ cookiecutter.full_name }}](https://github.com/{{ cookiecutter.github_username }}) ([PyPI](https://pypi.org/user/{{ cookiecutter.pypi_username }}/){%- if cookiecutter.author_website %}, [Website]({{ cookiecutter.author_website }}){% endif %})
 * PyPI package: https://pypi.org/project/{{ cookiecutter.pypi_package_name }}/
 * Free software: MIT License
 
