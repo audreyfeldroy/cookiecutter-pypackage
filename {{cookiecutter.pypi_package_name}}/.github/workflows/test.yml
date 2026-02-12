@@ -13,6 +13,18 @@ permissions:
   contents: read
 
 jobs:
+  type-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up uv
+      uses: astral-sh/setup-uv@v5
+      with:
+        python-version: '3.14'
+    - name: Type check with ty
+      run: |
+        uv run ty check --output-format=github .
+
   build:
     strategy:
       matrix:

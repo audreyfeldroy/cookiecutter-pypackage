@@ -10,7 +10,8 @@ maintainers = [
   {name = "{{ cookiecutter.full_name | replace('\\', '\\\\') | replace('\"', '\\\"') }}", email = "{{cookiecutter.email}}"}
 ]
 classifiers = [
-    # TODO
+    "Typing :: Typed",
+    # TODO: Add additional classifiers as needed
 ]
 license = {text = "MIT"}
 dependencies = [
