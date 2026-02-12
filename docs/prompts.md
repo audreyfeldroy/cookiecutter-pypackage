@@ -14,5 +14,5 @@ The following appear in various parts of your generated project:
 - **project_slug**: The namespace of your Python package. This should be Python import-friendly. Typically, it is the slugified version of `pypi_package_name`. Note: your PyPI project links will use project_slug, so change those in the README afterwards.
 - **project_short_description**: A 1-sentence description of what your Python package does.
 - **pypi_username**: Your Python Package Index account username.
-- **author_website**: Your personal website URL (optional, leave blank to omit).
+- **author_website**: Your personal website URL (optional). When provided, the "Created by" link in your README points here instead of your GitHub profile.
 - **first_version**: The starting version number of the package.
