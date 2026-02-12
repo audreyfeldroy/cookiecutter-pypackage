@@ -4,7 +4,9 @@
 
 {{ cookiecutter.project_short_description }}
 
-* Created by: [{{ cookiecutter.full_name }}](https://github.com/{{ cookiecutter.github_username }}) ([PyPI](https://pypi.org/user/{{ cookiecutter.pypi_username }}/){%- if cookiecutter.author_website %}, [Website]({{ cookiecutter.author_website }}){% endif %})
+* Created by **[{{ cookiecutter.full_name }}]({{ cookiecutter.author_website if cookiecutter.author_website else 'https://github.com/' + cookiecutter.github_username }})**
+  * [GitHub](https://github.com/{{ cookiecutter.github_username }})
+  * [PyPI](https://pypi.org/user/{{ cookiecutter.pypi_username }}/)
 * PyPI package: https://pypi.org/project/{{ cookiecutter.pypi_package_name }}/
 * Free software: MIT License
 
@@ -39,6 +41,14 @@ Run quality checks (format, lint, type check, test):
 just qa
 ```
 
-## Credits
+## Author
 
-This package was created with [Cookiecutter](https://github.com/audreyfeldroy/cookiecutter) and the [audreyfeldroy/cookiecutter-pypackage](https://github.com/audreyfeldroy/cookiecutter-pypackage) project template.
+{{ cookiecutter.project_name }} was created in {% now 'local', '%Y' %} by {{ cookiecutter.full_name }}.
+
+* [GitHub](https://github.com/{{ cookiecutter.github_username }})
+* [PyPI](https://pypi.org/user/{{ cookiecutter.pypi_username }}/)
+{%- if cookiecutter.author_website %}
+* [{{ cookiecutter.author_website }}]({{ cookiecutter.author_website }})
+{%- endif %}
+
+Built with [Cookiecutter](https://github.com/cookiecutter/cookiecutter) and the [audreyfeldroy/cookiecutter-pypackage](https://github.com/audreyfeldroy/cookiecutter-pypackage) project template.
