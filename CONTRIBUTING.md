@@ -99,3 +99,20 @@ Before you submit a pull request, check that it meets these guidelines:
 1. The pull request should include tests if applicable.
 2. If the pull request changes the generated template, make sure `pytest tests/` still passes.
 3. Keep commits small and atomic. One logical change per commit.
+
+## Releasing
+
+1. Bump the version:
+
+   ```sh
+   uv version --bump patch  # or minor, major
+   ```
+
+2. Commit the version bump.
+3. Tag and push:
+
+   ```sh
+   just tag
+   ```
+
+   This creates an annotated git tag from the version in `pyproject.toml` and pushes it. The tag push triggers a GitHub Action that builds and publishes to PyPI.
