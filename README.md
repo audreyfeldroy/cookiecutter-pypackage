@@ -37,7 +37,7 @@ You'll be prompted for some values:
 [6/10] project_slug (my_package):
 [7/10] project_short_description (...): A short description of your package.
 [8/10] pypi_username (your-github-username):
-[9/10] author_website (https://audrey.feldroy.com/):
+[9/10] author_website (https://github.com/your-github-username):
 [10/10] first_version (0.1.0):
 ```
 
