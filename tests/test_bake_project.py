@@ -123,3 +123,23 @@ def test_just_list(cookies):
         if sys.platform != "win32":
             output = check_output_inside_dir("just list", str(result.project))
             assert b"Show available commands" in output
+
+
+def test_py_typed_marker_exists(cookies):
+    """Verify generated package includes a py.typed marker file (PEP 561)."""
+    with bake_in_temp_dir(cookies) as result:
+        assert result.exit_code == 0
+        project_path, project_slug, project_dir = project_info(result)
+        # src/ uses project_slug (underscores), not pypi_package_name (hyphens)
+        slug = project_slug.replace("-", "_")
+        py_typed = Path(project_path) / "src" / slug / "py.typed"
+        assert py_typed.is_file()
+
+
+def test_typing_classifier_in_pyproject(cookies):
+    """Verify generated pyproject.toml includes the Typing :: Typed classifier."""
+    with bake_in_temp_dir(cookies) as result:
+        assert result.exit_code == 0
+        pyproject_path = result.project.join("pyproject.toml")
+        content = pyproject_path.read()
+        assert '"Typing :: Typed"' in content
