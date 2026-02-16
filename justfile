@@ -6,12 +6,9 @@ list:
 bake BAKE_OPTIONS="--no-input":  
     cookiecutter {{BAKE_OPTIONS}} . --overwrite-if-exists
 
-# Watch for changes
-watch BAKE_OPTIONS="--no-input": bake
-    watchmedo shell-command \
-        -p '*.*' \
-        -c 'just bake {{BAKE_OPTIONS}}' \
-        -W -R -D {{'{{cookiecutter.project_slug}}'}}
+# Watch template for changes and rebake automatically
+dev:
+    uv run python dev.py
 
 # replay: BAKE_OPTIONS="--replay"
 # replay: watch
