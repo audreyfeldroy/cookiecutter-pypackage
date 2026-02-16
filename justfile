@@ -6,12 +6,9 @@ list:
 bake BAKE_OPTIONS="--no-input":  
     cookiecutter {{BAKE_OPTIONS}} . --overwrite-if-exists
 
-# Watch for changes
-watch BAKE_OPTIONS="--no-input": bake
-    watchmedo shell-command \
-        -p '*.*' \
-        -c 'just bake {{BAKE_OPTIONS}}' \
-        -W -R -D {{'{{cookiecutter.project_slug}}'}}
+# Watch template for changes and rebake automatically
+dev:
+    uv run python dev.py
 
 # replay: BAKE_OPTIONS="--replay"
 # replay: watch
@@ -79,10 +76,11 @@ coverage:
     uv run --python=3.13 coverage report -m
     uv run --python=3.13 coverage html
 
-# Serve docs locally
-doc:
-    uv run --extra docs mkdocs serve -a localhost:3000
+# Serve docs locally with live reload
+docs-serve:
+    -lsof -ti :8000 | xargs kill
+    uv run --group docs zensical serve
 
-# Build and deploy docs
-doc-build:
-    uv run --extra docs mkdocs gh-deploy --force
+# Build docs
+docs-build:
+    uv run --group docs zensical build --clean

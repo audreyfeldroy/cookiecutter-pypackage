@@ -89,6 +89,9 @@ test = [
 tools = [
     "rust-just>=1.42.4",
 ]
+docs = [
+    "zensical",
+]
 
 [tool.hatch.build.targets.sdist]
 include = [

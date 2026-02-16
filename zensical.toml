@@ -1,0 +1,27 @@
+[project]
+site_name = "Cookiecutter PyPackage"
+site_url = "https://audreyfeldroy.github.io/cookiecutter-pypackage/"
+site_description = "Cookiecutter template for a Python package"
+repo_url = "https://github.com/audreyfeldroy/cookiecutter-pypackage"
+repo_name = "audreyfeldroy/cookiecutter-pypackage"
+
+nav = [
+  { "Home" = "index.md" },
+  { "Tutorial" = "tutorial.md" },
+  { "Prompts" = "prompts.md" },
+  { "Console Script Setup" = "console_script_setup.md" },
+  { "PyPI Release Checklist" = "pypi_release_checklist.md" },
+  { "Troubleshooting" = "troubleshooting.md" },
+]
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
+scheme = "default"
+toggle.icon = "material/brightness-7"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: dark)"
+scheme = "slate"
+toggle.icon = "material/brightness-4"
+toggle.name = "Switch to light mode"

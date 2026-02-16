@@ -34,8 +34,8 @@ class ChangeHandler(FileSystemEventHandler):
         self.debounce_period = 2  # seconds
 
     def on_any_event(self, event):
-        # Ignore changes to run.py itself
-        if Path(event.src_path).name == "run.py":
+        # Ignore changes to dev.py itself
+        if Path(event.src_path).name == "dev.py":
             return
         if event.is_directory:
             return
