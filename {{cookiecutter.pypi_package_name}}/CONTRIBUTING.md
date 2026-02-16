@@ -28,6 +28,14 @@ Look through the GitHub issues for features. Anything tagged with "enhancement" 
 
 {{ cookiecutter.project_name }} could always use more documentation, whether as part of the official docs, in docstrings, or even on the web in blog posts, articles, and such.
 
+To preview the docs locally:
+
+```sh
+just docs-serve
+```
+
+This starts a local server at http://localhost:8000 with live reload. Edit files in `docs/` or add docstrings to your code (the API reference page is auto-generated).
+
 ### Submit Feedback
 
 The best way to send feedback is to file an issue at https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/issues.
