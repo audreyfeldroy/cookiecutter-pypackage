@@ -15,9 +15,6 @@ dev:
 # 	;
 
 
-# Show available commands
-help:
-    just --list
 
 # Build the project, useful for checking that packaging is correct
 build:
