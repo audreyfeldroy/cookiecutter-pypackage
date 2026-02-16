@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "cookiecutter-pypackage"
-version = "0.3.1"
+version = "0.4.0"
 description = "Cookiecutter template for a Python package"
 readme = "README.md"
 requires-python = ">=3.12"
