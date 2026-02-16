@@ -40,10 +40,13 @@ pdb *ARGS:
     @echo "Running with arg: {{ '{{ARGS}}' }}"
     uv run --python=3.13 pytest --pdb --maxfail=10 {{ '{{ARGS}}' }}
 
-# Run coverage, and build to HTML
+# Run tests with coverage across all supported Python versions
 coverage:
-    uv run --python=3.13 coverage run -m pytest .
-    uv run --python=3.13 coverage report -m
+    uv run --python=3.12 coverage run -m pytest
+    uv run --python=3.13 coverage run -m pytest
+    uv run --python=3.14 coverage run -m pytest
+    uv run --python=3.13 coverage combine
+    uv run --python=3.13 coverage report
     uv run --python=3.13 coverage html
 
 # Serve docs locally with live reload
@@ -97,6 +100,7 @@ clean-pyc:
 # remove test and coverage artifacts
 clean-test:
 	rm -f .coverage
+	rm -f .coverage.*
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
