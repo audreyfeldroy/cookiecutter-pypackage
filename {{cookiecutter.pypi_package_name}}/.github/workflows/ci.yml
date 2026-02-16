@@ -63,13 +63,47 @@ jobs:
 
       - uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7.3.0
 
-      - name: Run tests
-        run: uv run --python=${{ matrix.python-version }} pytest
+      - name: Run tests with coverage
+        run: uv run --python=${{ matrix.python-version }} coverage run -m pytest
+
+      - name: Upload coverage data
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: coverage-${{ matrix.python-version }}
+          path: .coverage.*
+          include-hidden-files: true
+
+  coverage:
+    name: Coverage
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7.3.0
+
+      - name: Download coverage data
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        with:
+          pattern: coverage-*
+          merge-multiple: true
+
+      - name: Combine coverage
+        run: uv run coverage combine
+
+      - name: Coverage report
+        run: |
+          echo '## Coverage Report' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          uv run coverage report | tee -a $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
 
   all-checks-pass:
     name: All checks pass
     if: always()
-    needs: [lint, type-check, test]
+    needs: [lint, type-check, test, coverage]
     runs-on: ubuntu-latest
     steps:
       - name: Check job results
