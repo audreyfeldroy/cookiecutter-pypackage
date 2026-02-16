@@ -11,9 +11,11 @@
    - **Owner:** Your GitHub username or organization
    - **Repository name:** Your repo name
    - **Workflow name:** `publish.yml`
-   - **Environment name:** Leave blank
+   - **Environment name:** `pypi`
 
-4. Push your first tag to trigger the publish (see below).
+4. In your GitHub repo, go to Settings > Environments > New environment. Name it `pypi`. Optionally add required reviewers and restrict deployment to `v*` tags.
+
+5. Push your first tag to trigger the publish (see below).
 
 ## Every Release
 
