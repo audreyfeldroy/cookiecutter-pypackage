@@ -4,6 +4,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 from tests.helpers import bake_in_temp_dir
 
 
@@ -80,12 +82,11 @@ def test_bake_with_quotes_in_description(cookies):
         assert 'description = "A \\"quoted\\" description"' in content
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="justfile not supported on Windows")
 def test_just_list(cookies):
     with bake_in_temp_dir(cookies) as result:
-        # The supplied justfile does not support win32
-        if sys.platform != "win32":
-            output = check_output_inside_dir("just list", str(result.project))
-            assert b"Show available commands" in output
+        output = check_output_inside_dir("just list", str(result.project))
+        assert b"Show available commands" in output
 
 
 def test_py_typed_marker_exists(cookies):
