@@ -57,6 +57,10 @@ select = [
     "B",   # flake8-bugbear
     "UP",  # pyupgrade
 ]
+ignore = [
+    "E501",  # line length (handled by ruff format for code)
+    "B008",  # function call in defaults (standard typer pattern)
+]
 
 [tool.ty.src]
 exclude = [
