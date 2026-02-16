@@ -1,6 +1,9 @@
-# Welcome to {{ cookiecutter.project_name }}'s documentation!
+# {{ cookiecutter.project_name }}
 
-## Contents
+{{ cookiecutter.project_short_description }}
 
-- [Installation](installation.md)
-- [Usage](usage.md)
+## Getting started
+
+- [Installation](installation.md) - how to install {{ cookiecutter.project_name }}
+- [Usage](usage.md) - how to use {{ cookiecutter.project_name }}
+- [API Reference](api.md) - auto-generated API documentation
