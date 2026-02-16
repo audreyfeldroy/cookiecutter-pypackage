@@ -6,7 +6,6 @@ import sys
 from contextlib import contextmanager
 from pathlib import Path
 
-import pytest
 from cookiecutter.utils import rmtree
 
 

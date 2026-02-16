@@ -9,7 +9,6 @@ Usage:
 """
 
 from pathlib import Path
-from typing import Optional
 
 import typer
 from cookiecutter.main import cookiecutter
@@ -25,7 +24,7 @@ app = typer.Typer(
 )
 def main(
     ctx: typer.Context,
-    output_dir: Optional[Path] = typer.Option(
+    output_dir: Path | None = typer.Option(
         None, "--output-dir", "-o", help="Where to output the generated project"
     ),
     no_input: bool = typer.Option(

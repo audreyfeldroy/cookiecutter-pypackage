@@ -14,8 +14,8 @@ The generated python-boilerplate/ directory will be created in the repo root.
 """
 
 import io
-import sys
 import shutil
+import sys
 import time
 from pathlib import Path
 
