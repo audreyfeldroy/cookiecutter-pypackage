@@ -13,9 +13,13 @@ Usage:
 The generated python-boilerplate/ directory will be created in the repo root.
 """
 
+import sys
 import shutil
 import time
 from pathlib import Path
+
+# Flush prints immediately, even when stdout is piped or redirected
+sys.stdout.reconfigure(line_buffering=True)
 
 from cookiecutter.main import cookiecutter
 from watchdog.events import FileSystemEventHandler
