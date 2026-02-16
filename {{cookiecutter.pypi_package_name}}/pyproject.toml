@@ -36,7 +36,6 @@ test = [
     "coverage",
     "pytest",
     "ty",
-    "ipdb",
 ]
 
 [project.urls]
