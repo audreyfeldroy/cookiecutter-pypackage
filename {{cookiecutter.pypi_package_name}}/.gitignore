@@ -46,6 +46,9 @@ dmypy.json
 .pyre/
 .pytype/
 
+# Documentation build output
+site/
+
 # IDE files
 # .idea/
 # .vscode/
