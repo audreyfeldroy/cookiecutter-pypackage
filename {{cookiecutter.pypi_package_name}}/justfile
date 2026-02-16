@@ -48,6 +48,14 @@ coverage:
     uv run --python=3.13 coverage report -m
     uv run --python=3.13 coverage html
 
+# Serve docs locally with live reload
+docs-serve:
+    uv run --group docs zensical serve
+
+# Build docs (strict mode, fails on warnings)
+docs-build:
+    uv run --group docs zensical build --clean
+
 # Build the project, useful for checking that packaging is correct
 build:
     rm -rf build
