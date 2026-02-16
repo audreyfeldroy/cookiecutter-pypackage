@@ -28,6 +28,7 @@ requires-python = ">= 3.12"
 dev = [
     { include-group = "lint" },
     { include-group = "test" },
+    { include-group = "typecheck" },
 ]
 lint = [
     "ruff",
@@ -35,6 +36,8 @@ lint = [
 test = [
     "coverage",
     "pytest",
+]
+typecheck = [
     "ty",
 ]
 
