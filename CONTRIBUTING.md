@@ -49,10 +49,12 @@ Ready to contribute? Here's how to set up `cookiecutter-pypackage` for local dev
    git clone git@github.com:your_name_here/cookiecutter-pypackage.git
    ```
 
-3. Install dependencies:
+3. Create a virtualenv and install dependencies into it:
 
    ```sh
    cd cookiecutter-pypackage/
+   uv venv
+   source .venv/bin/activate
    uv sync
    ```
 
