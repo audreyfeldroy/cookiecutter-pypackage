@@ -4,6 +4,7 @@ These tests verify that extra_context values are properly forwarded
 and applied when generating projects. The CLI feature allows passing
 these as key=value arguments.
 """
+
 from contextlib import contextmanager
 
 from cookiecutter.utils import rmtree
