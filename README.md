@@ -15,6 +15,7 @@
 *   Testing with [pytest](https://docs.pytest.org/), GitHub Actions CI for Python 3.12, 3.13, and 3.14
 *   Auto-publish to [PyPI](https://pypi.org/) when you push a `v*` tag, using [Trusted Publishers](https://docs.pypi.org/trusted-publishers/) (no API tokens needed)
 *   [Hardened GitHub Actions workflows](#github-actions-workflows): SHA-pinned actions, minimal permissions, [Dependabot](https://docs.github.com/en/code-security/dependabot) for automated updates
+*   Documentation site built with [Zensical](https://zensical.org/) and auto-deployed to [GitHub Pages](https://pages.github.com/), with API docs from [mkdocstrings](https://mkdocstrings.github.io/)
 *   Linting with [ruff](https://docs.astral.sh/ruff/), type checking with [ty](https://docs.astral.sh/ty/)
 *   Command line interface using [Typer](https://typer.tiangolo.com/)
 
@@ -58,12 +59,13 @@ cookiecutter gh:audreyfeldroy/cookiecutter-pypackage
 Then:
 
 *   Create a GitHub repo and push your code
+*   Enable GitHub Pages: Settings > Pages > Source: **GitHub Actions**
 *   Set up [PyPI Trusted Publishing](https://docs.pypi.org/trusted-publishers/) for your repo
 *   Release your package by pushing a tag: `git tag v0.1.0 && git push --tags`
 
 ## GitHub Actions Workflows
 
-Your generated project comes with three workflow files and a Dependabot config, all security-hardened out of the box.
+Your generated project comes with four workflow files and a Dependabot config, all security-hardened out of the box.
 
 ### CI (`ci.yml`)
 
@@ -86,6 +88,15 @@ Runs when you push a tag matching `v*` (e.g., `v0.1.0`). Two jobs:
 Publishing uses [Trusted Publishers](https://docs.pypi.org/trusted-publishers/), so there are no API tokens to manage. PyPI verifies the package came from your GitHub repo's workflow via OIDC.
 
 **First-time setup:** You need to register your repo as a trusted publisher on PyPI and create a `pypi` environment in your GitHub repo settings. See [PyPI Release Checklist](docs/pypi_release_checklist.md) for the steps.
+
+### Documentation (`docs.yml`)
+
+Runs on push to `main`. Two jobs:
+
+1. **Build** - builds the documentation site with `zensical build`
+2. **Deploy** - deploys to GitHub Pages
+
+**First-time setup:** Go to your repo's Settings > Pages and set the source to **GitHub Actions**.
 
 ### Dependabot (`dependabot.yml`)
 
