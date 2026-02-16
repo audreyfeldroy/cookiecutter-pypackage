@@ -1,3 +1,7 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "{{cookiecutter.pypi_package_name}}"
 version = "{{ cookiecutter.first_version }}"
