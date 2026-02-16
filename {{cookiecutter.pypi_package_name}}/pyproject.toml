@@ -22,7 +22,7 @@ dependencies = [
   "typer",
   "rich",
 ]
-requires-python = ">= 3.10"
+requires-python = ">= 3.12"
 
 [dependency-groups]
 dev = [
