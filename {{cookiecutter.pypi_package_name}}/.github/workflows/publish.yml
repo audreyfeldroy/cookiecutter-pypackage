@@ -1,4 +1,3 @@
-{% raw %}
 name: Publish to PyPI
 
 on:
@@ -37,9 +36,7 @@ jobs:
       attestations: write
     environment:
       name: pypi
-{% endraw %}
       url: https://pypi.org/p/{{ cookiecutter.pypi_package_name }}
-{% raw %}
     steps:
       - name: Download distribution
         uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
@@ -54,4 +51,3 @@ jobs:
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@ed0c53931b1dc9bd32cbe73a98c7f6766f8a527e # v1.13.0
-{% endraw %}
