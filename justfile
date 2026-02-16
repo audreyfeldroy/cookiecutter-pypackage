@@ -42,7 +42,7 @@ test *ARGS:
 # Run all the tests, but on failure, drop into the debugger
 pdb *ARGS:
     @echo "Running with arg: {{ARGS}}"
-    uv run --python=3.13 --with pytest --with httpx pytest --pdb --maxfail=10 --pdbcls=IPython.terminal.debugger:TerminalPdb {{ARGS}}
+    uv run --python=3.13 pytest --pdb --maxfail=10 {{ARGS}}
 
 # Run all the formatting, linting, type checking, and testing commands
 qa:
