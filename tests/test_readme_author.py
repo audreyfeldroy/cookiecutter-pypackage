@@ -1,17 +1,6 @@
 """Tests for README author attribution rendering."""
 
-from contextlib import contextmanager
-
-from cookiecutter.utils import rmtree
-
-
-@contextmanager
-def bake_in_temp_dir(cookies, *args, **kwargs):
-    result = cookies.bake(*args, **kwargs)
-    try:
-        yield result
-    finally:
-        rmtree(str(result.project))
+from tests.helpers import bake_in_temp_dir
 
 
 def test_readme_created_by_without_website(cookies):

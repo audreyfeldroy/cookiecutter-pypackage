@@ -6,15 +6,12 @@ import sys
 from contextlib import contextmanager
 from pathlib import Path
 
-from cookiecutter.utils import rmtree
+from tests.helpers import bake_in_temp_dir
 
 
 @contextmanager
 def inside_dir(dirpath):
-    """
-    Execute code from inside the given directory
-    :param dirpath: String, path of the directory the command is being run.
-    """
+    """Execute code from inside the given directory."""
     old_path = Path.cwd()
     try:
         os.chdir(dirpath)
@@ -23,32 +20,14 @@ def inside_dir(dirpath):
         os.chdir(old_path)
 
 
-@contextmanager
-def bake_in_temp_dir(cookies, *args, **kwargs):
-    """
-    Delete the temporal directory that is created when executing the tests
-    :param cookies: pytest_cookies.Cookies,
-        cookie to be baked and its temporal files will be removed
-    """
-    result = cookies.bake(*args, **kwargs)
-    try:
-        yield result
-    finally:
-        rmtree(str(result.project))
-
-
 def run_inside_dir(command, dirpath):
-    """
-    Run a command from inside a given directory, raising on non-zero exit.
-    :param command: Command that will be executed
-    :param dirpath: String, path of the directory the command is being run.
-    """
+    """Run a command from inside a given directory, raising on non-zero exit."""
     with inside_dir(dirpath):
         return subprocess.check_call(shlex.split(command))
 
 
 def check_output_inside_dir(command, dirpath):
-    "Run a command from inside a given directory, returning the command output"
+    """Run a command from inside a given directory, returning the command output."""
     with inside_dir(dirpath):
         return subprocess.check_output(shlex.split(command))
 
