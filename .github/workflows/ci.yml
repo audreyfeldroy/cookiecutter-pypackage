@@ -34,9 +34,6 @@ jobs:
       - name: Ruff lint
         run: uv run ruff check .
 
-      - name: Ruff import sort
-        run: uv run ruff check --select I .
-
   type-check:
     name: Type check
     runs-on: ubuntu-latest

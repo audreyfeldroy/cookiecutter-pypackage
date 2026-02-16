@@ -48,6 +48,16 @@ exclude = [
     "*cookiecutter.pypi_package_name*"
     ]
 
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # Pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+]
+
 [tool.pytest.ini_options]
 testpaths = [
     "tests",
