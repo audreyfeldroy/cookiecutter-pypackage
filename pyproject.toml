@@ -58,6 +58,11 @@ select = [
     "UP",  # pyupgrade
 ]
 
+[tool.ty.src]
+exclude = [
+    "*cookiecutter.pypi_package_name*",
+]
+
 [tool.pytest.ini_options]
 testpaths = [
     "tests",
