@@ -1,3 +1,7 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "{{cookiecutter.pypi_package_name}}"
 version = "{{ cookiecutter.first_version }}"
@@ -18,12 +22,13 @@ dependencies = [
   "typer",
   "rich",
 ]
-requires-python = ">= 3.10"
+requires-python = ">= 3.12"
 
 [dependency-groups]
 dev = [
     { include-group = "lint" },
     { include-group = "test" },
+    { include-group = "typecheck" },
 ]
 lint = [
     "ruff",
@@ -31,8 +36,9 @@ lint = [
 test = [
     "coverage",
     "pytest",
+]
+typecheck = [
     "ty",
-    "ipdb",
 ]
 
 [project.urls]
