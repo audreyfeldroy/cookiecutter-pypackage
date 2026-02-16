@@ -1,35 +1,20 @@
 import datetime
-import os
 import shlex
 import subprocess
 import sys
-from contextlib import contextmanager
 from pathlib import Path
 
 from tests.helpers import bake_in_temp_dir
 
 
-@contextmanager
-def inside_dir(dirpath):
-    """Execute code from inside the given directory."""
-    old_path = Path.cwd()
-    try:
-        os.chdir(dirpath)
-        yield
-    finally:
-        os.chdir(old_path)
-
-
 def run_inside_dir(command, dirpath):
     """Run a command from inside a given directory, raising on non-zero exit."""
-    with inside_dir(dirpath):
-        return subprocess.check_call(shlex.split(command))
+    return subprocess.check_call(shlex.split(command), cwd=dirpath)
 
 
 def check_output_inside_dir(command, dirpath):
     """Run a command from inside a given directory, returning the command output."""
-    with inside_dir(dirpath):
-        return subprocess.check_output(shlex.split(command))
+    return subprocess.check_output(shlex.split(command), cwd=dirpath)
 
 
 def test_year_compute_in_license_file(cookies):
