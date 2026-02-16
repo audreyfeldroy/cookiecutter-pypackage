@@ -1,8 +1,8 @@
 """
 Cookiecutter PyPackage Development Watcher
 
-This script watches for changes in the {{cookiecutter.pypi_package_name}}/ template directory
-and automatically regenerates the python_boilerplate/ output directory when changes are detected.
+This script watches for changes in the template directory and
+automatically regenerates python_boilerplate/ when changes are detected.
 
 Usage:
     1. Run this script from the cookiecutter-pypackage repo root directory
@@ -45,7 +45,7 @@ class ChangeHandler(FileSystemEventHandler):
             self.last_run = current_time
             print(f"Detected change in {event.src_path}. Running cookiecutter...")
             try:
-                # The output directory is in the repo root (matches cookiecutter.json pypi_package_name)
+                # Output dir matches pypi_package_name in cookiecutter.json
                 output_dir = Path("python-boilerplate")
                 if output_dir.exists() and output_dir.is_dir():
                     print(f"Removing existing directory: {output_dir}")
