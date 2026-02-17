@@ -11,9 +11,28 @@ uvx cookiecutter-pypackage
 
 ## What you get
 
-- **Publish to PyPI by pushing a tag.** Your package is built, signed with [Sigstore](https://docs.pypi.org/attestations/), and published via [Trusted Publishers](https://docs.pypi.org/trusted-publishers/). OIDC-based, no API tokens to manage.
-- **Security-hardened CI from the start.** Every GitHub Action pinned by SHA, minimal permissions, no persisted credentials, [Dependabot](https://docs.github.com/en/code-security/dependabot) PRs to stay current. Linting with [ruff](https://docs.astral.sh/ruff/), type checking with [ty](https://docs.astral.sh/ty/), tests across Python 3.12, 3.13, and 3.14.
-- **Everything else wired up.** [uv](https://docs.astral.sh/uv/) for dependencies, [just](https://github.com/casey/just) for tasks, [Typer](https://typer.tiangolo.com/) CLI, documentation with [Zensical](https://zensical.org/) auto-deployed to GitHub Pages.
+### Tooling
+
+| | Tool | |
+|---|---|---|
+| Package manager | [uv](https://docs.astral.sh/uv/) | Fast, handles venvs automatically |
+| Task runner | [just](https://github.com/casey/just) | `just qa` formats, lints, type-checks, and tests |
+| Linting | [ruff](https://docs.astral.sh/ruff/) | Format + lint in one tool |
+| Type checking | [ty](https://docs.astral.sh/ty/) | All rules enabled, watch mode with `just type-check-watch` |
+| Testing | [pytest](https://docs.pytest.org/) | Python 3.12, 3.13, 3.14 |
+| CLI framework | [Typer](https://typer.tiangolo.com/) | Entry point + `__main__.py` included |
+| Docs | [Zensical](https://zensical.org/) + [mkdocstrings](https://mkdocstrings.github.io/) | Auto-deployed to GitHub Pages, API docs from docstrings |
+
+### CI/CD (GitHub Actions, [security-hardened](https://audreyfeldroy.github.io/cookiecutter-pypackage/github_actions/))
+
+| Workflow | Trigger | What happens |
+|---|---|---|
+| **CI** | Push, PRs | Lint, type check, test across 3 Python versions |
+| **Publish** | `v*` tag | Build, [Sigstore](https://docs.pypi.org/attestations/) attestation, PyPI via [Trusted Publishers](https://docs.pypi.org/trusted-publishers/) (no tokens) |
+| **Docs** | Push to main | Build and deploy to GitHub Pages |
+| **Dependabot** | Weekly | PRs to update SHA-pinned actions |
+
+All actions pinned by SHA, minimal permissions, no persisted credentials.
 
 ## Quickstart
 
