@@ -73,26 +73,7 @@ Run `just list` to see all available commands. The key ones:
 
 ## GitHub Actions workflows
 
-All workflows are security-hardened: SHA-pinned actions, minimal permissions, `persist-credentials: false` on checkouts, and Dependabot for automated action updates.
-
-**CI** (`ci.yml`) runs on every push to `main` and on pull requests:
-
-- **Lint** checks formatting (`ruff format --check`) and lint rules (`ruff check`)
-- **Type check** runs [ty](https://docs.astral.sh/ty/)
-- **Test** runs pytest across Python 3.12, 3.13, and 3.14
-- **All checks pass** is a single status check for branch protection (uses [alls-green](https://github.com/re-actors/alls-green))
-
-**Publish** (`publish.yml`) runs when you push a `v*` tag:
-
-1. Builds the sdist and wheel with `uv build`
-2. Publishes to PyPI using [Trusted Publishers](https://docs.pypi.org/trusted-publishers/) (no API tokens needed)
-
-**Documentation** (`docs.yml`) runs on push to `main`:
-
-1. Builds the docs site with Zensical
-2. Deploys to GitHub Pages
-
-**Dependabot** (`dependabot.yml`) checks weekly for newer versions of the GitHub Actions used in your workflows and opens PRs to update them.
+Your project includes CI, publish, documentation, and Dependabot workflows, all security-hardened out of the box. See [GitHub Actions Workflows](github_actions.md) for details.
 
 ## Documentation site
 

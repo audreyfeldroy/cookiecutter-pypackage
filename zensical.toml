@@ -9,6 +9,7 @@ nav = [
   { "Home" = "index.md" },
   { "Tutorial" = "tutorial.md" },
   { "Project Structure" = "project_structure.md" },
+  { "GitHub Actions" = "github_actions.md" },
   { "Prompts" = "prompts.md" },
   { "PyPI Release Checklist" = "pypi_release_checklist.md" },
   { "Troubleshooting" = "troubleshooting.md" },
