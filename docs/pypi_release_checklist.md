@@ -19,34 +19,29 @@
 
 ## Every Release
 
-1. Update `HISTORY.md` with your changes.
+1. Write your release notes in `HISTORY.md` and commit:
 
-2. Bump version:
+    ```bash
+    git add HISTORY.md
+    git commit -m "Add release notes for vX.Y.Z"
+    ```
+
+2. Bump the version and commit:
 
     ```bash
     uv version patch  # or: minor, major
+    git add pyproject.toml uv.lock
+    git commit -m "Bump version to X.Y.Z"
     ```
 
-3. Commit:
+3. Push, then tag and push the tag:
 
     ```bash
-    git commit -am "Release X.Y.Z"
-    ```
-
-4. Tag and push:
-
-    ```bash
+    git push
     just tag
     ```
 
-    Or manually:
-
-    ```bash
-    git tag vX.Y.Z
-    git push origin vX.Y.Z
-    ```
-
-5. GitHub Actions publishes to PyPI automatically.
+4. GitHub Actions builds, signs with Sigstore, and publishes to PyPI automatically.
 
 ## Troubleshooting
 
