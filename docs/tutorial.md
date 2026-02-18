@@ -136,10 +136,10 @@ Follow the [PyPI Release Checklist](pypi_release_checklist.md) to configure Trus
 
 ## Step 9: Release
 
-1. Write your release notes in `HISTORY.md` and commit:
+1. Write your release notes in `CHANGELOG/v0.1.0.md` and commit:
 
     ```bash
-    git add HISTORY.md
+    git add CHANGELOG/
     git commit -m "Add release notes for v0.1.0"
     ```
 

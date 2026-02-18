@@ -28,7 +28,7 @@ my-package/
 ├── .gitignore
 ├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
-├── HISTORY.md
+├── CHANGELOG/              # One file per release (e.g. v0.1.0.md)
 ├── justfile                # Task runner commands
 ├── LICENSE
 ├── pyproject.toml          # Package metadata and tool config

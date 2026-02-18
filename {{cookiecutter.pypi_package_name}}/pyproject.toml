@@ -47,7 +47,7 @@ docs = [
 
 [project.urls]
 bugs = "https://github.com/{{cookiecutter.__gh_slug}}/issues"
-changelog = "https://github.com/{{cookiecutter.__gh_slug}}/blob/main/HISTORY.md"
+changelog = "https://github.com/{{cookiecutter.__gh_slug}}/releases"
 documentation = "https://{{ cookiecutter.github_username }}.github.io/{{ cookiecutter.project_slug }}/"
 homepage = "https://github.com/{{cookiecutter.__gh_slug}}"
 
