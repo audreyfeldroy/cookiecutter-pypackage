@@ -1,7 +1,9 @@
 version: 2
 updates:
   - package-ecosystem: github-actions
-    directory: /
+    directories:
+      - "/"
+      - "/{{cookiecutter.pypi_package_name}}/.github/workflows"
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
