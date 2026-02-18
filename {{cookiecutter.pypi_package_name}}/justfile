@@ -87,7 +87,7 @@ VERSION := `uv version`
 # Print the current version of the project
 [group("release")]
 version:
-    @echo "Current version: {{VERSION}}"
+    @echo "Current version: {{ '{{VERSION}}' }}"
 
 # Tag the current version in git and put to github
 [group("release")]
