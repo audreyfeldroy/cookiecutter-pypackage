@@ -40,6 +40,9 @@ cookiecutter-pypackage = "cookiecutter_pypackage.cli:app"
 
 [project.urls]
 homepage = "https://github.com/audreyfeldroy/cookiecutter-pypackage"
+changelog = "https://github.com/audreyfeldroy/cookiecutter-pypackage/releases"
+documentation = "https://audreyfeldroy.github.io/cookiecutter-pypackage/"
+issues = "https://github.com/audreyfeldroy/cookiecutter-pypackage/issues"
 
 [tool.ruff]
 exclude = [
