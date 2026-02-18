@@ -16,9 +16,7 @@ def test_readme_created_by_without_website(cookies):
     readme = (result.project_path / "README.md").read_text()
 
     # Name links to GitHub when no website provided
-    assert (
-        "**[Audrey M. Roy Greenfeld](https://github.com/audreyfeldroy)**" in readme
-    )
+    assert "**[Audrey M. Roy Greenfeld](https://github.com/audreyfeldroy)**" in readme
 
     # GitHub should NOT appear as a separate sub-bullet (it's already the name link)
     assert "GitHub: https://github.com/" not in readme
@@ -60,9 +58,7 @@ def test_readme_no_duplicate_links(cookies):
     readme = (result.project_path / "README.md").read_text()
 
     lines = readme.split("\n")
-    author_idx = next(
-        i for i, line in enumerate(lines) if line.strip() == "## Author"
-    )
+    author_idx = next(i for i, line in enumerate(lines) if line.strip() == "## Author")
     author_section = "\n".join(lines[author_idx:])
 
     # Author section has the prose line but no link bullets
