@@ -68,6 +68,15 @@ exclude = [
     "*cookiecutter.pypi_package_name*",
 ]
 
+[tool.coverage.run]
+branch = true
+parallel = true
+source = ["src/", "tests/"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+
 [tool.pytest.ini_options]
 testpaths = [
     "tests",
