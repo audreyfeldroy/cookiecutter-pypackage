@@ -10,6 +10,7 @@ permissions: {}
 
 concurrency:
   group: docs-deploy
+  # Let in-flight deployments finish to avoid a half-deployed site.
   cancel-in-progress: false
 
 jobs:
