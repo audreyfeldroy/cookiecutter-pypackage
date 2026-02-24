@@ -38,7 +38,11 @@ PyPI publishing uses [Trusted Publishers](https://docs.pypi.org/trusted-publishe
 
 ## SHA-pinned actions, not version tags
 
-Every GitHub Action is pinned by commit SHA, not by version tag like `v4`. Version tags are mutable. A compromised action could move its `v4` tag to point at malicious code, and every repo using `actions/checkout@v4` would run it on the next trigger. SHA pins are immutable. Dependabot keeps them current.
+Every GitHub Action is pinned by commit SHA, not by version tag like `v4`. Version tags are mutable. A compromised action could move its `v4` tag to point at malicious code, and every repo using `actions/checkout@v4` would run it on the next trigger. SHA pins are immutable. Dependabot keeps them current, with a 7-day cooldown so new releases get community vetting before they reach your repo.
+
+## No cache in release builds
+
+The publish workflow disables uv's built-in cache. GitHub Actions caches aren't isolated between workflows, so any workflow with code execution can write cache entries that a release workflow later restores. This is a real attack vector: in early 2026, [Cline's production releases were compromised](https://adnanthekhan.com/posts/clinejection/) through exactly this kind of cache poisoning. Building from scratch on every release costs a few extra seconds but eliminates the risk entirely.
 
 ## Built-in coverage, not codecov or coveralls
 
