@@ -1,14 +1,15 @@
 # GitHub Actions Workflows
 
-Your generated project comes with four workflow files and a Dependabot config, all security-hardened out of the box.
+Your generated project comes with six workflow files and a Dependabot config, all security-hardened out of the box.
 
 ## CI (`ci.yml`)
 
-Runs on every push to `main` and on pull requests. Four jobs:
+Runs on every push to `main` and on pull requests. Five jobs:
 
 - **Lint** - checks formatting (`ruff format --check`) and lint rules (`ruff check`)
 - **Type check** - runs [ty](https://docs.astral.sh/ty/) for static type checking
-- **Test** - runs pytest across Python 3.12, 3.13, and 3.14
+- **Test** - runs pytest with coverage across Python 3.12, 3.13, and 3.14
+- **Coverage** - combines coverage data from all Python versions and posts the report to the GitHub Actions step summary
 - **All checks pass** - a single status check for branch protection (uses [alls-green](https://github.com/re-actors/alls-green))
 
 You can also trigger it manually from the Actions tab (`workflow_dispatch`).
@@ -32,6 +33,18 @@ Runs on push to `main`. Two jobs:
 2. **Deploy** - deploys to GitHub Pages
 
 **First-time setup:** Go to your repo's Settings > Pages and set the source to **GitHub Actions**.
+
+## CodeQL (`codeql.yml`)
+
+Runs on pushes to `main`, pull requests, and a weekly schedule. Uses GitHub's [CodeQL](https://codeql.github.com/) engine with the `security-extended` query suite, which adds medium-precision security checks (taint tracking, injection detection) on top of the default high-precision set. Results appear in your repo's Security > Code scanning tab.
+
+CodeQL does dataflow analysis that linters can't: it traces user input across function calls and files to find SQL injection, command injection, SSRF, path traversal, and similar vulnerabilities.
+
+If your package includes compiled code, the workflow has inline comments showing how to add `c-cpp`, `go`, `java-kotlin`, or `swift` and switch to `autobuild`.
+
+## Zizmor (`zizmor.yml`)
+
+Runs on pushes and pull requests that touch `.github/workflows/`. [Zizmor](https://woodruffw.github.io/zizmor/) audits your GitHub Actions workflows for security issues: excessive permissions, unpinned actions, credential exposure, cache poisoning risks, and other patterns that tools like CodeQL don't cover (since CodeQL analyzes your code, not your CI configuration).
 
 ## Dependabot (`dependabot.yml`)
 
