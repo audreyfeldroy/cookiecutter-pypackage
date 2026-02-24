@@ -6,4 +6,6 @@ updates:
       - "/{{cookiecutter.pypi_package_name}}/.github/workflows"
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 7
     open-pull-requests-limit: 5
