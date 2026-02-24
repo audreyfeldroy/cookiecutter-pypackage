@@ -12,6 +12,7 @@ nav = [
   { "GitHub Actions" = "github_actions.md" },
   { "Prompts" = "prompts.md" },
   { "PyPI Release Checklist" = "pypi_release_checklist.md" },
+  { "Design Decisions" = "design_decisions.md" },
   { "Troubleshooting" = "troubleshooting.md" },
 ]
 
