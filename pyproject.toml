@@ -43,6 +43,7 @@ homepage = "https://github.com/audreyfeldroy/cookiecutter-pypackage"
 changelog = "https://github.com/audreyfeldroy/cookiecutter-pypackage/releases"
 documentation = "https://audreyfeldroy.github.io/cookiecutter-pypackage/"
 issues = "https://github.com/audreyfeldroy/cookiecutter-pypackage/issues"
+security = "https://github.com/audreyfeldroy/cookiecutter-pypackage/security/policy"
 
 [tool.ruff]
 exclude = [
