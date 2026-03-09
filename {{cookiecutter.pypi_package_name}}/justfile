@@ -70,7 +70,7 @@ build:
     rm -rf dist
     uv build
 
-VERSION := `uv version`
+VERSION := `uv version --short`
 
 # Print the current version of the project
 version:

@@ -22,7 +22,7 @@ build:
     rm -rf dist
     uv build
 
-VERSION := `grep -m1 '^version' pyproject.toml | sed -E 's/version = "(.*)"/\1/'`
+VERSION := `uv version --short`
 
 # Print the current version of the project
 version:
