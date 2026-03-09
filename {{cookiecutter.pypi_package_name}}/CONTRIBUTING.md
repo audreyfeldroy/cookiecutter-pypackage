@@ -110,33 +110,33 @@ To run a subset of tests:
 uv run pytest tests/
 ```
 
-## Deploying
+## Releasing a New Version
 
-A reminder for the maintainers on how to deploy.
-
-1. Write your release notes in `CHANGELOG/vX.Y.Z.md` and commit:
-
-    ```sh
-    git add CHANGELOG/
-    git commit -m "Add release notes for vX.Y.Z"
-    ```
-
-2. Bump the version and commit:
-
-    ```sh
-    uv version patch  # or: minor, major
-    git add pyproject.toml uv.lock
-    git commit -m "Bump version to X.Y.Z"
-    ```
-
-3. Push, then tag and push the tag:
-
-    ```sh
-    git push
-    just tag
-    ```
-
-GitHub Actions will automatically publish to PyPI when the tag is pushed. See `.github/workflows/publish.yml` for details.
+1. **Bump the version** and **write the changelog:**
+   ```bash
+   uv version <version>        # or: uv version --bump minor
+   ```
+   Then write `CHANGELOG/<version>.md`. See previous entries for the format.
+2. **Commit:**
+   ```bash
+   git add pyproject.toml uv.lock CHANGELOG/
+   git commit -m "Release <version>"
+   ```
+3. **Tag and push:**
+   ```bash
+   just tag
+   ```
+   This creates an annotated `v*` tag from the version in `pyproject.toml`
+   and pushes the commit and tag to GitHub.
+4. **Wait for the publish workflow.** The tag triggers `.github/workflows/publish.yml`,
+   which builds the package, generates SLSA provenance attestations, and publishes
+   to PyPI via trusted publishing.
+5. **Create the GitHub Release:**
+   ```bash
+   gh release create v<version> --verify-tag \
+     --title "{{ cookiecutter.project_name }} <version>" \
+     --notes-file CHANGELOG/<version>.md
+   ```
 
 ## Code of Conduct
 
