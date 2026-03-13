@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Discord
+    url: https://discord.gg/PWXJr3upUE
+    about: For questions and discussion.
+  - name: Documentation
+    url: https://audreyfeldroy.github.io/cookiecutter-pypackage/
+    about: Tutorial, prompts reference, and troubleshooting.
