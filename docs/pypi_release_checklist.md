@@ -19,7 +19,7 @@
 
 ## Every Release
 
-1. Write your release notes in `CHANGELOG/vX.Y.Z.md` and commit:
+1. Write your release notes in `CHANGELOG/X.Y.Z.md` and commit:
 
     ```bash
     git add CHANGELOG/
