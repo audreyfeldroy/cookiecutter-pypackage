@@ -1,0 +1,61 @@
+name: Bug Report
+description: Something isn't working as expected.
+title: "BUG: "
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: What happened? What did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Minimal steps to trigger the bug.
+      placeholder: |
+        1. Install with `uv pip install {{ cookiecutter.pypi_package_name }}`
+        2. Run `...`
+        3. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: "{{ cookiecutter.project_name }} version"
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: python-version
+    attributes:
+      label: Python version
+      placeholder: "3.13"
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - macOS
+        - Linux
+        - Windows
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Logs, tracebacks, screenshots, or anything else that helps.
+    validations:
+      required: false

@@ -1,0 +1,30 @@
+name: Feature Request
+description: Suggest something new.
+title: "FEAT: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the feature
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: What problem does this solve? What's the use case?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+    validations:
+      required: false
