@@ -22,7 +22,7 @@ def test_readme_created_by_without_website(cookies):
     assert "* GitHub: https://github.com/audreyfeldroy/attr-test/" in readme
 
     # GitHub profile should NOT appear in Created by (name already links there)
-    created_by = [l for l in readme.splitlines() if "Created by" in l][0]
+    created_by = [line for line in readme.splitlines() if "Created by" in line][0]
     assert "GitHub https://github.com/audreyfeldroy" not in created_by
 
     # PyPI profile appears in Created by line
@@ -46,7 +46,7 @@ def test_readme_created_by_with_website(cookies):
     assert "**[Audrey M. Roy Greenfeld](https://audrey.feldroy.com)**" in readme
 
     # GitHub profile appears in Created by line (separate from the repo link bullet)
-    created_by = [l for l in readme.splitlines() if "Created by" in l][0]
+    created_by = [line for line in readme.splitlines() if "Created by" in line][0]
     assert "GitHub https://github.com/audreyfeldroy" in created_by
 
 
