@@ -111,10 +111,12 @@ Before you submit a pull request, check that it meets these guidelines:
    ```
 
 2. Commit the version bump.
-3. Tag and push:
+3. Release:
 
    ```sh
-   just tag
+   just release
    ```
 
-   This creates an annotated git tag from the version in `pyproject.toml` and pushes it. The tag push triggers a GitHub Action that builds and publishes to PyPI.
+   This creates an annotated `v*` tag, pushes it to GitHub, and creates a
+   GitHub Release with the changelog contents as release notes. The tag
+   push triggers a GitHub Action that builds and publishes to PyPI.

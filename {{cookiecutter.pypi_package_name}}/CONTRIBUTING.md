@@ -122,21 +122,15 @@ uv run pytest tests/
    git add pyproject.toml uv.lock CHANGELOG/
    git commit -m "Release <version>"
    ```
-3. **Tag and push:**
+3. **Release:**
    ```bash
-   just tag
+   just release
    ```
-   This creates an annotated `v*` tag from the version in `pyproject.toml`
-   and pushes the commit and tag to GitHub.
-4. **Wait for the publish workflow.** The tag triggers `.github/workflows/publish.yml`,
-   which builds the package, generates SLSA provenance attestations, and publishes
-   to PyPI via trusted publishing.
-5. **Create the GitHub Release:**
-   ```bash
-   gh release create v<version> --verify-tag \
-     --title "{{ cookiecutter.project_name }} <version>" \
-     --notes-file CHANGELOG/<version>.md
-   ```
+   This creates an annotated `v*` tag, pushes it to GitHub, and creates a
+   GitHub Release with the changelog contents as release notes. The tag
+   push triggers `.github/workflows/publish.yml`, which builds the package,
+   generates SLSA provenance attestations, and publishes to PyPI via
+   trusted publishing.
 
 ## Code of Conduct
 

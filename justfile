@@ -22,17 +22,9 @@ build:
     rm -rf dist
     uv build
 
-VERSION := `uv version --short`
-
-# Print the current version of the project
-version:
-    @echo "Current version is {{VERSION}}"
-
-# Tag the current version in git and put to github
-tag:
-    echo "Tagging version v{{VERSION}}"
-    git tag -a v{{VERSION}} -m "Creating version v{{VERSION}}"
-    git push origin v{{VERSION}}
+# Tag, push, and create a GitHub release
+release:
+    uv run scripts/release.py
 
 # Run all the tests, but allow for arguments to be passed
 test *ARGS:
