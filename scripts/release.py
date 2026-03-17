@@ -21,7 +21,9 @@ def main() -> None:
     notes_path = Path(f"CHANGELOG/{version}.md")
 
     lines = notes_path.read_text().splitlines(keepends=True)
+    title = f"{name} {version}"
     if lines and lines[0].startswith("# "):
+        title = lines[0].lstrip("# ").strip()
         lines = lines[1:]
         if lines and not lines[0].strip():
             lines = lines[1:]
@@ -36,7 +38,7 @@ def main() -> None:
         tag,
         "--verify-tag",
         "--title",
-        f"{name} {version}",
+        title,
         "--notes",
         notes,
     )
