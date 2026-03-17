@@ -3,7 +3,7 @@
 [![PyPI version](https://img.shields.io/pypi/v/cookiecutter-pypackage.svg)](https://pypi.python.org/pypi/cookiecutter-pypackage)
 [![PyPI downloads](https://img.shields.io/pypi/dm/cookiecutter-pypackage.svg)](https://pypi.python.org/pypi/cookiecutter-pypackage)
 
-[Cookiecutter](https://github.com/cookiecutter/cookiecutter) template for a Python package with production-ready CI and automated PyPI publishing. Push a tag, your package ships, no token management needed.
+[Cookiecutter](https://github.com/cookiecutter/cookiecutter) template for a Python package with production-ready CI and automated PyPI publishing.
 
 ```bash
 uvx cookiecutter-pypackage
