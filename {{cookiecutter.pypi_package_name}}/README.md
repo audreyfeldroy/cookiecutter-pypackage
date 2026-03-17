@@ -6,7 +6,7 @@
 
 * GitHub: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.pypi_package_name }}/
 * PyPI package: https://pypi.org/project/{{ cookiecutter.pypi_package_name }}/
-* Created by: **[{{ cookiecutter.full_name }}]({{ cookiecutter.author_website if cookiecutter.author_website else 'https://github.com/' + cookiecutter.github_username }})** | {% if cookiecutter.author_website %} GitHub https://github.com/{{ cookiecutter.github_username }} | {% endif %}PyPI https://pypi.org/user/{{ cookiecutter.pypi_username }}/
+* Created by: **[{{ cookiecutter.full_name }}]({{ cookiecutter.author_website if cookiecutter.author_website else 'https://github.com/' + cookiecutter.github_username }})** | {% if cookiecutter.author_website %}GitHub https://github.com/{{ cookiecutter.github_username }} | {% endif %}PyPI https://pypi.org/user/{{ cookiecutter.pypi_username }}/
 * Free software: MIT License
 
 ## Features
