@@ -34,10 +34,14 @@ class ChangeHandler(FileSystemEventHandler):
         self.debounce_period = 2  # seconds
 
     def on_any_event(self, event):
-        # Ignore changes to dev.py itself
-        if Path(event.src_path).name == "dev.py":
-            return
         if event.is_directory:
+            return
+        src = Path(event.src_path)
+        # Ignore changes to dev.py itself
+        if src.name == "dev.py":
+            return
+        # For root-level watches, only react to cookiecutter.json
+        if src.parent == Path(".").resolve() and src.name != "cookiecutter.json":
             return
 
         current_time = time.time()
@@ -60,13 +64,14 @@ class ChangeHandler(FileSystemEventHandler):
 
 
 if __name__ == "__main__":
-    # Watch the template directory where actual changes matter
-    path = "{{cookiecutter.pypi_package_name}}"
+    # Watch the template directory and cookiecutter.json
+    template_dir = "{{cookiecutter.pypi_package_name}}"
     event_handler = ChangeHandler()
     observer = Observer()
-    observer.schedule(event_handler, path, recursive=True)
+    observer.schedule(event_handler, template_dir, recursive=True)
+    observer.schedule(event_handler, ".", recursive=False)
     observer.start()
-    print(f"Watching for file changes in '{path}'...")
+    print(f"Watching for file changes in '{template_dir}/' and 'cookiecutter.json'...")
     print("Press Ctrl+C to stop.")
     try:
         while True:
