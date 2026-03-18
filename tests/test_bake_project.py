@@ -25,7 +25,6 @@ def test_year_compute_in_license_file(cookies):
     assert str(now.year) in license_file.read_text()
 
 
-
 def test_bake_with_defaults(cookies):
     result = cookies.bake()
     assert result.project_path.is_dir()
