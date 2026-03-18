@@ -5,7 +5,7 @@ def test_readme_created_by_without_website(cookies):
     """With no author_website, name links to GitHub profile."""
     result = cookies.bake(
         extra_context={
-            "pypi_package_name": "attr-test",
+            "package_name": "attr-test",
             "full_name": "Audrey M. Roy Greenfeld",
             "github_username": "audreyfeldroy",
             "pypi_username": "audreyfeldroy",
@@ -33,7 +33,7 @@ def test_readme_created_by_with_website(cookies):
     """With author_website set, name links to website and GitHub gets a sub-bullet."""
     result = cookies.bake(
         extra_context={
-            "pypi_package_name": "attr-test-site",
+            "package_name": "attr-test-site",
             "full_name": "Audrey M. Roy Greenfeld",
             "github_username": "audreyfeldroy",
             "author_website": "https://audrey.feldroy.com",
@@ -54,7 +54,7 @@ def test_readme_no_duplicate_links(cookies):
     """Links should appear in the top section only, not repeated in Author section."""
     result = cookies.bake(
         extra_context={
-            "pypi_package_name": "dedup-test",
+            "package_name": "dedup-test",
             "full_name": "Audrey M. Roy Greenfeld",
             "github_username": "audreyfeldroy",
         },

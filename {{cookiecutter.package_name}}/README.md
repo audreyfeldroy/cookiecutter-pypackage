@@ -1,11 +1,11 @@
 # {{ cookiecutter.project_name }}
 
-![PyPI version](https://img.shields.io/pypi/v/{{ cookiecutter.pypi_package_name }}.svg)
+![PyPI version](https://img.shields.io/pypi/v/{{ cookiecutter.package_name }}.svg)
 
 {{ cookiecutter.project_short_description }}
 
-* GitHub: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.pypi_package_name }}/
-* PyPI package: https://pypi.org/project/{{ cookiecutter.pypi_package_name }}/
+* GitHub: https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.package_name }}/
+* PyPI package: https://pypi.org/project/{{ cookiecutter.package_name }}/
 * Created by: **[{{ cookiecutter.full_name }}]({{ cookiecutter.author_website if cookiecutter.author_website else 'https://github.com/' + cookiecutter.github_username }})** | {% if cookiecutter.author_website %}GitHub https://github.com/{{ cookiecutter.github_username }} | {% endif %}PyPI https://pypi.org/user/{{ cookiecutter.pypi_username }}/
 * Free software: MIT License
 
@@ -17,7 +17,7 @@
 
 Documentation is built with [Zensical](https://zensical.org/) and deployed to GitHub Pages.
 
-* **Live site:** https://{{ cookiecutter.github_username }}.github.io/{{ cookiecutter.project_slug }}/
+* **Live site:** https://{{ cookiecutter.github_username }}.github.io/{{ cookiecutter.package_name }}/
 * **Preview locally:** `just docs-serve` (serves at http://localhost:8000)
 * **Build:** `just docs-build`
 
@@ -31,14 +31,14 @@ To set up for local development:
 
 ```bash
 # Clone your fork
-git clone git@github.com:your_username/{{ cookiecutter.pypi_package_name }}.git
-cd {{ cookiecutter.pypi_package_name }}
+git clone git@github.com:your_username/{{ cookiecutter.package_name }}.git
+cd {{ cookiecutter.package_name }}
 
 # Install in editable mode with live updates
 uv tool install --editable .
 ```
 
-This installs the CLI globally but with live updates - any changes you make to the source code are immediately available when you run `{{ cookiecutter.project_slug }}`.
+This installs the CLI globally but with live updates - any changes you make to the source code are immediately available when you run `{{ cookiecutter.import_name }}`.
 
 Run tests:
 

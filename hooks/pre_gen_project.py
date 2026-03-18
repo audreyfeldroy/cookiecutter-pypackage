@@ -3,7 +3,7 @@ import sys
 
 MODULE_REGEX = r"^[_a-zA-Z][_a-zA-Z0-9]+$"
 
-module_name = "{{ cookiecutter.project_slug}}"
+module_name = "{{ cookiecutter.import_name}}"
 
 if not re.match(MODULE_REGEX, module_name):
     print(

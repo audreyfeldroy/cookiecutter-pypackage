@@ -6,7 +6,7 @@ automatically regenerates python_boilerplate/ when changes are detected.
 
 Usage:
     1. Run this script from the cookiecutter-pypackage repo root directory
-    2. Make changes to files in {{cookiecutter.pypi_package_name}}/
+    2. Make changes to files in {{cookiecutter.package_name}}/
     3. The script will automatically regenerate python_boilerplate/ with your changes
     4. Press Ctrl+C to stop watching
 
@@ -49,7 +49,7 @@ class ChangeHandler(FileSystemEventHandler):
             self.last_run = current_time
             print(f"Detected change in {event.src_path}. Running cookiecutter...")
             try:
-                # Output dir matches pypi_package_name in cookiecutter.json
+                # Output dir matches package_name in cookiecutter.json
                 output_dir = Path("python-boilerplate")
                 if output_dir.exists() and output_dir.is_dir():
                     print(f"Removing existing directory: {output_dir}")
@@ -65,7 +65,7 @@ class ChangeHandler(FileSystemEventHandler):
 
 if __name__ == "__main__":
     # Watch the template directory and cookiecutter.json
-    template_dir = "{{cookiecutter.pypi_package_name}}"
+    template_dir = "{{cookiecutter.package_name}}"
     event_handler = ChangeHandler()
     observer = Observer()
     observer.schedule(event_handler, template_dir, recursive=True)

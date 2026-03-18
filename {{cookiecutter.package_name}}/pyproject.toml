@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "{{cookiecutter.pypi_package_name}}"
+name = "{{cookiecutter.package_name}}"
 version = "{{ cookiecutter.first_version }}"
 description = "{{ cookiecutter.project_short_description | replace('\\', '\\\\') | replace('\"', '\\\"') }}"
 readme = "README.md"
@@ -46,13 +46,13 @@ docs = [
 ]
 
 [project.urls]
-bugs = "https://github.com/{{cookiecutter.__gh_slug}}/issues"
-changelog = "https://github.com/{{cookiecutter.__gh_slug}}/releases"
-documentation = "https://{{ cookiecutter.github_username }}.github.io/{{ cookiecutter.project_slug }}/"
-homepage = "https://github.com/{{cookiecutter.__gh_slug}}"
+bugs = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.package_name}}/issues"
+changelog = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.package_name}}/releases"
+documentation = "https://{{ cookiecutter.github_username }}.github.io/{{ cookiecutter.package_name }}/"
+homepage = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.package_name}}"
 
 [project.scripts]
-{{cookiecutter.project_slug}} = "{{cookiecutter.project_slug}}.cli:app"
+{{cookiecutter.import_name}} = "{{cookiecutter.import_name}}.cli:app"
 
 [tool.ty]
 # All rules are enabled as "error" by default; no need to specify unless overriding.

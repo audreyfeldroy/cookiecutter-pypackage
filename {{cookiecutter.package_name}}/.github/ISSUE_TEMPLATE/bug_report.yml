@@ -16,7 +16,7 @@ body:
       label: Steps to reproduce
       description: Minimal steps to trigger the bug.
       placeholder: |
-        1. Install with `uv pip install {{ cookiecutter.pypi_package_name }}`
+        1. Install with `uv pip install {{ cookiecutter.package_name }}`
         2. Run `...`
         3. See error
     validations:

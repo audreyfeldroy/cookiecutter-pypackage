@@ -8,7 +8,7 @@ You can contribute in many ways:
 
 ### Report Bugs
 
-Report bugs at https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/issues.
+Report bugs at https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.package_name }}/issues.
 
 If you are reporting a bug, please include:
 
@@ -38,7 +38,7 @@ This starts a local server at http://localhost:8000 with live reload. Edit files
 
 ### Submit Feedback
 
-The best way to send feedback is to file an issue at https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}/issues.
+The best way to send feedback is to file an issue at https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.package_name }}/issues.
 
 If you are proposing a feature:
 
@@ -48,19 +48,19 @@ If you are proposing a feature:
 
 ## Get Started!
 
-Ready to contribute? Here's how to set up `{{ cookiecutter.project_slug }}` for local development.
+Ready to contribute? Here's how to set up `{{ cookiecutter.package_name }}` for local development.
 
-1. Fork the `{{ cookiecutter.project_slug }}` repo on GitHub.
+1. Fork the `{{ cookiecutter.package_name }}` repo on GitHub.
 2. Clone your fork locally:
 
    ```sh
-   git clone git@github.com:your_name_here/{{ cookiecutter.project_slug }}.git
+   git clone git@github.com:your_name_here/{{ cookiecutter.package_name }}.git
    ```
 
 3. Install your local copy with uv:
 
    ```sh
-   cd {{ cookiecutter.project_slug }}/
+   cd {{ cookiecutter.package_name }}/
    uv sync
    ```
 

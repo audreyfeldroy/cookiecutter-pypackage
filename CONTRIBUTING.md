@@ -78,7 +78,7 @@ Ready to contribute? Here's how to set up `cookiecutter-pypackage` for local dev
    uv run pytest tests/
    ```
 
-6. For faster iteration on template changes, use the development watcher. It watches the `{{cookiecutter.pypi_package_name}}/` directory and regenerates the output whenever you save a file:
+6. For faster iteration on template changes, use the development watcher. It watches the `{{cookiecutter.package_name}}/` directory and regenerates the output whenever you save a file:
 
    ```sh
    uv run python run.py

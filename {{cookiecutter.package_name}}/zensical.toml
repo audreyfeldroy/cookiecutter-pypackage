@@ -1,8 +1,8 @@
 [project]
 site_name = "{{ cookiecutter.project_name }}"
-site_url = "https://{{ cookiecutter.github_username }}.github.io/{{ cookiecutter.project_slug }}/"
-repo_url = "https://github.com/{{ cookiecutter.__gh_slug }}"
-repo_name = "{{ cookiecutter.__gh_slug }}"
+site_url = "https://{{ cookiecutter.github_username }}.github.io/{{ cookiecutter.package_name }}/"
+repo_url = "https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.package_name }}"
+repo_name = "{{ cookiecutter.github_username }}/{{ cookiecutter.package_name }}"
 
 nav = [
   { "Home" = "index.md" },

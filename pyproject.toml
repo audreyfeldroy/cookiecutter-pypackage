@@ -47,7 +47,7 @@ security = "https://github.com/audreyfeldroy/cookiecutter-pypackage/security/pol
 
 [tool.ruff]
 exclude = [
-    "*cookiecutter.pypi_package_name*"
+    "*cookiecutter.package_name*"
     ]
 
 [tool.ruff.lint]
@@ -66,7 +66,7 @@ ignore = [
 
 [tool.ty.src]
 exclude = [
-    "*cookiecutter.pypi_package_name*",
+    "*cookiecutter.package_name*",
 ]
 
 [tool.coverage.run]
@@ -111,7 +111,7 @@ include = [
     "src/",
     "cookiecutter.json",
     "hooks/",
-    "{{cookiecutter.pypi_package_name}}/",
+    "{{cookiecutter.package_name}}/",
 ]
 
 [tool.hatch.build.targets.wheel]
@@ -120,4 +120,4 @@ packages = ["src/cookiecutter_pypackage"]
 [tool.hatch.build.targets.wheel.force-include]
 "cookiecutter.json" = "cookiecutter_pypackage/template/cookiecutter.json"
 "hooks" = "cookiecutter_pypackage/template/hooks"
-"{{cookiecutter.pypi_package_name}}" = "cookiecutter_pypackage/template/{{cookiecutter.pypi_package_name}}"
+"{{cookiecutter.package_name}}" = "cookiecutter_pypackage/template/{{cookiecutter.package_name}}"

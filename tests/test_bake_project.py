@@ -26,14 +26,14 @@ def test_year_compute_in_license_file(cookies):
 
 
 def project_info(result):
-    """Get toplevel dir, project_slug, and project dir from baked cookies"""
+    """Get toplevel dir, package_name, and project dir from baked cookies"""
     assert result.exception is None
     assert result.project_path.is_dir()
 
     project_path = result.project_path
-    project_slug = project_path.name
-    project_dir = project_path / project_slug
-    return str(project_path), project_slug, str(project_dir)
+    package_name = project_path.name
+    project_dir = project_path / package_name
+    return str(project_path), package_name, str(project_dir)
 
 
 def test_bake_with_defaults(cookies):
@@ -97,10 +97,10 @@ def test_py_typed_marker_exists(cookies):
     """Verify generated package includes a py.typed marker file (PEP 561)."""
     result = cookies.bake()
     assert result.exit_code == 0
-    project_path, project_slug, project_dir = project_info(result)
-    # src/ uses project_slug (underscores), not pypi_package_name (hyphens)
-    slug = project_slug.replace("-", "_")
-    py_typed = Path(project_path) / "src" / slug / "py.typed"
+    project_path, package_name, project_dir = project_info(result)
+    # src/ uses import_name (underscores), not package_name (hyphens)
+    import_name = package_name.replace("-", "_")
+    py_typed = Path(project_path) / "src" / import_name / "py.typed"
     assert py_typed.is_file()
 
 

@@ -1,4 +1,4 @@
-# Justfile for {{cookiecutter.pypi_package_name}}
+# Justfile for {{cookiecutter.package_name}}
 
 # Show available commands
 list:

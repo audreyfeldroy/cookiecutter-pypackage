@@ -23,9 +23,9 @@ You'll be prompted for some values. See [Prompts](prompts.md) for details on eac
 [1/10] full_name (Audrey M. Roy Greenfeld): Your Name
 [2/10] email (audreyfeldroy@example.com): you@example.com
 [3/10] github_username (audreyfeldroy): your-github-username
-[4/10] pypi_package_name (python-boilerplate): my-package
-[5/10] project_name (Python Boilerplate): My Package
-[6/10] project_slug (my_package):
+[4/10] project_name (Python Boilerplate): My Package
+[5/10] package_name (My-Package): my-package
+[6/10] import_name (my_package):
 [7/10] project_short_description (...): A short description of your package.
 [8/10] pypi_username (your-github-username):
 [9/10] author_website ():
