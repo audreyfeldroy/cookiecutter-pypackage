@@ -14,8 +14,9 @@ maintainers = [
   {name = "{{ cookiecutter.full_name | replace('\\', '\\\\') | replace('\"', '\\\"') }}", email = "{{cookiecutter.email}}"}
 ]
 classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
     "Typing :: Typed",
-    # TODO: Add additional classifiers as needed
 ]
 license = {text = "MIT"}
 dependencies = [
