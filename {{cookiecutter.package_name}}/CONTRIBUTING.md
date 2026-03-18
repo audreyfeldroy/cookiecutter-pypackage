@@ -8,7 +8,7 @@ You can contribute in many ways:
 
 ### Report Bugs
 
-Report bugs at https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.package_name }}/issues.
+Report bugs at https://github.com/{{ cookiecutter.github_repo_owner }}/{{ cookiecutter.package_name }}/issues.
 
 If you are reporting a bug, please include:
 
@@ -38,7 +38,7 @@ This starts a local server at http://localhost:8000 with live reload. Edit files
 
 ### Submit Feedback
 
-The best way to send feedback is to file an issue at https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.package_name }}/issues.
+The best way to send feedback is to file an issue at https://github.com/{{ cookiecutter.github_repo_owner }}/{{ cookiecutter.package_name }}/issues.
 
 If you are proposing a feature:
 

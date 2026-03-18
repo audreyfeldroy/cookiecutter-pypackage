@@ -2,7 +2,7 @@
 
 ## Reporting a Vulnerability
 
-If you find a security vulnerability in {{ cookiecutter.project_name }}, please report it through [GitHub's private vulnerability reporting](https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.package_name }}/security/advisories/new). This keeps the details private while we work on a fix.
+If you find a security vulnerability in {{ cookiecutter.project_name }}, please report it through [GitHub's private vulnerability reporting](https://github.com/{{ cookiecutter.github_repo_owner }}/{{ cookiecutter.package_name }}/security/advisories/new). This keeps the details private while we work on a fix.
 
 Please include:
 

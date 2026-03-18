@@ -16,18 +16,18 @@ pip install {{ cookiecutter.package_name }}
 
 ## From source
 
-The source files for {{ cookiecutter.project_name }} can be downloaded from the [Github repo](https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.package_name }}).
+The source files for {{ cookiecutter.project_name }} can be downloaded from the [Github repo](https://github.com/{{ cookiecutter.github_repo_owner }}/{{ cookiecutter.package_name }}).
 
 You can either clone the public repository:
 
 ```sh
-git clone https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.package_name }}
+git clone https://github.com/{{ cookiecutter.github_repo_owner }}/{{ cookiecutter.package_name }}
 ```
 
-Or download the [tarball](https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.package_name }}/tarball/main):
+Or download the [tarball](https://github.com/{{ cookiecutter.github_repo_owner }}/{{ cookiecutter.package_name }}/tarball/main):
 
 ```sh
-curl -OJL https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.package_name }}/tarball/main
+curl -OJL https://github.com/{{ cookiecutter.github_repo_owner }}/{{ cookiecutter.package_name }}/tarball/main
 ```
 
 Once you have a copy of the source, you can install it with:

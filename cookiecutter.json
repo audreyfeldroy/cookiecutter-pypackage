@@ -2,6 +2,7 @@
   "full_name": "Audrey M. Roy Greenfeld",
   "email": "audreyfeldroy@example.com",
   "github_username": "audreyfeldroy",
+  "github_repo_owner": "{{ cookiecutter.github_username }}",
   "project_name": "Python Boilerplate",
   "package_name": "{{ cookiecutter.project_name.replace(' ', '-') }}",
   "import_name": "{{ cookiecutter.package_name.lower().replace('-', '_') }}",

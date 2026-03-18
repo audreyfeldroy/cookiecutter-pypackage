@@ -46,10 +46,10 @@ docs = [
 ]
 
 [project.urls]
-bugs = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.package_name}}/issues"
-changelog = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.package_name}}/releases"
-documentation = "https://{{ cookiecutter.github_username }}.github.io/{{ cookiecutter.package_name }}/"
-homepage = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.package_name}}"
+bugs = "https://github.com/{{cookiecutter.github_repo_owner}}/{{cookiecutter.package_name}}/issues"
+changelog = "https://github.com/{{cookiecutter.github_repo_owner}}/{{cookiecutter.package_name}}/releases"
+documentation = "https://{{ cookiecutter.github_repo_owner }}.github.io/{{ cookiecutter.package_name }}/"
+homepage = "https://github.com/{{cookiecutter.github_repo_owner}}/{{cookiecutter.package_name}}"
 
 [project.scripts]
 {{cookiecutter.import_name}} = "{{cookiecutter.import_name}}.cli:app"
