@@ -52,6 +52,14 @@ def test_bake_and_run_tests(cookies):
     run_inside_dir("uv run pytest", str(result.project_path))
 
 
+def test_bake_and_run_ruff(cookies):
+    """Baked project passes ruff linting and formatting out of the box."""
+    result = cookies.bake()
+    assert result.project_path.is_dir()
+    run_inside_dir("uv run ruff check .", str(result.project_path))
+    run_inside_dir("uv run ruff format --check .", str(result.project_path))
+
+
 def test_bake_withspecialchars_and_run_tests(cookies):
     """Ensure that a `full_name` with double quotes does not break pyproject.toml"""
     result = cookies.bake(extra_context={"full_name": 'name "quote" name'})
