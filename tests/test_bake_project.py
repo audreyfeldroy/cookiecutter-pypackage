@@ -2,7 +2,6 @@ import datetime
 import shlex
 import subprocess
 import sys
-from pathlib import Path
 
 import pytest
 
