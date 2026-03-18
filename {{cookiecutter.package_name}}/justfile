@@ -75,10 +75,7 @@ release:
     uv run scripts/release.py
 
 # Remove all build, test, coverage and Python artifacts
-clean:
-	clean-build
-	clean-pyc
-	clean-test
+clean: clean-build clean-pyc clean-test
 
 # Remove build artifacts
 clean-build:
