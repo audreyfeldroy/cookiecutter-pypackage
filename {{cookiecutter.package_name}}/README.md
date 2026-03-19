@@ -4,10 +4,9 @@
 
 {{ cookiecutter.project_short_description }}
 
-* GitHub: https://github.com/{{ cookiecutter.github_repo_owner }}/{{ cookiecutter.package_name }}/
-* PyPI package: https://pypi.org/project/{{ cookiecutter.package_name }}/
-* Created by: **[{{ cookiecutter.full_name }}]({{ cookiecutter.author_website if cookiecutter.author_website else 'https://github.com/' + cookiecutter.github_username }})** | {% if cookiecutter.author_website %}GitHub https://github.com/{{ cookiecutter.github_username }} | {% endif %}PyPI https://pypi.org/user/{{ cookiecutter.pypi_username }}/
-* Free software: MIT License
+* [GitHub](https://github.com/{{ cookiecutter.github_repo_owner }}/{{ cookiecutter.package_name }}/) | [PyPI](https://pypi.org/project/{{ cookiecutter.package_name }}/) | [Documentation](https://{{ cookiecutter.github_repo_owner }}.github.io/{{ cookiecutter.package_name }}/)
+* Created by [{{ cookiecutter.full_name }}]({{ cookiecutter.author_website if cookiecutter.author_website else 'https://github.com/' + cookiecutter.github_username }}) | {% if cookiecutter.author_website %}GitHub [@{{ cookiecutter.github_username }}](https://github.com/{{ cookiecutter.github_username }}) | {% endif %}PyPI [@{{ cookiecutter.pypi_username }}](https://pypi.org/user/{{ cookiecutter.pypi_username }}/)
+* MIT License
 
 ## Features
 

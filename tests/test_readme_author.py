@@ -16,17 +16,17 @@ def test_readme_created_by_without_website(cookies):
     readme = (result.project_path / "README.md").read_text()
 
     # Name links to GitHub when no website provided
-    assert "**[Audrey M. Roy Greenfeld](https://github.com/audreyfeldroy)**" in readme
+    assert "[Audrey M. Roy Greenfeld](https://github.com/audreyfeldroy)" in readme
 
-    # GitHub repo link is a top-level bullet
-    assert "* GitHub: https://github.com/audreyfeldroy/attr-test/" in readme
+    # GitHub repo link in navigation line
+    assert "[GitHub](https://github.com/audreyfeldroy/attr-test/)" in readme
 
     # GitHub profile should NOT appear in Created by (name already links there)
     created_by = [line for line in readme.splitlines() if "Created by" in line][0]
-    assert "GitHub https://github.com/audreyfeldroy" not in created_by
+    assert "[@audreyfeldroy](https://github.com/audreyfeldroy)" not in created_by
 
     # PyPI profile appears in Created by line
-    assert "PyPI https://pypi.org/user/audreyfeldroy/" in created_by
+    assert "[@audreyfeldroy](https://pypi.org/user/audreyfeldroy/)" in created_by
 
 
 def test_readme_created_by_with_website(cookies):
@@ -43,11 +43,11 @@ def test_readme_created_by_with_website(cookies):
     readme = (result.project_path / "README.md").read_text()
 
     # Name links to the website
-    assert "**[Audrey M. Roy Greenfeld](https://audrey.feldroy.com)**" in readme
+    assert "[Audrey M. Roy Greenfeld](https://audrey.feldroy.com)" in readme
 
     # GitHub profile appears in Created by line (separate from the repo link bullet)
     created_by = [line for line in readme.splitlines() if "Created by" in line][0]
-    assert "GitHub https://github.com/audreyfeldroy" in created_by
+    assert "[@audreyfeldroy](https://github.com/audreyfeldroy)" in created_by
 
 
 def test_readme_no_duplicate_links(cookies):
