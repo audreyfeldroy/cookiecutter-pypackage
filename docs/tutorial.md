@@ -8,6 +8,7 @@ By the end of this tutorial, you'll have a Python package with a working CLI, a 
 - [uv](https://docs.astral.sh/uv/getting-started/installation/)
 - [just](https://github.com/casey/just#installation) (task runner)
 - [git](https://git-scm.com/)
+- [gh](https://cli.github.com/) (GitHub CLI, for automatic Pages setup)
 - A [GitHub account](https://github.com/)
 - A [PyPI account](https://pypi.org/) (when you're ready to publish)
 
@@ -94,13 +95,17 @@ git push -u origin main
 
 CI will run automatically on push. Check the Actions tab and you should see it pass: linting, type checking, and tests across three Python versions.
 
-## Step 5: Enable GitHub Pages
+## Step 5: Check GitHub Pages
 
-Go to your repo's Settings > Pages (or visit `https://github.com/your-username/my-package/settings/pages`) and set the source to **GitHub Actions**.
+The post-generation hook automatically enables GitHub Pages with GitHub Actions as the source. You should have seen this in the output when you generated the project:
 
-Then re-run the docs workflow that failed on the first push: go to Actions, find "Documentation", and click "Re-run all jobs."
+```
+GitHub Pages enabled for your-username/my-package (source: GitHub Actions)
+```
 
-Your docs site will be live at `https://your-username.github.io/my-package/` within a couple of minutes. It already has your project name, description, and an API reference page that will fill in as you add docstrings.
+If the hook couldn't reach GitHub (no `gh` CLI, or the repo didn't exist yet), enable it manually: go to your repo's Settings > Pages and set the source to **GitHub Actions**.
+
+After your first push, the docs workflow builds and deploys your site. Your docs will be live at `https://your-username.github.io/my-package/` within a couple of minutes. It already has your project name, description, and an API reference page that will fill in as you add docstrings.
 
 ## Step 6: Preview docs locally
 
@@ -133,7 +138,20 @@ Run `just qa` to verify everything still passes. Push your changes and watch CI 
 
 ## Step 8: Set up PyPI publishing
 
-Follow the [PyPI Release Checklist](pypi_release_checklist.md) to configure Trusted Publishing. This uses OIDC so there are no API tokens to manage. If you get the configuration wrong, you can delete and recreate it on PyPI.
+The post-generation hook printed the exact URL and form values you need:
+
+```
+PyPI trusted publisher (required for automated releases):
+https://pypi.org/manage/project/my-package/settings/publishing/
+
+Add a new GitHub publisher with these values:
+  Owner:        your-username
+  Repository:   my-package
+  Workflow:     publish.yml
+  Environment:  pypi
+```
+
+Go to that URL, fill in those values, and you're done. This uses OIDC (Trusted Publishers) so there are no API tokens to manage. See the [PyPI Release Checklist](pypi_release_checklist.md) for more details.
 
 ## Step 9: Release
 

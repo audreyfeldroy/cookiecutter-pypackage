@@ -32,7 +32,7 @@ Runs on push to `main`. Two jobs:
 1. **Build** - builds the documentation site with `zensical build`
 2. **Deploy** - deploys to GitHub Pages
 
-**First-time setup:** Go to your repo's Settings > Pages and set the source to **GitHub Actions**.
+**First-time setup:** The post-generation hook configures this automatically. If it couldn't (no `gh` CLI or repo not yet created), go to Settings > Pages and set the source to **GitHub Actions**.
 
 ## CodeQL (`codeql.yml`)
 
