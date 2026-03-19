@@ -55,6 +55,40 @@ def enable_github_pages():
         print("  Enable manually: Settings > Pages > Source > GitHub Actions")
 
 
+def create_pypi_environment():
+    """Create a 'pypi' GitHub environment for trusted publishing.
+
+    The publish workflow uses an environment named 'pypi' for OIDC-based
+    trusted publishing to PyPI. This creates the environment via the API.
+    """
+    if not shutil.which("gh"):
+        print("  gh CLI not found, skipping pypi environment setup.")
+        print("  Create manually: Settings > Environments > New environment > pypi")
+        return
+
+    try:
+        result = subprocess.run(
+            [
+                "gh",
+                "api",
+                f"repos/{OWNER}/{REPO}/environments/pypi",
+                "-X",
+                "PUT",
+            ],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if result.returncode == 0:
+            print(f"  GitHub environment 'pypi' created for {OWNER}/{REPO}")
+        else:
+            print("  Could not create pypi environment automatically.")
+            print("  Create manually: Settings > Environments > New environment > pypi")
+    except Exception:
+        print("  Could not create pypi environment automatically.")
+        print("  Create manually: Settings > Environments > New environment > pypi")
+
+
 def print_pypi_trusted_publisher_instructions():
     """Print instructions for adding a PyPI trusted publisher.
 
@@ -68,12 +102,13 @@ def print_pypi_trusted_publisher_instructions():
     print("  Add a new GitHub publisher with these values:")
     print(f"    Owner:        {OWNER}")
     print(f"    Repository:   {REPO}")
-    print(f"    Workflow:     publish.yml")
-    print(f"    Environment:  pypi")
+    print("    Workflow:     publish.yml")
+    print("    Environment:  pypi")
     print()
 
 
 if __name__ == "__main__":
     enable_github_pages()
+    create_pypi_environment()
     print_pypi_trusted_publisher_instructions()
     print("Your Python package project has been created successfully!")
