@@ -56,6 +56,41 @@ cookiecutter gh:audreyfeldroy/cookiecutter-pypackage
 
 </details>
 
+## Advanced Usage: Overriding Template Variables from the CLI
+
+You can override any template variable by passing `key=value` arguments. Any
+variable you don't pass uses the default from `cookiecutter.json`.
+
+Shell quoting matters when values contain spaces:
+
+```bash
+full_name="First Last"   # correct
+full_name=First Last      # wrong, shell splits this
+```
+
+**Fully non-interactive** (no prompts at all):
+
+```bash
+uvx cookiecutter-pypackage --no-input \
+    pypi_package_name="my-package" \
+    full_name="First Last" \
+    github_username="janedoe" \
+    email="jane@example.com"
+```
+
+`project_slug` is derived from `pypi_package_name`, so you usually don't need to
+set it explicitly.
+
+**Override some variables** (still prompts for the rest):
+
+```bash
+uvx cookiecutter-pypackage \
+    pypi_package_name="my-package" \
+    github_username="janedoe"
+```
+
+All available variables and their defaults are in [`cookiecutter.json`](cookiecutter.json).
+
 ## Documentation
 
 **[audreyfeldroy.github.io/cookiecutter-pypackage](https://audreyfeldroy.github.io/cookiecutter-pypackage/)**
