@@ -21,14 +21,30 @@ def enable_github_pages():
 
     try:
         subprocess.run(
-            ["gh", "api", f"repos/{OWNER}/{REPO}/pages", "-X", "POST", "-f", "build_type=workflow"],
+            [
+                "gh",
+                "api",
+                f"repos/{OWNER}/{REPO}/pages",
+                "-X",
+                "POST",
+                "-f",
+                "build_type=workflow",
+            ],
             capture_output=True,
             text=True,
             check=False,
         )
         # If already enabled with a different source, switch it
         subprocess.run(
-            ["gh", "api", f"repos/{OWNER}/{REPO}/pages", "-X", "PUT", "-f", "build_type=workflow"],
+            [
+                "gh",
+                "api",
+                f"repos/{OWNER}/{REPO}/pages",
+                "-X",
+                "PUT",
+                "-f",
+                "build_type=workflow",
+            ],
             capture_output=True,
             text=True,
             check=False,
