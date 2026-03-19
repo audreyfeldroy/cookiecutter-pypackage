@@ -93,6 +93,9 @@ exclude_also = [
     "\\.\\.\\.",
 ]
 
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
 [tool.uv]
 package = true
 default-groups = ["dev"]

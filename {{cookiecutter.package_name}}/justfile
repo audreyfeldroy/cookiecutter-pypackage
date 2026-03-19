@@ -28,7 +28,7 @@ qa:
     uv run --python=3.14 ruff check . --fix
     uv run --python=3.14 ruff check --select I --fix .
     uv run --python=3.14 ty check --output-format=concise .
-    uv run --python=3.14 pytest .
+    uv run --python=3.14 pytest
 
 # Run all the tests for all the supported Python versions
 testall:

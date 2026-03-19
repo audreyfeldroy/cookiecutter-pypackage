@@ -29,28 +29,28 @@ release:
 # Run all the tests, but allow for arguments to be passed
 test *ARGS:
     @echo "Running with arg: {{ARGS}}"
-    uv run --python=3.13 pytest {{ARGS}}
+    uv run --python=3.14 pytest {{ARGS}}
 
 # Run all the tests, but on failure, drop into the debugger
 pdb *ARGS:
     @echo "Running with arg: {{ARGS}}"
-    uv run --python=3.13 pytest --pdb --maxfail=10 {{ARGS}}
+    uv run --python=3.14 pytest --pdb --maxfail=10 {{ARGS}}
 
 # Run all the formatting, linting, type checking, and testing commands
 qa:
-    uv run --python=3.13 ruff format .
-    uv run --python=3.13 ruff check . --fix
-    uv run --python=3.13 ruff check --select I --fix .
-    uv run --python=3.13 ty check .
-    uv run --python=3.13 pytest .
+    uv run --python=3.14 ruff format .
+    uv run --python=3.14 ruff check . --fix
+    uv run --python=3.14 ruff check --select I --fix .
+    uv run --python=3.14 ty check .
+    uv run --python=3.14 pytest
 
 # Run all the checks for CI
 ci:
-    uv run --python=3.13 ruff format --check .
-    uv run --python=3.13 ruff check .
-    uv run --python=3.13 ruff check --select I .
-    uv run --python=3.13 ty check .
-    uv run --python=3.13 pytest .
+    uv run --python=3.14 ruff format --check .
+    uv run --python=3.14 ruff check .
+    uv run --python=3.14 ruff check --select I .
+    uv run --python=3.14 ty check .
+    uv run --python=3.14 pytest
 
 # Run all the tests for all the supported Python versions
 testall:
@@ -60,9 +60,9 @@ testall:
 
 # Run coverage, and build to HTML
 coverage:
-    uv run --python=3.13 coverage run -m pytest .
-    uv run --python=3.13 coverage report -m
-    uv run --python=3.13 coverage html
+    uv run --python=3.14 coverage run -m pytest
+    uv run --python=3.14 coverage report -m
+    uv run --python=3.14 coverage html
 
 # Serve docs locally with live reload
 docs-serve:
