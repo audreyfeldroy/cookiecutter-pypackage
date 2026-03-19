@@ -20,16 +20,17 @@ uvx cookiecutter-pypackage
 You'll be prompted for some values. See [Prompts](prompts.md) for details on each one.
 
 ```
-[1/10] full_name (Audrey M. Roy Greenfeld): Your Name
-[2/10] email (audreyfeldroy@example.com): you@example.com
-[3/10] github_username (audreyfeldroy): your-github-username
-[4/10] project_name (Python Boilerplate): My Package
-[5/10] package_name (My-Package): my-package
-[6/10] import_name (my_package):
-[7/10] project_short_description (...): A short description of your package.
-[8/10] pypi_username (your-github-username):
-[9/10] author_website ():
-[10/10] first_version (0.1.0):
+[1/11] full_name (Audrey M. Roy Greenfeld): Your Name
+[2/11] email (audreyfeldroy@example.com): you@example.com
+[3/11] github_username (audreyfeldroy): your-github-username
+[4/11] github_repo_owner (your-github-username):
+[5/11] project_name (Python Boilerplate): My Package
+[6/11] package_name (My-Package): my-package
+[7/11] import_name (my_package):
+[8/11] project_short_description (...): A short description of your package.
+[9/11] pypi_username (your-github-username):
+[10/11] author_website ():
+[11/11] first_version (0.1.0):
 ```
 
 You should see "Your Python package project has been created successfully!" and a new `my-package/` directory.

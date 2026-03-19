@@ -18,7 +18,8 @@ The package name is auto-generated from the project name by replacing spaces wit
 
 - **full_name**: Your full name. Used in `pyproject.toml` author field and the LICENSE file.
 - **email**: Your email address. Used in `pyproject.toml` author field.
-- **github_username**: Your GitHub username. Used to build repo URLs, the GitHub Pages docs URL, and the PyPI profile link.
+- **github_username**: Your GitHub username. Used for the "Created by" link in the README and the PyPI profile link. Defaults `github_repo_owner` to this value.
+- **github_repo_owner**: The GitHub account or organization that owns the repo. Defaults to `github_username`. Override this when your repo lives under an organization (e.g. `feldroy` instead of `audreyfeldroy`). Used in all repo URLs, GitHub Pages docs URL, and security advisory links.
 - **project_name**: The human-readable name of your project. Used in documentation headings and the README. Spaces and any characters are fine.
 - **package_name**: The name of your package on PyPI, GitHub repo, and top-level directory. Defaults to `project_name` with spaces replaced by hyphens.
 - **import_name**: The Python import name (`import my_cool_parser`). Also used as the CLI command name. Must be a valid Python identifier. Defaults to `package_name` lowercased with hyphens replaced by underscores.
