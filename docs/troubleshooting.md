@@ -15,7 +15,7 @@ Make sure GitHub Pages is configured to deploy from **GitHub Actions** (not a br
 The most common causes:
 
 - **Trusted Publisher not configured.** You need to register your repo as a trusted publisher on PyPI before the first release. See the [PyPI Release Checklist](pypi_release_checklist.md).
-- **`pypi` environment not created.** Go to your repo's Settings > Environments and create an environment named `pypi`.
+- **`pypi` environment not created.** The post-generation hook creates this automatically. If it didn't, go to Settings > Environments and create an environment named `pypi`.
 - **Tag format wrong.** Tags must match `v*` (e.g., `v0.1.0`). The `just tag` command handles this for you.
 
 If you got the Trusted Publisher configuration wrong, you can delete it on PyPI and create it again.

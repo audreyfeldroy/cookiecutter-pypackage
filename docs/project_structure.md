@@ -6,11 +6,17 @@ After generating your package, you'll have a project that looks like this:
 my-package/
 ├── .github/
 │   ├── dependabot.yml
-│   ├── ISSUE_TEMPLATE.md
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml
+│   │   ├── config.yml
+│   │   └── feature_request.yml
+│   ├── pull_request_template.md
 │   └── workflows/
 │       ├── ci.yml          # Lint, type check, test
+│       ├── codeql.yml      # Security analysis
 │       ├── docs.yml        # Build and deploy docs
-│       └── publish.yml     # Publish to PyPI on tag
+│       ├── publish.yml     # Publish to PyPI on tag
+│       └── zizmor.yml      # Workflow security audit
 ├── docs/
 │   ├── api.md              # Auto-generated API reference
 │   ├── index.md            # Docs landing page
@@ -25,14 +31,18 @@ my-package/
 │       └── utils.py        # Placeholder, rename or delete
 ├── tests/
 │   └── test_my_package.py
+├── scripts/
+│   └── release.py          # Version bump, tag, and push
+├── .editorconfig
 ├── .gitignore
+├── CHANGELOG/              # One file per release (e.g. 0.1.0.md)
 ├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
-├── CHANGELOG/              # One file per release (e.g. 0.1.0.md)
 ├── justfile                # Task runner commands
 ├── LICENSE
 ├── pyproject.toml          # Package metadata and tool config
 ├── README.md
+├── SECURITY.md
 └── zensical.toml           # Documentation site config
 ```
 
@@ -68,7 +78,7 @@ Run `just list` to see all available commands. The key ones:
 | `just docs-serve` | Preview docs locally at http://localhost:8000 |
 | `just docs-build` | Build docs |
 | `just coverage` | Run tests with coverage and generate HTML report |
-| `just tag` | Tag the current version and push to GitHub |
+| `just release` | Tag the current version and push to GitHub |
 | `just build` | Build sdist and wheel |
 
 ## GitHub Actions workflows
@@ -81,7 +91,7 @@ The docs site is built with [Zensical](https://zensical.org/) and configured in 
 
 The API reference page (`docs/api.md`) auto-generates documentation from your docstrings using [mkdocstrings](https://mkdocstrings.github.io/). Write docstrings in your code and they'll appear on the docs site automatically.
 
-To enable deployment, go to your repo's Settings > Pages and set the source to **GitHub Actions**. See the [Tutorial](tutorial.md#step-5-enable-github-pages) for details.
+The post-generation hook enables GitHub Pages automatically. If it couldn't, go to your repo's Settings > Pages and set the source to **GitHub Actions**.
 
 ## Configuration (`pyproject.toml`)
 

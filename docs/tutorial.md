@@ -8,7 +8,7 @@ By the end of this tutorial, you'll have a Python package with a working CLI, a 
 - [uv](https://docs.astral.sh/uv/getting-started/installation/)
 - [just](https://github.com/casey/just#installation) (task runner)
 - [git](https://git-scm.com/)
-- [gh](https://cli.github.com/) (GitHub CLI, for automatic Pages setup)
+- [gh](https://cli.github.com/) (GitHub CLI, for automatic repo and Pages setup)
 - A [GitHub account](https://github.com/)
 - A [PyPI account](https://pypi.org/) (when you're ready to publish)
 
@@ -34,7 +34,26 @@ You'll be prompted for some values. See [Prompts](prompts.md) for details on eac
 [11/11] first_version (0.1.0):
 ```
 
-You should see "Your Python package project has been created successfully!" and a new `my-package/` directory.
+The hook will ask whether to make the GitHub repo public or private, then set everything up:
+
+```
+Make the GitHub repo public or private? [public/private] (public): public
+GitHub repo created: https://github.com/your-username/my-package
+GitHub Pages enabled for your-username/my-package (source: GitHub Actions)
+GitHub environment 'pypi' created for your-username/my-package
+Git initialized with initial commit
+Pushed to https://github.com/your-username/my-package
+
+To publish to PyPI, add a pending publisher at:
+https://pypi.org/manage/account/publishing/
+...
+
+Your Python package project has been created successfully!
+```
+
+CI runs automatically on push. Check the Actions tab and you should see it pass: linting, type checking, and tests across three Python versions. Your docs site will be live at `https://your-username.github.io/my-package/` within a couple of minutes.
+
+If you don't have the `gh` CLI, the hook skips repo creation and prints manual instructions instead.
 
 ## Step 2: Look around
 
@@ -78,36 +97,7 @@ You can also run it as a module: `uv run python -m my_package`.
 
 Run `just list` to see all available commands.
 
-## Step 4: Create a GitHub repo and push
-
-```bash
-git init -b main
-git add .
-git commit -m "Initial commit"
-```
-
-Create a repo on GitHub (or use `gh repo create`), then push:
-
-```bash
-git remote add origin git@github.com:your-username/my-package.git
-git push -u origin main
-```
-
-CI will run automatically on push. Check the Actions tab and you should see it pass: linting, type checking, and tests across three Python versions.
-
-## Step 5: Check GitHub Pages
-
-The post-generation hook automatically enables GitHub Pages with GitHub Actions as the source. You should have seen this in the output when you generated the project:
-
-```
-GitHub Pages enabled for your-username/my-package (source: GitHub Actions)
-```
-
-If the hook couldn't reach GitHub (no `gh` CLI, or the repo didn't exist yet), enable it manually: go to your repo's Settings > Pages and set the source to **GitHub Actions**.
-
-After your first push, the docs workflow builds and deploys your site. Your docs will be live at `https://your-username.github.io/my-package/` within a couple of minutes. It already has your project name, description, and an API reference page that will fill in as you add docstrings.
-
-## Step 6: Preview docs locally
+## Step 4: Preview docs locally
 
 ```bash
 just docs-serve
@@ -115,7 +105,7 @@ just docs-serve
 
 This starts a local server at http://localhost:8000 with live reload. Edit a doc, save, and watch it update. The API reference page auto-generates documentation from your docstrings.
 
-## Step 7: Write some code
+## Step 5: Write some code
 
 Open `src/my_package/utils.py` and replace the placeholder:
 
@@ -136,47 +126,31 @@ def test_add():
 
 Run `just qa` to verify everything still passes. Push your changes and watch CI confirm it on GitHub too.
 
-## Step 8: Set up PyPI publishing
+## Step 6: Set up PyPI publishing
 
-The post-generation hook printed the exact URL and form values you need:
+The post-generation hook printed the URL and form values you need:
 
 ```
-PyPI trusted publisher (required for automated releases):
-https://pypi.org/manage/project/my-package/settings/publishing/
+To publish to PyPI, add a pending publisher at:
+https://pypi.org/manage/account/publishing/
 
-Add a new GitHub publisher with these values:
-  Owner:        your-username
-  Repository:   my-package
-  Workflow:     publish.yml
-  Environment:  pypi
+Fill in these values:
+  PyPI project name:  my-package
+  Owner:              your-username
+  Repository:         my-package
+  Workflow:           publish.yml
+  Environment:        pypi
+
+Then release with:
+  just release
 ```
 
 Go to that URL, fill in those values, and you're done. This uses OIDC (Trusted Publishers) so there are no API tokens to manage. See the [PyPI Release Checklist](pypi_release_checklist.md) for more details.
 
-## Step 9: Release
+## Step 7: Release
 
-1. Write your release notes in `CHANGELOG/0.1.0.md` and commit:
+```bash
+just release
+```
 
-    ```bash
-    git add CHANGELOG/
-    git commit -m "Add release notes for v0.1.0"
-    ```
-
-2. Bump the version and commit:
-
-    ```bash
-    uv version patch
-    git add pyproject.toml uv.lock
-    git commit -m "Bump version to 0.1.0"
-    ```
-
-3. Push, then tag and push the tag:
-
-    ```bash
-    git push
-    just tag
-    ```
-
-    `just tag` reads the version from `pyproject.toml`, creates an annotated git tag, and pushes it.
-
-4. GitHub Actions builds and publishes to PyPI automatically. Check the Actions tab to confirm. Your package is now live, signed with Sigstore, and published via Trusted Publishers.
+This bumps the version, tags it, pushes, and GitHub Actions builds, signs with Sigstore, and publishes to PyPI automatically. Check the Actions tab to confirm.

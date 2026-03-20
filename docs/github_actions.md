@@ -23,7 +23,7 @@ Runs when you push a tag matching `v*` (e.g., `v0.1.0`). Two jobs:
 
 Publishing uses [Trusted Publishers](https://docs.pypi.org/trusted-publishers/), so there are no API tokens to manage. PyPI verifies the package came from your GitHub repo's workflow via OIDC.
 
-**First-time setup:** You need to register your repo as a trusted publisher on PyPI and create a `pypi` environment in your GitHub repo settings. See [PyPI Release Checklist](pypi_release_checklist.md) for the steps.
+**First-time setup:** The post-generation hook creates the `pypi` environment automatically. You still need to register your repo as a trusted publisher on PyPI. See [PyPI Release Checklist](pypi_release_checklist.md) for the steps.
 
 ## Documentation (`docs.yml`)
 
