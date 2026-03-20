@@ -1,11 +1,66 @@
 #!/usr/bin/env python
 """Post-generation hooks for cookiecutter-pypackage."""
 
+import os
 import shutil
 import subprocess
 
 OWNER = "{{ cookiecutter.github_repo_owner }}"
 REPO = "{{ cookiecutter.package_name }}"
+
+
+def create_github_repo():
+    """Create the GitHub repo so subsequent setup steps can configure it.
+
+    Asks the user whether the repo should be public or private.
+    Uses gh repo create which handles both personal and org repos.
+    """
+    if not shutil.which("gh"):
+        print("  gh CLI not found, skipping repo creation.")
+        print(f"  Create manually: https://github.com/new?name={REPO}&owner={OWNER}")
+        return False
+
+    if not os.isatty(0):
+        return False
+
+    choice = (
+        input("  Make the GitHub repo public or private? [public/private] (public): ")
+        .strip()
+        .lower()
+    )
+    visibility = "--private" if choice == "private" else "--public"
+
+    try:
+        result = subprocess.run(
+            [
+                "gh",
+                "repo",
+                "create",
+                f"{OWNER}/{REPO}",
+                visibility,
+                "--description",
+                "{{ cookiecutter.project_short_description | replace('\"', '\\\"') }}",
+            ],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if result.returncode == 0:
+            print(f"  GitHub repo created: https://github.com/{OWNER}/{REPO}")
+            return True
+        elif "already exists" in result.stderr:
+            print(f"  GitHub repo {OWNER}/{REPO} already exists")
+            return True
+        else:
+            print(f"  Could not create repo: {result.stderr.strip()}")
+            print(
+                f"  Create manually: https://github.com/new?name={REPO}&owner={OWNER}"
+            )
+            return False
+    except Exception:
+        print("  Could not create repo automatically.")
+        print(f"  Create manually: https://github.com/new?name={REPO}&owner={OWNER}")
+        return False
 
 
 def enable_github_pages():
@@ -108,7 +163,9 @@ def print_pypi_trusted_publisher_instructions():
 
 
 if __name__ == "__main__":
-    enable_github_pages()
-    create_pypi_environment()
+    repo_created = create_github_repo()
+    if repo_created:
+        enable_github_pages()
+        create_pypi_environment()
     print_pypi_trusted_publisher_instructions()
     print("Your Python package project has been created successfully!")
