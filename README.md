@@ -45,6 +45,25 @@ Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then:
 ```bash
 uvx cookiecutter-pypackage
 ```
+## Overriding Template Variables
+
+Pass `key=value` arguments to override template variables without being prompted:
+
+**Basic example:**
+```bash
+uvx cookiecutter-pypackage full_name="Your Name" github_username=yourhandle
+```
+
+**Using `--no-input` for automation:**
+```bash
+uvx cookiecutter-pypackage --no-input full_name="Your Name" email="you@example.com"
+```
+
+**Shell quoting note:**
+- ✅ `full_name="First Last"` (correct)
+- ❌ `full_name=First Last` (incorrect — shell splits this into two arguments)
+
+**Available variables:** See [`cookiecutter.json`](cookiecutter.json) for the full list.
 
 You'll be prompted for your package name, GitHub username, and a few other values ([full list](https://audreyfeldroy.github.io/cookiecutter-pypackage/prompts/)). Then push to GitHub and follow the [tutorial](https://audreyfeldroy.github.io/cookiecutter-pypackage/tutorial/) to enable Pages and set up PyPI publishing.
 
