@@ -73,7 +73,7 @@ uvx cookiecutter-pypackage \
 
 For non-interactive automation, add `--no-input` before the overrides.
 Variables you don't pass use the defaults in
-[`cookiecutter.json`](cookiecutter.json):
+[`cookiecutter.json`](https://github.com/audreyfeldroy/cookiecutter-pypackage/blob/main/cookiecutter.json):
 
 ```bash
 uvx cookiecutter-pypackage --no-input \
