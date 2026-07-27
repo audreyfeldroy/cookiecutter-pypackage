@@ -60,40 +60,37 @@ cookiecutter gh:audreyfeldroy/cookiecutter-pypackage
 
 </details>
 
-## Advanced Usage: Overriding Template Variables from the CLI
+## Override template variables
 
-You can override any template variable by passing `key=value` arguments. Any
-variable you don't pass uses the default from `cookiecutter.json`.
-
-Shell quoting matters when values contain spaces:
-
-```bash
-full_name="First Last"   # correct
-full_name=First Last      # wrong, shell splits this
-```
-
-**Fully non-interactive** (no prompts at all):
-
-```bash
-uvx cookiecutter-pypackage --no-input \
-    pypi_package_name="my-package" \
-    full_name="First Last" \
-    github_username="janedoe" \
-    email="jane@example.com"
-```
-
-`project_slug` is derived from `pypi_package_name`, so you usually don't need to
-set it explicitly.
-
-**Override some variables** (still prompts for the rest):
+Pass `key=value` arguments to prefill the interactive prompts. You can still
+review or change each value:
 
 ```bash
 uvx cookiecutter-pypackage \
-    pypi_package_name="my-package" \
-    github_username="janedoe"
+    full_name="Your Name" \
+    github_username=yourhandle
 ```
 
-All available variables and their defaults are in [`cookiecutter.json`](cookiecutter.json).
+For non-interactive automation, add `--no-input` before the overrides.
+Variables you don't pass use the defaults in
+[`cookiecutter.json`](cookiecutter.json):
+
+```bash
+uvx cookiecutter-pypackage --no-input \
+    full_name="Your Name" \
+    email="you@example.com"
+```
+
+Quote values that contain spaces so the shell passes each assignment as one
+argument:
+
+```bash
+full_name="First Last"  # correct
+full_name=First Last    # incorrect
+```
+
+See the [template prompts](https://audreyfeldroy.github.io/cookiecutter-pypackage/prompts/)
+for descriptions of all available variables.
 
 ## Documentation
 
