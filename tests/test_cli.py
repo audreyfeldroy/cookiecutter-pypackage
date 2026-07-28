@@ -6,10 +6,20 @@ forwarding extra_context values when generating projects.
 
 import json
 import os
+from pathlib import Path
 
 from typer.testing import CliRunner
 
 from cookiecutter_pypackage import cli
+
+
+def test_readme_direct_cookiecutter_command_keeps_failed_projects():
+    """The documented fallback preserves output when a hook fails."""
+    readme = (Path(__file__).parents[1] / "README.md").read_text(encoding="utf-8")
+
+    assert (
+        "cookiecutter --keep-project-on-failure gh:audreyfeldroy/cookiecutter-pypackage"
+    ) in readme
 
 
 def test_find_template_dir_in_source_checkout(monkeypatch, tmp_path):

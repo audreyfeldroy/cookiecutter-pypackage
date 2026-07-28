@@ -67,7 +67,7 @@ and the feature may require a paid GitHub plan.
 uv venv
 source .venv/bin/activate
 uv pip install cookiecutter
-cookiecutter gh:audreyfeldroy/cookiecutter-pypackage
+cookiecutter --keep-project-on-failure gh:audreyfeldroy/cookiecutter-pypackage
 ```
 
 </details>
