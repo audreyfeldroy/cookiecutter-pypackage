@@ -4,16 +4,32 @@ Usage:
     uvx cookiecutter-pypackage
     uvx cookiecutter-pypackage --no-input
     uvx cookiecutter-pypackage --list-variables
+    uvx cookiecutter-pypackage --github private
+    uvx cookiecutter-pypackage --no-input --github private
     uvx cookiecutter-pypackage -o /path/to/output
     uvx cookiecutter-pypackage full_name="Audrey M. Roy Greenfeld" github_username=audreyfeldroy
     uvx cookiecutter-pypackage --no-input full_name="Audrey M. Roy Greenfeld" email="audreyfeldroy@example.com"
 """
 
 import json
+import os
+from enum import Enum
 from pathlib import Path
 
 import typer
 from cookiecutter.main import cookiecutter
+
+GITHUB_SETUP_ENV = "COOKIECUTTER_PYPACKAGE_GITHUB"
+
+
+class GitHubSetupMode(str, Enum):
+    """How the post-generation hook should handle GitHub setup."""
+
+    ASK = "ask"
+    SKIP = "skip"
+    PRIVATE = "private"
+    PUBLIC = "public"
+
 
 app = typer.Typer(
     help="Generate a Python package from the cookiecutter-pypackage template.",
@@ -47,6 +63,12 @@ def main(
         "--list-variables",
         help="List available template variables and their defaults",
     ),
+    github: GitHubSetupMode = typer.Option(
+        GitHubSetupMode.ASK,
+        "--github",
+        case_sensitive=False,
+        help="GitHub setup: ask, skip, private, or public",
+    ),
 ) -> None:
     """Generate a new Python package from the cookiecutter-pypackage template.
 
@@ -74,12 +96,24 @@ def main(
         key, value = arg.split("=", 1)
         extra_context[key] = value
 
-    cookiecutter(
-        str(template_dir),
-        output_dir=str(output_dir) if output_dir else ".",
-        no_input=no_input,
-        extra_context=extra_context or None,
-    )
+    github_mode = github
+    if no_input and github_mode is GitHubSetupMode.ASK:
+        github_mode = GitHubSetupMode.SKIP
+
+    previous_github_mode = os.environ.get(GITHUB_SETUP_ENV)
+    os.environ[GITHUB_SETUP_ENV] = github_mode.value
+    try:
+        cookiecutter(
+            str(template_dir),
+            output_dir=str(output_dir) if output_dir else ".",
+            no_input=no_input,
+            extra_context=extra_context or None,
+        )
+    finally:
+        if previous_github_mode is None:
+            os.environ.pop(GITHUB_SETUP_ENV, None)
+        else:
+            os.environ[GITHUB_SETUP_ENV] = previous_github_mode
 
 
 if __name__ == "__main__":

@@ -46,7 +46,16 @@ Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then:
 uvx cookiecutter-pypackage
 ```
 
-You'll be prompted for your package name, GitHub username, and a few other values ([full list](https://audreyfeldroy.github.io/cookiecutter-pypackage/prompts/)). Then push to GitHub and follow the [tutorial](https://audreyfeldroy.github.io/cookiecutter-pypackage/tutorial/) to enable Pages and set up PyPI publishing.
+You'll be prompted for your package name, GitHub username, and a few other
+values ([full list](https://audreyfeldroy.github.io/cookiecutter-pypackage/prompts/)).
+Follow the [tutorial](https://audreyfeldroy.github.io/cookiecutter-pypackage/tutorial/)
+to generate, verify, and release your package.
+
+After the template prompts, you can optionally set up GitHub. The default is
+**no**: pressing Enter creates only the project files. If you opt in, the
+generator shows its complete plan before it creates a private or public
+repository, makes the first Git commit, pushes `main`, enables Pages, and
+creates the `pypi` environment.
 
 <details>
 <summary>Without uvx</summary>
@@ -80,6 +89,18 @@ uvx cookiecutter-pypackage --no-input \
     full_name="Your Name" \
     email="you@example.com"
 ```
+
+Non-interactive generation skips GitHub setup unless you explicitly request a
+private or public repository:
+
+```bash
+uvx cookiecutter-pypackage --no-input --github private \
+    project_name="My Package" \
+    package_name=my-package
+```
+
+Use `--github skip` to suppress the GitHub question during an interactive
+generation.
 
 List the available variables and their configured defaults without generating
 a project:

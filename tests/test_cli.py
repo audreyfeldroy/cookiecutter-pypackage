@@ -5,6 +5,7 @@ forwarding extra_context values when generating projects.
 """
 
 import json
+import os
 
 from typer.testing import CliRunner
 
@@ -54,6 +55,46 @@ def test_list_variables(monkeypatch, tmp_path):
         "  full_name (default: 'Example User')",
         "  package_name (default: '{{ cookiecutter.project_name }}')",
     ]
+
+
+def test_no_input_skips_github_setup_by_default(monkeypatch, tmp_path):
+    """Non-interactive generation requires an explicit GitHub opt-in."""
+    (tmp_path / "cookiecutter.json").write_text("{}", encoding="utf-8")
+    monkeypatch.setattr(cli, "_find_template_dir", lambda: tmp_path)
+    observed_modes = []
+
+    def fake_cookiecutter(*args, **kwargs):
+        observed_modes.append(os.environ[cli.GITHUB_SETUP_ENV])
+
+    monkeypatch.setattr(cli, "cookiecutter", fake_cookiecutter)
+    result = CliRunner().invoke(cli.app, ["--no-input"])
+
+    assert result.exit_code == 0
+    assert observed_modes == ["skip"]
+    assert cli.GITHUB_SETUP_ENV not in os.environ
+
+
+def test_explicit_github_mode_is_forwarded_and_environment_restored(
+    monkeypatch, tmp_path
+):
+    """The CLI forwards explicit consent without leaking process state."""
+    (tmp_path / "cookiecutter.json").write_text("{}", encoding="utf-8")
+    monkeypatch.setattr(cli, "_find_template_dir", lambda: tmp_path)
+    monkeypatch.setenv(cli.GITHUB_SETUP_ENV, "private")
+    observed_modes = []
+
+    def fake_cookiecutter(*args, **kwargs):
+        observed_modes.append(os.environ[cli.GITHUB_SETUP_ENV])
+
+    monkeypatch.setattr(cli, "cookiecutter", fake_cookiecutter)
+    result = CliRunner().invoke(
+        cli.app,
+        ["--no-input", "--github", "public"],
+    )
+
+    assert result.exit_code == 0
+    assert observed_modes == ["public"]
+    assert os.environ[cli.GITHUB_SETUP_ENV] == "private"
 
 
 def test_extra_context_single_value(cookies):

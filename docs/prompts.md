@@ -27,3 +27,18 @@ The package name is auto-generated from the project name by replacing spaces wit
 - **pypi_username**: Your PyPI account username. Used only for a link to your PyPI profile in the README.
 - **author_website**: Your personal website URL (optional). When provided, the "Created by" link in the README points here. When left blank, it defaults to your GitHub profile URL.
 - **first_version**: The starting version number of the package. Defaults to `0.1.0`.
+
+## GitHub setup
+
+After the template prompts, the generator separately asks whether to set up a
+GitHub repository. Pressing Enter selects no and leaves the generated project
+without a Git commit or remote repository.
+
+If you opt in, visibility defaults to private. The generator shows the full
+plan and asks for final confirmation before it creates or connects to an empty
+repository, initializes Git, pushes `main`, enables Pages, or creates the
+`pypi` environment. Existing nonempty repositories are never modified
+automatically.
+
+For non-interactive use, `--no-input` skips GitHub setup unless you add
+`--github private` or `--github public`.
