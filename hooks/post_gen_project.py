@@ -7,8 +7,16 @@ import shutil
 import subprocess
 from typing import NamedTuple
 
-OWNER = "{{ cookiecutter.github_repo_owner }}"
-REPO = "{{ cookiecutter.package_name }}"
+OWNER = json.loads(
+    r"""
+{{ cookiecutter.github_repo_owner | tojson }}
+""".strip()
+)
+REPO = json.loads(
+    r"""
+{{ cookiecutter.package_name | tojson }}
+""".strip()
+)
 DESCRIPTION = json.loads(
     r"""
 {{ cookiecutter.project_short_description | tojson }}
@@ -302,8 +310,16 @@ def prepare_github_repository(plan):
     return False
 
 
-IMPORT_NAME = "{{ cookiecutter.import_name }}"
-FIRST_VERSION = "{{ cookiecutter.first_version }}"
+IMPORT_NAME = json.loads(
+    r"""
+{{ cookiecutter.import_name | tojson }}
+""".strip()
+)
+FIRST_VERSION = json.loads(
+    r"""
+{{ cookiecutter.first_version | tojson }}
+""".strip()
+)
 
 COMMIT_MESSAGE = f"""\
 https://github.com/audreyfeldroy/cookiecutter-pypackage scaffolding

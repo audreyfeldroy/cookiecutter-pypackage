@@ -10,18 +10,18 @@ from cookiecutter.generate import create_env_with_context
 HOOK_PATH = Path(__file__).parents[1] / "hooks" / "post_gen_project.py"
 
 
-def load_hook(tmp_path, description="Example project"):
+def load_hook(tmp_path, **overrides):
     """Render and load the hook exactly as Cookiecutter does."""
     source = HOOK_PATH.read_text(encoding="utf-8")
-    context = {
-        "cookiecutter": {
-            "github_repo_owner": "example-owner",
-            "package_name": "example-repo",
-            "project_short_description": description,
-            "import_name": "example_repo",
-            "first_version": "0.1.0",
-        }
+    values = {
+        "github_repo_owner": "example-owner",
+        "package_name": "example-repo",
+        "project_short_description": "Example project",
+        "import_name": "example_repo",
+        "first_version": "0.1.0",
     }
+    values.update(overrides)
+    context = {"cookiecutter": values}
     rendered = create_env_with_context(context).from_string(source).render(**context)
     rendered_path = tmp_path / "post_gen_project.py"
     rendered_path.write_text(rendered, encoding="utf-8")
@@ -328,6 +328,23 @@ def test_pages_failure_is_reported_without_false_success(hook, monkeypatch, caps
 )
 def test_description_is_rendered_as_a_safe_string_literal(tmp_path, description):
     """Rendered descriptions preserve newlines and backslashes without syntax errors."""
-    hook = load_hook(tmp_path, description)
+    hook = load_hook(tmp_path, project_short_description=description)
 
     assert hook.DESCRIPTION == description
+
+
+def test_all_hook_template_values_are_rendered_safely(tmp_path):
+    """Quotes, backslashes, and newlines cannot corrupt the rendered hook."""
+    values = {
+        "github_repo_owner": 'owner"\\\nnext',
+        "package_name": 'repo"\\\nnext',
+        "import_name": 'module"\\\nnext',
+        "first_version": '1.0"\\\nnext',
+    }
+
+    hook = load_hook(tmp_path, **values)
+
+    assert hook.OWNER == values["github_repo_owner"]
+    assert hook.REPO == values["package_name"]
+    assert hook.IMPORT_NAME == values["import_name"]
+    assert hook.FIRST_VERSION == values["first_version"]
