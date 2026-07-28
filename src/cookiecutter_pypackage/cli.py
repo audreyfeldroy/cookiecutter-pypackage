@@ -1,11 +1,14 @@
 """CLI for cookiecutter-pypackage.
+
 Usage:
     uvx cookiecutter-pypackage
     uvx cookiecutter-pypackage --no-input
+    uvx cookiecutter-pypackage --list-variables
     uvx cookiecutter-pypackage -o /path/to/output
     uvx cookiecutter-pypackage full_name="Audrey M. Roy Greenfeld" github_username=audreyfeldroy
     uvx cookiecutter-pypackage --no-input full_name="Audrey M. Roy Greenfeld" email="audreyfeldroy@example.com"
 """
+
 import json
 from pathlib import Path
 
@@ -16,6 +19,17 @@ app = typer.Typer(
     help="Generate a Python package from the cookiecutter-pypackage template.",
     add_completion=False,
 )
+
+
+def _find_template_dir() -> Path:
+    """Locate the template in an installed package or source checkout."""
+    package_dir = Path(__file__).parent
+    candidates = (package_dir / "template", package_dir.parent.parent)
+    for candidate in candidates:
+        if (candidate / "cookiecutter.json").is_file():
+            return candidate
+    raise FileNotFoundError("Could not locate the cookiecutter template")
+
 
 @app.command(
     context_settings={"allow_extra_args": True, "allow_interspersed_args": False}
@@ -29,7 +43,9 @@ def main(
         False, "--no-input", help="Do not prompt for parameters, use defaults"
     ),
     list_variables: bool = typer.Option(
-        False, "--list-variables", help="List available template variables and their defaults"
+        False,
+        "--list-variables",
+        help="List available template variables and their defaults",
     ),
 ) -> None:
     """Generate a new Python package from the cookiecutter-pypackage template.
@@ -37,11 +53,11 @@ def main(
     You can pass extra key=value pairs to override template variables:
         uvx cookiecutter-pypackage full_name="Audrey M. Roy Greenfeld" github_username=audreyfeldroy
     """
-    template_dir = Path(__file__).parent / "template"
+    template_dir = _find_template_dir()
 
     if list_variables:
-        cookiecutter_json = Path(__file__).parent.parent.parent / "cookiecutter.json"
-        variables = json.loads(cookiecutter_json.read_text())
+        cookiecutter_json = template_dir / "cookiecutter.json"
+        variables = json.loads(cookiecutter_json.read_text(encoding="utf-8"))
         typer.echo("Available template variables:")
         for key, value in variables.items():
             if not key.startswith("_"):
@@ -64,6 +80,7 @@ def main(
         no_input=no_input,
         extra_context=extra_context or None,
     )
+
 
 if __name__ == "__main__":
     app()
