@@ -5,7 +5,7 @@ import subprocess
 from pathlib import Path
 
 import pytest
-from jinja2 import Environment
+from cookiecutter.generate import create_env_with_context
 
 HOOK_PATH = Path(__file__).parents[1] / "hooks" / "post_gen_project.py"
 
@@ -13,19 +13,16 @@ HOOK_PATH = Path(__file__).parents[1] / "hooks" / "post_gen_project.py"
 def load_hook(tmp_path, description="Example project"):
     """Render and load the hook exactly as Cookiecutter does."""
     source = HOOK_PATH.read_text(encoding="utf-8")
-    rendered = (
-        Environment(keep_trailing_newline=True)
-        .from_string(source)
-        .render(
-            cookiecutter={
-                "github_repo_owner": "example-owner",
-                "package_name": "example-repo",
-                "project_short_description": description,
-                "import_name": "example_repo",
-                "first_version": "0.1.0",
-            }
-        )
-    )
+    context = {
+        "cookiecutter": {
+            "github_repo_owner": "example-owner",
+            "package_name": "example-repo",
+            "project_short_description": description,
+            "import_name": "example_repo",
+            "first_version": "0.1.0",
+        }
+    }
+    rendered = create_env_with_context(context).from_string(source).render(**context)
     rendered_path = tmp_path / "post_gen_project.py"
     rendered_path.write_text(rendered, encoding="utf-8")
 
