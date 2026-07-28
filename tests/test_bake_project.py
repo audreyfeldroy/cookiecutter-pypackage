@@ -103,3 +103,31 @@ def test_typing_classifier_in_pyproject(cookies):
     assert result.exit_code == 0
     content = (result.project_path / "pyproject.toml").read_text()
     assert '"Typing :: Typed"' in content
+
+
+def test_baked_workflows_support_private_repositories(cookies):
+    """Checkout and security workflows use safe private-repository defaults."""
+    result = cookies.bake()
+    assert result.exit_code == 0
+    workflows = result.project_path / ".github" / "workflows"
+
+    ci = (workflows / "ci.yml").read_text()
+    assert ci.count("contents: read") == 4
+
+    publish = (workflows / "publish.yml").read_text()
+    build_job = publish.split("  publish:", maxsplit=1)[0]
+    assert "contents: read" in build_job
+
+    codeql = (workflows / "codeql.yml").read_text()
+    private_code_security_opt_in = (
+        "${{ github.event.repository.private == false "
+        "|| vars.CODE_SECURITY_ENABLED == 'true' }}"
+    )
+    assert private_code_security_opt_in in codeql
+    assert "actions: read" in codeql
+    assert "contents: read" in codeql
+
+    zizmor = (workflows / "zizmor.yml").read_text()
+    assert f"advanced-security: {private_code_security_opt_in}" in zizmor
+    assert "actions: read" in zizmor
+    assert "contents: read" in zizmor

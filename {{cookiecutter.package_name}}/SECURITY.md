@@ -14,7 +14,7 @@ Please include:
 
 This project ships with security hardening out of the box:
 
-- **CodeQL** scans code for injection, SSRF, path traversal, and other dataflow vulnerabilities using the `security-extended` query suite
+- **CodeQL** scans public repositories for injection, SSRF, path traversal, and other dataflow vulnerabilities using the `security-extended` query suite. Private repositories can opt in after enabling GitHub Code Security.
 - **Zizmor** audits GitHub Actions workflows for excessive permissions, unpinned actions, credential exposure, and cache poisoning risks
 - **Dependabot** keeps GitHub Actions pinned by SHA and opens PRs for updates, with a 7-day cooldown to avoid adopting compromised releases immediately
 - **All actions pinned by SHA** with version comments, not floating tags

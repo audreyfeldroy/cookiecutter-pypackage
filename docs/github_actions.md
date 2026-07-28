@@ -44,15 +44,29 @@ If Pages was not enabled, go to Settings > Pages and set the source to
 
 ## CodeQL (`codeql.yml`)
 
-Runs on pushes to `main`, pull requests, and a weekly schedule. Uses GitHub's [CodeQL](https://codeql.github.com/) engine with the `security-extended` query suite, which adds medium-precision security checks (taint tracking, injection detection) on top of the default high-precision set. Results appear in your repo's Security > Code scanning tab.
+Runs on pushes to `main`, pull requests, and a weekly schedule for public
+repositories. Uses GitHub's [CodeQL](https://codeql.github.com/) engine with the
+`security-extended` query suite, which adds medium-precision security checks
+(taint tracking, injection detection) on top of the default high-precision set.
+Results appear in your repo's Security > Code scanning tab.
 
 CodeQL does dataflow analysis that linters can't: it traces user input across function calls and files to find SQL injection, command injection, SSRF, path traversal, and similar vulnerabilities.
+
+Private and internal repositories skip this job by default because CodeQL
+requires GitHub Code Security there. After enabling Code Security in
+**Settings > Advanced Security**, create the repository Actions variable
+`CODE_SECURITY_ENABLED` with the value `true` to run CodeQL and upload zizmor
+results.
 
 If your package includes compiled code, the workflow has inline comments showing how to add `c-cpp`, `go`, `java-kotlin`, or `swift` and switch to `autobuild`.
 
 ## Zizmor (`zizmor.yml`)
 
 Runs on pushes and pull requests that touch `.github/workflows/`. [Zizmor](https://woodruffw.github.io/zizmor/) audits your GitHub Actions workflows for security issues: excessive permissions, unpinned actions, credential exposure, cache poisoning risks, and other patterns that tools like CodeQL don't cover (since CodeQL analyzes your code, not your CI configuration).
+
+Zizmor still runs for private repositories without GitHub Code Security and
+prints its findings in the workflow log. Setting `CODE_SECURITY_ENABLED=true`
+after enabling Code Security also uploads those findings to code scanning.
 
 ## Dependabot (`dependabot.yml`)
 
