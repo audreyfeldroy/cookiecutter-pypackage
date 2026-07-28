@@ -15,7 +15,8 @@ Answer a few [prompts](prompts.md) and you'll have a complete project: source co
 **A documentation site ready to deploy.** [Zensical](https://zensical.org/)
 builds your docs with the Material theme, light and dark mode, and
 [mkdocstrings](https://mkdocstrings.github.io/) generates API reference pages
-from your docstrings. Once you enable GitHub Pages, a push to `main` publishes
+from your docstrings. Once you enable GitHub Pages and set
+`DOCS_DEPLOYMENT_ENABLED=true`, a push to `main` publishes
 the site. Preview locally with `just docs-serve`.
 
 **Automated PyPI publishing with no tokens to manage.** Push a `v*` tag and GitHub Actions builds your package, signs it with [Sigstore](https://docs.pypi.org/attestations/), and publishes via [Trusted Publishers](https://docs.pypi.org/trusted-publishers/). OIDC handles authentication, so there are no API tokens to create, rotate, or leak.

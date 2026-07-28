@@ -8,7 +8,16 @@
 
 ## Docs site shows 404
 
-Make sure GitHub Pages is configured to deploy from **GitHub Actions** (not a branch). Go to your repo's Settings > Pages and set the source to **GitHub Actions**. If the docs workflow already ran before you enabled Pages, go to Actions, find the "Documentation" workflow, and click "Re-run all jobs."
+Make sure GitHub Pages is configured to deploy from **GitHub Actions** (not a
+branch). Go to your repo's Settings > Pages and set the source to **GitHub
+Actions**. Then enable the generated deployment workflow:
+
+```bash
+gh variable set DOCS_DEPLOYMENT_ENABLED --repo OWNER/REPOSITORY --body true
+```
+
+Push to `main` or go to Actions, find the "Documentation" workflow, and run it
+manually.
 
 ## Tag push didn't publish to PyPI
 

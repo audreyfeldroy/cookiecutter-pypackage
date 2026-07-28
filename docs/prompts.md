@@ -37,16 +37,18 @@ without a Git commit or remote repository.
 If you opt in, visibility defaults to private. The generator shows the full
 plan and asks for final confirmation before it creates or connects to an empty
 repository, initializes Git, pushes `main`, enables Pages, or creates the
-`pypi` environment. Existing nonempty repositories are never modified
+`pypi` environment. The plan also shows whether the docs deployment workflow
+will be enabled or paused. Existing nonempty repositories are never modified
 automatically.
 
 Pages is a separate decision. It defaults to on for public repositories. For
 private or internal repositories, it defaults to off and warns that the
 published site can still be public and that the feature may require a paid
 GitHub plan. The generator displays the actual visibility before asking to
-connect to an existing empty repository.
+connect to an existing empty repository. The docs deployment workflow follows
+the confirmed Pages choice, avoiding a failed deployment when Pages is off.
 
 For non-interactive use, `--no-input` skips GitHub setup unless you add
 `--github private` or `--github public`. Public automation enables Pages;
-private automation leaves it disabled. A requested setup failure exits nonzero
-while preserving the generated project directory.
+private automation leaves it and docs deployment disabled. A requested setup
+failure exits nonzero while preserving the generated project directory.

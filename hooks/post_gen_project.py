@@ -25,6 +25,7 @@ DESCRIPTION = json.loads(
 
 GITHUB_SETUP_ENV = "COOKIECUTTER_PYPACKAGE_GITHUB"
 GITHUB_SETUP_MODES = {"ask", "skip", "private", "public"}
+DOCS_DEPLOYMENT_VARIABLE = "DOCS_DEPLOYMENT_ENABLED"
 
 
 class GitHubSetupPlan(NamedTuple):
@@ -241,8 +242,10 @@ def print_github_plan(plan):
     print("  - initialize Git and create the first commit")
     if plan.enable_pages:
         print("  - enable GitHub Pages (publishes a website)")
+        print("  - enable the documentation deployment workflow")
     else:
         print("  - leave GitHub Pages disabled")
+        print("  - keep the documentation deployment workflow paused")
     print("  - create the pypi environment")
     print(f"  - push main over {plan.git_protocol.upper()}")
     print()
@@ -472,6 +475,35 @@ def enable_github_pages():
     return False
 
 
+def configure_docs_deployment(enabled):
+    """Record whether the GitHub Pages deployment workflow should run."""
+    value = "true" if enabled else "false"
+    result = run_command(
+        "gh",
+        "variable",
+        "set",
+        DOCS_DEPLOYMENT_VARIABLE,
+        "--repo",
+        f"{OWNER}/{REPO}",
+        "--body",
+        value,
+    )
+    if result.returncode == 0:
+        status = "enabled" if enabled else "paused"
+        print(f"  Documentation deployment workflow {status} for {OWNER}/{REPO}")
+        return True
+
+    print(
+        "  Could not configure the documentation deployment workflow: "
+        f"{command_error(result)}"
+    )
+    print(
+        f"  Set it manually: gh variable set {DOCS_DEPLOYMENT_VARIABLE} "
+        f"--repo {OWNER}/{REPO} --body {value}"
+    )
+    return False
+
+
 def create_pypi_environment():
     """Create the GitHub environment used for PyPI trusted publishing."""
     result = run_command(
@@ -530,13 +562,21 @@ def main():
         else:
             print("  GitHub Pages setup skipped.")
 
+        docs_deployment_ready = configure_docs_deployment(
+            plan.enable_pages and pages_ready
+        )
         environment_ready = create_pypi_environment()
         push_succeeded = add_remote_and_push(plan.git_protocol)
         if push_succeeded:
             print_pypi_trusted_publisher_instructions()
         else:
             print("  Project generated, but the first GitHub push did not complete.")
-        failed = not (pages_ready and environment_ready and push_succeeded)
+        failed = not (
+            pages_ready
+            and docs_deployment_ready
+            and environment_ready
+            and push_succeeded
+        )
 
     if failed:
         print("Project files were generated, but GitHub setup did not complete.")

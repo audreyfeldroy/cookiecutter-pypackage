@@ -31,7 +31,8 @@ register your repo as a trusted publisher on PyPI. See
 
 ## Documentation (`docs.yml`)
 
-Runs on push to `main`. Two jobs:
+Runs on push to `main` when the repository variable
+`DOCS_DEPLOYMENT_ENABLED` is `true`. Two jobs:
 
 1. **Build** - builds the documentation site with `zensical build`
 2. **Deploy** - deploys to GitHub Pages
@@ -39,8 +40,19 @@ Runs on push to `main`. Two jobs:
 **First-time setup:** Public GitHub setup enables Pages by default. Private
 setup asks separately and defaults to off because a Pages site can be public
 even when its repository is private, and the feature may require a paid plan.
-If Pages was not enabled, go to Settings > Pages and set the source to
-**GitHub Actions** after reviewing those visibility implications.
+The generator sets `DOCS_DEPLOYMENT_ENABLED` to match that choice, so the
+workflow stays paused instead of failing when Pages is off.
+
+To enable deployment later, review those visibility implications, go to
+**Settings > Pages**, set the source to **GitHub Actions**, then set the
+repository variable:
+
+```bash
+gh variable set DOCS_DEPLOYMENT_ENABLED --repo OWNER/REPOSITORY --body true
+```
+
+Local preview and `just docs-build` work regardless of this deployment
+setting.
 
 ## CodeQL (`codeql.yml`)
 

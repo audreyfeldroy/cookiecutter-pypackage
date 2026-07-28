@@ -221,6 +221,16 @@ def test_explicit_public_mode_supports_noninteractive_automation(hook, monkeypat
         command[:2] == ("gh", "api") and command[2].endswith("/pages")
         for command in commands
     )
+    assert (
+        "gh",
+        "variable",
+        "set",
+        "DOCS_DEPLOYMENT_ENABLED",
+        "--repo",
+        "example-owner/example-repo",
+        "--body",
+        "true",
+    ) in commands
 
 
 def test_explicit_private_mode_leaves_pages_disabled(hook, monkeypatch, capsys):
@@ -246,9 +256,20 @@ def test_explicit_private_mode_leaves_pages_disabled(hook, monkeypatch, capsys):
         command[:2] == ("gh", "api") and command[2].endswith("/pages")
         for command in commands
     )
+    assert (
+        "gh",
+        "variable",
+        "set",
+        "DOCS_DEPLOYMENT_ENABLED",
+        "--repo",
+        "example-owner/example-repo",
+        "--body",
+        "false",
+    ) in commands
     output = capsys.readouterr().out
     assert "Pages will remain disabled for the private repository" in output
     assert "leave GitHub Pages disabled" in output
+    assert "documentation deployment workflow paused" in output.lower()
 
 
 @pytest.mark.parametrize(
@@ -315,11 +336,13 @@ def test_remote_settings_precede_first_push_and_push_failure_is_reported(
     assert hook.main() == 1
 
     push_index = commands.index(("git", "push", "-u", "origin", "main"))
-    api_indexes = [
-        index for index, command in enumerate(commands) if command[:2] == ("gh", "api")
+    settings_indexes = [
+        index
+        for index, command in enumerate(commands)
+        if command[:2] == ("gh", "api") or command[:3] == ("gh", "variable", "set")
     ]
-    assert api_indexes
-    assert all(index < push_index for index in api_indexes)
+    assert settings_indexes
+    assert all(index < push_index for index in settings_indexes)
     output = capsys.readouterr().out
     assert "Could not push main to GitHub: push rejected" in output
     assert "To publish to PyPI" not in output
@@ -362,6 +385,25 @@ def test_pages_failure_is_reported_without_false_success(hook, monkeypatch, caps
     output = capsys.readouterr().out
     assert "Could not configure GitHub Pages" in output
     assert "Pages enabled" not in output
+
+
+def test_docs_deployment_failure_is_reported_with_recovery_command(
+    hook, monkeypatch, capsys
+):
+    """A failed repository-variable write includes an exact recovery command."""
+
+    def fake_run_command(*command):
+        return completed(command, returncode=1, stderr="permission denied")
+
+    monkeypatch.setattr(hook, "run_command", fake_run_command)
+
+    assert hook.configure_docs_deployment(False) is False
+    output = capsys.readouterr().out
+    assert "Could not configure the documentation deployment workflow" in output
+    assert (
+        "gh variable set DOCS_DEPLOYMENT_ENABLED "
+        "--repo example-owner/example-repo --body false"
+    ) in output
 
 
 @pytest.mark.parametrize(

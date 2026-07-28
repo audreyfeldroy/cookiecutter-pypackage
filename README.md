@@ -58,7 +58,9 @@ repository, makes the first Git commit, creates the `pypi` environment, and
 pushes `main`. Public repositories enable Pages by default. For private
 repositories, Pages defaults to off because
 [the site can still be public](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
-and the feature may require a paid GitHub plan.
+and the feature may require a paid GitHub plan. The docs deployment workflow
+follows that choice, so declining Pages does not create a failed workflow on
+the first push.
 
 <details>
 <summary>Without uvx</summary>
@@ -102,10 +104,10 @@ uvx cookiecutter-pypackage --no-input --github private \
     package_name=my-package
 ```
 
-`--github public` also enables Pages. `--github private` leaves Pages disabled;
-run interactively if you want to acknowledge the visibility warning and enable
-it. If requested GitHub setup fails, the command exits nonzero and keeps the
-generated directory for recovery.
+`--github public` also enables Pages and docs deployment. `--github private`
+leaves both disabled; run interactively if you want to acknowledge the
+visibility warning and enable them. If requested GitHub setup fails, the
+command exits nonzero and keeps the generated directory for recovery.
 
 Use `--github skip` to suppress the GitHub question during an interactive
 generation.

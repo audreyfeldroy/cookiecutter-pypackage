@@ -47,6 +47,7 @@ GitHub setup plan:
   - create https://github.com/your-username/my-package as a public repository
   - initialize Git and create the first commit
   - enable GitHub Pages (publishes a website)
+  - enable the documentation deployment workflow
   - create the pypi environment
   - push main over SSH
 
@@ -54,6 +55,7 @@ Continue? [y/N]: y
 Git initialized with first commit
 GitHub repository created: https://github.com/your-username/my-package
 GitHub Pages enabled for your-username/my-package
+Documentation deployment workflow enabled for your-username/my-package
 GitHub environment 'pypi' created for your-username/my-package
 Pushed to https://github.com/your-username/my-package
 
@@ -79,7 +81,9 @@ the partial setup.
 For a private repository, Pages defaults to off. GitHub Pages can publish a
 public website even when its repository is private, and Pages for a private
 repository may require a paid plan. The interactive flow explains this and
-requires a separate opt-in before enabling Pages.
+requires a separate opt-in before enabling Pages. If you leave Pages off, the
+documentation deployment workflow stays paused rather than failing on the
+first push; local docs preview and builds still work.
 
 For non-interactive automation, make the opt-in explicit:
 
@@ -89,7 +93,8 @@ uvx cookiecutter-pypackage --no-input --github private \
     package_name=my-package
 ```
 
-Use `--github public` when automation should also enable Pages.
+Use `--github public` when automation should also enable Pages and
+documentation deployment.
 
 ## Step 2: Look around
 

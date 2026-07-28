@@ -95,7 +95,9 @@ Public GitHub setup enables Pages by default. Private setup asks separately and
 defaults to off because the resulting site can still be public and the feature
 may require a paid GitHub plan. If Pages was not enabled, review those
 visibility implications, then go to your repository's Settings > Pages and set
-the source to **GitHub Actions**.
+the source to **GitHub Actions**. Finally, set the repository variable
+`DOCS_DEPLOYMENT_ENABLED` to `true`; until then, the deployment workflow stays
+paused and local docs commands continue to work.
 
 ## Configuration (`pyproject.toml`)
 

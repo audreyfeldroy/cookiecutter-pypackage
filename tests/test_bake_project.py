@@ -131,3 +131,6 @@ def test_baked_workflows_support_private_repositories(cookies):
     assert f"advanced-security: {private_code_security_opt_in}" in zizmor
     assert "actions: read" in zizmor
     assert "contents: read" in zizmor
+
+    docs = (workflows / "docs.yml").read_text()
+    assert "${{ vars.DOCS_DEPLOYMENT_ENABLED == 'true' }}" in docs

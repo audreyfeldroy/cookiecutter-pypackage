@@ -16,6 +16,7 @@ concurrency:
 jobs:
   build:
     name: Build
+    if: ${{ "{{" }} vars.DOCS_DEPLOYMENT_ENABLED == 'true' {{ "}}" }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
