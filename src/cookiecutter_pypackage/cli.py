@@ -3,11 +3,13 @@
 Usage:
     uvx cookiecutter-pypackage
     uvx cookiecutter-pypackage --no-input
+    uvx cookiecutter-pypackage --list-variables
     uvx cookiecutter-pypackage -o /path/to/output
     uvx cookiecutter-pypackage full_name="Audrey M. Roy Greenfeld" github_username=audreyfeldroy
     uvx cookiecutter-pypackage --no-input full_name="Audrey M. Roy Greenfeld" email="audreyfeldroy@example.com"
 """
 
+import json
 from pathlib import Path
 
 import typer
@@ -17,6 +19,16 @@ app = typer.Typer(
     help="Generate a Python package from the cookiecutter-pypackage template.",
     add_completion=False,
 )
+
+
+def _find_template_dir() -> Path:
+    """Locate the template in an installed package or source checkout."""
+    package_dir = Path(__file__).parent
+    candidates = (package_dir / "template", package_dir.parent.parent)
+    for candidate in candidates:
+        if (candidate / "cookiecutter.json").is_file():
+            return candidate
+    raise FileNotFoundError("Could not locate the cookiecutter template")
 
 
 @app.command(
@@ -30,16 +42,28 @@ def main(
     no_input: bool = typer.Option(
         False, "--no-input", help="Do not prompt for parameters, use defaults"
     ),
+    list_variables: bool = typer.Option(
+        False,
+        "--list-variables",
+        help="List available template variables and their defaults",
+    ),
 ) -> None:
     """Generate a new Python package from the cookiecutter-pypackage template.
 
     You can pass extra key=value pairs to override template variables:
         uvx cookiecutter-pypackage full_name="Audrey M. Roy Greenfeld" github_username=audreyfeldroy
     """
-    # Template is bundled inside the package
-    template_dir = Path(__file__).parent / "template"
+    template_dir = _find_template_dir()
 
-    # Parse extra context from additional arguments
+    if list_variables:
+        cookiecutter_json = template_dir / "cookiecutter.json"
+        variables = json.loads(cookiecutter_json.read_text(encoding="utf-8"))
+        typer.echo("Available template variables:")
+        for key, value in variables.items():
+            if not key.startswith("_"):
+                typer.echo(f"  {key} (default: {value!r})")
+        raise typer.Exit()
+
     extra_context = {}
     for arg in ctx.args:
         if "=" not in arg:
@@ -50,7 +74,6 @@ def main(
         key, value = arg.split("=", 1)
         extra_context[key] = value
 
-    # Run cookiecutter with the bundled template
     cookiecutter(
         str(template_dir),
         output_dir=str(output_dir) if output_dir else ".",

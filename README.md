@@ -81,6 +81,13 @@ uvx cookiecutter-pypackage --no-input \
     email="you@example.com"
 ```
 
+List the available variables and their configured defaults without generating
+a project:
+
+```bash
+uvx cookiecutter-pypackage --list-variables
+```
+
 Quote values that contain spaces so the shell passes each assignment as one
 argument:
 
