@@ -60,6 +60,38 @@ cookiecutter gh:audreyfeldroy/cookiecutter-pypackage
 
 </details>
 
+## Override template variables
+
+Pass `key=value` arguments to prefill the interactive prompts. You can still
+review or change each value:
+
+```bash
+uvx cookiecutter-pypackage \
+    full_name="Your Name" \
+    github_username=yourhandle
+```
+
+For non-interactive automation, add `--no-input` before the overrides.
+Variables you don't pass use the defaults in
+[`cookiecutter.json`](https://github.com/audreyfeldroy/cookiecutter-pypackage/blob/main/cookiecutter.json):
+
+```bash
+uvx cookiecutter-pypackage --no-input \
+    full_name="Your Name" \
+    email="you@example.com"
+```
+
+Quote values that contain spaces so the shell passes each assignment as one
+argument:
+
+```bash
+full_name="First Last"  # correct
+full_name=First Last    # incorrect
+```
+
+See the [template prompts](https://audreyfeldroy.github.io/cookiecutter-pypackage/prompts/)
+for descriptions of all available variables.
+
 ## Documentation
 
 **[audreyfeldroy.github.io/cookiecutter-pypackage](https://audreyfeldroy.github.io/cookiecutter-pypackage/)**
