@@ -33,6 +33,7 @@ class GitHubSetupPlan(NamedTuple):
     existing: bool
     visibility: str
     enable_pages: bool
+    git_protocol: str
 
 
 class GitHubSetupDecision(NamedTuple):
@@ -173,6 +174,36 @@ def github_repository_state():
     return GitHubRepositoryState(status, visibility)
 
 
+def github_git_protocol():
+    """Return the authenticated GitHub CLI's configured Git transport."""
+    result = run_command(
+        "gh",
+        "config",
+        "get",
+        "git_protocol",
+        "--host",
+        "github.com",
+    )
+    if result.returncode != 0:
+        print(f"  Could not read GitHub's Git protocol: {command_error(result)}")
+        return None
+
+    protocol = result.stdout.strip().lower()
+    if protocol in {"https", "ssh"}:
+        return protocol
+
+    print(f"  GitHub CLI returned an unsupported Git protocol: {protocol or 'empty'}.")
+    print("  Set it with `gh config set git_protocol ssh --host github.com`.")
+    return None
+
+
+def github_remote_url(protocol):
+    """Build a GitHub remote URL using the user's configured transport."""
+    if protocol == "ssh":
+        return f"git@github.com:{OWNER}/{REPO}.git"
+    return f"https://github.com/{OWNER}/{REPO}.git"
+
+
 def choose_pages_setup(visibility, *, interactive):
     """Choose whether to publish documentation through GitHub Pages."""
     if visibility == "public":
@@ -213,7 +244,7 @@ def print_github_plan(plan):
     else:
         print("  - leave GitHub Pages disabled")
     print("  - create the pypi environment")
-    print("  - push main")
+    print(f"  - push main over {plan.git_protocol.upper()}")
     print()
 
 
@@ -247,6 +278,10 @@ def choose_github_setup(mode):
         print("  For safety, the generator will not modify it automatically.")
         return GitHubSetupDecision(None, failed=True)
 
+    git_protocol = github_git_protocol()
+    if git_protocol is None:
+        return GitHubSetupDecision(None, failed=True)
+
     if repository_state.status == "empty":
         if not interactive:
             print(
@@ -277,6 +312,7 @@ def choose_github_setup(mode):
         existing=existing,
         visibility=visibility,
         enable_pages=enable_pages,
+        git_protocol=git_protocol,
     )
 
     print_github_plan(plan)
@@ -367,8 +403,9 @@ def initialize_git():
     return True
 
 
-def add_remote_and_push():
+def add_remote_and_push(protocol):
     """Connect the confirmed GitHub repository and push its first commit."""
+    remote_url = github_remote_url(protocol)
     steps = (
         (
             (
@@ -376,7 +413,7 @@ def add_remote_and_push():
                 "remote",
                 "add",
                 "origin",
-                f"https://github.com/{OWNER}/{REPO}.git",
+                remote_url,
             ),
             "add the GitHub remote",
         ),
@@ -494,7 +531,7 @@ def main():
             print("  GitHub Pages setup skipped.")
 
         environment_ready = create_pypi_environment()
-        push_succeeded = add_remote_and_push()
+        push_succeeded = add_remote_and_push(plan.git_protocol)
         if push_succeeded:
             print_pypi_trusted_publisher_instructions()
         else:

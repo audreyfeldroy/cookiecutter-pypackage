@@ -48,7 +48,7 @@ GitHub setup plan:
   - initialize Git and create the first commit
   - enable GitHub Pages (publishes a website)
   - create the pypi environment
-  - push main
+  - push main over SSH
 
 Continue? [y/N]: y
 Git initialized with first commit
@@ -64,7 +64,11 @@ https://pypi.org/manage/account/publishing/
 Your Python package project has been created successfully!
 ```
 
-CI runs automatically on push. Check the Actions tab and you should see it pass: linting, type checking, and tests across three Python versions. Your docs site will be live at `https://your-username.github.io/my-package/` within a couple of minutes.
+The transport in the plan follows `gh`'s `git_protocol` setting, so it may say
+SSH or HTTPS. CI runs automatically on push. Check the Actions tab and you
+should see it pass: linting, type checking, and tests across three Python
+versions. Your docs site will be live at
+`https://your-username.github.io/my-package/` within a couple of minutes.
 
 Pressing Enter at the first GitHub question generates the project locally
 without creating a repository or Git commit. If you opt in but `gh` is

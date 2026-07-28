@@ -54,6 +54,13 @@ def completed(command, returncode=0, *, stdout="", stderr=""):
     )
 
 
+def successful(command):
+    """Return realistic output for commands that the happy path reads."""
+    if command[:3] == ("gh", "config", "get"):
+        return completed(command, stdout="ssh\n")
+    return completed(command)
+
+
 def test_declining_setup_has_no_git_or_github_side_effects(hook, monkeypatch, capsys):
     """The default answer leaves the generated files entirely local."""
     monkeypatch.setattr(hook.os, "isatty", lambda _: True)
@@ -85,7 +92,7 @@ def test_visibility_reprompts_and_defaults_to_private(hook, monkeypatch, capsys)
                 returncode=1,
                 stderr="Could not resolve to a Repository",
             )
-        return completed(command)
+        return successful(command)
 
     monkeypatch.setattr(hook, "run_command", fake_run_command)
     hook.main()
@@ -120,7 +127,7 @@ def test_final_confirmation_cancels_before_any_write(hook, monkeypatch, capsys):
                 returncode=1,
                 stderr="Could not resolve to a Repository",
             )
-        return completed(command)
+        return successful(command)
 
     monkeypatch.setattr(hook, "run_command", fake_run_command)
     hook.main()
@@ -150,7 +157,7 @@ def test_empty_existing_repository_requires_separate_consent(hook, monkeypatch, 
                 command,
                 stdout='{"isEmpty": true, "visibility": "PRIVATE"}',
             )
-        return completed(command)
+        return successful(command)
 
     monkeypatch.setattr(hook, "run_command", fake_run_command)
     hook.main()
@@ -177,7 +184,7 @@ def test_nonempty_existing_repository_is_never_modified(hook, monkeypatch, capsy
                 command,
                 stdout='{"isEmpty": false, "visibility": "PUBLIC"}',
             )
-        return completed(command)
+        return successful(command)
 
     monkeypatch.setattr(hook, "run_command", fake_run_command)
     hook.main()
@@ -201,7 +208,7 @@ def test_explicit_public_mode_supports_noninteractive_automation(hook, monkeypat
                 returncode=1,
                 stderr="Could not resolve to a Repository",
             )
-        return completed(command)
+        return successful(command)
 
     monkeypatch.setattr(hook, "run_command", fake_run_command)
     assert hook.main() == 0
@@ -230,7 +237,7 @@ def test_explicit_private_mode_leaves_pages_disabled(hook, monkeypatch, capsys):
                 returncode=1,
                 stderr="Could not resolve to a Repository",
             )
-        return completed(command)
+        return successful(command)
 
     monkeypatch.setattr(hook, "run_command", fake_run_command)
     assert hook.main() == 0
@@ -242,6 +249,45 @@ def test_explicit_private_mode_leaves_pages_disabled(hook, monkeypatch, capsys):
     output = capsys.readouterr().out
     assert "Pages will remain disabled for the private repository" in output
     assert "leave GitHub Pages disabled" in output
+
+
+@pytest.mark.parametrize(
+    ("protocol", "remote_url"),
+    [
+        ("ssh", "git@github.com:example-owner/example-repo.git"),
+        ("https", "https://github.com/example-owner/example-repo.git"),
+    ],
+)
+def test_push_uses_github_cli_git_protocol(hook, monkeypatch, protocol, remote_url):
+    """The first push uses the transport already configured in GitHub CLI."""
+    commands = []
+
+    def fake_run_command(*command):
+        commands.append(command)
+        if command[:3] == ("gh", "config", "get"):
+            return completed(command, stdout=f"{protocol}\n")
+        return completed(command)
+
+    monkeypatch.setattr(hook, "run_command", fake_run_command)
+
+    configured_protocol = hook.github_git_protocol()
+    assert configured_protocol == protocol
+    assert hook.add_remote_and_push(configured_protocol) is True
+    assert ("git", "remote", "add", "origin", remote_url) in commands
+
+
+def test_unsupported_git_protocol_stops_before_writes(hook, monkeypatch, capsys):
+    """An unexpected GitHub CLI configuration is reported before setup writes."""
+
+    def fake_run_command(*command):
+        return completed(command, stdout="file\n")
+
+    monkeypatch.setattr(hook, "run_command", fake_run_command)
+
+    assert hook.github_git_protocol() is None
+    output = capsys.readouterr().out
+    assert "unsupported Git protocol: file" in output
+    assert "gh config set git_protocol ssh" in output
 
 
 def test_remote_settings_precede_first_push_and_push_failure_is_reported(
@@ -263,7 +309,7 @@ def test_remote_settings_precede_first_push_and_push_failure_is_reported(
             )
         if command[:2] == ("git", "push"):
             return completed(command, returncode=1, stderr="push rejected")
-        return completed(command)
+        return successful(command)
 
     monkeypatch.setattr(hook, "run_command", fake_run_command)
     assert hook.main() == 1
@@ -294,7 +340,7 @@ def test_explicit_automation_failure_returns_nonzero(hook, monkeypatch, capsys):
             )
         if command[:3] == ("gh", "repo", "create"):
             return completed(command, returncode=1, stderr="permission denied")
-        return completed(command)
+        return successful(command)
 
     monkeypatch.setattr(hook, "run_command", fake_run_command)
 
