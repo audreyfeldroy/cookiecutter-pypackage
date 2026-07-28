@@ -96,6 +96,9 @@ exclude_also = [
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
+[tool.hatch.build.targets.wheel]
+packages = ["src/{{ cookiecutter.import_name }}"]
+
 [tool.uv]
 package = true
 default-groups = ["dev"]

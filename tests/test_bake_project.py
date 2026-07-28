@@ -82,6 +82,21 @@ def test_bake_preserves_description_in_valid_toml(cookies, description):
     assert pyproject["project"]["description"] == description
 
 
+def test_bake_builds_when_package_and_import_names_differ(cookies):
+    """Hatchling packages the configured import directory without guessing."""
+    result = cookies.bake(
+        extra_context={
+            "package_name": "distribution-name",
+            "import_name": "importable_name",
+        }
+    )
+    assert result.exit_code == 0
+    run_inside_dir("uv build", str(result.project_path))
+    assert (
+        result.project_path / "dist" / "distribution_name-0.1.0-py3-none-any.whl"
+    ).is_file()
+
+
 @pytest.mark.skipif(sys.platform == "win32", reason="justfile not supported on Windows")
 def test_just_list(cookies):
     result = cookies.bake()
