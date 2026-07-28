@@ -40,5 +40,13 @@ repository, initializes Git, pushes `main`, enables Pages, or creates the
 `pypi` environment. Existing nonempty repositories are never modified
 automatically.
 
+Pages is a separate decision. It defaults to on for public repositories. For
+private or internal repositories, it defaults to off and warns that the
+published site can still be public and that the feature may require a paid
+GitHub plan. The generator displays the actual visibility before asking to
+connect to an existing empty repository.
+
 For non-interactive use, `--no-input` skips GitHub setup unless you add
-`--github private` or `--github public`.
+`--github private` or `--github public`. Public automation enables Pages;
+private automation leaves it disabled. A requested setup failure exits nonzero
+while preserving the generated project directory.

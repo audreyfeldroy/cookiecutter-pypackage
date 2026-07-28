@@ -91,7 +91,11 @@ The docs site is built with [Zensical](https://zensical.org/) and configured in 
 
 The API reference page (`docs/api.md`) auto-generates documentation from your docstrings using [mkdocstrings](https://mkdocstrings.github.io/). Write docstrings in your code and they'll appear on the docs site automatically.
 
-The post-generation hook enables GitHub Pages automatically. If it couldn't, go to your repo's Settings > Pages and set the source to **GitHub Actions**.
+Public GitHub setup enables Pages by default. Private setup asks separately and
+defaults to off because the resulting site can still be public and the feature
+may require a paid GitHub plan. If Pages was not enabled, review those
+visibility implications, then go to your repository's Settings > Pages and set
+the source to **GitHub Actions**.
 
 ## Configuration (`pyproject.toml`)
 

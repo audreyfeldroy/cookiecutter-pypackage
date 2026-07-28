@@ -23,7 +23,11 @@ Runs when you push a tag matching `v*` (e.g., `v0.1.0`). Two jobs:
 
 Publishing uses [Trusted Publishers](https://docs.pypi.org/trusted-publishers/), so there are no API tokens to manage. PyPI verifies the package came from your GitHub repo's workflow via OIDC.
 
-**First-time setup:** The post-generation hook creates the `pypi` environment automatically. You still need to register your repo as a trusted publisher on PyPI. See [PyPI Release Checklist](pypi_release_checklist.md) for the steps.
+**First-time setup:** If you opt into GitHub setup, the post-generation hook
+attempts to create the `pypi` environment before the first push. If you skip
+setup or that step fails, create the environment manually. You still need to
+register your repo as a trusted publisher on PyPI. See
+[PyPI Release Checklist](pypi_release_checklist.md) for the steps.
 
 ## Documentation (`docs.yml`)
 
@@ -32,7 +36,11 @@ Runs on push to `main`. Two jobs:
 1. **Build** - builds the documentation site with `zensical build`
 2. **Deploy** - deploys to GitHub Pages
 
-**First-time setup:** The post-generation hook configures this automatically. If it couldn't (no `gh` CLI or repo not yet created), go to Settings > Pages and set the source to **GitHub Actions**.
+**First-time setup:** Public GitHub setup enables Pages by default. Private
+setup asks separately and defaults to off because a Pages site can be public
+even when its repository is private, and the feature may require a paid plan.
+If Pages was not enabled, go to Settings > Pages and set the source to
+**GitHub Actions** after reviewing those visibility implications.
 
 ## CodeQL (`codeql.yml`)
 

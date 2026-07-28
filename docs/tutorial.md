@@ -40,12 +40,13 @@ making changes:
 
 ```
 Set up a GitHub repository now? [y/N]: y
-Repository visibility [private/public] (private):
+Repository visibility [private/public] (private): public
+Enable GitHub Pages? [Y/n]:
 
 GitHub setup plan:
-  - create https://github.com/your-username/my-package as a private repository
+  - create https://github.com/your-username/my-package as a public repository
   - initialize Git and create the first commit
-  - enable GitHub Pages
+  - enable GitHub Pages (publishes a website)
   - create the pypi environment
   - push main
 
@@ -66,8 +67,15 @@ Your Python package project has been created successfully!
 CI runs automatically on push. Check the Actions tab and you should see it pass: linting, type checking, and tests across three Python versions. Your docs site will be live at `https://your-username.github.io/my-package/` within a couple of minutes.
 
 Pressing Enter at the first GitHub question generates the project locally
-without creating a repository or Git commit. The same safe default applies when
-`gh` is unavailable or unauthenticated.
+without creating a repository or Git commit. If you opt in but `gh` is
+unavailable, unauthenticated, or another requested action fails, the command
+exits nonzero and keeps the generated directory so you can inspect or recover
+the partial setup.
+
+For a private repository, Pages defaults to off. GitHub Pages can publish a
+public website even when its repository is private, and Pages for a private
+repository may require a paid plan. The interactive flow explains this and
+requires a separate opt-in before enabling Pages.
 
 For non-interactive automation, make the opt-in explicit:
 
@@ -76,6 +84,8 @@ uvx cookiecutter-pypackage --no-input --github private \
     project_name="My Package" \
     package_name=my-package
 ```
+
+Use `--github public` when automation should also enable Pages.
 
 ## Step 2: Look around
 

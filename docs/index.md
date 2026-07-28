@@ -12,7 +12,11 @@ Answer a few [prompts](prompts.md) and you'll have a complete project: source co
 
 **A real development workflow.** [uv](https://docs.astral.sh/uv/) manages your dependencies and virtual environments. [just](https://github.com/casey/just) gives you one command for everything: `just qa` formats your code with [ruff](https://docs.astral.sh/ruff/), lints it, type-checks with [ty](https://docs.astral.sh/ty/), and runs your [pytest](https://docs.pytest.org/) suite across Python 3.12, 3.13, and 3.14. A [Typer](https://typer.tiangolo.com/) CLI is wired up and working from the first `uv sync`.
 
-**A documentation site that deploys itself.** [Zensical](https://zensical.org/) builds your docs with the Material theme, light and dark mode, and [mkdocstrings](https://mkdocstrings.github.io/) generates API reference pages from your docstrings. Push to main and it's live on GitHub Pages. Preview locally with `just docs-serve`.
+**A documentation site ready to deploy.** [Zensical](https://zensical.org/)
+builds your docs with the Material theme, light and dark mode, and
+[mkdocstrings](https://mkdocstrings.github.io/) generates API reference pages
+from your docstrings. Once you enable GitHub Pages, a push to `main` publishes
+the site. Preview locally with `just docs-serve`.
 
 **Automated PyPI publishing with no tokens to manage.** Push a `v*` tag and GitHub Actions builds your package, signs it with [Sigstore](https://docs.pypi.org/attestations/), and publishes via [Trusted Publishers](https://docs.pypi.org/trusted-publishers/). OIDC handles authentication, so there are no API tokens to create, rotate, or leak.
 

@@ -22,7 +22,11 @@ Documentation is built with [Zensical](https://zensical.org/) and deployed to Gi
 
 API documentation is auto-generated from docstrings using [mkdocstrings](https://mkdocstrings.github.io/).
 
-Docs deploy automatically on push to `main` via GitHub Actions. To enable this, go to your repo's Settings > Pages and set the source to **GitHub Actions**.
+Docs deploy automatically on push to `main` after GitHub Pages is enabled. If
+the generator did not enable it, review the visibility implications first:
+[Pages sites can be public even when their repositories are private](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site),
+and the feature may require a paid GitHub plan for private repositories. Then
+go to Settings > Pages and set the source to **GitHub Actions**.
 
 ## Development
 

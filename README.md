@@ -25,7 +25,7 @@ uvx cookiecutter-pypackage
 | Type checking | [ty](https://docs.astral.sh/ty/) | All rules enabled, watch mode with `just type-check-watch` |
 | Testing | [pytest](https://docs.pytest.org/) | Python 3.12, 3.13, 3.14 |
 | CLI framework | [Typer](https://typer.tiangolo.com/) | Entry point + `__main__.py` included |
-| Docs | [Zensical](https://zensical.org/) + [mkdocstrings](https://mkdocstrings.github.io/) | Auto-deployed to GitHub Pages, API docs from docstrings |
+| Docs | [Zensical](https://zensical.org/) + [mkdocstrings](https://mkdocstrings.github.io/) | GitHub Pages deployment, API docs from docstrings |
 
 ### CI/CD (GitHub Actions, [security-hardened](https://audreyfeldroy.github.io/cookiecutter-pypackage/github_actions/))
 
@@ -54,8 +54,11 @@ to generate, verify, and release your package.
 After the template prompts, you can optionally set up GitHub. The default is
 **no**: pressing Enter creates only the project files. If you opt in, the
 generator shows its complete plan before it creates a private or public
-repository, makes the first Git commit, pushes `main`, enables Pages, and
-creates the `pypi` environment.
+repository, makes the first Git commit, creates the `pypi` environment, and
+pushes `main`. Public repositories enable Pages by default. For private
+repositories, Pages defaults to off because
+[the site can still be public](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
+and the feature may require a paid GitHub plan.
 
 <details>
 <summary>Without uvx</summary>
@@ -98,6 +101,11 @@ uvx cookiecutter-pypackage --no-input --github private \
     project_name="My Package" \
     package_name=my-package
 ```
+
+`--github public` also enables Pages. `--github private` leaves Pages disabled;
+run interactively if you want to acknowledge the visibility warning and enable
+it. If requested GitHub setup fails, the command exits nonzero and keeps the
+generated directory for recovery.
 
 Use `--github skip` to suppress the GitHub question during an interactive
 generation.
