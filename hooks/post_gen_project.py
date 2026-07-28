@@ -9,7 +9,11 @@ from typing import NamedTuple
 
 OWNER = "{{ cookiecutter.github_repo_owner }}"
 REPO = "{{ cookiecutter.package_name }}"
-DESCRIPTION = "{{ cookiecutter.project_short_description | replace('\"', '\\\"') }}"
+DESCRIPTION = json.loads(
+    r"""
+{{ cookiecutter.project_short_description | tojson }}
+""".strip()
+)
 
 GITHUB_SETUP_ENV = "COOKIECUTTER_PYPACKAGE_GITHUB"
 GITHUB_SETUP_MODES = {"ask", "skip", "private", "public"}
@@ -19,7 +23,22 @@ class GitHubSetupPlan(NamedTuple):
     """A confirmed plan for creating or connecting to a GitHub repository."""
 
     existing: bool
-    visibility: str | None
+    visibility: str
+    enable_pages: bool
+
+
+class GitHubSetupDecision(NamedTuple):
+    """The result of collecting consent and checking GitHub state."""
+
+    plan: GitHubSetupPlan | None
+    failed: bool = False
+
+
+class GitHubRepositoryState(NamedTuple):
+    """The existence, contents, and visibility of the target repository."""
+
+    status: str
+    visibility: str | None = None
 
 
 def run_command(*command):
@@ -100,14 +119,14 @@ def github_cli_ready():
 
 
 def github_repository_state():
-    """Return missing, empty, nonempty, or error for the target repository."""
+    """Return the target repository's contents and visibility."""
     result = run_command(
         "gh",
         "repo",
         "view",
         f"{OWNER}/{REPO}",
         "--json",
-        "isEmpty",
+        "isEmpty,visibility",
     )
     if result.returncode != 0:
         error = command_error(result)
@@ -117,17 +136,53 @@ def github_repository_state():
             "Not Found",
         )
         if any(marker in error for marker in missing_markers):
-            return "missing"
+            return GitHubRepositoryState("missing")
         print(f"  Could not check GitHub repository {OWNER}/{REPO}: {error}")
-        return "error"
+        return GitHubRepositoryState("error")
 
     try:
-        is_empty = json.loads(result.stdout)["isEmpty"]
+        data = json.loads(result.stdout)
+        is_empty = data["isEmpty"]
+        raw_visibility = data["visibility"]
     except (KeyError, TypeError, json.JSONDecodeError):
         print(f"  GitHub returned an unexpected response for {OWNER}/{REPO}.")
-        return "error"
+        return GitHubRepositoryState("error")
 
-    return "empty" if is_empty else "nonempty"
+    if not isinstance(raw_visibility, str):
+        print(f"  GitHub returned an unexpected response for {OWNER}/{REPO}.")
+        return GitHubRepositoryState("error")
+
+    visibility = raw_visibility.lower()
+    if not isinstance(is_empty, bool) or visibility not in {
+        "internal",
+        "private",
+        "public",
+    }:
+        print(f"  GitHub returned an unexpected response for {OWNER}/{REPO}.")
+        return GitHubRepositoryState("error")
+
+    status = "empty" if is_empty else "nonempty"
+    return GitHubRepositoryState(status, visibility)
+
+
+def choose_pages_setup(visibility, *, interactive):
+    """Choose whether to publish documentation through GitHub Pages."""
+    if visibility == "public":
+        if interactive:
+            return prompt_yes_no("Enable GitHub Pages?", default=True)
+        return True
+
+    if not interactive:
+        print(f"  GitHub Pages will remain disabled for the {visibility} repository.")
+        return False
+
+    print()
+    print(
+        f"  Warning: GitHub Pages can publish a public website from a "
+        f"{visibility} repository."
+    )
+    print("  Pages for a non-public repository may also require a paid GitHub plan.")
+    return prompt_yes_no("Enable GitHub Pages anyway?")
 
 
 def print_github_plan(plan):
@@ -135,25 +190,30 @@ def print_github_plan(plan):
     print()
     print("GitHub setup plan:")
     if plan.existing:
-        print(f"  - connect to the empty repository https://github.com/{OWNER}/{REPO}")
+        print(
+            f"  - connect to the empty {plan.visibility} repository "
+            f"https://github.com/{OWNER}/{REPO}"
+        )
     else:
         print(
             f"  - create https://github.com/{OWNER}/{REPO} "
             f"as a {plan.visibility} repository"
         )
     print("  - initialize Git and create the first commit")
-    print("  - enable GitHub Pages")
+    if plan.enable_pages:
+        print("  - enable GitHub Pages (publishes a website)")
+    else:
+        print("  - leave GitHub Pages disabled")
     print("  - create the pypi environment")
     print("  - push main")
     print()
 
 
-def choose_github_setup():
+def choose_github_setup(mode):
     """Collect explicit consent and return a safe GitHub setup plan."""
-    mode = github_setup_mode()
     if mode == "skip":
         print("  GitHub setup skipped.")
-        return None
+        return GitHubSetupDecision(None)
 
     interactive = mode == "ask"
     if interactive:
@@ -163,44 +223,59 @@ def choose_github_setup():
                 "  Use `--github private` or `--github public` "
                 "to opt in during automation."
             )
-            return None
+            return GitHubSetupDecision(None)
         if not prompt_yes_no("Set up a GitHub repository now?"):
             print("  GitHub setup skipped.")
-            return None
+            return GitHubSetupDecision(None)
 
     if not github_cli_ready():
-        return None
+        return GitHubSetupDecision(None, failed=True)
 
     repository_state = github_repository_state()
-    if repository_state == "error":
-        return None
-    if repository_state == "nonempty":
+    if repository_state.status == "error":
+        return GitHubSetupDecision(None, failed=True)
+    if repository_state.status == "nonempty":
         print(f"  GitHub repository {OWNER}/{REPO} already exists and is not empty.")
         print("  For safety, the generator will not modify it automatically.")
-        return None
+        return GitHubSetupDecision(None, failed=True)
 
-    if repository_state == "empty":
+    if repository_state.status == "empty":
         if not interactive:
-            print(f"  GitHub repository {OWNER}/{REPO} already exists and is empty.")
+            print(
+                f"  GitHub repository {OWNER}/{REPO} already exists, is empty, "
+                f"and is {repository_state.visibility}."
+            )
             print(
                 "  Run interactively to confirm connecting to an existing repository."
             )
-            return None
+            return GitHubSetupDecision(None, failed=True)
         if not prompt_yes_no(
-            f"GitHub repository {OWNER}/{REPO} is empty. Connect to it?"
+            f"GitHub repository {OWNER}/{REPO} is empty and "
+            f"{repository_state.visibility}. Connect to it?"
         ):
             print("  Existing GitHub repository left unchanged.")
-            return None
-        plan = GitHubSetupPlan(existing=True, visibility=None)
+            return GitHubSetupDecision(None)
+        visibility = repository_state.visibility
+        if visibility is None:
+            print(f"  GitHub returned an unexpected response for {OWNER}/{REPO}.")
+            return GitHubSetupDecision(None, failed=True)
+        existing = True
     else:
         visibility = prompt_visibility() if interactive else mode
-        plan = GitHubSetupPlan(existing=False, visibility=visibility)
+        existing = False
+
+    enable_pages = choose_pages_setup(visibility, interactive=interactive)
+    plan = GitHubSetupPlan(
+        existing=existing,
+        visibility=visibility,
+        enable_pages=enable_pages,
+    )
 
     print_github_plan(plan)
     if interactive and not prompt_yes_no("Continue?"):
         print("  GitHub setup cancelled. No repository or Git commit was created.")
-        return None
-    return plan
+        return GitHubSetupDecision(None)
+    return GitHubSetupDecision(plan)
 
 
 def prepare_github_repository(plan):
@@ -382,23 +457,41 @@ def print_pypi_trusted_publisher_instructions():
 
 def main():
     """Run the confirmed setup flow after Cookiecutter renders the project."""
-    plan = choose_github_setup()
+    mode = github_setup_mode()
+    decision = choose_github_setup(mode)
+    plan = decision.plan
+    failed = decision.failed
+
     if plan is None:
         print("  Project generated locally without creating a Git commit.")
     elif not initialize_git():
         print("  Project generated, but Git setup did not complete.")
+        failed = True
     elif not prepare_github_repository(plan):
         print("  Project generated with a local commit, but no GitHub repository.")
+        failed = True
     else:
-        enable_github_pages()
-        create_pypi_environment()
-        if add_remote_and_push():
+        pages_ready = True
+        if plan.enable_pages:
+            pages_ready = enable_github_pages()
+        else:
+            print("  GitHub Pages setup skipped.")
+
+        environment_ready = create_pypi_environment()
+        push_succeeded = add_remote_and_push()
+        if push_succeeded:
             print_pypi_trusted_publisher_instructions()
         else:
             print("  Project generated, but the first GitHub push did not complete.")
+        failed = not (pages_ready and environment_ready and push_succeeded)
+
+    if failed:
+        print("Project files were generated, but GitHub setup did not complete.")
+        return 1
 
     print("Your Python package project has been created successfully!")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

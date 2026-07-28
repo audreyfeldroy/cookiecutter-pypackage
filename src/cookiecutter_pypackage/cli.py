@@ -17,6 +17,7 @@ from enum import Enum
 from pathlib import Path
 
 import typer
+from cookiecutter.exceptions import FailedHookException
 from cookiecutter.main import cookiecutter
 
 GITHUB_SETUP_ENV = "COOKIECUTTER_PYPACKAGE_GITHUB"
@@ -103,12 +104,22 @@ def main(
     previous_github_mode = os.environ.get(GITHUB_SETUP_ENV)
     os.environ[GITHUB_SETUP_ENV] = github_mode.value
     try:
-        cookiecutter(
-            str(template_dir),
-            output_dir=str(output_dir) if output_dir else ".",
-            no_input=no_input,
-            extra_context=extra_context or None,
-        )
+        try:
+            cookiecutter(
+                str(template_dir),
+                output_dir=str(output_dir) if output_dir else ".",
+                no_input=no_input,
+                extra_context=extra_context or None,
+                keep_project_on_failure=True,
+            )
+        except FailedHookException as error:
+            typer.echo(f"Error: {error}", err=True)
+            typer.echo(
+                "The generated project directory was kept so you can inspect "
+                "or recover the partial setup.",
+                err=True,
+            )
+            raise typer.Exit(code=1) from error
     finally:
         if previous_github_mode is None:
             os.environ.pop(GITHUB_SETUP_ENV, None)

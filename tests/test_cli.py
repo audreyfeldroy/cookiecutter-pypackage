@@ -82,9 +82,11 @@ def test_explicit_github_mode_is_forwarded_and_environment_restored(
     monkeypatch.setattr(cli, "_find_template_dir", lambda: tmp_path)
     monkeypatch.setenv(cli.GITHUB_SETUP_ENV, "private")
     observed_modes = []
+    observed_options = []
 
     def fake_cookiecutter(*args, **kwargs):
         observed_modes.append(os.environ[cli.GITHUB_SETUP_ENV])
+        observed_options.append(kwargs)
 
     monkeypatch.setattr(cli, "cookiecutter", fake_cookiecutter)
     result = CliRunner().invoke(
@@ -94,7 +96,31 @@ def test_explicit_github_mode_is_forwarded_and_environment_restored(
 
     assert result.exit_code == 0
     assert observed_modes == ["public"]
+    assert observed_options[0]["keep_project_on_failure"] is True
     assert os.environ[cli.GITHUB_SETUP_ENV] == "private"
+
+
+def test_failed_github_hook_is_detectable_and_keeps_generated_project(
+    monkeypatch, tmp_path
+):
+    """A failed explicit setup exits nonzero without deleting generated files."""
+    (tmp_path / "cookiecutter.json").write_text("{}", encoding="utf-8")
+    monkeypatch.setattr(cli, "_find_template_dir", lambda: tmp_path)
+
+    def fake_cookiecutter(*args, **kwargs):
+        assert kwargs["keep_project_on_failure"] is True
+        raise cli.FailedHookException("post-generation hook failed")
+
+    monkeypatch.setattr(cli, "cookiecutter", fake_cookiecutter)
+    result = CliRunner().invoke(
+        cli.app,
+        ["--no-input", "--github", "private"],
+    )
+
+    assert result.exit_code == 1
+    assert "post-generation hook failed" in result.output
+    assert "project directory was kept" in result.output
+    assert cli.GITHUB_SETUP_ENV not in os.environ
 
 
 def test_extra_context_single_value(cookies):

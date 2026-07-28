@@ -5,21 +5,44 @@ import subprocess
 from pathlib import Path
 
 import pytest
+from jinja2 import Environment
 
 HOOK_PATH = Path(__file__).parents[1] / "hooks" / "post_gen_project.py"
 
 
-@pytest.fixture
-def hook(monkeypatch):
-    """Load the hook as a module with predictable rendered values."""
-    spec = importlib.util.spec_from_file_location("post_gen_project_test", HOOK_PATH)
+def load_hook(tmp_path, description="Example project"):
+    """Render and load the hook exactly as Cookiecutter does."""
+    source = HOOK_PATH.read_text(encoding="utf-8")
+    rendered = (
+        Environment(keep_trailing_newline=True)
+        .from_string(source)
+        .render(
+            cookiecutter={
+                "github_repo_owner": "example-owner",
+                "package_name": "example-repo",
+                "project_short_description": description,
+                "import_name": "example_repo",
+                "first_version": "0.1.0",
+            }
+        )
+    )
+    rendered_path = tmp_path / "post_gen_project.py"
+    rendered_path.write_text(rendered, encoding="utf-8")
+
+    spec = importlib.util.spec_from_file_location(
+        "rendered_post_gen_project", rendered_path
+    )
     assert spec is not None
     assert spec.loader is not None
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
-    monkeypatch.setattr(module, "OWNER", "example-owner")
-    monkeypatch.setattr(module, "REPO", "example-repo")
-    monkeypatch.setattr(module, "DESCRIPTION", "Example project")
+    return module
+
+
+@pytest.fixture
+def hook(monkeypatch, tmp_path):
+    """Load the hook as a module with predictable rendered values."""
+    module = load_hook(tmp_path)
     monkeypatch.setattr(module.shutil, "which", lambda _: "/usr/bin/gh")
     return module
 
@@ -52,7 +75,7 @@ def test_declining_setup_has_no_git_or_github_side_effects(hook, monkeypatch, ca
 
 def test_visibility_reprompts_and_defaults_to_private(hook, monkeypatch, capsys):
     """Invalid visibility cannot accidentally create a public repository."""
-    answers = iter(["yes", "privte", "", "yes"])
+    answers = iter(["yes", "privte", "", "", "yes"])
     monkeypatch.setattr(hook.os, "isatty", lambda _: True)
     monkeypatch.setattr("builtins.input", lambda _: next(answers))
     commands = []
@@ -75,12 +98,19 @@ def test_visibility_reprompts_and_defaults_to_private(hook, monkeypatch, capsys)
     )
     assert "--private" in create_command
     assert "--public" not in create_command
-    assert "Please enter private or public." in capsys.readouterr().out
+    assert not any(
+        command[:2] == ("gh", "api") and command[2].endswith("/pages")
+        for command in commands
+    )
+    output = capsys.readouterr().out
+    assert "Please enter private or public." in output
+    assert "can publish a public website from a private repository" in output
+    assert "leave GitHub Pages disabled" in output
 
 
 def test_final_confirmation_cancels_before_any_write(hook, monkeypatch, capsys):
     """The plan remains read-only until the final confirmation."""
-    answers = iter(["yes", "", "no"])
+    answers = iter(["yes", "", "", "no"])
     monkeypatch.setattr(hook.os, "isatty", lambda _: True)
     monkeypatch.setattr("builtins.input", lambda _: next(answers))
     commands = []
@@ -105,15 +135,24 @@ def test_final_confirmation_cancels_before_any_write(hook, monkeypatch, capsys):
 
 def test_empty_existing_repository_requires_separate_consent(hook, monkeypatch, capsys):
     """An empty repository is connected only after a second explicit yes."""
-    answers = iter(["yes", "yes", "yes"])
+    answers = iter(["yes", "yes", "", "yes"])
+    prompts = []
     monkeypatch.setattr(hook.os, "isatty", lambda _: True)
-    monkeypatch.setattr("builtins.input", lambda _: next(answers))
+
+    def fake_input(prompt):
+        prompts.append(prompt)
+        return next(answers)
+
+    monkeypatch.setattr("builtins.input", fake_input)
     commands = []
 
     def fake_run_command(*command):
         commands.append(command)
         if command[:3] == ("gh", "repo", "view"):
-            return completed(command, stdout='{"isEmpty": true}')
+            return completed(
+                command,
+                stdout='{"isEmpty": true, "visibility": "PRIVATE"}',
+            )
         return completed(command)
 
     monkeypatch.setattr(hook, "run_command", fake_run_command)
@@ -123,6 +162,8 @@ def test_empty_existing_repository_requires_separate_consent(hook, monkeypatch, 
     assert ("git", "push", "-u", "origin", "main") in commands
     output = capsys.readouterr().out
     assert "Using existing empty repository" in output
+    assert any("empty and private" in prompt for prompt in prompts)
+    assert "connect to the empty private repository" in output
 
 
 def test_nonempty_existing_repository_is_never_modified(hook, monkeypatch, capsys):
@@ -135,7 +176,10 @@ def test_nonempty_existing_repository_is_never_modified(hook, monkeypatch, capsy
     def fake_run_command(*command):
         commands.append(command)
         if command[:3] == ("gh", "repo", "view"):
-            return completed(command, stdout='{"isEmpty": false}')
+            return completed(
+                command,
+                stdout='{"isEmpty": false, "visibility": "PUBLIC"}',
+            )
         return completed(command)
 
     monkeypatch.setattr(hook, "run_command", fake_run_command)
@@ -163,19 +207,51 @@ def test_explicit_public_mode_supports_noninteractive_automation(hook, monkeypat
         return completed(command)
 
     monkeypatch.setattr(hook, "run_command", fake_run_command)
-    hook.main()
+    assert hook.main() == 0
 
     create_command = next(
         command for command in commands if command[:3] == ("gh", "repo", "create")
     )
     assert "--public" in create_command
+    assert any(
+        command[:2] == ("gh", "api") and command[2].endswith("/pages")
+        for command in commands
+    )
+
+
+def test_explicit_private_mode_leaves_pages_disabled(hook, monkeypatch, capsys):
+    """Private automation does not silently publish a public Pages site."""
+    monkeypatch.setenv(hook.GITHUB_SETUP_ENV, "private")
+    monkeypatch.setattr(hook.os, "isatty", lambda _: False)
+    commands = []
+
+    def fake_run_command(*command):
+        commands.append(command)
+        if command[:3] == ("gh", "repo", "view"):
+            return completed(
+                command,
+                returncode=1,
+                stderr="Could not resolve to a Repository",
+            )
+        return completed(command)
+
+    monkeypatch.setattr(hook, "run_command", fake_run_command)
+    assert hook.main() == 0
+
+    assert not any(
+        command[:2] == ("gh", "api") and command[2].endswith("/pages")
+        for command in commands
+    )
+    output = capsys.readouterr().out
+    assert "Pages will remain disabled for the private repository" in output
+    assert "leave GitHub Pages disabled" in output
 
 
 def test_remote_settings_precede_first_push_and_push_failure_is_reported(
     hook, monkeypatch, capsys
 ):
     """The first workflow starts configured, and a rejected push stays visible."""
-    answers = iter(["yes", "", "yes"])
+    answers = iter(["yes", "", "yes", "yes"])
     monkeypatch.setattr(hook.os, "isatty", lambda _: True)
     monkeypatch.setattr("builtins.input", lambda _: next(answers))
     commands = []
@@ -193,7 +269,7 @@ def test_remote_settings_precede_first_push_and_push_failure_is_reported(
         return completed(command)
 
     monkeypatch.setattr(hook, "run_command", fake_run_command)
-    hook.main()
+    assert hook.main() == 1
 
     push_index = commands.index(("git", "push", "-u", "origin", "main"))
     api_indexes = [
@@ -204,6 +280,31 @@ def test_remote_settings_precede_first_push_and_push_failure_is_reported(
     output = capsys.readouterr().out
     assert "Could not push main to GitHub: push rejected" in output
     assert "To publish to PyPI" not in output
+    assert "GitHub setup did not complete" in output
+
+
+def test_explicit_automation_failure_returns_nonzero(hook, monkeypatch, capsys):
+    """Automation can reliably detect a requested GitHub setup failure."""
+    monkeypatch.setenv(hook.GITHUB_SETUP_ENV, "public")
+    monkeypatch.setattr(hook.os, "isatty", lambda _: False)
+
+    def fake_run_command(*command):
+        if command[:3] == ("gh", "repo", "view"):
+            return completed(
+                command,
+                returncode=1,
+                stderr="Could not resolve to a Repository",
+            )
+        if command[:3] == ("gh", "repo", "create"):
+            return completed(command, returncode=1, stderr="permission denied")
+        return completed(command)
+
+    monkeypatch.setattr(hook, "run_command", fake_run_command)
+
+    assert hook.main() == 1
+    output = capsys.readouterr().out
+    assert "Could not create GitHub repository: permission denied" in output
+    assert "GitHub setup did not complete" in output
 
 
 def test_pages_failure_is_reported_without_false_success(hook, monkeypatch, capsys):
@@ -218,3 +319,18 @@ def test_pages_failure_is_reported_without_false_success(hook, monkeypatch, caps
     output = capsys.readouterr().out
     assert "Could not configure GitHub Pages" in output
     assert "Pages enabled" not in output
+
+
+@pytest.mark.parametrize(
+    "description",
+    [
+        "Ends with a backslash \\",
+        "Spans two lines\nwithout breaking the hook",
+        r"Uses a Windows path C:\new\tools",
+    ],
+)
+def test_description_is_rendered_as_a_safe_string_literal(tmp_path, description):
+    """Rendered descriptions preserve newlines and backslashes without syntax errors."""
+    hook = load_hook(tmp_path, description)
+
+    assert hook.DESCRIPTION == description
