@@ -2,6 +2,7 @@ import datetime
 import shlex
 import subprocess
 import sys
+import tomllib
 
 import pytest
 
@@ -63,15 +64,22 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
     run_inside_dir("uv run pytest", str(result.project_path))
 
 
-def test_bake_with_quotes_in_description(cookies):
-    """Ensure that double quotes in project_short_description produce valid TOML."""
-    result = cookies.bake(
-        extra_context={"project_short_description": 'A "quoted" description'}
-    )
+@pytest.mark.parametrize(
+    "description",
+    [
+        'A "quoted" description',
+        "A multiline\ndescription",
+        "A path ending in a backslash \\",
+    ],
+)
+def test_bake_preserves_description_in_valid_toml(cookies, description):
+    """Descriptions with TOML-sensitive characters remain valid and unchanged."""
+    result = cookies.bake(extra_context={"project_short_description": description})
     assert result.project_path.is_dir()
     assert result.exit_code == 0
-    content = (result.project_path / "pyproject.toml").read_text()
-    assert 'description = "A \\"quoted\\" description"' in content
+    with (result.project_path / "pyproject.toml").open("rb") as pyproject_file:
+        pyproject = tomllib.load(pyproject_file)
+    assert pyproject["project"]["description"] == description
 
 
 @pytest.mark.skipif(sys.platform == "win32", reason="justfile not supported on Windows")

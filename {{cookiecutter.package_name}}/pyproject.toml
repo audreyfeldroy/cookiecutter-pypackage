@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "{{cookiecutter.package_name}}"
 version = "{{ cookiecutter.first_version }}"
-description = "{{ cookiecutter.project_short_description | replace('\\', '\\\\') | replace('\"', '\\\"') }}"
+description = {{ cookiecutter.project_short_description | tojson }}
 readme = "README.md"
 authors = [
   {name = "{{ cookiecutter.full_name | replace('\\', '\\\\') | replace('\"', '\\\"') }}", email = "{{cookiecutter.email}}"}
