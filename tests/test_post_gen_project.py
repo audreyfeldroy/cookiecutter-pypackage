@@ -357,6 +357,71 @@ def test_push_uses_github_cli_git_protocol(hook, monkeypatch, protocol, remote_u
     assert ("git", "remote", "add", "origin", remote_url) in commands
 
 
+def test_https_setup_configures_git_credentials(hook, monkeypatch, capsys):
+    """HTTPS automation teaches Git to use the authenticated GitHub CLI."""
+    commands = []
+
+    def fake_run_command(*command):
+        commands.append(command)
+        return completed(command)
+
+    monkeypatch.setattr(hook, "run_command", fake_run_command)
+
+    assert hook.configure_git_credentials("https") is True
+    assert (
+        "gh",
+        "auth",
+        "setup-git",
+        "--hostname",
+        hook.GITHUB_HOST,
+    ) in commands
+    assert "Git configured to use GitHub CLI credentials" in capsys.readouterr().out
+
+
+def test_ssh_setup_does_not_change_git_credentials(hook, monkeypatch):
+    """SSH setup leaves the user's Git credential helper unchanged."""
+
+    def fail_run_command(*command):
+        raise AssertionError(f"Unexpected command: {command}")
+
+    monkeypatch.setattr(hook, "run_command", fail_run_command)
+
+    assert hook.configure_git_credentials("ssh") is True
+
+
+def test_https_credential_failure_stops_before_git_or_github_writes(
+    hook, monkeypatch, capsys
+):
+    """A credential-helper failure does not create local or remote repository state."""
+    answers = iter(["yes", "", "", "yes"])
+    monkeypatch.setattr(hook.os, "isatty", lambda _: True)
+    monkeypatch.setattr("builtins.input", lambda _: next(answers))
+    commands = []
+
+    def fake_run_command(*command):
+        commands.append(command)
+        if command[:3] == ("gh", "repo", "view"):
+            return completed(
+                command,
+                returncode=1,
+                stderr="Could not resolve to a Repository",
+            )
+        if command[:3] == ("gh", "config", "get"):
+            return completed(command, stdout="https\n")
+        if command[:3] == ("gh", "auth", "setup-git"):
+            return completed(command, returncode=1, stderr="credential helper failed")
+        return successful(command)
+
+    monkeypatch.setattr(hook, "run_command", fake_run_command)
+
+    assert hook.main() == 1
+    assert not any(command[0] == "git" for command in commands)
+    assert not any(command[:3] == ("gh", "repo", "create") for command in commands)
+    output = capsys.readouterr().out
+    assert "Could not configure Git credentials for HTTPS" in output
+    assert "Git credential setup did not complete" in output
+
+
 def test_commit_failure_reports_partial_local_git_state(hook, monkeypatch, capsys):
     """A late local failure does not claim that no local repository was created."""
     commands = []

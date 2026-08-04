@@ -52,3 +52,7 @@ For non-interactive use, `--no-input` skips GitHub setup unless you add
 `--github private` or `--github public`. Public automation enables Pages;
 private automation leaves it and docs deployment disabled. A requested setup
 failure exits nonzero while preserving the generated project directory.
+
+For a confirmed HTTPS setup, the generator configures Git to use the GitHub CLI
+credential helper for `github.com`, so an authenticated `gh` session can also
+complete the first push. SSH setup does not change Git credential helpers.

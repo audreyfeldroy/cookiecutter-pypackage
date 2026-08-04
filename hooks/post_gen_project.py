@@ -261,6 +261,8 @@ def print_github_plan(plan):
         )
     else:
         print(f"  - create {github_repository_url()} as a {plan.visibility} repository")
+    if plan.git_protocol == "https":
+        print("  - configure Git to use GitHub CLI credentials for HTTPS")
     print("  - initialize Git and create the first commit")
     if plan.enable_pages:
         print("  - enable GitHub Pages (publishes a website)")
@@ -431,6 +433,21 @@ def initialize_git():
     return True
 
 
+def configure_git_credentials(protocol):
+    """Configure Git to use the authenticated GitHub CLI for HTTPS pushes."""
+    if protocol != "https":
+        return True
+
+    result = run_command("gh", "auth", "setup-git", "--hostname", GITHUB_HOST)
+    if result.returncode == 0:
+        print(f"  Git configured to use GitHub CLI credentials for {GITHUB_HOST}")
+        return True
+
+    print(f"  Could not configure Git credentials for HTTPS: {command_error(result)}")
+    print(f"  Run `gh auth setup-git --hostname {GITHUB_HOST}`, then generate again.")
+    return False
+
+
 def add_remote_and_push(protocol):
     """Connect the confirmed GitHub repository and push its first commit."""
     remote_url = github_remote_url(protocol)
@@ -574,6 +591,9 @@ def main():
 
     if plan is None:
         print("  Project generated locally without creating a Git commit.")
+    elif not configure_git_credentials(plan.git_protocol):
+        print("  Project generated, but Git credential setup did not complete.")
+        failed = True
     elif not initialize_git():
         print("  Project generated, but Git setup did not complete.")
         failed = True
