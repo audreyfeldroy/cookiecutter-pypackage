@@ -297,6 +297,29 @@ def test_push_uses_github_cli_git_protocol(hook, monkeypatch, protocol, remote_u
     assert ("git", "remote", "add", "origin", remote_url) in commands
 
 
+def test_commit_failure_reports_partial_local_git_state(hook, monkeypatch, capsys):
+    """A late local failure does not claim that no local repository was created."""
+    commands = []
+
+    def fake_run_command(*command):
+        commands.append(command)
+        if command[:2] == ("git", "commit"):
+            return completed(command, returncode=1, stderr="Author identity unknown")
+        return completed(command)
+
+    monkeypatch.setattr(hook, "run_command", fake_run_command)
+
+    assert hook.initialize_git() is False
+    assert commands[0] == ("git", "init", "-b", "main")
+    assert commands[1] == ("git", "add", ".")
+    output = capsys.readouterr().out
+    assert "Could not create the first Git commit: Author identity unknown" in output
+    assert (
+        "GitHub setup stopped before creating or modifying a GitHub repository."
+        in output
+    )
+
+
 def test_unsupported_git_protocol_stops_before_writes(hook, monkeypatch, capsys):
     """An unexpected GitHub CLI configuration is reported before setup writes."""
 

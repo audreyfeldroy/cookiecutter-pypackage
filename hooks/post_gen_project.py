@@ -399,7 +399,10 @@ def initialize_git():
         result = run_command(*command)
         if result.returncode != 0:
             print(f"  Could not {description}: {command_error(result)}")
-            print("  GitHub setup stopped before creating or modifying a repository.")
+            print(
+                "  GitHub setup stopped before creating or modifying "
+                "a GitHub repository."
+            )
             return False
 
     print("  Git initialized with first commit")
