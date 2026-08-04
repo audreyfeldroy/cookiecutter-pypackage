@@ -1,18 +1,17 @@
-# Cookiecutter PyPackage 0.6.0: From prompt to GitHub in one run
+# Unreleased
 
-Creating a package should leave you with a real project, not a local directory followed by a setup checklist. When you opt in, Cookiecutter PyPackage 0.6.0 can create your GitHub repository, configure its documentation and publishing environment, make the initial commit, and push it—all during project generation.
+This file records user-visible changes since Cookiecutter PyPackage 0.5.0. It
+is not a release announcement; finalize it as `CHANGELOG/X.Y.Z.md` during
+release preparation.
 
-```bash
-uv tool upgrade cookiecutter-pypackage
-```
+### Migration for the next release: renamed template variables
 
-### Before you upgrade: renamed template variables
-
-Version 0.6.0 gives the project's human-readable name, PyPI package name, Python import name, and GitHub owner distinct roles.
+The next release gives the project's human-readable name, PyPI package name,
+Python import name, and GitHub owner distinct roles.
 
 If you automate project generation or maintain a custom Cookiecutter context, update these variables:
 
-| Before 0.6.0 | From 0.6.0 | Used for |
+| Before | Next release | Used for |
 |---|---|---|
 | `pypi_package_name` | `package_name` | PyPI package, GitHub repository, and generated directory |
 | `project_slug` | `import_name` | Python imports and the generated CLI command |
@@ -26,7 +25,7 @@ uvx cookiecutter-pypackage --no-input \
     pypi_package_name=my-package \
     project_slug=my_package
 
-# From 0.6.0
+# Next release
 uvx cookiecutter-pypackage --no-input \
     package_name=my-package \
     import_name=my_package
@@ -55,7 +54,9 @@ These changes affect future generation commands and custom contexts only. Projec
 
 - **See every template variable before generating.** Run `uvx cookiecutter-pypackage --list-variables` to inspect the current variables and their defaults—particularly useful when building scripts or non-interactive workflows. Thanks [@iamamystery](https://github.com/iamamystery)! ([#931](https://github.com/audreyfeldroy/cookiecutter-pypackage/pull/931))
 
-- **A meaningful first changelog entry.** Every generated project starts with `CHANGELOG/<first_version>.md`, describing the scaffold it received and providing a useful starting point for its first GitHub Release.
+- **A meaningful first changelog entry.** Every generated project starts with
+  `CHANGELOG/<first_version>.md`, describing the scaffold it received and
+  providing a useful starting point for its first GitHub Release.
 
 ### What's better
 
