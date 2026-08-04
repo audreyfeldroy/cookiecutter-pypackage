@@ -1,4 +1,5 @@
 import datetime
+import json
 import shlex
 import subprocess
 import sys
@@ -95,6 +96,21 @@ def test_bake_builds_when_package_and_import_names_differ(cookies):
     assert (
         result.project_path / "dist" / "distribution_name-0.1.0-py3-none-any.whl"
     ).is_file()
+
+
+def test_bake_treats_import_name_as_data(cookies, tmp_path):
+    """Python-shaped import names are validated without being executed."""
+    marker = tmp_path / "import-name-was-executed"
+    import_name = (
+        '"; __import__("pathlib").Path('
+        f"{json.dumps(str(marker))}"
+        ').touch(); module_name = "valid'
+    )
+
+    result = cookies.bake(extra_context={"import_name": import_name})
+
+    assert result.exit_code != 0
+    assert not marker.exists()
 
 
 @pytest.mark.skipif(sys.platform == "win32", reason="justfile not supported on Windows")
