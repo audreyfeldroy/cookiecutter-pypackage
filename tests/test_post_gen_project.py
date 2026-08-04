@@ -233,6 +233,66 @@ def test_explicit_public_mode_supports_noninteractive_automation(hook, monkeypat
     ) in commands
 
 
+def test_github_setup_pins_one_host_when_ambient_host_differs(
+    hook, monkeypatch, capsys
+):
+    """Every GitHub read, write, display, and push targets GitHub.com."""
+    monkeypatch.setenv("GH_HOST", "github.corp.example")
+    monkeypatch.setenv(hook.GITHUB_SETUP_ENV, "public")
+    monkeypatch.setattr(hook.os, "isatty", lambda _: False)
+    calls = []
+
+    def fake_subprocess_run(command, **kwargs):
+        calls.append((tuple(command), kwargs))
+        if command[:3] == ["gh", "repo", "view"]:
+            return completed(
+                command,
+                returncode=1,
+                stderr="Could not resolve to a Repository",
+            )
+        if command[:3] == ["gh", "config", "get"]:
+            return completed(command, stdout="ssh\n")
+        return completed(command)
+
+    monkeypatch.setattr(hook.subprocess, "run", fake_subprocess_run)
+
+    assert hook.main() == 0
+
+    github_calls = [
+        (command, kwargs) for command, kwargs in calls if command[0] == "gh"
+    ]
+    assert github_calls
+    assert {command[1] for command, _ in github_calls} == {
+        "api",
+        "auth",
+        "config",
+        "repo",
+        "variable",
+    }
+    assert all(
+        kwargs["env"]["GH_HOST"] == hook.GITHUB_HOST for _, kwargs in github_calls
+    )
+    assert hook.os.environ["GH_HOST"] == "github.corp.example"
+    assert (
+        "gh",
+        "auth",
+        "status",
+        "--hostname",
+        hook.GITHUB_HOST,
+        "--active",
+    ) in [command for command, _ in github_calls]
+    assert (
+        "git",
+        "remote",
+        "add",
+        "origin",
+        "git@github.com:example-owner/example-repo.git",
+    ) in [command for command, _ in calls]
+    output = capsys.readouterr().out
+    assert "https://github.com/example-owner/example-repo" in output
+    assert "github.corp.example" not in output
+
+
 def test_explicit_private_mode_leaves_pages_disabled(hook, monkeypatch, capsys):
     """Private automation does not silently publish a public Pages site."""
     monkeypatch.setenv(hook.GITHUB_SETUP_ENV, "private")

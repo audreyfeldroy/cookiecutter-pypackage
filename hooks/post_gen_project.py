@@ -25,6 +25,7 @@ DESCRIPTION = json.loads(
 
 GITHUB_SETUP_ENV = "COOKIECUTTER_PYPACKAGE_GITHUB"
 GITHUB_SETUP_MODES = {"ask", "skip", "private", "public"}
+GITHUB_HOST = "github.com"
 DOCS_DEPLOYMENT_VARIABLE = "DOCS_DEPLOYMENT_ENABLED"
 
 
@@ -53,12 +54,18 @@ class GitHubRepositoryState(NamedTuple):
 
 def run_command(*command):
     """Run a command without raising so the hook can report useful failures."""
+    environment = None
+    if command and command[0] == "gh":
+        environment = os.environ.copy()
+        environment["GH_HOST"] = GITHUB_HOST
+
     try:
         return subprocess.run(
             list(command),
             capture_output=True,
             text=True,
             check=False,
+            env=environment,
         )
     except OSError as error:
         return subprocess.CompletedProcess(
@@ -116,15 +123,28 @@ def github_cli_ready():
     """Check that GitHub CLI is installed and authenticated."""
     if not shutil.which("gh"):
         print("  GitHub CLI not found; GitHub setup will be skipped.")
-        print("  Install it from https://cli.github.com/ and run `gh auth login`.")
+        print(
+            "  Install it from https://cli.github.com/ and run "
+            f"`gh auth login --hostname {GITHUB_HOST}`."
+        )
         return False
 
-    result = run_command("gh", "auth", "status")
+    result = run_command(
+        "gh",
+        "auth",
+        "status",
+        "--hostname",
+        GITHUB_HOST,
+        "--active",
+    )
     if result.returncode == 0:
         return True
 
     print("  GitHub CLI is not authenticated; GitHub setup will be skipped.")
-    print("  Run `gh auth login`, then generate the project again.")
+    print(
+        f"  Run `gh auth login --hostname {GITHUB_HOST}`, "
+        "then generate the project again."
+    )
     return False
 
 
@@ -183,7 +203,7 @@ def github_git_protocol():
         "get",
         "git_protocol",
         "--host",
-        "github.com",
+        GITHUB_HOST,
     )
     if result.returncode != 0:
         print(f"  Could not read GitHub's Git protocol: {command_error(result)}")
@@ -194,15 +214,20 @@ def github_git_protocol():
         return protocol
 
     print(f"  GitHub CLI returned an unsupported Git protocol: {protocol or 'empty'}.")
-    print("  Set it with `gh config set git_protocol ssh --host github.com`.")
+    print(f"  Set it with `gh config set git_protocol ssh --host {GITHUB_HOST}`.")
     return None
 
 
 def github_remote_url(protocol):
     """Build a GitHub remote URL using the user's configured transport."""
     if protocol == "ssh":
-        return f"git@github.com:{OWNER}/{REPO}.git"
-    return f"https://github.com/{OWNER}/{REPO}.git"
+        return f"git@{GITHUB_HOST}:{OWNER}/{REPO}.git"
+    return f"https://{GITHUB_HOST}/{OWNER}/{REPO}.git"
+
+
+def github_repository_url():
+    """Build the canonical web URL for the target GitHub repository."""
+    return f"https://{GITHUB_HOST}/{OWNER}/{REPO}"
 
 
 def choose_pages_setup(visibility, *, interactive):
@@ -232,13 +257,10 @@ def print_github_plan(plan):
     if plan.existing:
         print(
             f"  - connect to the empty {plan.visibility} repository "
-            f"https://github.com/{OWNER}/{REPO}"
+            f"{github_repository_url()}"
         )
     else:
-        print(
-            f"  - create https://github.com/{OWNER}/{REPO} "
-            f"as a {plan.visibility} repository"
-        )
+        print(f"  - create {github_repository_url()} as a {plan.visibility} repository")
     print("  - initialize Git and create the first commit")
     if plan.enable_pages:
         print("  - enable GitHub Pages (publishes a website)")
@@ -328,7 +350,7 @@ def choose_github_setup(mode):
 def prepare_github_repository(plan):
     """Create the confirmed GitHub repository or select an empty one."""
     if plan.existing:
-        print(f"  Using existing empty repository: https://github.com/{OWNER}/{REPO}")
+        print(f"  Using existing empty repository: {github_repository_url()}")
         return True
 
     result = run_command(
@@ -341,7 +363,7 @@ def prepare_github_repository(plan):
         DESCRIPTION,
     )
     if result.returncode == 0:
-        print(f"  GitHub repository created: https://github.com/{OWNER}/{REPO}")
+        print(f"  GitHub repository created: {github_repository_url()}")
         return True
 
     print(f"  Could not create GitHub repository: {command_error(result)}")
@@ -438,7 +460,7 @@ def add_remote_and_push(protocol):
             )
             return False
 
-    print(f"  Pushed to https://github.com/{OWNER}/{REPO}")
+    print(f"  Pushed to {github_repository_url()}")
     return True
 
 
