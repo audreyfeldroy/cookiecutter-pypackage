@@ -89,6 +89,10 @@ For non-interactive automation, make the opt-in explicit:
 
 ```bash
 uvx cookiecutter-pypackage --no-input --github private \
+    full_name="Your Name" \
+    email="you@example.com" \
+    github_username=yourhandle \
+    author_website="" \
     project_name="My Package" \
     package_name=my-package
 ```
