@@ -25,7 +25,7 @@ uvx cookiecutter-pypackage
 | Type checking | [ty](https://docs.astral.sh/ty/) | All rules enabled, watch mode with `just type-check-watch` |
 | Testing | [pytest](https://docs.pytest.org/) | Python 3.12, 3.13, 3.14 |
 | CLI framework | [Typer](https://typer.tiangolo.com/) | Entry point + `__main__.py` included |
-| Docs | [Zensical](https://zensical.org/) + [mkdocstrings](https://mkdocstrings.github.io/) | Auto-deployed to GitHub Pages, API docs from docstrings |
+| Docs | [Zensical](https://zensical.org/) + [mkdocstrings](https://mkdocstrings.github.io/) | GitHub Pages deployment, API docs from docstrings |
 
 ### CI/CD (GitHub Actions, [security-hardened](https://audreyfeldroy.github.io/cookiecutter-pypackage/github_actions/))
 
@@ -46,7 +46,21 @@ Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then:
 uvx cookiecutter-pypackage
 ```
 
-You'll be prompted for your package name, GitHub username, and a few other values ([full list](https://audreyfeldroy.github.io/cookiecutter-pypackage/prompts/)). Then push to GitHub and follow the [tutorial](https://audreyfeldroy.github.io/cookiecutter-pypackage/tutorial/) to enable Pages and set up PyPI publishing.
+You'll be prompted for your package name, GitHub username, and a few other
+values ([full list](https://audreyfeldroy.github.io/cookiecutter-pypackage/prompts/)).
+Follow the [tutorial](https://audreyfeldroy.github.io/cookiecutter-pypackage/tutorial/)
+to generate, verify, and release your package.
+
+After the template prompts, you can optionally set up GitHub. The default is
+**no**: pressing Enter creates only the project files. If you opt in, the
+generator shows its complete plan before it creates a private or public
+repository, makes the first Git commit, creates the `pypi` environment, and
+pushes `main`. Public repositories enable Pages by default. For private
+repositories, Pages defaults to off because
+[the site can still be public](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
+and the feature may require a paid GitHub plan. The docs deployment workflow
+follows that choice, so declining Pages does not create a failed workflow on
+the first push.
 
 <details>
 <summary>Without uvx</summary>
@@ -55,7 +69,7 @@ You'll be prompted for your package name, GitHub username, and a few other value
 uv venv
 source .venv/bin/activate
 uv pip install cookiecutter
-cookiecutter gh:audreyfeldroy/cookiecutter-pypackage
+cookiecutter --keep-project-on-failure gh:audreyfeldroy/cookiecutter-pypackage
 ```
 
 </details>
@@ -80,6 +94,27 @@ uvx cookiecutter-pypackage --no-input \
     full_name="Your Name" \
     email="you@example.com"
 ```
+
+Non-interactive generation skips GitHub setup unless you explicitly request a
+private or public repository:
+
+```bash
+uvx cookiecutter-pypackage --no-input --github private \
+    full_name="Your Name" \
+    email="you@example.com" \
+    github_username=yourhandle \
+    author_website="" \
+    project_name="My Package" \
+    package_name=my-package
+```
+
+`--github public` also enables Pages and docs deployment. `--github private`
+leaves both disabled; run interactively if you want to acknowledge the
+visibility warning and enable them. If requested GitHub setup fails, the
+command exits nonzero and keeps the generated directory for recovery.
+
+Use `--github skip` to suppress the GitHub question during an interactive
+generation.
 
 List the available variables and their configured defaults without generating
 a project:

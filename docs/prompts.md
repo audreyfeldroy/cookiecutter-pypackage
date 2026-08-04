@@ -27,3 +27,32 @@ The package name is auto-generated from the project name by replacing spaces wit
 - **pypi_username**: Your PyPI account username. Used only for a link to your PyPI profile in the README.
 - **author_website**: Your personal website URL (optional). When provided, the "Created by" link in the README points here. When left blank, it defaults to your GitHub profile URL.
 - **first_version**: The starting version number of the package. Defaults to `0.1.0`.
+
+## GitHub setup
+
+After the template prompts, the generator separately asks whether to set up a
+GitHub repository. Pressing Enter selects no and leaves the generated project
+without a Git commit or remote repository.
+
+If you opt in, visibility defaults to private. The generator shows the full
+plan and asks for final confirmation before it creates or connects to an empty
+repository, initializes Git, pushes `main`, enables Pages, or creates the
+`pypi` environment. The plan also shows whether the docs deployment workflow
+will be enabled or paused. Existing nonempty repositories are never modified
+automatically.
+
+Pages is a separate decision. It defaults to on for public repositories. For
+private or internal repositories, it defaults to off and warns that the
+published site can still be public and that the feature may require a paid
+GitHub plan. The generator displays the actual visibility before asking to
+connect to an existing empty repository. The docs deployment workflow follows
+the confirmed Pages choice, avoiding a failed deployment when Pages is off.
+
+For non-interactive use, `--no-input` skips GitHub setup unless you add
+`--github private` or `--github public`. Public automation enables Pages;
+private automation leaves it and docs deployment disabled. A requested setup
+failure exits nonzero while preserving the generated project directory.
+
+For a confirmed HTTPS setup, the generator configures Git to use the GitHub CLI
+credential helper for `github.com`, so an authenticated `gh` session can also
+complete the first push. SSH setup does not change Git credential helpers.

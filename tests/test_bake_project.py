@@ -1,7 +1,9 @@
 import datetime
+import json
 import shlex
 import subprocess
 import sys
+import tomllib
 
 import pytest
 
@@ -63,15 +65,52 @@ def test_bake_with_apostrophe_and_run_tests(cookies):
     run_inside_dir("uv run pytest", str(result.project_path))
 
 
-def test_bake_with_quotes_in_description(cookies):
-    """Ensure that double quotes in project_short_description produce valid TOML."""
-    result = cookies.bake(
-        extra_context={"project_short_description": 'A "quoted" description'}
-    )
+@pytest.mark.parametrize(
+    "description",
+    [
+        'A "quoted" description',
+        "A multiline\ndescription",
+        "A path ending in a backslash \\",
+    ],
+)
+def test_bake_preserves_description_in_valid_toml(cookies, description):
+    """Descriptions with TOML-sensitive characters remain valid and unchanged."""
+    result = cookies.bake(extra_context={"project_short_description": description})
     assert result.project_path.is_dir()
     assert result.exit_code == 0
-    content = (result.project_path / "pyproject.toml").read_text()
-    assert 'description = "A \\"quoted\\" description"' in content
+    with (result.project_path / "pyproject.toml").open("rb") as pyproject_file:
+        pyproject = tomllib.load(pyproject_file)
+    assert pyproject["project"]["description"] == description
+
+
+def test_bake_builds_when_package_and_import_names_differ(cookies):
+    """Hatchling packages the configured import directory without guessing."""
+    result = cookies.bake(
+        extra_context={
+            "package_name": "distribution-name",
+            "import_name": "importable_name",
+        }
+    )
+    assert result.exit_code == 0
+    run_inside_dir("uv build", str(result.project_path))
+    assert (
+        result.project_path / "dist" / "distribution_name-0.1.0-py3-none-any.whl"
+    ).is_file()
+
+
+def test_bake_treats_import_name_as_data(cookies, tmp_path):
+    """Python-shaped import names are validated without being executed."""
+    marker = tmp_path / "import-name-was-executed"
+    import_name = (
+        '"; __import__("pathlib").Path('
+        f"{json.dumps(str(marker))}"
+        ').touch(); module_name = "valid'
+    )
+
+    result = cookies.bake(extra_context={"import_name": import_name})
+
+    assert result.exit_code != 0
+    assert not marker.exists()
 
 
 @pytest.mark.skipif(sys.platform == "win32", reason="justfile not supported on Windows")
@@ -95,3 +134,34 @@ def test_typing_classifier_in_pyproject(cookies):
     assert result.exit_code == 0
     content = (result.project_path / "pyproject.toml").read_text()
     assert '"Typing :: Typed"' in content
+
+
+def test_baked_workflows_support_private_repositories(cookies):
+    """Checkout and security workflows use safe private-repository defaults."""
+    result = cookies.bake()
+    assert result.exit_code == 0
+    workflows = result.project_path / ".github" / "workflows"
+
+    ci = (workflows / "ci.yml").read_text()
+    assert ci.count("contents: read") == 4
+
+    publish = (workflows / "publish.yml").read_text()
+    build_job = publish.split("  publish:", maxsplit=1)[0]
+    assert "contents: read" in build_job
+
+    codeql = (workflows / "codeql.yml").read_text()
+    private_code_security_opt_in = (
+        "${{ github.event.repository.private == false "
+        "|| vars.CODE_SECURITY_ENABLED == 'true' }}"
+    )
+    assert private_code_security_opt_in in codeql
+    assert "actions: read" in codeql
+    assert "contents: read" in codeql
+
+    zizmor = (workflows / "zizmor.yml").read_text()
+    assert f"advanced-security: {private_code_security_opt_in}" in zizmor
+    assert "actions: read" in zizmor
+    assert "contents: read" in zizmor
+
+    docs = (workflows / "docs.yml").read_text()
+    assert "${{ vars.DOCS_DEPLOYMENT_ENABLED == 'true' }}" in docs

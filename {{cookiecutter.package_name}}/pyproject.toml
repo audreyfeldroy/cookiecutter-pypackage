@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "{{cookiecutter.package_name}}"
 version = "{{ cookiecutter.first_version }}"
-description = "{{ cookiecutter.project_short_description | replace('\\', '\\\\') | replace('\"', '\\\"') }}"
+description = {{ cookiecutter.project_short_description | tojson }}
 readme = "README.md"
 authors = [
   {name = "{{ cookiecutter.full_name | replace('\\', '\\\\') | replace('\"', '\\\"') }}", email = "{{cookiecutter.email}}"}
@@ -95,6 +95,9 @@ exclude_also = [
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/{{ cookiecutter.import_name }}"]
 
 [tool.uv]
 package = true

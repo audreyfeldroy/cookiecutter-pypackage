@@ -13,7 +13,10 @@
    - **Workflow name:** `publish.yml`
    - **Environment name:** `pypi`
 
-4. The post-generation hook already created the `pypi` environment. If it didn't, go to Settings > Environments > New environment and name it `pypi`. Optionally add required reviewers and restrict deployment to `v*` tags.
+4. If you opted into successful GitHub setup, the post-generation hook created
+   the `pypi` environment. Otherwise, go to Settings > Environments > New
+   environment and name it `pypi`. Optionally add required reviewers and
+   restrict deployment to `v*` tags.
 
 5. Run `just release` to trigger the publish (see below).
 

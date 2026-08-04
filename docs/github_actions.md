@@ -23,28 +23,62 @@ Runs when you push a tag matching `v*` (e.g., `v0.1.0`). Two jobs:
 
 Publishing uses [Trusted Publishers](https://docs.pypi.org/trusted-publishers/), so there are no API tokens to manage. PyPI verifies the package came from your GitHub repo's workflow via OIDC.
 
-**First-time setup:** The post-generation hook creates the `pypi` environment automatically. You still need to register your repo as a trusted publisher on PyPI. See [PyPI Release Checklist](pypi_release_checklist.md) for the steps.
+**First-time setup:** If you opt into GitHub setup, the post-generation hook
+attempts to create the `pypi` environment before the first push. If you skip
+setup or that step fails, create the environment manually. You still need to
+register your repo as a trusted publisher on PyPI. See
+[PyPI Release Checklist](pypi_release_checklist.md) for the steps.
 
 ## Documentation (`docs.yml`)
 
-Runs on push to `main`. Two jobs:
+Runs on push to `main` when the repository variable
+`DOCS_DEPLOYMENT_ENABLED` is `true`. Two jobs:
 
 1. **Build** - builds the documentation site with `zensical build`
 2. **Deploy** - deploys to GitHub Pages
 
-**First-time setup:** The post-generation hook configures this automatically. If it couldn't (no `gh` CLI or repo not yet created), go to Settings > Pages and set the source to **GitHub Actions**.
+**First-time setup:** Public GitHub setup enables Pages by default. Private
+setup asks separately and defaults to off because a Pages site can be public
+even when its repository is private, and the feature may require a paid plan.
+The generator sets `DOCS_DEPLOYMENT_ENABLED` to match that choice, so the
+workflow stays paused instead of failing when Pages is off.
+
+To enable deployment later, review those visibility implications, go to
+**Settings > Pages**, set the source to **GitHub Actions**, then set the
+repository variable:
+
+```bash
+gh variable set DOCS_DEPLOYMENT_ENABLED --repo OWNER/REPOSITORY --body true
+```
+
+Local preview and `just docs-build` work regardless of this deployment
+setting.
 
 ## CodeQL (`codeql.yml`)
 
-Runs on pushes to `main`, pull requests, and a weekly schedule. Uses GitHub's [CodeQL](https://codeql.github.com/) engine with the `security-extended` query suite, which adds medium-precision security checks (taint tracking, injection detection) on top of the default high-precision set. Results appear in your repo's Security > Code scanning tab.
+Runs on pushes to `main`, pull requests, and a weekly schedule for public
+repositories. Uses GitHub's [CodeQL](https://codeql.github.com/) engine with the
+`security-extended` query suite, which adds medium-precision security checks
+(taint tracking, injection detection) on top of the default high-precision set.
+Results appear in your repo's Security > Code scanning tab.
 
 CodeQL does dataflow analysis that linters can't: it traces user input across function calls and files to find SQL injection, command injection, SSRF, path traversal, and similar vulnerabilities.
+
+Private and internal repositories skip this job by default because CodeQL
+requires GitHub Code Security there. After enabling Code Security in
+**Settings > Advanced Security**, create the repository Actions variable
+`CODE_SECURITY_ENABLED` with the value `true` to run CodeQL and upload zizmor
+results.
 
 If your package includes compiled code, the workflow has inline comments showing how to add `c-cpp`, `go`, `java-kotlin`, or `swift` and switch to `autobuild`.
 
 ## Zizmor (`zizmor.yml`)
 
 Runs on pushes and pull requests that touch `.github/workflows/`. [Zizmor](https://woodruffw.github.io/zizmor/) audits your GitHub Actions workflows for security issues: excessive permissions, unpinned actions, credential exposure, cache poisoning risks, and other patterns that tools like CodeQL don't cover (since CodeQL analyzes your code, not your CI configuration).
+
+Zizmor still runs for private repositories without GitHub Code Security and
+prints its findings in the workflow log. Setting `CODE_SECURITY_ENABLED=true`
+after enabling Code Security also uploads those findings to code scanning.
 
 ## Dependabot (`dependabot.yml`)
 

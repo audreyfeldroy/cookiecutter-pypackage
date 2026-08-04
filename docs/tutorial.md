@@ -8,7 +8,7 @@ By the end of this tutorial, you'll have a Python package with a working CLI, a 
 - [uv](https://docs.astral.sh/uv/getting-started/installation/)
 - [just](https://github.com/casey/just#installation) (task runner)
 - [git](https://git-scm.com/)
-- [gh](https://cli.github.com/) (GitHub CLI, for automatic repo and Pages setup)
+- [gh](https://cli.github.com/) (GitHub CLI, if you want automatic repo setup)
 - A [GitHub account](https://github.com/)
 - A [PyPI account](https://pypi.org/) (when you're ready to publish)
 
@@ -34,14 +34,29 @@ You'll be prompted for some values. See [Prompts](prompts.md) for details on eac
 [11/11] first_version (0.1.0):
 ```
 
-The hook will ask whether to make the GitHub repo public or private, then set everything up:
+GitHub setup is optional and defaults to no. If you opt in, repository
+visibility defaults to private and the generator shows every action before
+making changes:
 
 ```
-Make the GitHub repo public or private? [public/private] (public): public
-GitHub repo created: https://github.com/your-username/my-package
-GitHub Pages enabled for your-username/my-package (source: GitHub Actions)
+Set up a GitHub repository now? [y/N]: y
+Repository visibility [private/public] (private): public
+Enable GitHub Pages? [Y/n]:
+
+GitHub setup plan:
+  - create https://github.com/your-username/my-package as a public repository
+  - initialize Git and create the first commit
+  - enable GitHub Pages (publishes a website)
+  - enable the documentation deployment workflow
+  - create the pypi environment
+  - push main over SSH
+
+Continue? [y/N]: y
+Git initialized with first commit
+GitHub repository created: https://github.com/your-username/my-package
+GitHub Pages enabled for your-username/my-package
+Documentation deployment workflow enabled for your-username/my-package
 GitHub environment 'pypi' created for your-username/my-package
-Git initialized with initial commit
 Pushed to https://github.com/your-username/my-package
 
 To publish to PyPI, add a pending publisher at:
@@ -51,9 +66,39 @@ https://pypi.org/manage/account/publishing/
 Your Python package project has been created successfully!
 ```
 
-CI runs automatically on push. Check the Actions tab and you should see it pass: linting, type checking, and tests across three Python versions. Your docs site will be live at `https://your-username.github.io/my-package/` within a couple of minutes.
+The transport in the plan follows `gh`'s `git_protocol` setting, so it may say
+SSH or HTTPS. CI runs automatically on push. Check the Actions tab and you
+should see it pass: linting, type checking, and tests across three Python
+versions. Your docs site will be live at
+`https://your-username.github.io/my-package/` within a couple of minutes.
 
-If you don't have the `gh` CLI, the hook skips repo creation and prints manual instructions instead.
+Pressing Enter at the first GitHub question generates the project locally
+without creating a repository or Git commit. If you opt in but `gh` is
+unavailable, unauthenticated, or another requested action fails, the command
+exits nonzero and keeps the generated directory so you can inspect or recover
+the partial setup.
+
+For a private repository, Pages defaults to off. GitHub Pages can publish a
+public website even when its repository is private, and Pages for a private
+repository may require a paid plan. The interactive flow explains this and
+requires a separate opt-in before enabling Pages. If you leave Pages off, the
+documentation deployment workflow stays paused rather than failing on the
+first push; local docs preview and builds still work.
+
+For non-interactive automation, make the opt-in explicit:
+
+```bash
+uvx cookiecutter-pypackage --no-input --github private \
+    full_name="Your Name" \
+    email="you@example.com" \
+    github_username=yourhandle \
+    author_website="" \
+    project_name="My Package" \
+    package_name=my-package
+```
+
+Use `--github public` when automation should also enable Pages and
+documentation deployment.
 
 ## Step 2: Look around
 
@@ -128,7 +173,8 @@ Run `just qa` to verify everything still passes. Push your changes and watch CI 
 
 ## Step 6: Set up PyPI publishing
 
-The post-generation hook printed the URL and form values you need:
+If you opted into GitHub setup, the post-generation hook printed the URL and
+form values you need:
 
 ```
 To publish to PyPI, add a pending publisher at:

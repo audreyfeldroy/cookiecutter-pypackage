@@ -8,14 +8,25 @@
 
 ## Docs site shows 404
 
-Make sure GitHub Pages is configured to deploy from **GitHub Actions** (not a branch). Go to your repo's Settings > Pages and set the source to **GitHub Actions**. If the docs workflow already ran before you enabled Pages, go to Actions, find the "Documentation" workflow, and click "Re-run all jobs."
+Make sure GitHub Pages is configured to deploy from **GitHub Actions** (not a
+branch). Go to your repo's Settings > Pages and set the source to **GitHub
+Actions**. Then enable the generated deployment workflow:
+
+```bash
+gh variable set DOCS_DEPLOYMENT_ENABLED --repo OWNER/REPOSITORY --body true
+```
+
+Push to `main` or go to Actions, find the "Documentation" workflow, and run it
+manually.
 
 ## Tag push didn't publish to PyPI
 
 The most common causes:
 
 - **Trusted Publisher not configured.** You need to register your repo as a trusted publisher on PyPI before the first release. See the [PyPI Release Checklist](pypi_release_checklist.md).
-- **`pypi` environment not created.** The post-generation hook creates this automatically. If it didn't, go to Settings > Environments and create an environment named `pypi`.
+- **`pypi` environment not created.** The post-generation hook attempts this
+  only when you opt into GitHub setup. Go to Settings > Environments and create
+  an environment named `pypi`.
 - **Tag format wrong.** Tags must match `v*` (e.g., `v0.1.0`). The `just tag` command handles this for you.
 
 If you got the Trusted Publisher configuration wrong, you can delete it on PyPI and create it again.
