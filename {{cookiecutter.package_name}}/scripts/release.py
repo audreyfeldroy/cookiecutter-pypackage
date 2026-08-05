@@ -10,6 +10,7 @@ from typing import NamedTuple
 
 CHANGELOG_DIR = Path("CHANGELOG")
 UNRELEASED_PATH = CHANGELOG_DIR / "unreleased.md"
+RELEASE_BRANCH = "main"
 UNRELEASED_TEMPLATE = "# Unreleased\n\nRecord user-visible changes here before the next release.\n"
 
 
@@ -50,6 +51,35 @@ def _ensure_clean_worktree() -> None:
         raise ReleaseError("Git worktree is not clean; commit or stash changes first.")
 
 
+def _ensure_release_branch() -> None:
+    """Require HEAD to be the current commit on the protected release branch."""
+    branch = _command_result("git", "branch", "--show-current")
+    if branch.returncode != 0:
+        error = (branch.stderr or branch.stdout).strip() or "unknown error"
+        raise ReleaseError(f"Could not inspect the current Git branch: {error}")
+    if branch.stdout.strip() != RELEASE_BRANCH:
+        raise ReleaseError(f"Releases must run from the {RELEASE_BRANCH} branch.")
+
+    head = _command_result("git", "rev-parse", "HEAD")
+    remote = _command_result("git", "ls-remote", "--exit-code", "origin", f"refs/heads/{RELEASE_BRANCH}")
+    if head.returncode != 0 or remote.returncode not in {0, 2}:
+        error = (head.stderr or remote.stderr or head.stdout or remote.stdout).strip()
+        raise ReleaseError(f"Could not verify that {RELEASE_BRANCH} matches origin: {error or 'unknown error'}")
+    remote_lines = [line.split("\t", 1) for line in remote.stdout.splitlines() if "\t" in line]
+    remote_refs = {ref: commit for commit, ref in remote_lines}
+    remote_commit = remote_refs.get(f"refs/heads/{RELEASE_BRANCH}")
+    if remote_commit is None:
+        raise ReleaseError(f"origin does not have a {RELEASE_BRANCH} branch.")
+    if head.stdout.strip() != remote_commit:
+        raise ReleaseError(f"{RELEASE_BRANCH} must match origin/{RELEASE_BRANCH} before release.")
+
+
+def _push_release_branch() -> None:
+    """Push prepared release work and re-verify the protected branch."""
+    _run("git", "push", "origin", f"HEAD:{RELEASE_BRANCH}")
+    _ensure_release_branch()
+
+
 def _ensure_tag_state(tag: str) -> TagState:
     """Validate an existing tag so interrupted releases can be resumed safely."""
     local = _command_result("git", "show-ref", "--verify", "--quiet", f"refs/tags/{tag}")
@@ -59,12 +89,7 @@ def _ensure_tag_state(tag: str) -> TagState:
     local_exists = local.returncode == 0
 
     remote = _command_result(
-        "git",
-        "ls-remote",
-        "--exit-code",
-        "--tags",
-        "origin",
-        f"refs/tags/{tag}*",
+        "git", "ls-remote", "--exit-code", "--tags", "origin", f"refs/tags/{tag}", f"refs/tags/{tag}^" + "{}"
     )
     if remote.returncode not in {0, 2}:
         error = (remote.stderr or remote.stdout).strip() or "unknown error"
@@ -73,8 +98,6 @@ def _ensure_tag_state(tag: str) -> TagState:
     remote_refs = {ref: commit for commit, ref in remote_lines}
     remote_tag_ref = f"refs/tags/{tag}"
     remote_commit = remote_refs.get(remote_tag_ref + "^{}") or remote_refs.get(remote_tag_ref)
-    if remote.returncode == 0 and remote_commit is None:
-        raise ReleaseError(f"Could not determine which commit remote tag {tag} points to.")
     remote_exists = remote_commit is not None
 
     if remote_exists and not local_exists:
@@ -142,7 +165,6 @@ def _prepare_release_notes(name: str, version: str) -> Path:
         versioned_contents = versioned_path.read_text(encoding="utf-8")
         unreleased_contents = UNRELEASED_PATH.read_text(encoding="utf-8")
         if _has_release_notes(versioned_contents) and _is_unreleased_template(unreleased_contents):
-            _run("git", "push", "origin", "HEAD")
             return versioned_path
         raise ReleaseError("Both release changelog files exist; resolve the state manually.")
     if versioned_path.exists():
@@ -165,7 +187,6 @@ def _prepare_release_notes(name: str, version: str) -> Path:
     UNRELEASED_PATH.write_text(UNRELEASED_TEMPLATE, encoding="utf-8")
     _run("git", "add", str(versioned_path), str(UNRELEASED_PATH))
     _run("git", "commit", "-m", f"Prepare release notes for v{version}")
-    _run("git", "push", "origin", "HEAD")
     return versioned_path
 
 
@@ -190,8 +211,10 @@ def main() -> int:
         tag = f"v{version}"
 
         _ensure_clean_worktree()
+        _ensure_release_branch()
         _ensure_tag_state(tag)
         notes_path = _prepare_release_notes(name, version)
+        _push_release_branch()
         title, notes = _release_notes(notes_path, name, version)
 
         tag_state = _ensure_tag_state(tag)

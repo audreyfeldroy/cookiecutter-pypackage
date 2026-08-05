@@ -41,6 +41,11 @@ def write_pyproject(tmp_path, *, name="example-package", version="1.2.3"):
     )
 
 
+def allow_release_branch(monkeypatch, release):
+    """Skip branch verification when a test targets a later release stage."""
+    monkeypatch.setattr(release, "_ensure_release_branch", lambda: None)
+
+
 def test_unreleased_notes_are_finalized_before_tagging(release, tmp_path, monkeypatch):
     """A release notes commit is pushed before the release tag is created."""
     write_pyproject(tmp_path)
@@ -50,6 +55,7 @@ def test_unreleased_notes_are_finalized_before_tagging(release, tmp_path, monkey
     )
     commands = []
     monkeypatch.setattr(release, "_ensure_clean_worktree", lambda: None)
+    allow_release_branch(monkeypatch, release)
     monkeypatch.setattr(
         release, "_ensure_tag_state", lambda tag: release.TagState(False, False)
     )
@@ -72,7 +78,7 @@ def test_unreleased_notes_are_finalized_before_tagging(release, tmp_path, monkey
     )
     tag_index = commands.index(("git", "tag", "-a", "v1.2.3", "-m", "Release v1.2.3"))
     assert commit_index < tag_index
-    assert commands[commit_index + 1] == ("git", "push", "origin", "HEAD")
+    assert commands[commit_index + 1] == ("git", "push", "origin", "HEAD:main")
 
 
 def test_legacy_versioned_notes_are_used_without_a_notes_commit(
@@ -104,12 +110,18 @@ def test_notes_push_failure_leaves_retryable_state(release, tmp_path, monkeypatc
 
     def fail_push(*command):
         commands.append(command)
-        if command == ("git", "push", "origin", "HEAD"):
+        if command == ("git", "push", "origin", "HEAD:main"):
             raise release.subprocess.CalledProcessError(1, command)
 
+    monkeypatch.setattr(release, "_ensure_clean_worktree", lambda: None)
+    allow_release_branch(monkeypatch, release)
+    monkeypatch.setattr(
+        release, "_ensure_tag_state", lambda tag: release.TagState(False, False)
+    )
+    monkeypatch.setattr(release, "_github_release_exists", lambda tag: False)
     monkeypatch.setattr(release, "_run", fail_push)
-    with pytest.raises(release.subprocess.CalledProcessError):
-        release._prepare_release_notes("example-package", "1.2.3")
+
+    assert release.main() == 1
 
     assert (tmp_path / "CHANGELOG" / "1.2.3.md").exists()
     assert unreleased.read_text(encoding="utf-8") == release.UNRELEASED_TEMPLATE
@@ -118,8 +130,9 @@ def test_notes_push_failure_leaves_retryable_state(release, tmp_path, monkeypatc
     monkeypatch.setattr(
         release, "_run", lambda *command: retry_commands.append(command)
     )
-    release._prepare_release_notes("example-package", "1.2.3")
-    assert retry_commands == [("git", "push", "origin", "HEAD")]
+    assert release.main() == 0
+    assert retry_commands[0] == ("git", "push", "origin", "HEAD:main")
+    assert not any(command[:2] == ("git", "commit") for command in retry_commands)
 
 
 def test_prepared_changelog_pair_is_retryable(release, tmp_path, monkeypatch):
@@ -137,7 +150,7 @@ def test_prepared_changelog_pair_is_retryable(release, tmp_path, monkeypatch):
     assert release._prepare_release_notes("example-package", "1.2.3") == Path(
         "CHANGELOG/1.2.3.md"
     )
-    assert commands == [("git", "push", "origin", "HEAD")]
+    assert commands == []
 
 
 def test_local_tag_retry_pushes_without_retagging(release, tmp_path, monkeypatch):
@@ -148,6 +161,7 @@ def test_local_tag_retry_pushes_without_retagging(release, tmp_path, monkeypatch
     )
     commands = []
     monkeypatch.setattr(release, "_ensure_clean_worktree", lambda: None)
+    allow_release_branch(monkeypatch, release)
     monkeypatch.setattr(
         release, "_ensure_tag_state", lambda tag: release.TagState(True, False)
     )
@@ -155,6 +169,7 @@ def test_local_tag_retry_pushes_without_retagging(release, tmp_path, monkeypatch
     monkeypatch.setattr(release, "_run", lambda *command: commands.append(command))
 
     assert release.main() == 0
+    assert ("git", "push", "origin", "HEAD:main") in commands
     assert not any(command[:2] == ("git", "tag") for command in commands)
     assert ("git", "push", "origin", "v1.2.3") in commands
     assert any(command[:3] == ("gh", "release", "create") for command in commands)
@@ -168,6 +183,7 @@ def test_existing_github_release_skips_republish(release, tmp_path, monkeypatch)
     )
     commands = []
     monkeypatch.setattr(release, "_ensure_clean_worktree", lambda: None)
+    allow_release_branch(monkeypatch, release)
     monkeypatch.setattr(
         release, "_ensure_tag_state", lambda tag: release.TagState(True, True)
     )
@@ -175,7 +191,29 @@ def test_existing_github_release_skips_republish(release, tmp_path, monkeypatch)
     monkeypatch.setattr(release, "_run", lambda *command: commands.append(command))
 
     assert release.main() == 0
-    assert commands == []
+    assert commands == [("git", "push", "origin", "HEAD:main")]
+
+
+def test_legacy_notes_push_main_before_tagging(release, tmp_path, monkeypatch):
+    """Legacy notes still synchronize main before creating the release tag."""
+    write_pyproject(tmp_path)
+    (tmp_path / "CHANGELOG" / "1.2.3.md").write_text(
+        "# example-package 1.2.3\n\n- Existing notes.\n", encoding="utf-8"
+    )
+    commands = []
+    monkeypatch.setattr(release, "_ensure_clean_worktree", lambda: None)
+    allow_release_branch(monkeypatch, release)
+    monkeypatch.setattr(
+        release, "_ensure_tag_state", lambda tag: release.TagState(False, False)
+    )
+    monkeypatch.setattr(release, "_github_release_exists", lambda tag: False)
+    monkeypatch.setattr(release, "_run", lambda *command: commands.append(command))
+
+    assert release.main() == 0
+
+    assert commands.index(("git", "push", "origin", "HEAD:main")) < commands.index(
+        ("git", "tag", "-a", "v1.2.3", "-m", "Release v1.2.3")
+    )
 
 
 @pytest.mark.parametrize(
@@ -211,6 +249,7 @@ def test_publish_failures_abort_without_reporting_success(
         "published_tag": release.TagState(True, True),
     }
     monkeypatch.setattr(release, "_ensure_clean_worktree", lambda: None)
+    allow_release_branch(monkeypatch, release)
     monkeypatch.setattr(release, "_ensure_tag_state", lambda tag: states[tag_state])
     monkeypatch.setattr(release, "_github_release_exists", lambda tag: False)
 
@@ -241,6 +280,8 @@ def test_main_reports_unexpected_os_error(release, tmp_path, monkeypatch):
     """The CLI converts unexpected executable errors into a failed result."""
     write_pyproject(tmp_path)
     monkeypatch.setattr(release, "_ensure_clean_worktree", lambda: None)
+    allow_release_branch(monkeypatch, release)
+    monkeypatch.setattr(release, "_push_release_branch", lambda: None)
     monkeypatch.setattr(
         release, "_ensure_tag_state", lambda tag: release.TagState(True, True)
     )
@@ -257,6 +298,52 @@ def test_main_reports_unexpected_os_error(release, tmp_path, monkeypatch):
     )
 
     assert release.main() == 1
+
+
+def test_non_main_branch_aborts_before_release_mutation(release, tmp_path, monkeypatch):
+    """A release cannot publish a feature branch by accident."""
+    write_pyproject(tmp_path)
+    unreleased = tmp_path / "CHANGELOG" / "unreleased.md"
+    unreleased.write_text("# Unreleased\n\n- A feature.\n", encoding="utf-8")
+    commands = []
+    monkeypatch.setattr(release, "_ensure_clean_worktree", lambda: None)
+
+    def fake_command_result(*command):
+        if command == ("git", "branch", "--show-current"):
+            return release.subprocess.CompletedProcess(command, 0, stdout="feature\n")
+        raise AssertionError(f"Unexpected command: {command}")
+
+    monkeypatch.setattr(release, "_command_result", fake_command_result)
+    monkeypatch.setattr(release, "_run", lambda *command: commands.append(command))
+
+    assert release.main() == 1
+    assert commands == []
+    assert unreleased.exists()
+    assert not (tmp_path / "CHANGELOG" / "1.2.3.md").exists()
+
+
+def test_diverged_main_aborts_before_release_mutation(release, tmp_path, monkeypatch):
+    """A local main that differs from origin/main cannot be released."""
+    write_pyproject(tmp_path)
+    commands = []
+    monkeypatch.setattr(release, "_ensure_clean_worktree", lambda: None)
+
+    def fake_command_result(*command):
+        if command == ("git", "branch", "--show-current"):
+            return release.subprocess.CompletedProcess(command, 0, stdout="main\n")
+        if command == ("git", "rev-parse", "HEAD"):
+            return release.subprocess.CompletedProcess(command, 0, stdout="local\n")
+        if command[:2] == ("git", "ls-remote"):
+            return release.subprocess.CompletedProcess(
+                command, 0, stdout="remote\trefs/heads/main\n"
+            )
+        raise AssertionError(f"Unexpected command: {command}")
+
+    monkeypatch.setattr(release, "_command_result", fake_command_result)
+    monkeypatch.setattr(release, "_run", lambda *command: commands.append(command))
+
+    assert release.main() == 1
+    assert commands == []
 
 
 def test_remote_tag_is_fetched_and_verified(release, monkeypatch):
@@ -286,6 +373,24 @@ def test_remote_tag_is_fetched_and_verified(release, monkeypatch):
 
     assert release._ensure_tag_state("v1.2.3") == release.TagState(True, True)
     assert commands == [("git", "fetch", "origin", "tag", "v1.2.3")]
+
+
+def test_pre_release_tag_does_not_block_a_new_final_tag(release, monkeypatch):
+    """Only exact remote tag refs affect the current release tag state."""
+
+    def fake_command_result(*command):
+        if command[:2] == ("git", "show-ref"):
+            return release.subprocess.CompletedProcess(command, 1)
+        if command[:3] == ("git", "ls-remote", "--exit-code"):
+            assert command[-2:] == ("refs/tags/v1.2.3", "refs/tags/v1.2.3^{}")
+            return release.subprocess.CompletedProcess(
+                command, 0, stdout="pre-release\trefs/tags/v1.2.3rc1\n"
+            )
+        raise AssertionError(f"Unexpected command: {command}")
+
+    monkeypatch.setattr(release, "_command_result", fake_command_result)
+
+    assert release._ensure_tag_state("v1.2.3") == release.TagState(False, False)
 
 
 def test_tag_on_another_commit_is_rejected(release, monkeypatch):

@@ -47,8 +47,8 @@ def test_bake_starts_with_an_unreleased_changelog(cookies):
     assert not (changelog / "1.2.3.md").exists()
 
 
-def test_baked_release_script_finalizes_changelog(cookies, monkeypatch):
-    """The rendered release script can finalize notes and prepare a retryable state."""
+def test_baked_release_script_runs_the_release_lifecycle(cookies, monkeypatch):
+    """The rendered release script finalizes notes and synchronizes main before tagging."""
     result = cookies.bake()
     assert result.exit_code == 0
 
@@ -61,16 +61,22 @@ def test_baked_release_script_finalizes_changelog(cookies, monkeypatch):
 
     commands = []
     monkeypatch.chdir(result.project_path)
+    monkeypatch.setattr(release, "_ensure_clean_worktree", lambda: None)
+    monkeypatch.setattr(release, "_ensure_release_branch", lambda: None)
+    monkeypatch.setattr(
+        release, "_ensure_tag_state", lambda tag: release.TagState(False, False)
+    )
+    monkeypatch.setattr(release, "_github_release_exists", lambda tag: False)
     monkeypatch.setattr(release, "_run", lambda *command: commands.append(command))
 
-    notes_path = release._prepare_release_notes("Python Boilerplate", "0.1.0")
+    assert release.main() == 0
 
-    assert notes_path == release.CHANGELOG_DIR / "0.1.0.md"
+    notes_path = result.project_path / "CHANGELOG" / "0.1.0.md"
     assert notes_path.exists()
     assert (result.project_path / "CHANGELOG" / "unreleased.md").read_text(
         encoding="utf-8"
     ) == release.UNRELEASED_TEMPLATE
-    assert commands[-1] == ("git", "push", "origin", "HEAD")
+    assert ("git", "push", "origin", "HEAD:main") in commands
 
 
 def test_bake_and_run_tests(cookies):
