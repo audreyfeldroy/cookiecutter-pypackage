@@ -19,7 +19,7 @@ gh variable set DOCS_DEPLOYMENT_ENABLED --repo OWNER/REPOSITORY --body true
 Push to `main` or go to Actions, find the "Documentation" workflow, and run it
 manually.
 
-## Tag push didn't publish to PyPI
+## Release didn't publish to PyPI
 
 The most common causes:
 
@@ -27,7 +27,12 @@ The most common causes:
 - **`pypi` environment not created.** The post-generation hook attempts this
   only when you opt into GitHub setup. Go to Settings > Environments and create
   an environment named `pypi`.
-- **Tag format wrong.** Tags must match `v*` (e.g., `v0.1.0`). The `just tag` command handles this for you.
+- **Tag format wrong.** Tags must match `v*` (e.g., `v0.1.0`). The `just release` command handles this for you.
+
+If `just release` reports that a tag or GitHub Release already exists, inspect
+the existing tag and release before retrying. The release script can resume a
+failed tag push or GitHub Release creation when the tag still points to the
+current `HEAD`.
 
 If you got the Trusted Publisher configuration wrong, you can delete it on PyPI and create it again.
 

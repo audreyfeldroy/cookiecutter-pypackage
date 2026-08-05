@@ -6,6 +6,7 @@
 import subprocess
 import tomllib
 from pathlib import Path
+from typing import NamedTuple
 
 CHANGELOG_DIR = Path("CHANGELOG")
 UNRELEASED_PATH = CHANGELOG_DIR / "unreleased.md"
@@ -16,6 +17,13 @@ UNRELEASED_TEMPLATE = (
 
 class ReleaseError(RuntimeError):
     """Raised when release preconditions are not satisfied."""
+
+
+class TagState(NamedTuple):
+    """Whether the release tag exists locally and on the remote."""
+
+    local: bool
+    remote: bool
 
 
 def _run(*cmd: str) -> None:
@@ -38,22 +46,55 @@ def _ensure_clean_worktree() -> None:
         raise ReleaseError("Git worktree is not clean; commit or stash changes first.")
 
 
-def _ensure_tag_available(tag: str) -> None:
-    """Reject releases whose tag already exists locally or on origin."""
+def _ensure_tag_state(tag: str) -> TagState:
+    """Validate an existing tag so interrupted releases can be resumed safely."""
     local = _command_result(
-        "git", "rev-parse", "--verify", "--quiet", f"refs/tags/{tag}"
+        "git", "show-ref", "--verify", "--quiet", f"refs/tags/{tag}"
     )
-    if local.returncode == 0:
-        raise ReleaseError(f"Git tag {tag} already exists locally.")
+    if local.returncode not in {0, 1}:
+        error = (local.stderr or local.stdout).strip() or "unknown error"
+        raise ReleaseError(f"Could not check local tag {tag}: {error}")
+    local_exists = local.returncode == 0
 
     remote = _command_result(
         "git", "ls-remote", "--exit-code", "--tags", "origin", f"refs/tags/{tag}"
     )
-    if remote.returncode == 0:
-        raise ReleaseError(f"Git tag {tag} already exists on origin.")
-    if remote.returncode != 2:
+    if remote.returncode not in {0, 2}:
         error = (remote.stderr or remote.stdout).strip() or "unknown error"
         raise ReleaseError(f"Could not check whether {tag} exists on origin: {error}")
+    remote_exists = remote.returncode == 0
+
+    if remote_exists and not local_exists:
+        _run("git", "fetch", "origin", "tag", tag)
+        local = _command_result(
+            "git", "show-ref", "--verify", "--quiet", f"refs/tags/{tag}"
+        )
+        if local.returncode != 0:
+            raise ReleaseError(f"Could not fetch tag {tag} from origin.")
+        local_exists = True
+
+    if local_exists:
+        tag_commit = _command_result(
+            "git", "rev-list", "-n", "1", f"refs/tags/{tag}^" + "{commit}"
+        )
+        head_commit = _command_result("git", "rev-parse", "HEAD")
+        if tag_commit.returncode != 0 or head_commit.returncode != 0:
+            raise ReleaseError(f"Could not verify that tag {tag} points to HEAD.")
+        if tag_commit.stdout.strip() != head_commit.stdout.strip():
+            raise ReleaseError(f"Git tag {tag} does not point to the current HEAD.")
+
+    return TagState(local_exists, remote_exists)
+
+
+def _github_release_exists(tag: str) -> bool:
+    """Return whether GitHub already has a release for the tag."""
+    result = _command_result("gh", "release", "view", tag)
+    if result.returncode == 0:
+        return True
+    error = (result.stderr or result.stdout).strip() or "unknown error"
+    if "not found" in error.lower():
+        return False
+    raise ReleaseError(f"Could not check whether GitHub release {tag} exists: {error}")
 
 
 def _has_release_notes(contents: str) -> bool:
@@ -65,6 +106,15 @@ def _has_release_notes(contents: str) -> bool:
     ]
     template = "\n".join(template_lines).lower()
     return len(lines) > 1 and normalized != template
+
+
+def _is_unreleased_template(contents: str) -> bool:
+    """Return whether unreleased.md is the fresh placeholder created by release."""
+    lines = [line.strip() for line in contents.splitlines() if line.strip()]
+    template_lines = [
+        line.strip() for line in UNRELEASED_TEMPLATE.splitlines() if line.strip()
+    ]
+    return lines == template_lines
 
 
 def _finalized_contents(contents: str, name: str, version: str) -> str:
@@ -81,6 +131,12 @@ def _prepare_release_notes(name: str, version: str) -> Path:
     """Finalize unreleased notes, preserving compatibility with older projects."""
     versioned_path = CHANGELOG_DIR / f"{version}.md"
     if versioned_path.exists() and UNRELEASED_PATH.exists():
+        versioned_contents = versioned_path.read_text(encoding="utf-8")
+        unreleased_contents = UNRELEASED_PATH.read_text(encoding="utf-8")
+        if _has_release_notes(versioned_contents) and _is_unreleased_template(
+            unreleased_contents
+        ):
+            return versioned_path
         raise ReleaseError(
             "Both release changelog files exist; resolve the state manually."
         )
@@ -129,23 +185,27 @@ def main() -> int:
         tag = f"v{version}"
 
         _ensure_clean_worktree()
-        _ensure_tag_available(tag)
+        _ensure_tag_state(tag)
         notes_path = _prepare_release_notes(name, version)
         title, notes = _release_notes(notes_path, name, version)
 
-        _run("git", "tag", "-a", tag, "-m", f"Release {tag}")
-        _run("git", "push", "origin", tag)
-        _run(
-            "gh",
-            "release",
-            "create",
-            tag,
-            "--verify-tag",
-            "--title",
-            title,
-            "--notes",
-            notes,
-        )
+        tag_state = _ensure_tag_state(tag)
+        if not tag_state.local:
+            _run("git", "tag", "-a", tag, "-m", f"Release {tag}")
+        if not tag_state.remote:
+            _run("git", "push", "origin", tag)
+        if not _github_release_exists(tag):
+            _run(
+                "gh",
+                "release",
+                "create",
+                tag,
+                "--verify-tag",
+                "--title",
+                title,
+                "--notes",
+                notes,
+            )
     except ReleaseError as error:
         print(f"Release aborted: {error}")  # noqa: T201
         return 1

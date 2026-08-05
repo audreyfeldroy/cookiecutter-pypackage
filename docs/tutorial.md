@@ -195,8 +195,18 @@ Go to that URL, fill in those values, and you're done. This uses OIDC (Trusted P
 
 ## Step 7: Release
 
+As you work, record user-visible changes in `CHANGELOG/unreleased.md`. When
+you are ready to release, bump the version and commit it first:
+
 ```bash
+uv version <version>        # or: uv version --bump minor
+git add pyproject.toml uv.lock
+git commit -m "Bump version to <version>"
+
 just release
 ```
 
-This bumps the version, tags it, pushes, and GitHub Actions builds, signs with Sigstore, and publishes to PyPI automatically. Check the Actions tab to confirm.
+`just release` finalizes the unreleased notes, commits and pushes that notes
+commit, creates the `v<version>` tag and GitHub Release, and then GitHub Actions
+builds, signs with Sigstore, and publishes to PyPI automatically. Check the
+Actions tab to confirm.

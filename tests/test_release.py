@@ -50,7 +50,10 @@ def test_unreleased_notes_are_finalized_before_tagging(release, tmp_path, monkey
     )
     commands = []
     monkeypatch.setattr(release, "_ensure_clean_worktree", lambda: None)
-    monkeypatch.setattr(release, "_ensure_tag_available", lambda tag: None)
+    monkeypatch.setattr(
+        release, "_ensure_tag_state", lambda tag: release.TagState(False, False)
+    )
+    monkeypatch.setattr(release, "_github_release_exists", lambda tag: False)
     monkeypatch.setattr(release, "_run", lambda *command: commands.append(command))
 
     assert release.main() == 0
@@ -88,6 +91,111 @@ def test_legacy_versioned_notes_are_used_without_a_notes_commit(
         "CHANGELOG/1.2.3.md"
     )
     assert commands == []
+
+
+def test_prepared_changelog_pair_is_retryable(release, tmp_path, monkeypatch):
+    """A notes commit that was not pushed can be resumed without duplication."""
+    write_pyproject(tmp_path)
+    (tmp_path / "CHANGELOG" / "1.2.3.md").write_text(
+        "# example-package 1.2.3\n\n- Existing notes.\n", encoding="utf-8"
+    )
+    (tmp_path / "CHANGELOG" / "unreleased.md").write_text(
+        release.UNRELEASED_TEMPLATE, encoding="utf-8"
+    )
+    commands = []
+    monkeypatch.setattr(release, "_run", lambda *command: commands.append(command))
+
+    assert release._prepare_release_notes("example-package", "1.2.3") == Path(
+        "CHANGELOG/1.2.3.md"
+    )
+    assert commands == []
+
+
+def test_local_tag_retry_pushes_without_retagging(release, tmp_path, monkeypatch):
+    """A failed tag push can resume from the validated local tag."""
+    write_pyproject(tmp_path)
+    (tmp_path / "CHANGELOG" / "1.2.3.md").write_text(
+        "# example-package 1.2.3\n\n- Existing notes.\n", encoding="utf-8"
+    )
+    commands = []
+    monkeypatch.setattr(release, "_ensure_clean_worktree", lambda: None)
+    monkeypatch.setattr(
+        release, "_ensure_tag_state", lambda tag: release.TagState(True, False)
+    )
+    monkeypatch.setattr(release, "_github_release_exists", lambda tag: False)
+    monkeypatch.setattr(release, "_run", lambda *command: commands.append(command))
+
+    assert release.main() == 0
+    assert not any(command[:2] == ("git", "tag") for command in commands)
+    assert ("git", "push", "origin", "v1.2.3") in commands
+    assert any(command[:3] == ("gh", "release", "create") for command in commands)
+
+
+def test_existing_github_release_skips_republish(release, tmp_path, monkeypatch):
+    """A retry does not recreate a GitHub Release that already exists."""
+    write_pyproject(tmp_path)
+    (tmp_path / "CHANGELOG" / "1.2.3.md").write_text(
+        "# example-package 1.2.3\n\n- Existing notes.\n", encoding="utf-8"
+    )
+    commands = []
+    monkeypatch.setattr(release, "_ensure_clean_worktree", lambda: None)
+    monkeypatch.setattr(
+        release, "_ensure_tag_state", lambda tag: release.TagState(True, True)
+    )
+    monkeypatch.setattr(release, "_github_release_exists", lambda tag: True)
+    monkeypatch.setattr(release, "_run", lambda *command: commands.append(command))
+
+    assert release.main() == 0
+    assert commands == []
+
+
+def test_remote_tag_is_fetched_and_verified(release, monkeypatch):
+    """A remote-only tag is fetched before the release is resumed."""
+    commands = []
+    show_ref_calls = 0
+
+    def fake_command_result(*command):
+        nonlocal show_ref_calls
+        if command[:2] == ("git", "show-ref"):
+            show_ref_calls += 1
+            return release.subprocess.CompletedProcess(
+                command, 1 if show_ref_calls == 1 else 0
+            )
+        if command[:3] == ("git", "ls-remote", "--exit-code"):
+            return release.subprocess.CompletedProcess(command, 0)
+        if command[:2] == ("git", "rev-list"):
+            return release.subprocess.CompletedProcess(command, 0, stdout="same\n")
+        if command[:2] == ("git", "rev-parse"):
+            return release.subprocess.CompletedProcess(command, 0, stdout="same\n")
+        raise AssertionError(f"Unexpected command: {command}")
+
+    monkeypatch.setattr(release, "_command_result", fake_command_result)
+    monkeypatch.setattr(release, "_run", lambda *command: commands.append(command))
+
+    assert release._ensure_tag_state("v1.2.3") == release.TagState(True, True)
+    assert commands == [("git", "fetch", "origin", "tag", "v1.2.3")]
+
+
+def test_tag_on_another_commit_is_rejected(release, monkeypatch):
+    """A tag pointing elsewhere cannot be reused for the current release."""
+
+    def fake_command_result(*command):
+        if command[:2] == ("git", "show-ref"):
+            return release.subprocess.CompletedProcess(command, 0)
+        if command[:3] == ("git", "ls-remote", "--exit-code"):
+            return release.subprocess.CompletedProcess(command, 0)
+        if command[:2] == ("git", "rev-list"):
+            return release.subprocess.CompletedProcess(command, 0, stdout="tag\n")
+        if command[:2] == ("git", "rev-parse"):
+            return release.subprocess.CompletedProcess(command, 0, stdout="head\n")
+        raise AssertionError(f"Unexpected command: {command}")
+
+    monkeypatch.setattr(release, "_command_result", fake_command_result)
+
+    with pytest.raises(
+        release.ReleaseError, match="does not point to the current HEAD"
+    ):
+        release._ensure_tag_state("v1.2.3")
 
 
 @pytest.mark.parametrize(

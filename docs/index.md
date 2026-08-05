@@ -27,7 +27,7 @@ the site. Preview locally with `just docs-serve`.
 
 **A clean project structure.** [src layout](project_structure.md) so you never accidentally import local code during testing. A [py.typed](https://peps.python.org/pep-0561/) marker and type hints on all starter code. `__main__.py` so your package works with `python -m`. A focused .gitignore instead of the 200-line GitHub default.
 
-**Justfile commands for everything.** `just qa` is the daily driver, but there's also `just test`, `just testall`, `just type-check-watch`, `just coverage`, `just docs-serve`, `just tag`, and more. Run `just list` to see them all. See [Project Structure](project_structure.md#justfile-commands) for the full table.
+**Justfile commands for everything.** `just qa` is the daily driver, but there's also `just test`, `just testall`, `just type-check-watch`, `just coverage`, `just docs-serve`, `just release`, and more. Run `just list` to see them all. See [Project Structure](project_structure.md#justfile-commands) for the full table.
 
 **Your name on it.** The generated README includes a bold "Created by" line linking to your GitHub profile, PyPI profile, and personal website. You built the package, you should get the credit.
 
