@@ -26,12 +26,18 @@ class TagState(NamedTuple):
 
 def _run(*cmd: str) -> None:
     print(f"$ {' '.join(cmd)}")  # noqa: T201
-    subprocess.run(cmd, check=True)
+    try:
+        subprocess.run(cmd, check=True)
+    except OSError as error:
+        raise ReleaseError(f"Could not run {' '.join(cmd)}: {error}") from error
 
 
 def _command_result(*cmd: str) -> subprocess.CompletedProcess[str]:
     """Run a read-only command and return its result without raising."""
-    return subprocess.run(cmd, capture_output=True, text=True, check=False)
+    try:
+        return subprocess.run(cmd, capture_output=True, text=True, check=False)
+    except OSError as error:
+        return subprocess.CompletedProcess(cmd, 127, stdout="", stderr=str(error))
 
 
 def _ensure_clean_worktree() -> None:
@@ -52,11 +58,24 @@ def _ensure_tag_state(tag: str) -> TagState:
         raise ReleaseError(f"Could not check local tag {tag}: {error}")
     local_exists = local.returncode == 0
 
-    remote = _command_result("git", "ls-remote", "--exit-code", "--tags", "origin", f"refs/tags/{tag}")
+    remote = _command_result(
+        "git",
+        "ls-remote",
+        "--exit-code",
+        "--tags",
+        "origin",
+        f"refs/tags/{tag}*",
+    )
     if remote.returncode not in {0, 2}:
         error = (remote.stderr or remote.stdout).strip() or "unknown error"
         raise ReleaseError(f"Could not check whether {tag} exists on origin: {error}")
-    remote_exists = remote.returncode == 0
+    remote_lines = [line.split("\t", 1) for line in remote.stdout.splitlines() if "\t" in line]
+    remote_refs = {ref: commit for commit, ref in remote_lines}
+    remote_tag_ref = f"refs/tags/{tag}"
+    remote_commit = remote_refs.get(remote_tag_ref + "^{}") or remote_refs.get(remote_tag_ref)
+    if remote.returncode == 0 and remote_commit is None:
+        raise ReleaseError(f"Could not determine which commit remote tag {tag} points to.")
+    remote_exists = remote_commit is not None
 
     if remote_exists and not local_exists:
         _run("git", "fetch", "origin", "tag", tag)
@@ -70,7 +89,10 @@ def _ensure_tag_state(tag: str) -> TagState:
         head_commit = _command_result("git", "rev-parse", "HEAD")
         if tag_commit.returncode != 0 or head_commit.returncode != 0:
             raise ReleaseError(f"Could not verify that tag {tag} points to HEAD.")
-        if tag_commit.stdout.strip() != head_commit.stdout.strip():
+        local_commit = tag_commit.stdout.strip()
+        if remote_commit and remote_commit != local_commit:
+            raise ReleaseError(f"Git tag {tag} differs between local and origin.")
+        if local_commit != head_commit.stdout.strip():
             raise ReleaseError(f"Git tag {tag} does not point to the current HEAD.")
 
     return TagState(local_exists, remote_exists)
@@ -120,6 +142,7 @@ def _prepare_release_notes(name: str, version: str) -> Path:
         versioned_contents = versioned_path.read_text(encoding="utf-8")
         unreleased_contents = UNRELEASED_PATH.read_text(encoding="utf-8")
         if _has_release_notes(versioned_contents) and _is_unreleased_template(unreleased_contents):
+            _run("git", "push", "origin", "HEAD")
             return versioned_path
         raise ReleaseError("Both release changelog files exist; resolve the state manually.")
     if versioned_path.exists():
@@ -192,6 +215,9 @@ def main() -> int:
         print(f"Release aborted: {error}")  # noqa: T201
         return 1
     except subprocess.CalledProcessError as error:
+        print(f"Release command failed: {error}")  # noqa: T201
+        return 1
+    except OSError as error:
         print(f"Release command failed: {error}")  # noqa: T201
         return 1
     return 0

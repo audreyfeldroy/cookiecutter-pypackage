@@ -70,7 +70,7 @@ build:
     rm -rf dist
     uv build
 
-# Tag, push, and create a GitHub release
+# Finalize release notes, tag, push, and create a GitHub release
 release:
     uv run scripts/release.py
 

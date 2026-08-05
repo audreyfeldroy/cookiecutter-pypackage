@@ -1,4 +1,5 @@
 import datetime
+import importlib.util
 import json
 import shlex
 import subprocess
@@ -44,6 +45,32 @@ def test_bake_starts_with_an_unreleased_changelog(cookies):
     changelog = result.project_path / "CHANGELOG"
     assert (changelog / "unreleased.md").is_file()
     assert not (changelog / "1.2.3.md").exists()
+
+
+def test_baked_release_script_finalizes_changelog(cookies, monkeypatch):
+    """The rendered release script can finalize notes and prepare a retryable state."""
+    result = cookies.bake()
+    assert result.exit_code == 0
+
+    script_path = result.project_path / "scripts" / "release.py"
+    spec = importlib.util.spec_from_file_location("baked_release_script", script_path)
+    assert spec is not None
+    assert spec.loader is not None
+    release = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(release)
+
+    commands = []
+    monkeypatch.chdir(result.project_path)
+    monkeypatch.setattr(release, "_run", lambda *command: commands.append(command))
+
+    notes_path = release._prepare_release_notes("Python Boilerplate", "0.1.0")
+
+    assert notes_path == release.CHANGELOG_DIR / "0.1.0.md"
+    assert notes_path.exists()
+    assert (result.project_path / "CHANGELOG" / "unreleased.md").read_text(
+        encoding="utf-8"
+    ) == release.UNRELEASED_TEMPLATE
+    assert commands[-1] == ("git", "push", "origin", "HEAD")
 
 
 def test_bake_and_run_tests(cookies):
