@@ -36,6 +36,16 @@ def test_bake_with_defaults(cookies):
     assert "tests" in found_toplevel_files
 
 
+def test_bake_starts_with_an_unreleased_changelog(cookies):
+    """Generated projects keep work-in-progress notes separate from releases."""
+    result = cookies.bake(extra_context={"first_version": "1.2.3"})
+
+    assert result.exit_code == 0
+    changelog = result.project_path / "CHANGELOG"
+    assert (changelog / "unreleased.md").is_file()
+    assert not (changelog / "1.2.3.md").exists()
+
+
 def test_bake_and_run_tests(cookies):
     result = cookies.bake()
     assert result.project_path.is_dir()

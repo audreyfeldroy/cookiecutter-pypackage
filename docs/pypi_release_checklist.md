@@ -20,16 +20,14 @@
 
 5. Run `just release` to trigger the publish (see below).
 
+## During Development
+
+Record user-visible changes in `CHANGELOG/unreleased.md` as they merge to
+`main`. Keep versioned changelog files reserved for releases.
+
 ## Every Release
 
-1. Write your release notes in `CHANGELOG/X.Y.Z.md` and commit:
-
-    ```bash
-    git add CHANGELOG/
-    git commit -m "Add release notes for vX.Y.Z"
-    ```
-
-2. Bump the version and commit:
+1. Bump the version and commit it:
 
     ```bash
     uv version patch  # or: minor, major
@@ -37,14 +35,27 @@
     git commit -m "Bump version to X.Y.Z"
     ```
 
-3. Push, then tag and push the tag:
+2. Run the release command:
 
     ```bash
-    git push
-    just tag
+    just release
     ```
 
-4. GitHub Actions builds, signs with Sigstore, and publishes to PyPI automatically.
+   `just release` moves `CHANGELOG/unreleased.md` to
+   `CHANGELOG/X.Y.Z.md`, creates a fresh unreleased file, commits and pushes
+   that release-notes commit, then creates and pushes the `vX.Y.Z` tag.
+
+3. GitHub Actions builds, signs with Sigstore, and publishes to PyPI
+   automatically.
+
+Older generated projects that already contain only
+`CHANGELOG/X.Y.Z.md` remain compatible with `just release`.
+
+## Release Recovery
+
+If release preparation fails before the tag is created, inspect the working
+tree and finish or revert the release-notes commit before retrying. Never reuse
+or overwrite an existing tag.
 
 ## Troubleshooting
 

@@ -54,9 +54,9 @@ These changes affect future generation commands and custom contexts only. Projec
 
 - **See every template variable before generating.** Run `uvx cookiecutter-pypackage --list-variables` to inspect the current variables and their defaults—particularly useful when building scripts or non-interactive workflows. Thanks [@iamamystery](https://github.com/iamamystery)! ([#931](https://github.com/audreyfeldroy/cookiecutter-pypackage/pull/931))
 
-- **A meaningful first changelog entry.** Every generated project starts with
-  `CHANGELOG/<first_version>.md`, describing the scaffold it received and
-  providing a useful starting point for its first GitHub Release.
+- **A working changelog for generated projects.** New projects start with
+  `CHANGELOG/unreleased.md`; `just release` finalizes those notes into the
+  versioned file before tagging the release.
 
 ### What's better
 

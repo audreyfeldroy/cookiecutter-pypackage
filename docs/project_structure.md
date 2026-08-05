@@ -32,10 +32,12 @@ my-package/
 ├── tests/
 │   └── test_my_package.py
 ├── scripts/
-│   └── release.py          # Version bump, tag, and push
+│   └── release.py          # Finalize notes, tag, and push
 ├── .editorconfig
 ├── .gitignore
-├── CHANGELOG/              # One file per release (e.g. 0.1.0.md)
+├── CHANGELOG/
+│   ├── unreleased.md        # Work-in-progress release notes
+│   └── X.Y.Z.md             # Immutable notes for each published release
 ├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
 ├── justfile                # Task runner commands
@@ -78,7 +80,7 @@ Run `just list` to see all available commands. The key ones:
 | `just docs-serve` | Preview docs locally at http://localhost:8000 |
 | `just docs-build` | Build docs |
 | `just coverage` | Run tests with coverage and generate HTML report |
-| `just release` | Tag the current version and push to GitHub |
+| `just release` | Finalize notes, tag the current version, and push to GitHub |
 | `just build` | Build sdist and wheel |
 
 ## GitHub Actions workflows

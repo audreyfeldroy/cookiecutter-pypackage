@@ -1,15 +1,10 @@
-## {{ cookiecutter.project_name }} {{ cookiecutter.first_version }}
+# Unreleased
 
-{{ cookiecutter.project_short_description }}
+Record user-visible changes here before the next release.
 
-This release reserves the PyPI package name and establishes the project scaffold.
+## Added
 
-```sh
-uv add {{ cookiecutter.package_name }}
-```
-
-### What's in the scaffold
-
+- Initial scaffold for {{ cookiecutter.project_name }}.
 - `src/{{ cookiecutter.import_name }}/` package with CLI (Typer + Rich), py.typed marker
 - Tests with pytest, coverage across Python 3.12/3.13/3.14
 - CI via GitHub Actions: lint (Ruff), type check (ty), test matrix, coverage reporting
