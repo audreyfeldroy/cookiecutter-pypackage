@@ -157,10 +157,20 @@ def test_bake_treats_import_name_as_data(cookies, tmp_path):
 
 
 @pytest.mark.skipif(sys.platform == "win32", reason="justfile not supported on Windows")
-def test_just_list(cookies):
+def test_just_quality_recipes(cookies):
     result = cookies.bake()
-    output = check_output_inside_dir("just list", str(result.project_path))
+    project_path = str(result.project_path)
+    output = check_output_inside_dir("just list", project_path)
+
     assert b"Show available commands" in output
+    assert b"fix" in output
+    assert b"check" in output
+    assert b"fix-and-check" in output
+    assert b"\n    ci " not in output
+
+    run_inside_dir("just fix", project_path)
+    run_inside_dir("just check", project_path)
+    run_inside_dir("just fix-and-check", project_path)
 
 
 def test_py_typed_marker_exists(cookies):

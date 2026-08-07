@@ -58,11 +58,15 @@ Run tests:
 uv run pytest
 ```
 
-Run quality checks (format, lint, type check, test):
+Use the quality commands:
 
 ```bash
-just qa
+just fix             # apply Ruff formatting and safe lint fixes
+just check           # verify formatting, linting, types, and Python 3.14 tests
+just fix-and-check   # apply fixes, then verify
 ```
+
+Use `just testall` to run tests on Python 3.12, 3.13, and 3.14. GitHub CI runs that test matrix on every push and pull request.
 
 ## Author
 

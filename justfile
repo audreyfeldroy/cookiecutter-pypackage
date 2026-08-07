@@ -36,21 +36,26 @@ pdb *ARGS:
     @echo "Running with arg: {{ARGS}}"
     uv run --python=3.14 pytest --pdb --maxfail=10 {{ARGS}}
 
-# Run all the formatting, linting, type checking, and testing commands
-qa:
+# Apply automatic formatting and lint fixes
+fix:
     uv run --python=3.14 ruff format .
     uv run --python=3.14 ruff check . --fix
-    uv run --python=3.14 ruff check --select I --fix .
+
+# Verify formatting, linting, types, and tests on Python 3.14 without modifying source files
+check:
+    uv run --python=3.14 ruff format --check .
+    uv run --python=3.14 ruff check .
     uv run --python=3.14 ty check .
     uv run --python=3.14 pytest
 
-# Run all the checks for CI
-ci:
-    uv run --python=3.14 ruff format --check .
-    uv run --python=3.14 ruff check .
-    uv run --python=3.14 ruff check --select I .
-    uv run --python=3.14 ty check .
-    uv run --python=3.14 pytest
+# Apply automatic fixes, then run the local quality gate
+fix-and-check: fix check
+
+# Compatibility alias for fix-and-check
+qa: fix-and-check
+
+# Compatibility alias for check
+ci: check
 
 # Run all the tests for all the supported Python versions
 testall:
