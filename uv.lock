@@ -143,7 +143,7 @@ wheels = [
 
 [[package]]
 name = "cookiecutter"
-version = "2.6.0"
+version = "2.7.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "arrow" },
@@ -155,9 +155,9 @@ dependencies = [
     { name = "requests" },
     { name = "rich" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/52/17/9f2cd228eb949a91915acd38d3eecdc9d8893dde353b603f0db7e9f6be55/cookiecutter-2.6.0.tar.gz", hash = "sha256:db21f8169ea4f4fdc2408d48ca44859349de2647fbe494a9d6c3edfc0542c21c", size = 158767, upload-time = "2024-02-21T18:02:41.949Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/92/03/f4c96d8fd4f5e8af0210bf896eb63927f35d3014a8e8f3bf9d2c43ad3332/cookiecutter-2.7.1.tar.gz", hash = "sha256:ca7bb7bc8c6ff441fbf53921b5537668000e38d56e28d763a1b73975c66c6138", size = 142854, upload-time = "2026-03-04T04:06:02.786Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b6/d9/0137658a353168ffa9d0fc14b812d3834772040858ddd1cb6eeaf09f7a44/cookiecutter-2.6.0-py3-none-any.whl", hash = "sha256:a54a8e37995e4ed963b3e82831072d1ad4b005af736bb17b99c2cbd9d41b6e2d", size = 39177, upload-time = "2024-02-21T18:02:39.569Z" },
+    { url = "https://files.pythonhosted.org/packages/14/a9/8c855c14b401dc67d20739345295af5afce5e930a69600ab20f6cfa50b5c/cookiecutter-2.7.1-py3-none-any.whl", hash = "sha256:cee50defc1eaa7ad0071ee9b9893b746c1b3201b66bf4d3686d0f127c8ed6cf9", size = 41317, upload-time = "2026-03-04T04:06:01.221Z" },
 ]
 
 [[package]]
