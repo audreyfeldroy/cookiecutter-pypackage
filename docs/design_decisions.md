@@ -4,13 +4,13 @@ This template is opinionated. Here's why it makes the choices it does.
 
 ## No pre-commit hooks
 
-CI is the enforcement layer, not your commit history. `just qa` runs the same checks locally when you want them. The difference is that `just qa` doesn't stand between you and saving your work.
+CI is the enforcement layer, not your commit history. `just check` runs the local quality gate without changing source files, while `just fix-and-check` applies automatic Ruff fixes before checking. CI additionally runs the test matrix across supported Python versions. None of these commands stand between you and saving your work.
 
 Pre-commit hooks punish frequent committers. If you commit every 5 minutes (good), you pay 12x the hook tax of someone who commits once an hour. They break during interactive rebases, firing on every replayed commit. And they're bypassable with `--no-verify`, so you can't rely on them anyway. CI is where enforcement actually happens.
 
 ## justfile, not Makefile
 
-[just](https://github.com/casey/just) is a command runner, not a build system. It doesn't track file timestamps or have implicit rules. `just qa` means "run these commands in order," which is exactly what you want for a development workflow. Makefiles can do this too, but you're fighting the tool's assumptions about build artifacts the whole time.
+[just](https://github.com/casey/just) is a command runner, not a build system. It doesn't track file timestamps or have implicit rules. `just fix-and-check` means "apply automatic fixes, then run these commands in order," which is exactly what you want for a development workflow. Makefiles can do this too, but you're fighting the tool's assumptions about build artifacts the whole time.
 
 ## ruff, not black + isort + flake8
 

@@ -20,10 +20,10 @@ uvx cookiecutter-pypackage
 | | Tool | |
 |---|---|---|
 | Package manager | [uv](https://docs.astral.sh/uv/) | Fast, handles venvs automatically |
-| Task runner | [just](https://github.com/casey/just) | `just qa` formats, lints, type-checks, and tests |
+| Task runner | [just](https://github.com/casey/just) | `just fix` applies safe fixes, `just check` verifies, and `just fix-and-check` does both |
 | Linting | [ruff](https://docs.astral.sh/ruff/) | Format + lint in one tool |
 | Type checking | [ty](https://docs.astral.sh/ty/) | All rules enabled, watch mode with `just type-check-watch` |
-| Testing | [pytest](https://docs.pytest.org/) | Python 3.12, 3.13, 3.14 |
+| Testing | [pytest](https://docs.pytest.org/) | `just check` tests Python 3.14; `just testall` and CI cover 3.12, 3.13, and 3.14 |
 | CLI framework | [Typer](https://typer.tiangolo.com/) | Entry point + `__main__.py` included |
 | Docs | [Zensical](https://zensical.org/) + [mkdocstrings](https://mkdocstrings.github.io/) | GitHub Pages deployment, API docs from docstrings |
 

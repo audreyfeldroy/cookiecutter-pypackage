@@ -72,11 +72,13 @@ Ready to contribute? Here's how to set up {{ cookiecutter.package_name }} for lo
 
    Now you can make your changes locally.
 
-5. When you're done making changes, check that your changes pass linting and the tests:
+5. When you're done making changes, verify formatting, linting, types, and tests without modifying files:
 
    ```sh
-   just qa
+   just check
    ```
+
+   Use `just fix` to apply Ruff's automatic fixes, or `just fix-and-check` to apply them before verification.
 
    Or run the tests alone:
 

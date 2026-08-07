@@ -72,7 +72,9 @@ Run `just list` to see all available commands. The key ones:
 
 | Command | What it does |
 |---|---|
-| `just qa` | Format, lint, type-check, and test (the daily driver) |
+| `just fix` | Apply Ruff formatting and safe lint fixes |
+| `just check` | Verify formatting, linting, types, and Python 3.14 tests without modifying source files |
+| `just fix-and-check` | Apply automatic fixes, then run the local quality gate |
 | `just test` | Run tests only |
 | `just testall` | Run tests on Python 3.12, 3.13, and 3.14 |
 | `just type-check` | Type-check with ty |

@@ -126,10 +126,10 @@ The project uses a `src` layout, meaning your package code lives under `src/` ra
 
 ```bash
 uv sync
-just qa
+just fix-and-check
 ```
 
-`just qa` formats your code with ruff, lints it, type-checks with ty, and runs tests. If ruff reformats any files, that's expected. You should see all checks pass.
+`just fix-and-check` applies Ruff's automatic formatting and lint fixes, then runs the local quality gate: formatting and lint checks, ty, and tests on Python 3.14. Use `just check` when you only want read-only verification; use `just testall` for the local Python 3.12, 3.13, and 3.14 test matrix.
 
 Try the CLI:
 
@@ -169,7 +169,7 @@ def test_add():
     assert add(1, 2) == 3
 ```
 
-Run `just qa` to verify everything still passes. Push your changes and watch CI confirm it on GitHub too.
+Run `just check` to verify everything still passes without changing your files. Push your changes and watch CI confirm the full Python-version matrix on GitHub too.
 
 ## Step 6: Set up PyPI publishing
 
