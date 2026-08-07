@@ -575,7 +575,6 @@ def test_all_hook_template_values_are_rendered_safely(tmp_path):
         "github_repo_owner": 'owner"\\\nnext',
         "package_name": 'repo"\\\nnext',
         "import_name": 'module"\\\nnext',
-        "first_version": '1.0"\\\nnext',
     }
 
     hook = load_hook(tmp_path, **values)
@@ -583,4 +582,3 @@ def test_all_hook_template_values_are_rendered_safely(tmp_path):
     assert hook.OWNER == values["github_repo_owner"]
     assert hook.REPO == values["package_name"]
     assert hook.IMPORT_NAME == values["import_name"]
-    assert hook.FIRST_VERSION == values["first_version"]

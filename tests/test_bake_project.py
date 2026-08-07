@@ -1,4 +1,5 @@
 import datetime
+import importlib.util
 import json
 import shlex
 import subprocess
@@ -34,6 +35,48 @@ def test_bake_with_defaults(cookies):
     found_toplevel_files = [f.name for f in result.project_path.iterdir()]
     assert "src" in found_toplevel_files
     assert "tests" in found_toplevel_files
+
+
+def test_bake_starts_with_an_unreleased_changelog(cookies):
+    """Generated projects keep work-in-progress notes separate from releases."""
+    result = cookies.bake(extra_context={"first_version": "1.2.3"})
+
+    assert result.exit_code == 0
+    changelog = result.project_path / "CHANGELOG"
+    assert (changelog / "unreleased.md").is_file()
+    assert not (changelog / "1.2.3.md").exists()
+
+
+def test_baked_release_script_runs_the_release_lifecycle(cookies, monkeypatch):
+    """The rendered release script finalizes notes and synchronizes main before tagging."""
+    result = cookies.bake()
+    assert result.exit_code == 0
+
+    script_path = result.project_path / "scripts" / "release.py"
+    spec = importlib.util.spec_from_file_location("baked_release_script", script_path)
+    assert spec is not None
+    assert spec.loader is not None
+    release = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(release)
+
+    commands = []
+    monkeypatch.chdir(result.project_path)
+    monkeypatch.setattr(release, "_ensure_clean_worktree", lambda: None)
+    monkeypatch.setattr(release, "_ensure_release_branch", lambda: None)
+    monkeypatch.setattr(
+        release, "_ensure_tag_state", lambda tag: release.TagState(False, False)
+    )
+    monkeypatch.setattr(release, "_github_release_exists", lambda tag: False)
+    monkeypatch.setattr(release, "_run", lambda *command: commands.append(command))
+
+    assert release.main() == 0
+
+    notes_path = result.project_path / "CHANGELOG" / "0.1.0.md"
+    assert notes_path.exists()
+    assert (result.project_path / "CHANGELOG" / "unreleased.md").read_text(
+        encoding="utf-8"
+    ) == release.UNRELEASED_TEMPLATE
+    assert ("git", "push", "origin", "HEAD:main") in commands
 
 
 def test_bake_and_run_tests(cookies):

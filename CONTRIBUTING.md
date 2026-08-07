@@ -104,19 +104,21 @@ Before you submit a pull request, check that it meets these guidelines:
 
 ## Releasing
 
-1. Bump the version:
+1. Record release-worthy changes in `CHANGELOG/unreleased.md` as they merge.
+2. Bump the version:
 
    ```sh
    uv version --bump patch  # or minor, major
    ```
 
-2. Commit the version bump.
-3. Release:
+3. Commit the version bump.
+4. Release:
 
    ```sh
    just release
    ```
 
-   This creates an annotated `v*` tag, pushes it to GitHub, and creates a
-   GitHub Release with the changelog contents as release notes. The tag
-   push triggers a GitHub Action that builds and publishes to PyPI.
+   This finalizes `CHANGELOG/unreleased.md` as the versioned release notes,
+   creates a fresh unreleased file, commits and pushes that notes commit, then
+   creates an annotated `v*` tag and GitHub Release. The tag push triggers a
+   GitHub Action that builds and publishes to PyPI.

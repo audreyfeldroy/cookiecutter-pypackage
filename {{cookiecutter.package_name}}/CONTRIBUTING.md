@@ -112,25 +112,29 @@ uv run pytest tests/
 
 ## Releasing a New Version
 
-1. **Bump the version** and **write the changelog:**
+1. **Bump the version:**
    ```bash
    uv version <version>        # or: uv version --bump minor
    ```
-   Then write `CHANGELOG/<version>.md`. See previous entries for the format.
 2. **Commit:**
    ```bash
-   git add pyproject.toml uv.lock CHANGELOG/
-   git commit -m "Release <version>"
+   git add pyproject.toml uv.lock
+   git commit -m "Bump version to <version>"
    ```
 3. **Release:**
    ```bash
    just release
    ```
-   This creates an annotated `v*` tag, pushes it to GitHub, and creates a
-   GitHub Release with the changelog contents as release notes. The tag
-   push triggers `.github/workflows/publish.yml`, which builds the package,
-   generates SLSA provenance attestations, and publishes to PyPI via
-   trusted publishing.
+   This finalizes `CHANGELOG/unreleased.md` as
+   `CHANGELOG/<version>.md`, creates a fresh unreleased file, commits and
+   pushes that notes commit, then creates an annotated `v*` tag and GitHub
+   Release. The tag push triggers `.github/workflows/publish.yml`, which
+   builds the package, generates SLSA provenance attestations, and publishes
+   to PyPI via trusted publishing.
+
+Record release-worthy changes in `CHANGELOG/unreleased.md` as they merge.
+Projects generated before this changelog lifecycle was introduced remain
+compatible when they already have a versioned changelog file.
 
 ## Code of Conduct
 

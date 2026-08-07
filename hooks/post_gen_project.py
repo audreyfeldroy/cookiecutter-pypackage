@@ -378,11 +378,6 @@ IMPORT_NAME = json.loads(
 {{ cookiecutter.import_name | tojson }}
 """.strip()
 )
-FIRST_VERSION = json.loads(
-    r"""
-{{ cookiecutter.first_version | tojson }}
-""".strip()
-)
 
 COMMIT_MESSAGE = f"""\
 https://github.com/audreyfeldroy/cookiecutter-pypackage scaffolding
@@ -397,7 +392,7 @@ https://github.com/audreyfeldroy/cookiecutter-pypackage scaffolding
 - justfile with development tasks
 - scripts/release.py
 - pyproject.toml with uv build configuration
-- CHANGELOG/{FIRST_VERSION}.md
+- CHANGELOG/unreleased.md
 - LICENSE (MIT)
 - README.md, CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md
 - .editorconfig, .gitignore
