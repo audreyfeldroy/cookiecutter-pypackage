@@ -32,7 +32,7 @@ my-package/
 ├── tests/
 │   └── test_my_package.py
 ├── scripts/
-│   └── release.py          # Finalize notes, tag, and push
+│   └── release.py          # Version bump, finalize notes, tag, and push
 ├── .editorconfig
 ├── .gitignore
 ├── CHANGELOG/
