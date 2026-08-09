@@ -11,9 +11,7 @@ from typing import NamedTuple
 CHANGELOG_DIR = Path("CHANGELOG")
 UNRELEASED_PATH = CHANGELOG_DIR / "unreleased.md"
 RELEASE_BRANCH = "main"
-UNRELEASED_TEMPLATE = (
-    "# Unreleased\n\nRecord user-visible changes here before the next release.\n"
-)
+UNRELEASED_TEMPLATE = "# Unreleased\n\nRecord user-visible changes here before the next release.\n"
 
 
 class ReleaseError(RuntimeError):
@@ -63,25 +61,17 @@ def _ensure_release_branch() -> None:
         raise ReleaseError(f"Releases must run from the {RELEASE_BRANCH} branch.")
 
     head = _command_result("git", "rev-parse", "HEAD")
-    remote = _command_result(
-        "git", "ls-remote", "--exit-code", "origin", f"refs/heads/{RELEASE_BRANCH}"
-    )
+    remote = _command_result("git", "ls-remote", "--exit-code", "origin", f"refs/heads/{RELEASE_BRANCH}")
     if head.returncode != 0 or remote.returncode not in {0, 2}:
         error = (head.stderr or remote.stderr or head.stdout or remote.stdout).strip()
-        raise ReleaseError(
-            f"Could not verify that {RELEASE_BRANCH} matches origin: {error or 'unknown error'}"
-        )
-    remote_lines = [
-        line.split("\t", 1) for line in remote.stdout.splitlines() if "\t" in line
-    ]
+        raise ReleaseError(f"Could not verify that {RELEASE_BRANCH} matches origin: {error or 'unknown error'}")
+    remote_lines = [line.split("\t", 1) for line in remote.stdout.splitlines() if "\t" in line]
     remote_refs = {ref: commit for commit, ref in remote_lines}
     remote_commit = remote_refs.get(f"refs/heads/{RELEASE_BRANCH}")
     if remote_commit is None:
         raise ReleaseError(f"origin does not have a {RELEASE_BRANCH} branch.")
     if head.stdout.strip() != remote_commit:
-        raise ReleaseError(
-            f"{RELEASE_BRANCH} must match origin/{RELEASE_BRANCH} before release."
-        )
+        raise ReleaseError(f"{RELEASE_BRANCH} must match origin/{RELEASE_BRANCH} before release.")
 
 
 def _push_release_branch() -> None:
@@ -92,49 +82,33 @@ def _push_release_branch() -> None:
 
 def _ensure_tag_state(tag: str) -> TagState:
     """Validate an existing tag so interrupted releases can be resumed safely."""
-    local = _command_result(
-        "git", "show-ref", "--verify", "--quiet", f"refs/tags/{tag}"
-    )
+    local = _command_result("git", "show-ref", "--verify", "--quiet", f"refs/tags/{tag}")
     if local.returncode not in {0, 1}:
         error = (local.stderr or local.stdout).strip() or "unknown error"
         raise ReleaseError(f"Could not check local tag {tag}: {error}")
     local_exists = local.returncode == 0
 
     remote = _command_result(
-        "git",
-        "ls-remote",
-        "--exit-code",
-        "--tags",
-        "origin",
-        f"refs/tags/{tag}",
-        f"refs/tags/{tag}^" + "{}",
+        "git", "ls-remote", "--exit-code", "--tags", "origin", f"refs/tags/{tag}", f"refs/tags/{tag}^" + "{}"
     )
     if remote.returncode not in {0, 2}:
         error = (remote.stderr or remote.stdout).strip() or "unknown error"
         raise ReleaseError(f"Could not check whether {tag} exists on origin: {error}")
-    remote_lines = [
-        line.split("\t", 1) for line in remote.stdout.splitlines() if "\t" in line
-    ]
+    remote_lines = [line.split("\t", 1) for line in remote.stdout.splitlines() if "\t" in line]
     remote_refs = {ref: commit for commit, ref in remote_lines}
     remote_tag_ref = f"refs/tags/{tag}"
-    remote_commit = remote_refs.get(remote_tag_ref + "^{}") or remote_refs.get(
-        remote_tag_ref
-    )
+    remote_commit = remote_refs.get(remote_tag_ref + "^{}") or remote_refs.get(remote_tag_ref)
     remote_exists = remote_commit is not None
 
     if remote_exists and not local_exists:
         _run("git", "fetch", "origin", "tag", tag)
-        local = _command_result(
-            "git", "show-ref", "--verify", "--quiet", f"refs/tags/{tag}"
-        )
+        local = _command_result("git", "show-ref", "--verify", "--quiet", f"refs/tags/{tag}")
         if local.returncode != 0:
             raise ReleaseError(f"Could not fetch tag {tag} from origin.")
         local_exists = True
 
     if local_exists:
-        tag_commit = _command_result(
-            "git", "rev-list", "-n", "1", f"refs/tags/{tag}^" + "{commit}"
-        )
+        tag_commit = _command_result("git", "rev-list", "-n", "1", f"refs/tags/{tag}^" + "{commit}")
         head_commit = _command_result("git", "rev-parse", "HEAD")
         if tag_commit.returncode != 0 or head_commit.returncode != 0:
             raise ReleaseError(f"Could not verify that tag {tag} points to HEAD.")
@@ -162,9 +136,7 @@ def _has_release_notes(contents: str) -> bool:
     """Return whether unreleased.md contains notes rather than only its template."""
     lines = [line.strip() for line in contents.splitlines() if line.strip()]
     normalized = "\n".join(lines).lower()
-    template_lines = [
-        line.strip() for line in UNRELEASED_TEMPLATE.splitlines() if line.strip()
-    ]
+    template_lines = [line.strip() for line in UNRELEASED_TEMPLATE.splitlines() if line.strip()]
     template = "\n".join(template_lines).lower()
     return len(lines) > 1 and normalized != template
 
@@ -172,9 +144,7 @@ def _has_release_notes(contents: str) -> bool:
 def _is_unreleased_template(contents: str) -> bool:
     """Return whether unreleased.md is the fresh placeholder created by release."""
     lines = [line.strip() for line in contents.splitlines() if line.strip()]
-    template_lines = [
-        line.strip() for line in UNRELEASED_TEMPLATE.splitlines() if line.strip()
-    ]
+    template_lines = [line.strip() for line in UNRELEASED_TEMPLATE.splitlines() if line.strip()]
     return lines == template_lines
 
 
@@ -194,13 +164,9 @@ def _prepare_release_notes(name: str, version: str) -> Path:
     if versioned_path.exists() and UNRELEASED_PATH.exists():
         versioned_contents = versioned_path.read_text(encoding="utf-8")
         unreleased_contents = UNRELEASED_PATH.read_text(encoding="utf-8")
-        if _has_release_notes(versioned_contents) and _is_unreleased_template(
-            unreleased_contents
-        ):
+        if _has_release_notes(versioned_contents) and _is_unreleased_template(unreleased_contents):
             return versioned_path
-        raise ReleaseError(
-            "Both release changelog files exist; resolve the state manually."
-        )
+        raise ReleaseError("Both release changelog files exist; resolve the state manually.")
     if versioned_path.exists():
         if not _has_release_notes(versioned_path.read_text(encoding="utf-8")):
             raise ReleaseError(f"{versioned_path} does not contain release notes.")

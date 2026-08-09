@@ -17,9 +17,7 @@ def test_readme_direct_cookiecutter_command_keeps_failed_projects():
     """The documented fallback preserves output when a hook fails."""
     readme = (Path(__file__).parents[1] / "README.md").read_text(encoding="utf-8")
 
-    assert (
-        "cookiecutter --keep-project-on-failure gh:audreyfeldroy/cookiecutter-pypackage"
-    ) in readme
+    assert ("cookiecutter --keep-project-on-failure gh:audreyfeldroy/cookiecutter-pypackage") in readme
 
 
 def test_find_template_dir_in_source_checkout(monkeypatch, tmp_path):
@@ -84,9 +82,7 @@ def test_no_input_skips_github_setup_by_default(monkeypatch, tmp_path):
     assert cli.GITHUB_SETUP_ENV not in os.environ
 
 
-def test_explicit_github_mode_is_forwarded_and_environment_restored(
-    monkeypatch, tmp_path
-):
+def test_explicit_github_mode_is_forwarded_and_environment_restored(monkeypatch, tmp_path):
     """The CLI forwards explicit consent without leaking process state."""
     (tmp_path / "cookiecutter.json").write_text("{}", encoding="utf-8")
     monkeypatch.setattr(cli, "_find_template_dir", lambda: tmp_path)
@@ -110,9 +106,7 @@ def test_explicit_github_mode_is_forwarded_and_environment_restored(
     assert os.environ[cli.GITHUB_SETUP_ENV] == "private"
 
 
-def test_failed_github_hook_is_detectable_and_keeps_generated_project(
-    monkeypatch, tmp_path
-):
+def test_failed_github_hook_is_detectable_and_keeps_generated_project(monkeypatch, tmp_path):
     """A failed explicit setup exits nonzero without deleting generated files."""
     (tmp_path / "cookiecutter.json").write_text("{}", encoding="utf-8")
     monkeypatch.setattr(cli, "_find_template_dir", lambda: tmp_path)

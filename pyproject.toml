@@ -46,9 +46,10 @@ issues = "https://github.com/audreyfeldroy/cookiecutter-pypackage/issues"
 security = "https://github.com/audreyfeldroy/cookiecutter-pypackage/security/policy"
 
 [tool.ruff]
+line-length = 120
 exclude = [
-    "*cookiecutter.package_name*"
-    ]
+    "*cookiecutter.package_name*",
+]
 
 [tool.ruff.lint]
 select = [
@@ -59,9 +60,11 @@ select = [
     "B",   # flake8-bugbear
     "UP",  # pyupgrade
 ]
-ignore = [
-    "E501",  # line length (handled by ruff format for code)
-    "B008",  # function call in defaults (standard typer pattern)
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = [
+    "typer.Argument",
+    "typer.Option",
 ]
 
 [tool.ty.src]
