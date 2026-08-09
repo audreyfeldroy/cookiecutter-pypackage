@@ -73,6 +73,12 @@ select = [
     "UP",  # pyupgrade
 ]
 
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = [
+    "typer.Argument",
+    "typer.Option",
+]
+
 [tool.coverage.run]
 branch = true
 parallel = true

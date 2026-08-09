@@ -26,9 +26,7 @@ def load_hook(tmp_path, **overrides):
     rendered_path = tmp_path / "post_gen_project.py"
     rendered_path.write_text(rendered, encoding="utf-8")
 
-    spec = importlib.util.spec_from_file_location(
-        "rendered_post_gen_project", rendered_path
-    )
+    spec = importlib.util.spec_from_file_location("rendered_post_gen_project", rendered_path)
     assert spec is not None
     assert spec.loader is not None
     module = importlib.util.module_from_spec(spec)
@@ -97,15 +95,10 @@ def test_visibility_reprompts_and_defaults_to_private(hook, monkeypatch, capsys)
     monkeypatch.setattr(hook, "run_command", fake_run_command)
     hook.main()
 
-    create_command = next(
-        command for command in commands if command[:3] == ("gh", "repo", "create")
-    )
+    create_command = next(command for command in commands if command[:3] == ("gh", "repo", "create"))
     assert "--private" in create_command
     assert "--public" not in create_command
-    assert not any(
-        command[:2] == ("gh", "api") and command[2].endswith("/pages")
-        for command in commands
-    )
+    assert not any(command[:2] == ("gh", "api") and command[2].endswith("/pages") for command in commands)
     output = capsys.readouterr().out
     assert "Please enter private or public." in output
     assert "can publish a public website from a private repository" in output
@@ -213,14 +206,9 @@ def test_explicit_public_mode_supports_noninteractive_automation(hook, monkeypat
     monkeypatch.setattr(hook, "run_command", fake_run_command)
     assert hook.main() == 0
 
-    create_command = next(
-        command for command in commands if command[:3] == ("gh", "repo", "create")
-    )
+    create_command = next(command for command in commands if command[:3] == ("gh", "repo", "create"))
     assert "--public" in create_command
-    assert any(
-        command[:2] == ("gh", "api") and command[2].endswith("/pages")
-        for command in commands
-    )
+    assert any(command[:2] == ("gh", "api") and command[2].endswith("/pages") for command in commands)
     assert (
         "gh",
         "variable",
@@ -233,9 +221,7 @@ def test_explicit_public_mode_supports_noninteractive_automation(hook, monkeypat
     ) in commands
 
 
-def test_github_setup_pins_one_host_when_ambient_host_differs(
-    hook, monkeypatch, capsys
-):
+def test_github_setup_pins_one_host_when_ambient_host_differs(hook, monkeypatch, capsys):
     """Every GitHub read, write, display, and push targets GitHub.com."""
     monkeypatch.setenv("GH_HOST", "github.corp.example")
     monkeypatch.setenv(hook.GITHUB_SETUP_ENV, "public")
@@ -258,9 +244,7 @@ def test_github_setup_pins_one_host_when_ambient_host_differs(
 
     assert hook.main() == 0
 
-    github_calls = [
-        (command, kwargs) for command, kwargs in calls if command[0] == "gh"
-    ]
+    github_calls = [(command, kwargs) for command, kwargs in calls if command[0] == "gh"]
     assert github_calls
     assert {command[1] for command, _ in github_calls} == {
         "api",
@@ -269,9 +253,7 @@ def test_github_setup_pins_one_host_when_ambient_host_differs(
         "repo",
         "variable",
     }
-    assert all(
-        kwargs["env"]["GH_HOST"] == hook.GITHUB_HOST for _, kwargs in github_calls
-    )
+    assert all(kwargs["env"]["GH_HOST"] == hook.GITHUB_HOST for _, kwargs in github_calls)
     assert hook.os.environ["GH_HOST"] == "github.corp.example"
     assert (
         "gh",
@@ -312,10 +294,7 @@ def test_explicit_private_mode_leaves_pages_disabled(hook, monkeypatch, capsys):
     monkeypatch.setattr(hook, "run_command", fake_run_command)
     assert hook.main() == 0
 
-    assert not any(
-        command[:2] == ("gh", "api") and command[2].endswith("/pages")
-        for command in commands
-    )
+    assert not any(command[:2] == ("gh", "api") and command[2].endswith("/pages") for command in commands)
     assert (
         "gh",
         "variable",
@@ -389,9 +368,7 @@ def test_ssh_setup_does_not_change_git_credentials(hook, monkeypatch):
     assert hook.configure_git_credentials("ssh") is True
 
 
-def test_https_credential_failure_stops_before_git_or_github_writes(
-    hook, monkeypatch, capsys
-):
+def test_https_credential_failure_stops_before_git_or_github_writes(hook, monkeypatch, capsys):
     """A credential-helper failure does not create local or remote repository state."""
     answers = iter(["yes", "", "", "yes"])
     monkeypatch.setattr(hook.os, "isatty", lambda _: True)
@@ -439,10 +416,7 @@ def test_commit_failure_reports_partial_local_git_state(hook, monkeypatch, capsy
     assert commands[1] == ("git", "add", ".")
     output = capsys.readouterr().out
     assert "Could not create the first Git commit: Author identity unknown" in output
-    assert (
-        "GitHub setup stopped before creating or modifying a GitHub repository."
-        in output
-    )
+    assert "GitHub setup stopped before creating or modifying a GitHub repository." in output
 
 
 def test_unsupported_git_protocol_stops_before_writes(hook, monkeypatch, capsys):
@@ -459,9 +433,7 @@ def test_unsupported_git_protocol_stops_before_writes(hook, monkeypatch, capsys)
     assert "gh config set git_protocol ssh" in output
 
 
-def test_remote_settings_precede_first_push_and_push_failure_is_reported(
-    hook, monkeypatch, capsys
-):
+def test_remote_settings_precede_first_push_and_push_failure_is_reported(hook, monkeypatch, capsys):
     """The first workflow starts configured, and a rejected push stays visible."""
     answers = iter(["yes", "", "yes", "yes"])
     monkeypatch.setattr(hook.os, "isatty", lambda _: True)
@@ -535,9 +507,7 @@ def test_pages_failure_is_reported_without_false_success(hook, monkeypatch, caps
     assert "Pages enabled" not in output
 
 
-def test_docs_deployment_failure_is_reported_with_recovery_command(
-    hook, monkeypatch, capsys
-):
+def test_docs_deployment_failure_is_reported_with_recovery_command(hook, monkeypatch, capsys):
     """A failed repository-variable write includes an exact recovery command."""
 
     def fake_run_command(*command):
@@ -548,10 +518,7 @@ def test_docs_deployment_failure_is_reported_with_recovery_command(
     assert hook.configure_docs_deployment(False) is False
     output = capsys.readouterr().out
     assert "Could not configure the documentation deployment workflow" in output
-    assert (
-        "gh variable set DOCS_DEPLOYMENT_ENABLED "
-        "--repo example-owner/example-repo --body false"
-    ) in output
+    assert ("gh variable set DOCS_DEPLOYMENT_ENABLED --repo example-owner/example-repo --body false") in output
 
 
 @pytest.mark.parametrize(

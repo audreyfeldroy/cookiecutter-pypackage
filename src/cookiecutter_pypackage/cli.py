@@ -48,17 +48,11 @@ def _find_template_dir() -> Path:
     raise FileNotFoundError("Could not locate the cookiecutter template")
 
 
-@app.command(
-    context_settings={"allow_extra_args": True, "allow_interspersed_args": False}
-)
+@app.command(context_settings={"allow_extra_args": True, "allow_interspersed_args": False})
 def main(
     ctx: typer.Context,
-    output_dir: Path | None = typer.Option(
-        None, "--output-dir", "-o", help="Where to output the generated project"
-    ),
-    no_input: bool = typer.Option(
-        False, "--no-input", help="Do not prompt for parameters, use defaults"
-    ),
+    output_dir: Path | None = typer.Option(None, "--output-dir", "-o", help="Where to output the generated project"),
+    no_input: bool = typer.Option(False, "--no-input", help="Do not prompt for parameters, use defaults"),
     list_variables: bool = typer.Option(
         False,
         "--list-variables",
@@ -90,9 +84,7 @@ def main(
     extra_context = {}
     for arg in ctx.args:
         if "=" not in arg:
-            typer.echo(
-                f"Error: extra argument '{arg}' must be in key=value format", err=True
-            )
+            typer.echo(f"Error: extra argument '{arg}' must be in key=value format", err=True)
             raise typer.Exit(code=1)
         key, value = arg.split("=", 1)
         extra_context[key] = value
@@ -115,8 +107,7 @@ def main(
         except FailedHookException as error:
             typer.echo(f"Error: {error}", err=True)
             typer.echo(
-                "The generated project directory was kept so you can inspect "
-                "or recover the partial setup.",
+                "The generated project directory was kept so you can inspect or recover the partial setup.",
                 err=True,
             )
             raise typer.Exit(code=1) from error

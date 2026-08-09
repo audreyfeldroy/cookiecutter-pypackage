@@ -111,10 +111,7 @@ def github_setup_mode():
     """Read and validate the setup mode supplied by the package CLI."""
     mode = os.environ.get(GITHUB_SETUP_ENV, "ask").strip().lower()
     if mode not in GITHUB_SETUP_MODES:
-        print(
-            f"  Ignoring invalid {GITHUB_SETUP_ENV} value {mode!r}; "
-            "GitHub setup will be skipped."
-        )
+        print(f"  Ignoring invalid {GITHUB_SETUP_ENV} value {mode!r}; GitHub setup will be skipped.")
         return "skip"
     return mode
 
@@ -123,10 +120,7 @@ def github_cli_ready():
     """Check that GitHub CLI is installed and authenticated."""
     if not shutil.which("gh"):
         print("  GitHub CLI not found; GitHub setup will be skipped.")
-        print(
-            "  Install it from https://cli.github.com/ and run "
-            f"`gh auth login --hostname {GITHUB_HOST}`."
-        )
+        print(f"  Install it from https://cli.github.com/ and run `gh auth login --hostname {GITHUB_HOST}`.")
         return False
 
     result = run_command(
@@ -141,10 +135,7 @@ def github_cli_ready():
         return True
 
     print("  GitHub CLI is not authenticated; GitHub setup will be skipped.")
-    print(
-        f"  Run `gh auth login --hostname {GITHUB_HOST}`, "
-        "then generate the project again."
-    )
+    print(f"  Run `gh auth login --hostname {GITHUB_HOST}`, then generate the project again.")
     return False
 
 
@@ -242,10 +233,7 @@ def choose_pages_setup(visibility, *, interactive):
         return False
 
     print()
-    print(
-        f"  Warning: GitHub Pages can publish a public website from a "
-        f"{visibility} repository."
-    )
+    print(f"  Warning: GitHub Pages can publish a public website from a {visibility} repository.")
     print("  Pages for a non-public repository may also require a paid GitHub plan.")
     return prompt_yes_no("Enable GitHub Pages anyway?")
 
@@ -255,10 +243,7 @@ def print_github_plan(plan):
     print()
     print("GitHub setup plan:")
     if plan.existing:
-        print(
-            f"  - connect to the empty {plan.visibility} repository "
-            f"{github_repository_url()}"
-        )
+        print(f"  - connect to the empty {plan.visibility} repository {github_repository_url()}")
     else:
         print(f"  - create {github_repository_url()} as a {plan.visibility} repository")
     if plan.git_protocol == "https":
@@ -285,10 +270,7 @@ def choose_github_setup(mode):
     if interactive:
         if not os.isatty(0):
             print("  Non-interactive run: GitHub setup skipped.")
-            print(
-                "  Use `--github private` or `--github public` "
-                "to opt in during automation."
-            )
+            print("  Use `--github private` or `--github public` to opt in during automation.")
             return GitHubSetupDecision(None)
         if not prompt_yes_no("Set up a GitHub repository now?"):
             print("  GitHub setup skipped.")
@@ -311,17 +293,11 @@ def choose_github_setup(mode):
 
     if repository_state.status == "empty":
         if not interactive:
-            print(
-                f"  GitHub repository {OWNER}/{REPO} already exists, is empty, "
-                f"and is {repository_state.visibility}."
-            )
-            print(
-                "  Run interactively to confirm connecting to an existing repository."
-            )
+            print(f"  GitHub repository {OWNER}/{REPO} already exists, is empty, and is {repository_state.visibility}.")
+            print("  Run interactively to confirm connecting to an existing repository.")
             return GitHubSetupDecision(None, failed=True)
         if not prompt_yes_no(
-            f"GitHub repository {OWNER}/{REPO} is empty and "
-            f"{repository_state.visibility}. Connect to it?"
+            f"GitHub repository {OWNER}/{REPO} is empty and {repository_state.visibility}. Connect to it?"
         ):
             print("  Existing GitHub repository left unchanged.")
             return GitHubSetupDecision(None)
@@ -418,10 +394,7 @@ def initialize_git():
         result = run_command(*command)
         if result.returncode != 0:
             print(f"  Could not {description}: {command_error(result)}")
-            print(
-                "  GitHub setup stopped before creating or modifying "
-                "a GitHub repository."
-            )
+            print("  GitHub setup stopped before creating or modifying a GitHub repository.")
             return False
 
     print("  Git initialized with first commit")
@@ -467,9 +440,7 @@ def add_remote_and_push(protocol):
         result = run_command(*command)
         if result.returncode != 0:
             print(f"  Could not {description}: {command_error(result)}")
-            print(
-                "  The repository may need manual setup before the first push succeeds."
-            )
+            print("  The repository may need manual setup before the first push succeeds.")
             return False
 
     print(f"  Pushed to {github_repository_url()}")
@@ -504,10 +475,7 @@ def enable_github_pages():
         print(f"  GitHub Pages configured for {OWNER}/{REPO}")
         return True
 
-    print(
-        "  Could not configure GitHub Pages: "
-        f"{command_error(update_result) or command_error(create_result)}"
-    )
+    print(f"  Could not configure GitHub Pages: {command_error(update_result) or command_error(create_result)}")
     print("  Configure it manually: Settings > Pages > Source > GitHub Actions")
     return False
 
@@ -530,14 +498,8 @@ def configure_docs_deployment(enabled):
         print(f"  Documentation deployment workflow {status} for {OWNER}/{REPO}")
         return True
 
-    print(
-        "  Could not configure the documentation deployment workflow: "
-        f"{command_error(result)}"
-    )
-    print(
-        f"  Set it manually: gh variable set {DOCS_DEPLOYMENT_VARIABLE} "
-        f"--repo {OWNER}/{REPO} --body {value}"
-    )
+    print(f"  Could not configure the documentation deployment workflow: {command_error(result)}")
+    print(f"  Set it manually: gh variable set {DOCS_DEPLOYMENT_VARIABLE} --repo {OWNER}/{REPO} --body {value}")
     return False
 
 
@@ -602,21 +564,14 @@ def main():
         else:
             print("  GitHub Pages setup skipped.")
 
-        docs_deployment_ready = configure_docs_deployment(
-            plan.enable_pages and pages_ready
-        )
+        docs_deployment_ready = configure_docs_deployment(plan.enable_pages and pages_ready)
         environment_ready = create_pypi_environment()
         push_succeeded = add_remote_and_push(plan.git_protocol)
         if push_succeeded:
             print_pypi_trusted_publisher_instructions()
         else:
             print("  Project generated, but the first GitHub push did not complete.")
-        failed = not (
-            pages_ready
-            and docs_deployment_ready
-            and environment_ready
-            and push_succeeded
-        )
+        failed = not (pages_ready and docs_deployment_ready and environment_ready and push_succeeded)
 
     if failed:
         print("Project files were generated, but GitHub setup did not complete.")

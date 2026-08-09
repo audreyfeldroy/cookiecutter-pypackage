@@ -63,9 +63,7 @@ def test_baked_release_script_runs_the_release_lifecycle(cookies, monkeypatch):
     monkeypatch.chdir(result.project_path)
     monkeypatch.setattr(release, "_ensure_clean_worktree", lambda: None)
     monkeypatch.setattr(release, "_ensure_release_branch", lambda: None)
-    monkeypatch.setattr(
-        release, "_ensure_tag_state", lambda tag: release.TagState(False, False)
-    )
+    monkeypatch.setattr(release, "_ensure_tag_state", lambda tag: release.TagState(False, False))
     monkeypatch.setattr(release, "_github_release_exists", lambda tag: False)
     monkeypatch.setattr(release, "_run", lambda *command: commands.append(command))
 
@@ -136,19 +134,13 @@ def test_bake_builds_when_package_and_import_names_differ(cookies):
     )
     assert result.exit_code == 0
     run_inside_dir("uv build", str(result.project_path))
-    assert (
-        result.project_path / "dist" / "distribution_name-0.1.0-py3-none-any.whl"
-    ).is_file()
+    assert (result.project_path / "dist" / "distribution_name-0.1.0-py3-none-any.whl").is_file()
 
 
 def test_bake_treats_import_name_as_data(cookies, tmp_path):
     """Python-shaped import names are validated without being executed."""
     marker = tmp_path / "import-name-was-executed"
-    import_name = (
-        '"; __import__("pathlib").Path('
-        f"{json.dumps(str(marker))}"
-        ').touch(); module_name = "valid'
-    )
+    import_name = f'"; __import__("pathlib").Path({json.dumps(str(marker))}).touch(); module_name = "valid'
 
     result = cookies.bake(extra_context={"import_name": import_name})
 
@@ -204,8 +196,7 @@ def test_baked_workflows_support_private_repositories(cookies):
 
     codeql = (workflows / "codeql.yml").read_text()
     private_code_security_opt_in = (
-        "${{ github.event.repository.private == false "
-        "|| vars.CODE_SECURITY_ENABLED == 'true' }}"
+        "${{ github.event.repository.private == false || vars.CODE_SECURITY_ENABLED == 'true' }}"
     )
     assert private_code_security_opt_in in codeql
     assert "actions: read" in codeql
