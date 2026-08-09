@@ -1,6 +1,7 @@
 # {{ cookiecutter.project_name }}
 
 ![PyPI version](https://img.shields.io/pypi/v/{{ cookiecutter.package_name }}.svg)
+![PyPI downloads](https://static.pepy.tech/badge/{{ cookiecutter.package_name }}/month)
 
 {{ cookiecutter.project_short_description }}
 

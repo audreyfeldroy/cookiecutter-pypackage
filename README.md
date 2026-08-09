@@ -1,7 +1,7 @@
 # Cookiecutter PyPackage
 
 [![PyPI version](https://img.shields.io/pypi/v/cookiecutter-pypackage.svg)](https://pypi.python.org/pypi/cookiecutter-pypackage)
-[![PyPI downloads](https://img.shields.io/pypi/dm/cookiecutter-pypackage.svg)](https://pypi.python.org/pypi/cookiecutter-pypackage)
+[![PyPI downloads](https://static.pepy.tech/badge/cookiecutter-pypackage/month)](https://pypi.python.org/pypi/cookiecutter-pypackage)
 
 * [GitHub](https://github.com/audreyfeldroy/cookiecutter-pypackage/) | [PyPI](https://pypi.org/project/cookiecutter-pypackage/) | [Documentation](https://audreyfeldroy.github.io/cookiecutter-pypackage/)
 * Created by [Audrey M. Roy Greenfeld](https://audrey.feldroy.com/) | GitHub [@audreyfeldroy](https://github.com/audreyfeldroy) | PyPI [@audreyr](https://pypi.org/user/audreyr/)
