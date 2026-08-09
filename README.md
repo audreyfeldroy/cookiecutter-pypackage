@@ -3,15 +3,11 @@
 [![PyPI version](https://img.shields.io/pypi/v/cookiecutter-pypackage.svg)](https://pypi.org/project/cookiecutter-pypackage/)
 [![PyPI downloads](https://static.pepy.tech/badge/cookiecutter-pypackage/month)](https://pepy.tech/projects/cookiecutter-pypackage)
 
+[Cookiecutter](https://github.com/cookiecutter/cookiecutter) template for a Python package with production-ready CI and automated PyPI publishing.
+
 * [GitHub](https://github.com/audreyfeldroy/cookiecutter-pypackage/) | [PyPI](https://pypi.org/project/cookiecutter-pypackage/) | [Documentation](https://audreyfeldroy.github.io/cookiecutter-pypackage/)
 * Created by [Audrey M. Roy Greenfeld](https://audrey.feldroy.com/) | GitHub [@audreyfeldroy](https://github.com/audreyfeldroy) | PyPI [@audreyr](https://pypi.org/user/audreyr/)
 * MIT License
-
-[Cookiecutter](https://github.com/cookiecutter/cookiecutter) template for a Python package with production-ready CI and automated PyPI publishing.
-
-```bash
-uvx cookiecutter-pypackage
-```
 
 ## What you get
 
@@ -152,6 +148,19 @@ This template is opinionated. If it doesn't fit:
 - [Create your own](https://github.com/cookiecutter/cookiecutter) template from scratch
 
 Pull requests welcome if they're small, atomic, and improve the template.
+
+## Cookiecutter PyPackage and WriterStead
+
+I maintain Cookiecutter PyPackage as part of how I build software. When
+[WriterStead](https://writerstead.com/from/cc-py)
+needs new Air packages, I improve the shared foundation here first so other
+Python developers can benefit too.
+
+If Cookiecutter PyPackage has helped you, I’d love it if you helped me sustain
+my efforts here by showing WriterStead some love: join the early-access list, or
+introduce it to a writer friend who wants a website or blog.
+
+**[Meet WriterStead -->](https://writerstead.com//from/cc-py)**
 
 ---
 
