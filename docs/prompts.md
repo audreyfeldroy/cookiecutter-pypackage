@@ -31,6 +31,63 @@ The package name is auto-generated from the project name by replacing spaces wit
   empty override such as `author_website=""` when you start the generator.
 - **first_version**: The starting version number of the package. Defaults to `0.1.0`.
 
+## Command-line options
+
+Pass `key=value` arguments to prefill the interactive prompts. You can still
+review or change each value:
+
+```bash
+uvx cookiecutter-pypackage \
+    full_name="Your Name" \
+    github_username=yourhandle
+```
+
+Quote values that contain spaces so the shell passes each assignment as one
+argument:
+
+```bash
+full_name="First Last"  # correct
+full_name=First Last    # incorrect
+```
+
+For non-interactive automation, add `--no-input` before the overrides.
+Variables you don't pass use the defaults in
+[`cookiecutter.json`](https://github.com/audreyfeldroy/cookiecutter-pypackage/blob/main/cookiecutter.json):
+
+```bash
+uvx cookiecutter-pypackage --no-input \
+    full_name="Your Name" \
+    email="you@example.com"
+```
+
+Non-interactive generation skips GitHub setup unless you explicitly request a
+private or public repository:
+
+```bash
+uvx cookiecutter-pypackage --no-input --github private \
+    full_name="Your Name" \
+    email="you@example.com" \
+    github_username=yourhandle \
+    author_website="" \
+    project_name="My Package" \
+    package_name=my-package
+```
+
+`--github public` also enables Pages and docs deployment. `--github private`
+leaves both disabled; run interactively if you want to acknowledge the
+visibility warning and enable them. If requested GitHub setup fails, the
+command exits nonzero and keeps the generated directory for recovery.
+
+Use `--github skip` to suppress the GitHub question during interactive
+generation.
+
+List the available variables and their configured defaults without generating
+a project:
+
+```bash
+uvx cookiecutter-pypackage --list-variables
+```
+
 ## GitHub setup
 
 After the template prompts, the generator separately asks whether to set up a
