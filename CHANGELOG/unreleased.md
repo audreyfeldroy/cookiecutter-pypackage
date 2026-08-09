@@ -61,6 +61,11 @@ saved contexts, scripts, and custom forks.
   generated project local. Requested setup reports recoverable partial state if
   a later step fails; existing nonempty repositories remain untouched.
 
+- **One Python style from template to generated project.** Ruff now uses 120
+  columns in both layers, so mirrored tooling stays readable and in sync.
+  Typer's `Option` and `Argument` declarations are handled precisely without
+  weakening other default-argument checks.
+
 - **Keep the tooling current.** Tooling and SHA-pinned workflows are refreshed,
   and Dependabot keeps Python and GitHub Actions dependencies moving.
 
