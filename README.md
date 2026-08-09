@@ -3,15 +3,11 @@
 [![PyPI version](https://img.shields.io/pypi/v/cookiecutter-pypackage.svg)](https://pypi.org/project/cookiecutter-pypackage/)
 [![PyPI downloads](https://static.pepy.tech/badge/cookiecutter-pypackage/month)](https://pepy.tech/projects/cookiecutter-pypackage)
 
+[Cookiecutter](https://github.com/cookiecutter/cookiecutter) template for a Python package with production-ready CI and automated PyPI publishing.
+
 * [GitHub](https://github.com/audreyfeldroy/cookiecutter-pypackage/) | [PyPI](https://pypi.org/project/cookiecutter-pypackage/) | [Documentation](https://audreyfeldroy.github.io/cookiecutter-pypackage/)
 * Created by [Audrey M. Roy Greenfeld](https://audrey.feldroy.com/) | GitHub [@audreyfeldroy](https://github.com/audreyfeldroy) | PyPI [@audreyr](https://pypi.org/user/audreyr/)
 * MIT License
-
-[Cookiecutter](https://github.com/cookiecutter/cookiecutter) template for a Python package with production-ready CI and automated PyPI publishing.
-
-```bash
-uvx cookiecutter-pypackage
-```
 
 ## What you get
 
@@ -51,17 +47,6 @@ values ([full list](https://audreyfeldroy.github.io/cookiecutter-pypackage/promp
 Follow the [tutorial](https://audreyfeldroy.github.io/cookiecutter-pypackage/tutorial/)
 to generate, verify, and release your package.
 
-After the template prompts, you can optionally set up GitHub. The default is
-**no**: pressing Enter creates only the project files. If you opt in, the
-generator shows its complete plan before it creates a private or public
-repository, makes the first Git commit, creates the `pypi` environment, and
-pushes `main`. Public repositories enable Pages by default. For private
-repositories, Pages defaults to off because
-[the site can still be public](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
-and the feature may require a paid GitHub plan. The docs deployment workflow
-follows that choice, so declining Pages does not create a failed workflow on
-the first push.
-
 <details>
 <summary>Without uvx</summary>
 
@@ -76,63 +61,15 @@ cookiecutter --keep-project-on-failure gh:audreyfeldroy/cookiecutter-pypackage
 
 ## Override template variables
 
-Pass `key=value` arguments to prefill the interactive prompts. You can still
-review or change each value:
+Pass `key=value` arguments to prefill prompts, or add `--no-input` for
+automation:
 
 ```bash
-uvx cookiecutter-pypackage \
-    full_name="Your Name" \
-    github_username=yourhandle
+uvx cookiecutter-pypackage full_name="Your Name"
 ```
 
-For non-interactive automation, add `--no-input` before the overrides.
-Variables you don't pass use the defaults in
-[`cookiecutter.json`](https://github.com/audreyfeldroy/cookiecutter-pypackage/blob/main/cookiecutter.json):
-
-```bash
-uvx cookiecutter-pypackage --no-input \
-    full_name="Your Name" \
-    email="you@example.com"
-```
-
-Non-interactive generation skips GitHub setup unless you explicitly request a
-private or public repository:
-
-```bash
-uvx cookiecutter-pypackage --no-input --github private \
-    full_name="Your Name" \
-    email="you@example.com" \
-    github_username=yourhandle \
-    author_website="" \
-    project_name="My Package" \
-    package_name=my-package
-```
-
-`--github public` also enables Pages and docs deployment. `--github private`
-leaves both disabled; run interactively if you want to acknowledge the
-visibility warning and enable them. If requested GitHub setup fails, the
-command exits nonzero and keeps the generated directory for recovery.
-
-Use `--github skip` to suppress the GitHub question during an interactive
-generation.
-
-List the available variables and their configured defaults without generating
-a project:
-
-```bash
-uvx cookiecutter-pypackage --list-variables
-```
-
-Quote values that contain spaces so the shell passes each assignment as one
-argument:
-
-```bash
-full_name="First Last"  # correct
-full_name=First Last    # incorrect
-```
-
-See the [template prompts](https://audreyfeldroy.github.io/cookiecutter-pypackage/prompts/)
-for descriptions of all available variables.
+See [Template prompts and command-line options](https://audreyfeldroy.github.io/cookiecutter-pypackage/prompts/)
+for all variables, defaults, and automation options.
 
 ## Documentation
 
@@ -152,6 +89,19 @@ This template is opinionated. If it doesn't fit:
 - [Create your own](https://github.com/cookiecutter/cookiecutter) template from scratch
 
 Pull requests welcome if they're small, atomic, and improve the template.
+
+## Cookiecutter PyPackage and WriterStead
+
+I maintain Cookiecutter PyPackage as part of how I build software. When
+[WriterStead](https://writerstead.com/from/cc-py)
+needs new Air packages, I improve the shared foundation here first so other
+Python developers can benefit too.
+
+If Cookiecutter PyPackage has helped you, I’d love it if you helped me sustain
+my efforts here by showing WriterStead some love: join the early-access list, or
+introduce it to a writer friend who wants a website or blog.
+
+**[Meet WriterStead ->](https://writerstead.com/from/cc-py)**
 
 ---
 

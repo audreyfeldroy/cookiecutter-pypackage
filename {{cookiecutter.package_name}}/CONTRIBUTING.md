@@ -34,7 +34,24 @@ To preview the docs locally:
 just docs-serve
 ```
 
-This starts a local server at http://localhost:8000 with live reload. Edit files in `docs/` or add docstrings to your code (the API reference page is auto-generated).
+This starts a local server at http://localhost:8000 with live reload. Edit
+files in `docs/` or add docstrings to your code (the API reference page is
+auto-generated). Run `just docs-build` to verify a production build.
+
+Docs deploy automatically on push to `main` after GitHub Pages is enabled. If
+the generator did not enable it, review the visibility implications first:
+[Pages sites can be public even when their repositories are private](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site),
+and the feature may require a paid GitHub plan for private repositories. Then
+go to Settings > Pages, set the source to **GitHub Actions**, and enable the
+deployment workflow:
+
+```bash
+gh variable set DOCS_DEPLOYMENT_ENABLED \
+    --repo {{ cookiecutter.github_repo_owner }}/{{ cookiecutter.package_name }} \
+    --body true
+```
+
+Until then, deployment stays paused and local preview and builds still work.
 
 ### Submit Feedback
 
