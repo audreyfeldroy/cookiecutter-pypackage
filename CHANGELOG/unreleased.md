@@ -69,6 +69,11 @@ saved contexts, scripts, and custom forks.
 - **Keep the tooling current.** Tooling and SHA-pinned workflows are refreshed,
   and Dependabot keeps Python and GitHub Actions dependencies moving.
 
+- **Keep the documentation trustworthy.** Development and release commands,
+  prompt defaults, workflow coverage, CI triggers, and badge destinations now
+  match the generated project. API reference pages also discover documented
+  submodules instead of stopping at the top-level package.
+
 ## Contributors
 
 Created and maintained by [Audrey M. Roy Greenfeld](https://audrey.feldroy.com/)

@@ -1,7 +1,7 @@
 # Cookiecutter PyPackage
 
-[![PyPI version](https://img.shields.io/pypi/v/cookiecutter-pypackage.svg)](https://pypi.python.org/pypi/cookiecutter-pypackage)
-[![PyPI downloads](https://static.pepy.tech/badge/cookiecutter-pypackage/month)](https://pypi.python.org/pypi/cookiecutter-pypackage)
+[![PyPI version](https://img.shields.io/pypi/v/cookiecutter-pypackage.svg)](https://pypi.org/project/cookiecutter-pypackage/)
+[![PyPI downloads](https://static.pepy.tech/badge/cookiecutter-pypackage/month)](https://pepy.tech/projects/cookiecutter-pypackage)
 
 * [GitHub](https://github.com/audreyfeldroy/cookiecutter-pypackage/) | [PyPI](https://pypi.org/project/cookiecutter-pypackage/) | [Documentation](https://audreyfeldroy.github.io/cookiecutter-pypackage/)
 * Created by [Audrey M. Roy Greenfeld](https://audrey.feldroy.com/) | GitHub [@audreyfeldroy](https://github.com/audreyfeldroy) | PyPI [@audreyr](https://pypi.org/user/audreyr/)
@@ -31,10 +31,10 @@ uvx cookiecutter-pypackage
 
 | Workflow | Trigger | What happens |
 |---|---|---|
-| **CI** | Push, PRs | Lint, type check, test across 3 Python versions |
+| **CI** | Push to main, PRs | Lint, type check, test across 3 Python versions |
 | **Publish** | `v*` tag | Build, [Sigstore](https://docs.pypi.org/attestations/) attestation, PyPI via [Trusted Publishers](https://docs.pypi.org/trusted-publishers/) (no tokens) |
 | **Docs** | Push to main | Build and deploy to GitHub Pages |
-| **Dependabot** | Weekly | PRs to update SHA-pinned actions |
+| **Dependabot** | Weekly | PRs to update Python dependencies and SHA-pinned actions |
 
 All actions pinned by SHA, minimal permissions, no persisted credentials.
 

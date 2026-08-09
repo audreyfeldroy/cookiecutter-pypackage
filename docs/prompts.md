@@ -25,7 +25,10 @@ The package name is auto-generated from the project name by replacing spaces wit
 - **import_name**: The Python import name (`import my_cool_parser`). Also used as the CLI command name. Must be a valid Python identifier. Defaults to `package_name` lowercased with hyphens replaced by underscores.
 - **project_short_description**: A one-sentence description. Used in `pyproject.toml` and the README.
 - **pypi_username**: Your PyPI account username. Used only for a link to your PyPI profile in the README.
-- **author_website**: Your personal website URL (optional). When provided, the "Created by" link in the README points here. When left blank, it defaults to your GitHub profile URL.
+- **author_website**: Your personal website URL (optional). The configured
+  default is the template author's website, so replace it with your own. To
+  link the "Created by" text to your GitHub profile instead, pass an explicit
+  empty override such as `author_website=""` when you start the generator.
 - **first_version**: The starting version number of the package. Defaults to `0.1.0`.
 
 ## GitHub setup

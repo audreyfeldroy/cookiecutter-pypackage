@@ -78,11 +78,13 @@ Ready to contribute? Here's how to set up `cookiecutter-pypackage` for local dev
    uv run pytest tests/
    ```
 
-6. For faster iteration on template changes, use the development watcher. It watches the `{{cookiecutter.package_name}}/` directory and regenerates the output whenever you save a file:
+6. For faster iteration on template changes, use the development watcher. It watches the `{{cookiecutter.package_name}}/` directory and `cookiecutter.json`, then regenerates the output whenever you save a change:
 
    ```sh
-   uv run python run.py
+   just dev
    ```
+
+   Or run the watcher directly with `uv run python dev.py`.
 
 7. Commit your changes and push your branch to GitHub:
 

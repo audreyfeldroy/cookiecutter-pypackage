@@ -1,7 +1,7 @@
 # {{ cookiecutter.project_name }}
 
-![PyPI version](https://img.shields.io/pypi/v/{{ cookiecutter.package_name }}.svg)
-![PyPI downloads](https://static.pepy.tech/badge/{{ cookiecutter.package_name }}/month)
+[![PyPI version](https://img.shields.io/pypi/v/{{ cookiecutter.package_name }}.svg)](https://pypi.org/project/{{ cookiecutter.package_name }}/)
+[![PyPI downloads](https://static.pepy.tech/badge/{{ cookiecutter.package_name }}/month)](https://pepy.tech/projects/{{ cookiecutter.package_name }})
 
 {{ cookiecutter.project_short_description }}
 
@@ -67,7 +67,7 @@ just check           # verify formatting, linting, types, and Python 3.14 tests
 just fix-and-check   # apply fixes, then verify
 ```
 
-Use `just testall` to run tests on Python 3.12, 3.13, and 3.14. GitHub CI runs that test matrix on every push and pull request.
+Use `just testall` to run tests on Python 3.12, 3.13, and 3.14. GitHub CI runs that test matrix on pushes to `main` and on pull requests.
 
 ## Author
 

@@ -32,7 +32,7 @@ my-package/
 ├── tests/
 │   └── test_my_package.py
 ├── scripts/
-│   └── release.py          # Version bump, finalize notes, tag, and push
+│   └── release.py          # Finalize notes, tag, push, and create a GitHub Release
 ├── .editorconfig
 ├── .gitignore
 ├── CHANGELOG/
@@ -82,12 +82,15 @@ Run `just list` to see all available commands. The key ones:
 | `just docs-serve` | Preview docs locally at http://localhost:8000 |
 | `just docs-build` | Build docs |
 | `just coverage` | Run tests with coverage and generate HTML report |
-| `just release` | Finalize notes, tag the current version, and push to GitHub |
+| `just release` | Finalize notes, tag the current version, push, and create a GitHub Release |
 | `just build` | Build sdist and wheel |
 
 ## GitHub Actions workflows
 
-Your project includes CI, publish, documentation, and Dependabot workflows, all security-hardened out of the box. See [GitHub Actions Workflows](github_actions.md) for details.
+Your project includes five GitHub Actions workflows for CI, publishing,
+documentation, CodeQL, and zizmor, plus a Dependabot configuration. All are
+security-hardened out of the box. See
+[GitHub Actions Workflows](github_actions.md) for details.
 
 ## Documentation site
 

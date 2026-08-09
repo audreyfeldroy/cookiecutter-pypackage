@@ -30,7 +30,7 @@ Record user-visible changes in `CHANGELOG/unreleased.md` as they merge to
 1. Bump the version and commit it:
 
     ```bash
-    uv version patch  # or: minor, major
+    uv version --bump patch  # or: minor, major
     git add pyproject.toml uv.lock
     git commit -m "Bump version to X.Y.Z"
     ```
