@@ -30,7 +30,7 @@ You'll be prompted for some values. See [Prompts](prompts.md) for details on eac
 [7/11] import_name (my_package):
 [8/11] project_short_description (...): A short description of your package.
 [9/11] pypi_username (your-github-username):
-[10/11] author_website ():
+[10/11] author_website (https://audrey.feldroy.com/): https://example.com
 [11/11] first_version (0.1.0):
 ```
 

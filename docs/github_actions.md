@@ -1,6 +1,6 @@
 # GitHub Actions Workflows
 
-Your generated project comes with six workflow files and a Dependabot config, all security-hardened out of the box.
+Your generated project comes with five workflow files and a Dependabot config, all security-hardened out of the box.
 
 ## CI (`ci.yml`)
 
@@ -82,7 +82,9 @@ after enabling Code Security also uploads those findings to code scanning.
 
 ## Dependabot (`dependabot.yml`)
 
-Checks weekly for newer versions of the GitHub Actions used in your workflows and opens PRs to update them. Since all actions are pinned by SHA, Dependabot is how they stay current.
+Checks weekly for newer uv dependencies and GitHub Actions, then opens PRs to
+update them. Since all actions are pinned by SHA, Dependabot is how those pins
+stay current.
 
 A 7-day cooldown prevents Dependabot from proposing updates the moment a new version drops. This gives the community time to discover regressions or compromised releases before your project pulls them in.
 
