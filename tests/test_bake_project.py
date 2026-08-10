@@ -4,6 +4,7 @@ import json
 import shlex
 import subprocess
 import sys
+import tarfile
 import tomllib
 
 import pytest
@@ -135,6 +136,22 @@ def test_bake_builds_when_package_and_import_names_differ(cookies):
     assert result.exit_code == 0
     run_inside_dir("uv build", str(result.project_path))
     assert (result.project_path / "dist" / "distribution_name-0.1.0-py3-none-any.whl").is_file()
+
+
+def test_bake_excludes_documentation_cache_from_sdist(cookies):
+    """Local Zensical cache files never leak into a published source archive."""
+    result = cookies.bake()
+    assert result.exit_code == 0
+    cache_dir = result.project_path / ".cache"
+    cache_dir.mkdir()
+    (cache_dir / "local-docs-cache").write_text("not package data\n", encoding="utf-8")
+
+    run_inside_dir("uv build", str(result.project_path))
+
+    sdist_path = next((result.project_path / "dist").glob("*.tar.gz"))
+    with tarfile.open(sdist_path, "r:gz") as sdist:
+        members = sdist.getnames()
+    assert not any("/.cache/" in f"/{member}/" for member in members)
 
 
 def test_bake_treats_import_name_as_data(cookies, tmp_path):
