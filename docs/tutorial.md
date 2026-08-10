@@ -134,8 +134,14 @@ the first commit now:
 ```bash
 git init -b main
 git add .
-git commit -m "Initial commit"
+git commit \
+  -m "Initialize My Package with Cookiecutter PyPackage" \
+  -m "Generated from https://github.com/audreyfeldroy/cookiecutter-pypackage"
 ```
+
+If you pinned generation to an unreleased commit, use that exact commit URL in
+the message body. A descriptive first commit preserves where the boilerplate
+came from and makes later template-specific debugging much easier.
 
 If you opted into GitHub setup, the generator already performed these steps and
 pushed the first commit.
@@ -145,7 +151,7 @@ Here's what you got:
 | Path | What it does |
 |---|---|
 | `src/my_package/` | Your Python package code |
-| `src/my_package/cli.py` | Typer CLI (run with `uv run my-package`) |
+| `src/my_package/cli.py` | Typer CLI (run with `uv run my_package`) |
 | `src/my_package/utils.py` | Placeholder for utility functions (rename or delete) |
 | `src/my_package/py.typed` | Marker that tells tools your package has type annotations |
 | `tests/` | pytest test suite |
@@ -172,8 +178,8 @@ environment.
 Try the CLI:
 
 ```bash
-uv run my-package
-uv run my-package --help
+uv run my_package
+uv run my_package --help
 ```
 
 You can also run it as a module: `uv run python -m my_package`.
@@ -242,7 +248,34 @@ Once pushed, CI confirms the full Python-version matrix on GitHub. Pages and
 trusted-publisher setup still require the additional configuration described
 below.
 
-## Step 6: Set up PyPI publishing
+## Step 6: Publish docs with GitHub Pages
+
+If automatic public GitHub setup completed successfully, Pages and the
+documentation workflow are already enabled. Verify the result at
+`https://OWNER.github.io/REPOSITORY/` and continue to the next step.
+
+If you created or connected the repository manually, enable Pages with GitHub
+Actions as its source, enable the guarded documentation workflow, and trigger
+its first run:
+
+```bash
+gh api --method POST repos/OWNER/REPOSITORY/pages -f build_type=workflow
+gh variable set DOCS_DEPLOYMENT_ENABLED \
+  --repo OWNER/REPOSITORY \
+  --body true
+gh workflow run docs.yml --repo OWNER/REPOSITORY --ref main
+```
+
+If the first command reports that a Pages site already exists, run it again
+with `--method PUT`. A private repository's Pages site may be public and may
+require a paid GitHub plan, so review those visibility implications before
+enabling it.
+
+Watch the Documentation workflow in GitHub Actions. Do not treat setup as
+complete until the workflow succeeds and the public URL returns the generated
+site.
+
+## Step 7: Set up PyPI publishing
 
 If you opted into GitHub setup, the post-generation hook printed the URL and
 form values you need:
@@ -264,20 +297,64 @@ Then release with:
 
 Go to that URL, fill in those values, and you're done. This uses OIDC (Trusted Publishers) so there are no API tokens to manage. See the [PyPI Release Checklist](pypi_release_checklist.md) for more details.
 
-## Step 7: Release
+If you skipped automatic GitHub setup, create the environment referenced by the
+publishing workflow before submitting the PyPI form:
 
-As you work, record user-visible changes in `CHANGELOG/unreleased.md`. When
-you are ready to release, bump the version and commit it first:
+```bash
+gh api --method PUT repos/OWNER/REPOSITORY/environments/pypi
+```
+
+## Step 8: Release
+
+As you work, record user-visible changes in `CHANGELOG/unreleased.md`.
+
+For the first release, `pyproject.toml` already contains the `first_version`
+chosen during generation. Confirm it and keep it when that is the version you
+intend to publish:
+
+```bash
+uv version
+```
+
+For later releases, bump the existing version and commit it first:
 
 ```bash
 uv version <version>        # or: uv version --bump minor
 git add pyproject.toml uv.lock
 git commit -m "Bump version to <version>"
+```
 
+Run the local release checks, including a documentation build before the
+distribution build:
+
+```bash
+just check
+just docs-build
+just build
+```
+
+Then release:
+
+```bash
 just release
 ```
 
 `just release` finalizes the unreleased notes, commits and pushes that notes
 commit, creates the `v<version>` tag and GitHub Release, and then GitHub Actions
-builds, signs with Sigstore, and publishes to PyPI automatically. Check the
-Actions tab to confirm.
+builds, signs with Sigstore, and publishes to PyPI automatically.
+
+Do not call the release complete when the tag appears. Wait for the Publish to
+PyPI workflow to succeed, then verify the GitHub Release and install the exact
+registry version in an isolated environment. For the default tutorial values:
+
+```bash
+gh run list --workflow publish.yml --limit 1
+gh release view v0.1.0
+uv run --isolated --no-project --with my-package==0.1.0 \
+  python -c "import importlib.metadata; print(importlib.metadata.version('my-package'))"
+uv run --isolated --no-project --with my-package==0.1.0 my_package --help
+```
+
+The version command must print `0.1.0`, and the CLI help must run from the
+published package rather than the local checkout. Also confirm that the PyPI
+project page lists both the wheel and source archive.

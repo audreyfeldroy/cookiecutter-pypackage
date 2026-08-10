@@ -44,7 +44,11 @@ def test_bake_starts_with_an_unreleased_changelog(cookies):
 
     assert result.exit_code == 0
     changelog = result.project_path / "CHANGELOG"
-    assert (changelog / "unreleased.md").is_file()
+    unreleased = changelog / "unreleased.md"
+    assert unreleased.is_file()
+    contents = unreleased.read_text(encoding="utf-8")
+    assert contents.startswith("# Unreleased\n\n## Added\n")
+    assert "will go out in the next release" not in contents
     assert not (changelog / "1.2.3.md").exists()
 
 
