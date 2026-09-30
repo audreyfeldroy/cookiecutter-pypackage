@@ -5,4 +5,4 @@ import {{ cookiecutter.import_name }}
 
 def test_import():
     """Verify the package can be imported."""
-    assert {{ cookiecutter.import_name }}
+    assert {{ cookiecutter.import_name }}.__name__ == "{{ cookiecutter.import_name }}"
