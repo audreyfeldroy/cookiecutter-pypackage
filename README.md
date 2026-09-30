@@ -90,18 +90,15 @@ This template is opinionated. If it doesn't fit:
 
 Pull requests welcome if they're small, atomic, and improve the template.
 
-## Cookiecutter PyPackage and WriterStead
+## Cookiecutter PyPackage and Stead
 
-I maintain Cookiecutter PyPackage as part of how I build software. When
-[WriterStead](https://writerstead.com/from/cc-py)
-needs new Air packages, I improve the shared foundation here first so other
-Python developers can benefit too.
+I maintain Cookiecutter PyPackage as part of how I build software. I’m also building [Stead](https://stead.page/), a home for your creative work with less website maintenance to think about.
 
-If Cookiecutter PyPackage has helped you, I’d love it if you helped me sustain
-my efforts here by showing WriterStead some love: join the early-access list, or
-introduce it to a writer friend who wants a website or blog.
+I used Stead to create a home for our [Ambria series](https://ambria.stead.page/). It makes me feel better about relaunching the books, without the mental overhead of maintaining another website.
 
-**[Meet WriterStead ->](https://writerstead.com/from/cc-py)**
+If Cookiecutter PyPackage has helped you, I’d love it if you helped sustain my open-source work by exploring Stead or sharing it with a creator who wants a home for their work.
+
+[See Ambria](https://ambria.stead.page/) · [Explore Stead](https://stead.page/)
 
 ---
 
