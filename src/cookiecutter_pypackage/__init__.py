@@ -1,3 +1,5 @@
 """Cookiecutter PyPackage - A modern Python package template."""
 
-__version__ = "0.3.1"
+from importlib.metadata import version
+
+__version__ = version("cookiecutter-pypackage")

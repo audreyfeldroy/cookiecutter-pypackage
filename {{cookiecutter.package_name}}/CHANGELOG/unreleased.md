@@ -1,7 +1,5 @@
 # Unreleased
 
-These are the changes that will go out in the next release.
-
 ## Added
 
 {{ cookiecutter.project_name }} started out as a project generated from [Cookiecutter PyPackage](https://github.com/audreyfeldroy/cookiecutter-pypackage) containing:
