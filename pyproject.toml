@@ -32,6 +32,9 @@ dependencies = [
     "typer>=0.16.0",
     "alabaster>=1.0.0",
     "watchdog>=6.0.0",
+    # Security minimums for the HTTPS stack used by Cookiecutter.
+    "certifi>=2026.10.19",
+    "urllib3>=2.8.0",
 ]
 
 
