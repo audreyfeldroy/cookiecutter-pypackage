@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "cookiecutter-pypackage"
-version = "0.5.0"
+version = "0.6.0"
 description = "Cookiecutter template for a Python package"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -32,6 +32,9 @@ dependencies = [
     "typer>=0.16.0",
     "alabaster>=1.0.0",
     "watchdog>=6.0.0",
+    # Security minimums for the HTTPS stack used by Cookiecutter.
+    "certifi>=2026.10.19",
+    "urllib3>=2.8.0",
 ]
 
 

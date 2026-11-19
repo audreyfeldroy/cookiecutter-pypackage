@@ -48,6 +48,7 @@ dmypy.json
 
 # Documentation build output
 site/
+.cache/
 
 # IDE files
 # .idea/
